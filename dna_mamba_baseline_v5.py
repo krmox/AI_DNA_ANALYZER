@@ -155,12 +155,37 @@ class SyntheticDNADataset(Dataset):
     def _generate_reference(self) -> str:
         return "".join(self._rng.choice(self.tokenizer.NUCLEOTIDES) for _ in range(self.seq_len))
 
-    def _generate_observed(self, reference: str) -> Tuple[str, List[int]]:
+    def _generate_observed(self, reference: str) -> Tuple[str, str, List[int]]:
         """
-        Строит observed-последовательность и метки строго позиция-в-позицию
-        относительно reference (без изменения длины — см. docstring модуля).
+        Строит observed-последовательность, ВЫРАВНЕННЫЙ reference-канал и
+        метки. В отличие от v4, Insertion теперь вставляет ДВА нуклеотида
+        вместо одного, поэтому reference-канал строится параллельно
+        observed (а не берётся как есть из исходного reference), и оба
+        обрезаются/дополняются до seq_len в конце.
+
+        Семантика событий (на каждый ref_base из референса):
+          - Normal:    observed += [ref_base],              aligned_ref += [ref_base],  label=[0]
+          - SNP:       observed += [случайная != ref_base],  aligned_ref += [ref_base],  label=[1]
+          - Insertion: observed += [ref_base, случайная]     (2 токена: дубликат
+                       референсной буквы — имитация тандемной дупликации — плюс
+                       второй, полностью новый нуклеотид),
+                       aligned_ref += [ref_base, 'N']         (для дубликата
+                       reference совпадает с observed — модель должна распознать
+                       Insertion по СОСЕДСТВУ со вторым токеном, а не по
+                       несовпадению самому по себе; для второго токена reference
+                       — служебный 'N'-филлер, т.к. у него нет реального аналога
+                       в референсе -> явный сигнал несовпадения),
+                       label=[2, 2]
+          - Deletion:  observed += ['N'],  aligned_ref += [ref_base],  label=[3]
+                       (без изменений относительно v4 — длину не меняет)
+
+        Так как Insertion теперь добавляет на 1 токен больше, чем "нормальный"
+        путь (2 вместо 1), итоговая длина observed/aligned_ref/labels может
+        превысить seq_len — в конце их обрезаем (или дополняем 'N'/Normal,
+        если вдруг короче) до строго seq_len.
         """
         observed_chars: List[str] = []
+        aligned_ref_chars: List[str] = []
         labels: List[int] = []
 
         for ref_base in reference:
@@ -169,27 +194,52 @@ class SyntheticDNADataset(Dataset):
 
                 if mutation_type == "snp":
                     observed_chars.append(self._random_nucleotide(exclude=ref_base))
+                    aligned_ref_chars.append(ref_base)
                     labels.append(self.LABEL_SNP)
 
                 elif mutation_type == "insertion":
-                    observed_chars.append(self._random_nucleotide())  # exclude=None
+                    # Токен 1: дубликат референсной буквы (тандемная дупликация).
+                    observed_chars.append(ref_base)
+                    aligned_ref_chars.append(ref_base)
                     labels.append(self.LABEL_INSERTION)
 
-                else:  # deletion
+                    # Токен 2: полностью новый (случайный) нуклеотид — не имеет
+                    # аналога в референсе, поэтому reference-канал получает
+                    # служебный 'N'-филлер (явный сигнал "нет такой позиции").
+                    observed_chars.append(self._random_nucleotide())
+                    aligned_ref_chars.append("N")
+                    labels.append(self.LABEL_INSERTION)
+
+                else:  # deletion — без изменений относительно v4
                     observed_chars.append("N")
+                    aligned_ref_chars.append(ref_base)
                     labels.append(self.LABEL_DELETION)
 
             else:
                 observed_chars.append(ref_base)
+                aligned_ref_chars.append(ref_base)
                 labels.append(self.LABEL_NORMAL)
 
-        return "".join(observed_chars), labels
+        # Insertion может растянуть длину сверх seq_len — обрезаем (или
+        # дополняем, на случай пограничных конфигураций) все три
+        # параллельных потока синхронно.
+        if len(observed_chars) > self.seq_len:
+            observed_chars = observed_chars[: self.seq_len]
+            aligned_ref_chars = aligned_ref_chars[: self.seq_len]
+            labels = labels[: self.seq_len]
+        elif len(observed_chars) < self.seq_len:
+            pad_len = self.seq_len - len(observed_chars)
+            observed_chars += ["N"] * pad_len
+            aligned_ref_chars += ["N"] * pad_len
+            labels += [self.LABEL_NORMAL] * pad_len
+
+        return "".join(observed_chars), "".join(aligned_ref_chars), labels
 
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
         reference = self._generate_reference()
-        observed, labels = self._generate_observed(reference)
+        observed, aligned_reference, labels = self._generate_observed(reference)
 
-        reference_ids = self.tokenizer.encode(reference)
+        reference_ids = self.tokenizer.encode(aligned_reference)
         input_ids = self.tokenizer.encode(observed)
         labels_tensor = torch.tensor(labels, dtype=torch.long)
 
@@ -609,7 +659,7 @@ if __name__ == "__main__":
     NUM_LAYERS = 6
     DROPOUT = 0.15
     BATCH_SIZE = 16
-    NUM_EPOCHS = 30
+    NUM_EPOCHS = 15
     WARMUP_EPOCHS = 3
     LR = 1e-3
     # Возвращаем реалистичный mutation_rate (был временно поднят до 0.18
