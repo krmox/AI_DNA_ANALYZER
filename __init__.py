@@ -29,6 +29,14 @@ from .config import (
 from .dataset import DNATokenizer, SyntheticVariantDataset, VariantSample, build_dataloaders
 from .loss import FocalLoss, compute_calibrated_class_weights
 from .model import BiMambaBlock, CausalGatedConvCore, VariantCaller
+from .providers import (
+    GenomicWindow,
+    GiabAlignmentProvider,
+    ProviderDataset,
+    SyntheticProvider,
+    VariantDataProvider,
+    WindowTensors,
+)
 from .train import EarlyStopping, EpochReport, Trainer, compute_metrics, train_epoch, validate
 
 __version__ = "1.0.0"
@@ -48,6 +56,12 @@ __all__ = [
     "BiMambaBlock",
     "VariantCaller",
     "FocalLoss",
+    "GenomicWindow",
+    "WindowTensors",
+    "VariantDataProvider",
+    "SyntheticProvider",
+    "GiabAlignmentProvider",
+    "ProviderDataset",
     "compute_calibrated_class_weights",
     "EarlyStopping",
     "EpochReport",

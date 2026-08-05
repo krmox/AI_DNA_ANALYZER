@@ -38,6 +38,15 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--train-samples", type=int, default=1000, help="Training sequences per epoch.")
     parser.add_argument("--val-samples", type=int, default=200, help="Validation sequences.")
     parser.add_argument("--mutation-rate", type=float, default=0.05, help="Per-position mutation rate.")
+    parser.add_argument(
+        "--noise-rate",
+        type=float,
+        default=0.0075,
+        help="Per-base sequencing substitution error rate. Never labelled.",
+    )
+    parser.add_argument(
+        "--max-insertion-len", type=int, default=6, help="Upper bound of Uniform(1, L) insertions."
+    )
     parser.add_argument("--d-model", type=int, default=128, help="Hidden width.")
     parser.add_argument("--num-layers", type=int, default=6, help="Number of BiMamba blocks.")
     parser.add_argument("--dropout", type=float, default=0.15, help="Dropout probability.")
@@ -56,6 +65,16 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
         choices=("auto", "cpu", "cuda"),
         default="auto",
         help="Compute device.",
+    )
+    parser.add_argument(
+        "--no-base-quality",
+        action="store_true",
+        help="Ablation: drop the Phred channel from the input embedding.",
+    )
+    parser.add_argument(
+        "--no-depth",
+        action="store_true",
+        help="Ablation: drop the coverage channel from the input embedding.",
     )
     parser.add_argument("--quiet", action="store_true", help="Suppress per-epoch logging.")
     return parser.parse_args(argv)
@@ -76,6 +95,8 @@ def build_config(args: argparse.Namespace) -> ExperimentConfig:
             val_samples=args.val_samples,
             seq_len=args.seq_len,
             mutation_rate=args.mutation_rate,
+            noise_rate=args.noise_rate,
+            max_insertion_len=args.max_insertion_len,
             batch_size=args.batch_size,
         ),
         model=ModelConfig(
@@ -83,6 +104,8 @@ def build_config(args: argparse.Namespace) -> ExperimentConfig:
             num_layers=args.num_layers,
             dropout=args.dropout,
             fusion=args.fusion,
+            use_base_quality=not args.no_base_quality,
+            use_depth=not args.no_depth,
         ),
         training=TrainingConfig(
             num_epochs=args.epochs,
@@ -119,10 +142,14 @@ def show_prediction(
     sample = dataset[random.randrange(len(dataset))]
     input_ids = sample["input_ids"].unsqueeze(0).to(device)
     reference_ids = sample["reference_ids"].unsqueeze(0).to(device)
+    base_quality = sample["base_quality"].unsqueeze(0).to(device)
+    depth = sample["depth"].unsqueeze(0).to(device)
     truth = sample["labels"]
 
     with torch.no_grad():
-        prediction = model(input_ids, reference_ids).argmax(dim=-1).squeeze(0).cpu()
+        prediction = (
+            model(input_ids, reference_ids, base_quality, depth).argmax(dim=-1).squeeze(0).cpu()
+        )
 
     reference = tokenizer.decode(sample["reference_ids"])
     observed = tokenizer.decode(sample["input_ids"])
@@ -146,6 +173,7 @@ def show_prediction(
         status = "ok" if true_label == predicted_label else "MISMATCH"
         print(
             f"  pos={position:3d} | ref={reference[position]} obs={observed[position]} | "
+            f"Q={float(sample['base_quality'][position]):>5.1f} | "
             f"truth={LABEL_NAMES[true_label]:<10} pred={LABEL_NAMES[predicted_label]:<10} | {status}"
         )
     if not flagged:

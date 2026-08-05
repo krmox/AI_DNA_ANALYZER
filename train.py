@@ -275,9 +275,11 @@ def train_epoch(
         input_ids = batch["input_ids"].to(device)
         reference_ids = batch["reference_ids"].to(device)
         labels = batch["labels"].to(device)
+        base_quality = batch["base_quality"].to(device)
+        depth = batch["depth"].to(device)
 
         optimizer.zero_grad(set_to_none=True)
-        logits = model(input_ids, reference_ids)
+        logits = model(input_ids, reference_ids, base_quality, depth)
         loss = criterion(logits.reshape(-1, logits.size(-1)), labels.reshape(-1))
         loss.backward()
 
@@ -322,8 +324,10 @@ def validate(
         input_ids = batch["input_ids"].to(device)
         reference_ids = batch["reference_ids"].to(device)
         labels = batch["labels"].to(device)
+        base_quality = batch["base_quality"].to(device)
+        depth = batch["depth"].to(device)
 
-        logits = model(input_ids, reference_ids)
+        logits = model(input_ids, reference_ids, base_quality, depth)
         loss = criterion(logits.reshape(-1, logits.size(-1)), labels.reshape(-1))
 
         token_count = labels.numel()

@@ -15,6 +15,7 @@ import pytest
 import torch
 
 from bimamba_variant_caller.config import (
+    GAP_ID,
     LABEL_DELETION,
     LABEL_INSERTION,
     LABEL_NORMAL,
@@ -54,7 +55,7 @@ class TestConfig:
 
     def test_defaults_are_valid(self) -> None:
         config = ExperimentConfig()
-        assert config.model.vocab_size == 5
+        assert config.model.vocab_size == 6
         assert config.model.num_classes == 4
         assert config.data.val_seed is not None, "validation split must be deterministic"
 
@@ -131,15 +132,21 @@ class TestSyntheticVariantDataset:
             assert int(labels.max()) <= 3
 
     def test_zero_mutation_rate_yields_identical_channels(self) -> None:
-        dataset = SyntheticVariantDataset(10, seq_len=32, mutation_rate=0.0, seed=4)
+        dataset = SyntheticVariantDataset(10, seq_len=32, mutation_rate=0.0, seed=4, noise_rate=0.0)
         for index in range(len(dataset)):
             sample = dataset[index]
             assert torch.equal(sample["input_ids"], sample["reference_ids"])
             assert torch.equal(sample["labels"], torch.zeros(32, dtype=torch.long))
 
-    def test_normal_positions_always_match_reference(self) -> None:
-        """A Normal label must never sit on a mismatch."""
-        dataset = SyntheticVariantDataset(40, seq_len=48, mutation_rate=0.3, seed=5)
+    def test_normal_columns_match_reference_absent_noise(self) -> None:
+        """Without frame shifts or noise, a Normal label implies a match.
+
+        Under gap padding this now holds even with indels present, which is
+        the whole point of the alignment upgrade.
+        """
+        dataset = SyntheticVariantDataset(
+            40, seq_len=48, mutation_rate=0.25, seed=5, noise_rate=0.0
+        )
         for index in range(len(dataset)):
             sample = dataset[index]
             normal = sample["labels"] == LABEL_NORMAL
@@ -148,64 +155,193 @@ class TestSyntheticVariantDataset:
             # Padding is (N, N) and matches too, so equality must hold throughout.
             assert torch.equal(observed, reference)
 
-    def test_snp_positions_always_mismatch_reference(self) -> None:
-        """SNPs are generated with the reference base excluded."""
-        dataset = SyntheticVariantDataset(40, seq_len=48, mutation_rate=0.3, seed=6)
+    def test_snp_columns_mismatch_reference(self) -> None:
+        """SNPs exclude the reference base, so the column always mismatches."""
+        dataset = SyntheticVariantDataset(80, seq_len=64, mutation_rate=0.1, seed=6, noise_rate=0.0)
+        checked = 0
         for index in range(len(dataset)):
             sample = dataset[index]
             snp = sample["labels"] == LABEL_SNP
             if not bool(snp.any()):
                 continue
-            assert not torch.equal(sample["input_ids"][snp], sample["reference_ids"][snp])
+            checked += 1
             assert bool((sample["input_ids"][snp] != sample["reference_ids"][snp]).all())
+        assert checked > 0, "expected at least one SNP to check"
 
-    def test_deletions_write_gap_in_observed_channel(self) -> None:
+    def test_deletion_labels_are_emitted(self) -> None:
+        """Deletions defer their label to the next emitted token.
+
+        They no longer imply an N in the observed channel: the gap is a
+        frame shift, and only a trailing-edge deletion emits an explicit N.
+        """
         dataset = SyntheticVariantDataset(40, seq_len=48, mutation_rate=0.3, seed=7)
+        assert any(
+            bool((dataset[index]["labels"] == LABEL_DELETION).any()) for index in range(len(dataset))
+        )
+
+    def test_insertion_zones_are_fully_labelled(self) -> None:
+        """Every base of the inserted zone carries the Insertion label."""
+        dataset = SyntheticVariantDataset(
+            40, seq_len=64, mutation_rate=0.2, seed=8, max_insertion_len=6
+        )
+        seen_multi_base_zone = False
+        for index in range(len(dataset)):
+            labels = dataset[index]["labels"].tolist()
+            run = 0
+            for label in labels + [LABEL_NORMAL]:
+                if label == LABEL_INSERTION:
+                    run += 1
+                    continue
+                if run > 1:
+                    seen_multi_base_zone = True
+                run = 0
+        assert seen_multi_base_zone, "expected at least one multi-base insertion zone"
+
+    def test_insertion_columns_are_gapped_in_the_reference(self) -> None:
+        """Gap-padded alignment: an insertion column has GAP in reference."""
+        dataset = SyntheticVariantDataset(
+            40, seq_len=64, mutation_rate=0.25, seed=21, max_insertion_len=6
+        )
+        checked = 0
+        for index in range(len(dataset)):
+            sample = dataset[index]
+            insertion = sample["labels"] == LABEL_INSERTION
+            if not bool(insertion.any()):
+                continue
+            checked += 1
+            assert bool((sample["reference_ids"][insertion] == GAP_ID).all())
+            assert bool((sample["input_ids"][insertion] != GAP_ID).all())
+        assert checked > 0
+
+    def test_deletion_columns_are_gapped_in_the_observed(self) -> None:
+        """Gap-padded alignment: a deletion column has GAP in observed."""
+        dataset = SyntheticVariantDataset(
+            40, seq_len=64, mutation_rate=0.25, seed=23, max_insertion_len=6
+        )
+        checked = 0
         for index in range(len(dataset)):
             sample = dataset[index]
             deletion = sample["labels"] == LABEL_DELETION
             if not bool(deletion.any()):
                 continue
-            assert bool((sample["input_ids"][deletion] == 0).all()), "observed must be N"
-            assert bool((sample["reference_ids"][deletion] != 0).all()), "reference keeps the base"
+            checked += 1
+            assert bool((sample["input_ids"][deletion] == GAP_ID).all())
+            assert bool((sample["reference_ids"][deletion] != GAP_ID).all())
+        assert checked > 0
 
-    def test_insertions_emit_duplicate_then_filler_bigram(self) -> None:
-        """The two-token shape is what separates an insertion from a SNP."""
-        dataset = SyntheticVariantDataset(60, seq_len=64, mutation_rate=0.25, seed=8)
-        seen_complete_pair = False
+    def test_no_frame_shift_remains(self) -> None:
+        """The regression this upgrade exists to fix.
+
+        Under gap padding, a Normal column must agree with its reference
+        counterpart unless a sequencing error hit it. Previously ~42% of
+        Normal columns mismatched because indels shifted the frame.
+        """
+        dataset = SyntheticVariantDataset(
+            60, seq_len=64, mutation_rate=0.2, seed=22, max_insertion_len=6, noise_rate=0.0
+        )
+        for index in range(len(dataset)):
+            sample = dataset[index]
+            normal = sample["labels"] == LABEL_NORMAL
+            assert torch.equal(sample["input_ids"][normal], sample["reference_ids"][normal])
+
+    def test_channels_are_column_aligned(self) -> None:
+        """All five channels must describe the same columns."""
+        dataset = SyntheticVariantDataset(20, seq_len=48, mutation_rate=0.2, seed=24)
+        for index in range(len(dataset)):
+            sample = dataset[index]
+            for key in ("reference_ids", "input_ids", "labels", "base_quality", "depth"):
+                assert sample[key].shape == (48,)
+
+    def test_noise_is_never_labelled(self) -> None:
+        """Sequencing errors must not appear in the label array.
+
+        With indels disabled, every mismatch on a Normal position is by
+        construction a sequencing error, and must still read as Normal.
+        """
+        noisy = SyntheticVariantDataset(
+            40, seq_len=64, mutation_rate=0.0, seed=31, noise_rate=0.05
+        )
+        saw_error = False
+        for index in range(len(noisy)):
+            sample = noisy[index]
+            assert torch.equal(sample["labels"], torch.zeros(64, dtype=torch.long))
+            if bool((sample["input_ids"] != sample["reference_ids"]).any()):
+                saw_error = True
+        assert saw_error, "expected the noise model to introduce some errors"
+
+    def test_zero_noise_rate_leaves_sequence_untouched(self) -> None:
+        clean = SyntheticVariantDataset(10, seq_len=48, mutation_rate=0.0, seed=32, noise_rate=0.0)
+        for index in range(len(clean)):
+            sample = clean[index]
+            assert torch.equal(sample["input_ids"], sample["reference_ids"])
+
+    def test_noise_rate_is_approximately_honoured(self) -> None:
+        rate = 0.05
+        dataset = SyntheticVariantDataset(
+            200, seq_len=64, mutation_rate=0.0, seed=33, noise_rate=rate
+        )
+        mismatches = sum(
+            int((dataset[i]["input_ids"] != dataset[i]["reference_ids"]).sum()) for i in range(200)
+        )
+        observed = mismatches / (200 * 64)
+        assert rate * 0.7 < observed < rate * 1.3
+
+    def test_rejects_invalid_noise_and_insertion_bounds(self) -> None:
+        with pytest.raises(ValueError, match="noise_rate"):
+            SyntheticVariantDataset(4, seq_len=8, mutation_rate=0.1, noise_rate=1.5)
+        with pytest.raises(ValueError, match="max_insertion_len"):
+            SyntheticVariantDataset(4, seq_len=8, mutation_rate=0.1, max_insertion_len=0)
+
+    def test_errors_get_lower_quality_than_correct_bases(self) -> None:
+        """The planted signal that makes noise separable from a true SNP.
+
+        Without this correlation the quality channel is decoration: a
+        sequencing error and a SNP are identical in the base channels.
+        """
+        dataset = SyntheticVariantDataset(
+            120, seq_len=64, mutation_rate=0.0, seed=41, noise_rate=0.15
+        )
+        error_quality: List[float] = []
+        clean_quality: List[float] = []
 
         for index in range(len(dataset)):
             sample = dataset[index]
-            labels = sample["labels"].tolist()
-            observed = sample["input_ids"].tolist()
-            reference = sample["reference_ids"].tolist()
+            is_error = sample["input_ids"] != sample["reference_ids"]
+            real = sample["input_ids"] != 0
+            error_quality += sample["base_quality"][is_error & real].tolist()
+            clean_quality += sample["base_quality"][~is_error & real].tolist()
 
-            position = 0
-            while position < len(labels):
-                if labels[position] != LABEL_INSERTION:
-                    position += 1
-                    continue
+        assert error_quality and clean_quality
+        mean_error = sum(error_quality) / len(error_quality)
+        mean_clean = sum(clean_quality) / len(clean_quality)
+        assert mean_error < mean_clean - 10.0
 
-                # A pair truncated by the seq_len boundary is legitimate.
-                if position + 1 >= len(labels) or labels[position + 1] != LABEL_INSERTION:
-                    position += 1
-                    continue
+    def test_gap_columns_carry_zero_quality_and_depth(self) -> None:
+        """A gap has no base call, so it has no confidence or coverage."""
+        dataset = SyntheticVariantDataset(30, seq_len=64, mutation_rate=0.3, seed=42)
+        for index in range(len(dataset)):
+            sample = dataset[index]
+            gaps = sample["input_ids"] == GAP_ID
+            if not bool(gaps.any()):
+                continue
+            assert bool((sample["base_quality"][gaps] == 0.0).all())
+            assert bool((sample["depth"][gaps] == 0.0).all())
 
-                seen_complete_pair = True
-                # First token: tandem duplicate, so the channels agree.
-                assert observed[position] == reference[position]
-                # Second token: novel base with an N filler in the reference.
-                assert reference[position + 1] == 0
-                position += 2
+    def test_quality_stays_within_phred_bounds(self) -> None:
+        dataset = SyntheticVariantDataset(
+            30, seq_len=64, mutation_rate=0.1, seed=43, noise_rate=0.05, max_phred=60
+        )
+        for index in range(len(dataset)):
+            quality = dataset[index]["base_quality"]
+            assert float(quality.min()) >= 0.0
+            assert float(quality.max()) <= 60.0
 
-        assert seen_complete_pair, "expected at least one complete insertion pair"
-
-    def test_seeded_instances_are_reproducible(self) -> None:
-        first = SyntheticVariantDataset(5, seq_len=32, mutation_rate=0.2, seed=99)
-        second = SyntheticVariantDataset(5, seq_len=32, mutation_rate=0.2, seed=99)
-        for index in range(5):
-            assert torch.equal(first[index]["input_ids"], second[index]["input_ids"])
-            assert torch.equal(first[index]["labels"], second[index]["labels"])
+    def test_depth_is_positive_on_real_base_calls(self) -> None:
+        dataset = SyntheticVariantDataset(20, seq_len=64, mutation_rate=0.1, seed=44)
+        for index in range(len(dataset)):
+            sample = dataset[index]
+            real = (sample["input_ids"] != 0) & (sample["input_ids"] != GAP_ID)
+            assert bool((sample["depth"][real] > 0).all())
 
     def test_seeded_dataset_is_stable_across_repeated_passes(self) -> None:
         """Regression: val_loss is only comparable if the split never moves.
@@ -271,40 +407,92 @@ class TestModel:
     def small_config(self) -> ModelConfig:
         return ModelConfig(d_model=16, num_layers=2, dropout=0.0)
 
+    @staticmethod
+    def _inputs(batch: int, length: int) -> tuple:
+        """Build a full set of four input channels."""
+        return (
+            torch.randint(0, 6, (batch, length)),
+            torch.randint(0, 6, (batch, length)),
+            torch.rand(batch, length) * 60.0,
+            torch.rand(batch, length) * 50.0,
+        )
+
     def test_forward_returns_per_token_logits(self, small_config: ModelConfig) -> None:
         model = VariantCaller(small_config)
-        observed = torch.randint(0, 5, (3, 20))
-        reference = torch.randint(0, 5, (3, 20))
-        assert model(observed, reference).shape == (3, 20, 4)
+        assert model(*self._inputs(3, 20)).shape == (3, 20, 4)
+
+    def test_quality_channel_changes_the_output(self, small_config: ModelConfig) -> None:
+        """If quality were ignored, noise and SNPs stay inseparable."""
+        model = VariantCaller(small_config).eval()
+        observed, reference, _, depth = self._inputs(1, 16)
+        low = torch.full((1, 16), 5.0)
+        high = torch.full((1, 16), 40.0)
+        with torch.no_grad():
+            assert not torch.allclose(
+                model(observed, reference, low, depth),
+                model(observed, reference, high, depth),
+            )
+
+    def test_depth_channel_changes_the_output(self, small_config: ModelConfig) -> None:
+        model = VariantCaller(small_config).eval()
+        observed, reference, quality, _ = self._inputs(1, 16)
+        with torch.no_grad():
+            assert not torch.allclose(
+                model(observed, reference, quality, torch.full((1, 16), 2.0)),
+                model(observed, reference, quality, torch.full((1, 16), 90.0)),
+            )
+
+    def test_disabled_channels_are_not_constructed(self) -> None:
+        """Ablation must remove the parameters, not merely ignore them."""
+        model = VariantCaller(ModelConfig(use_base_quality=False, use_depth=False))
+        assert model.input_fusion.quality_embedding is None
+        assert model.input_fusion.depth_proj is None
+
+        full = VariantCaller(ModelConfig(use_base_quality=True, use_depth=True))
+        assert full.count_parameters() > model.count_parameters()
+
+    def test_missing_required_channel_raises(self) -> None:
+        model = VariantCaller(ModelConfig(d_model=16, num_layers=1, use_base_quality=True))
+        with pytest.raises(ValueError, match="base_quality is required"):
+            model(torch.randint(0, 6, (1, 8)), torch.randint(0, 6, (1, 8)))
+
+    def test_auxiliary_channel_shape_mismatch_raises(self, small_config: ModelConfig) -> None:
+        model = VariantCaller(small_config)
+        with pytest.raises(ValueError, match="base_quality"):
+            model(
+                torch.randint(0, 6, (1, 8)),
+                torch.randint(0, 6, (1, 8)),
+                torch.rand(1, 12),
+                torch.rand(1, 8),
+            )
 
     @pytest.mark.parametrize("fusion", ["concat", "sum"])
     def test_both_fusion_modes_produce_same_shape(self, fusion: str) -> None:
         model = VariantCaller(ModelConfig(d_model=16, num_layers=2, fusion=fusion))  # type: ignore[arg-type]
-        observed = torch.randint(0, 5, (2, 12))
-        reference = torch.randint(0, 5, (2, 12))
-        assert model(observed, reference).shape == (2, 12, 4)
+        assert model(*self._inputs(2, 12)).shape == (2, 12, 4)
 
     def test_sum_fusion_has_no_projection_layer(self) -> None:
-        assert VariantCaller(ModelConfig(fusion="sum")).fusion_proj is None
-        assert VariantCaller(ModelConfig(fusion="concat")).fusion_proj is not None
+        assert VariantCaller(ModelConfig(fusion="sum")).input_fusion.fusion_proj is None
+        assert VariantCaller(ModelConfig(fusion="concat")).input_fusion.fusion_proj is not None
 
     def test_reference_channel_changes_the_output(self, small_config: ModelConfig) -> None:
         """If the reference were ignored the task would be unsolvable."""
         model = VariantCaller(small_config).eval()
-        observed = torch.randint(1, 5, (1, 16))
-        first = model(observed, observed)
-        second = model(observed, torch.roll(observed, shifts=3, dims=1))
+        observed, _, quality, depth = self._inputs(1, 16)
+        with torch.no_grad():
+            first = model(observed, observed, quality, depth)
+            second = model(observed, torch.roll(observed, shifts=3, dims=1), quality, depth)
         assert not torch.allclose(first, second)
 
     def test_mismatched_shapes_raise(self, small_config: ModelConfig) -> None:
         model = VariantCaller(small_config)
         with pytest.raises(ValueError, match="identical shapes"):
-            model(torch.randint(0, 5, (2, 10)), torch.randint(0, 5, (2, 12)))
+            model(torch.randint(0, 6, (2, 10)), torch.randint(0, 6, (2, 12)))
 
     def test_non_2d_input_raises(self, small_config: ModelConfig) -> None:
         model = VariantCaller(small_config)
         with pytest.raises(ValueError, match="2-D"):
-            model(torch.randint(0, 5, (10,)), torch.randint(0, 5, (10,)))
+            model(torch.randint(0, 6, (10,)), torch.randint(0, 6, (10,)))
 
     def test_block_is_genuinely_bidirectional(self) -> None:
         """A later token must influence an earlier token's representation.
@@ -335,10 +523,14 @@ class TestModel:
 
     def test_gradients_reach_both_embedding_tables(self, small_config: ModelConfig) -> None:
         model = VariantCaller(small_config)
-        logits = model(torch.randint(0, 5, (2, 12)), torch.randint(0, 5, (2, 12)))
-        logits.sum().backward()
-        assert model.observed_embedding.weight.grad is not None
-        assert model.reference_embedding.weight.grad is not None
+        model(*self._inputs(2, 12)).sum().backward()
+        fusion = model.input_fusion
+        assert fusion.observed_embedding.weight.grad is not None
+        assert fusion.reference_embedding.weight.grad is not None
+        assert fusion.quality_embedding is not None
+        assert fusion.quality_embedding.weight.grad is not None
+        assert fusion.depth_proj is not None
+        assert fusion.depth_proj.weight.grad is not None
 
     def test_parameter_count_is_positive(self, small_config: ModelConfig) -> None:
         assert VariantCaller(small_config).count_parameters() > 0
@@ -568,13 +760,18 @@ class TestTrainingIntegration:
         return ExperimentConfig(
             data=DataConfig(train_samples=64, val_samples=32, seq_len=32, batch_size=8),
             model=ModelConfig(d_model=32, num_layers=2, dropout=0.0),
-            training=TrainingConfig(num_epochs=2, warmup_epochs=1, weight_sample_size=32),
+            training=TrainingConfig(num_epochs=4, warmup_epochs=1, weight_sample_size=32),
         )
 
     def test_fit_records_history_and_reduces_loss(self, tiny_config: ExperimentConfig) -> None:
+        """Loss must fall over training.
+
+        Measured across a handful of epochs rather than two: on the noisy
+        generator a single epoch-to-epoch step is not reliably monotonic.
+        """
         trainer = Trainer(tiny_config, verbose=False)
         history = trainer.fit()
-        assert len(history) == 2
+        assert len(history) == tiny_config.training.num_epochs
         assert history[-1].train_loss < history[0].train_loss
 
     def test_evaluate_returns_full_metric_set(self, tiny_config: ExperimentConfig) -> None:
