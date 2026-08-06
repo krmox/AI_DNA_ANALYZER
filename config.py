@@ -162,6 +162,10 @@ class ModelConfig:
             off is the ablation that shows how much of the SNP/noise
             separation quality is actually responsible for.
         use_depth: Whether to consume the coverage channel.
+        use_vaf: Whether to consume the variant allele fraction channel.
+            Carries signal only from a real pileup; the synthetic simulator
+            emits zeros, so enabling this on synthetic data costs parameters
+            and changes nothing.
         quality_bins: Number of buckets the Phred embedding discretises into.
             Bucket width is ``max_phred / quality_bins``.
         max_phred: Upper Phred bound, must match the data config.
@@ -180,6 +184,7 @@ class ModelConfig:
     dropout: float = 0.15
     use_base_quality: bool = True
     use_depth: bool = True
+    use_vaf: bool = True
     quality_bins: int = 16
     max_phred: int = 60
     fusion: FusionMode = "concat"

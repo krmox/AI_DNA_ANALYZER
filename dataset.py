@@ -72,6 +72,12 @@ class VariantSample(TypedDict):
         base_quality: Float tensor ``[seq_len]`` of Phred scores. Gap columns
             carry 0.
         depth: Float tensor ``[seq_len]`` of read depth. Gap columns carry 0.
+        vaf: Float tensor ``[seq_len]`` of variant allele fractions. The
+            synthetic simulator emits **all zeros** here: it models a single
+            read, and one read cannot express an allele fraction. Deriving a
+            VAF from the labels instead would hand the model a copy of its
+            own target, so ``use_vaf`` is inert on synthetic data by design
+            and only carries signal from a real pileup.
     """
 
     reference_ids: torch.Tensor
@@ -79,6 +85,7 @@ class VariantSample(TypedDict):
     labels: torch.Tensor
     base_quality: torch.Tensor
     depth: torch.Tensor
+    vaf: torch.Tensor
 
 
 class DNATokenizer:
@@ -480,6 +487,8 @@ class SyntheticVariantDataset(Dataset[VariantSample]):
             labels=torch.tensor(labels, dtype=torch.long),
             base_quality=torch.tensor(qualities, dtype=torch.float),
             depth=torch.tensor(depths, dtype=torch.float),
+            # Zeros, not label-derived values: see the VariantSample docstring.
+            vaf=torch.zeros(self.seq_len, dtype=torch.float),
         )
 
 

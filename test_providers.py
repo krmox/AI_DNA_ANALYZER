@@ -117,7 +117,12 @@ class TestLabelFetch:
     def test_planted_variants_are_labelled_at_the_right_offset(
         self, provider, fixture
     ) -> None:
-        """The off-by-one regression: labels must land on record.start."""
+        """Labels must land on the correct 0-based coordinate.
+
+        SNPs and insertions are marked on the record position itself;
+        deletions start one base later, because the VCF anchor is not
+        deleted.
+        """
         expected = {"snp": LABEL_SNP, "insertion": LABEL_INSERTION, "deletion": LABEL_DELETION}
 
         checked = 0
@@ -127,9 +132,13 @@ class TestLabelFetch:
             window = GenomicWindow("chr21", variant.position - 10, variant.position + 54)
             labels = provider._fetch_labels(window)
             checked += 1
-            assert labels[10] == expected[variant.kind], (
+
+            marked_at = 11 if variant.kind == "deletion" else 10
+            assert labels[marked_at] == expected[variant.kind], (
                 f"{variant.kind} at {variant.position} landed on the wrong offset"
             )
+            if variant.kind == "deletion":
+                assert labels[10] == LABEL_NORMAL, "the deletion anchor is not deleted"
         assert checked > 0
 
     def test_variant_free_windows_are_all_normal(self, provider, fixture) -> None:
@@ -140,23 +149,33 @@ class TestLabelFetch:
                 continue
             assert set(provider._fetch_labels(window)) == {LABEL_NORMAL}
 
-    def test_deletions_span_the_deleted_bases(self) -> None:
-        label, span = GiabAlignmentProvider._classify_allele("ACGT", "A")
+    def test_deletions_skip_the_anchor_base(self) -> None:
+        """Regression: the anchor in 'ACGT -> A' is present, not deleted.
+
+        Labelling from the record position marked a base that was never
+        deleted and missed the last one that was, which pinned the anchor
+        column's VAF at 0 and diluted the deletion class.
+        """
+        label, offset, span = GiabAlignmentProvider._classify_allele("ACGT", "A")
         assert label == LABEL_DELETION
+        assert offset == 1, "deletion labels must start after the anchor"
         assert span == 3
 
     def test_insertions_mark_only_the_anchor(self) -> None:
-        label, span = GiabAlignmentProvider._classify_allele("A", "ACGT")
+        label, offset, span = GiabAlignmentProvider._classify_allele("A", "ACGT")
         assert label == LABEL_INSERTION
-        assert span == 1
+        assert (offset, span) == (0, 1)
 
     def test_mnp_decomposes_across_its_span(self) -> None:
-        label, span = GiabAlignmentProvider._classify_allele("AC", "GT")
+        label, offset, span = GiabAlignmentProvider._classify_allele("AC", "GT")
         assert label == LABEL_SNP
-        assert span == 2
+        assert (offset, span) == (0, 2)
+
+    def test_snp_covers_exactly_one_base(self) -> None:
+        assert GiabAlignmentProvider._classify_allele("A", "G") == (LABEL_SNP, 0, 1)
 
     def test_empty_alleles_are_ignored(self) -> None:
-        assert GiabAlignmentProvider._classify_allele("", "A") == (None, 0)
+        assert GiabAlignmentProvider._classify_allele("", "A") == (None, 0, 0)
 
 
 class TestPileupConsensus:
@@ -202,6 +221,62 @@ class TestPileupConsensus:
         assert variant_vaf and background_vaf
         assert sum(variant_vaf) / len(variant_vaf) > 0.3
         assert sum(background_vaf) / len(background_vaf) < 0.1
+
+    def test_deletion_gaps_produce_non_zero_vaf(self, provider) -> None:
+        """Regression: gaps were excluded from VAF, pinning deletions at 0.
+
+        A read spanning a locus with a deletion positively asserts the base
+        is absent, so it is variant evidence rather than missing data.
+        """
+        deletion_vaf: list[float] = []
+        for window in provider:
+            assert window.vaf is not None
+            deletion = window.labels == LABEL_DELETION
+            if bool(deletion.any()):
+                deletion_vaf += window.vaf[deletion].tolist()
+
+        assert deletion_vaf, "expected deletions in the fixture region"
+        mean = sum(deletion_vaf) / len(deletion_vaf)
+        assert mean > 0.2, f"deletion VAF collapsed to {mean:.3f}"
+        assert max(deletion_vaf) > 0.0
+
+    def test_all_variant_classes_share_a_vaf_scale(self, provider) -> None:
+        """One threshold must serve substitutions and indels alike."""
+        by_class: dict[int, list[float]] = {
+            LABEL_SNP: [],
+            LABEL_INSERTION: [],
+            LABEL_DELETION: [],
+            LABEL_NORMAL: [],
+        }
+        for window in provider:
+            assert window.vaf is not None
+            for label, value in zip(window.labels.tolist(), window.vaf.tolist()):
+                by_class[int(label)].append(value)
+
+        background = by_class[LABEL_NORMAL]
+        assert sum(background) / len(background) < 0.1
+
+        for label in (LABEL_SNP, LABEL_INSERTION, LABEL_DELETION):
+            values = by_class[label]
+            assert values, f"no columns for class {label}"
+            assert sum(values) / len(values) > 0.2
+
+    def test_deletion_support_property(self) -> None:
+        from bimamba_variant_caller.providers import LocusPileup
+
+        locus = LocusPileup(
+            depth=10,
+            base_counts={"A": 6, "-": 4},
+            consensus_base="A",
+            reference_base="A",
+            vaf=0.4,
+            quality=35.0,
+            insertion_sequences=[],
+        )
+        assert locus.deletion_support == pytest.approx(0.4)
+
+        empty = LocusPileup(0, {}, "N", "A", 0.0, 0.0, [])
+        assert empty.deletion_support == 0.0
 
     def test_depth_is_populated_and_positive(self, provider) -> None:
         """Regression: depth was inert in the single-read representation."""

@@ -106,7 +106,8 @@ class LocusPileup:
             deletion gaps.
         consensus_base: The called base after applying the VAF threshold.
         reference_base: The reference base at this locus.
-        vaf: Fraction of passing reads carrying a non-reference allele.
+        vaf: Fraction of passing reads carrying a non-reference allele,
+            counting deletion gaps alongside substitutions.
         quality: Mean Phred of the reads supporting ``consensus_base``.
         insertion_sequences: Inserted sequences observed immediately after
             this locus, one entry per supporting read.
@@ -119,6 +120,17 @@ class LocusPileup:
     vaf: float
     quality: float
     insertion_sequences: List[str]
+
+    @property
+    def deletion_support(self) -> float:
+        """Fraction of covering reads showing a deletion at this locus.
+
+        Returns:
+            Support in ``[0, 1]``; 0 when depth is 0.
+        """
+        if self.depth <= 0:
+            return 0.0
+        return self.base_counts.get(GAP_TOKEN, 0) / self.depth
 
     @property
     def insertion_support(self) -> float:
@@ -172,9 +184,9 @@ class WindowTensors:
     def to_sample(self) -> VariantSample:
         """Reduce to the five-tensor form the model consumes.
 
-        VAF is retained on this object rather than discarded at source, so
-        adding a VAF input channel later is a local change to
-        :class:`~.model.InputFusion` alone.
+        A provider with no allele-fraction information (any single-read
+        source) yields zeros, which the model reads as "no VAF evidence"
+        rather than as evidence of zero variant support.
 
         Returns:
             A :class:`~.dataset.VariantSample`.
@@ -185,6 +197,7 @@ class WindowTensors:
             labels=self.labels,
             base_quality=self.base_quality,
             depth=self.depth,
+            vaf=self.vaf if self.vaf is not None else torch.zeros_like(self.depth),
         )
 
 
@@ -274,8 +287,9 @@ class SyntheticProvider(VariantDataProvider):
             index: Positional index.
 
         Returns:
-            A :class:`WindowTensors` with ``vaf`` unset, since a single-read
-            simulator has no allele fraction to report.
+            A :class:`WindowTensors`. The simulator's ``vaf`` channel is all
+            zeros: a single read cannot express an allele fraction, and
+            synthesising one from the labels would leak them.
         """
         sample = self.dataset[index]
         return self._validate_widths(
@@ -285,6 +299,7 @@ class SyntheticProvider(VariantDataProvider):
                 labels=sample["labels"],
                 base_quality=sample["base_quality"],
                 depth=sample["depth"],
+                vaf=sample["vaf"],
             )
         )
 
@@ -671,12 +686,24 @@ class GiabAlignmentProvider(VariantDataProvider):
                     insertion_sequences.append(inserted)
 
         called_bases = sum(count for base, count in base_counts.items() if base in NUCLEOTIDES)
-        non_reference = sum(
+        gap_count = base_counts.get(GAP_TOKEN, 0)
+
+        substitution_support = sum(
             count
             for base, count in base_counts.items()
             if base in NUCLEOTIDES and base != reference_base
         )
-        vaf = non_reference / called_bases if called_bases else 0.0
+
+        # Gap reads are variant evidence, not missing data: a read spanning
+        # this locus with a deletion is positively asserting that the base is
+        # absent. Counting gaps in the numerator and the denominator puts a
+        # heterozygous deletion near 0.5, on the same scale as a
+        # heterozygous substitution, so one VAF threshold serves both.
+        # Excluding them (the earlier behaviour) pinned every deletion locus
+        # at exactly 0.00 and made VAF useless for that class.
+        observed_alleles = called_bases + gap_count
+        non_reference = substitution_support + gap_count
+        vaf = non_reference / observed_alleles if observed_alleles else 0.0
 
         consensus_base = reference_base
         if depth < self.min_depth:
@@ -792,11 +819,11 @@ class GiabAlignmentProvider(VariantDataProvider):
                 if alternate is None or alternate.startswith("<"):
                     continue  # symbolic allele, e.g. <DEL>; not handled here
 
-                label, span = self._classify_allele(reference_allele, alternate)
+                label, start_offset, span = self._classify_allele(reference_allele, alternate)
                 if label is None:
                     continue
 
-                for offset in range(span):
+                for offset in range(start_offset, start_offset + span):
                     index = record.start + offset - window.start
                     if 0 <= index < len(window):
                         labels[index] = label
@@ -827,35 +854,45 @@ class GiabAlignmentProvider(VariantDataProvider):
         return True
 
     @staticmethod
-    def _classify_allele(reference: str, alternate: str) -> Tuple[int | None, int]:
-        """Map one ref/alt pair to a class id and the span it covers.
+    def _classify_allele(reference: str, alternate: str) -> Tuple[int | None, int, int]:
+        """Map one ref/alt pair to a class id, a start offset and a span.
+
+        The offset is what makes deletions land correctly. VCF writes a
+        deletion as ``ACGT -> A``: the leading ``A`` is an *anchor* that is
+        still present in the reads, and only ``CGT`` is actually deleted.
+        Labelling from the record position therefore marks a base that was
+        never deleted and misses the last one that was. The anchor also
+        carries no gap in the pileup, so labelling it pinned that column's
+        VAF at 0 and diluted the deletion class with reference-matching
+        columns.
 
         Args:
             reference: The reference allele string.
             alternate: The alternate allele string.
 
         Returns:
-            Tuple of ``(label, span)``. ``label`` is ``None`` when the allele
-            should be ignored. ``span`` is the number of reference positions
-            the event covers, starting at the record's own position.
+            Tuple of ``(label, offset, span)``. ``label`` is ``None`` when
+            the allele should be ignored. ``offset`` is added to the
+            record's 0-based start; ``span`` is the number of reference
+            positions covered from there.
         """
         if not reference or not alternate:
-            return None, 0
+            return None, 0, 0
 
         if len(reference) == len(alternate):
             if len(reference) == 1:
-                return LABEL_SNP, 1
+                return LABEL_SNP, 0, 1
             # MNP: decomposed into per-base substitutions across its span.
-            return LABEL_SNP, len(reference)
+            return LABEL_SNP, 0, len(reference)
 
         if len(alternate) > len(reference):
-            # VCF anchors an insertion on the preceding reference base; the
-            # inserted sequence itself has no reference coordinate, so the
-            # event is marked on the anchor.
-            return LABEL_INSERTION, 1
+            # The inserted sequence has no reference coordinate of its own,
+            # so the event is marked on the anchor and the gap-padded
+            # columns emitted after it inherit that label.
+            return LABEL_INSERTION, 0, 1
 
-        # Deletion: the anchor base remains, the following bases are deleted.
-        return LABEL_DELETION, max(1, len(reference) - len(alternate))
+        # Deletion: skip the anchor, label only the bases actually removed.
+        return LABEL_DELETION, 1, max(1, len(reference) - len(alternate))
 
     def _fetch_observed(
         self, window: GenomicWindow, reference: str
@@ -893,10 +930,7 @@ class GiabAlignmentProvider(VariantDataProvider):
             vafs.append(locus.vaf)
             column_offsets.append(offset)
 
-            deletion_support = (
-                locus.base_counts.get(GAP_TOKEN, 0) / locus.depth if locus.depth else 0.0
-            )
-            if deletion_support >= self.indel_support_threshold:
+            if locus.deletion_support >= self.indel_support_threshold:
                 observed_columns.append(GAP_TOKEN)
                 qualities.append(0.0)
             else:

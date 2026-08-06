@@ -148,10 +148,18 @@ class InputFusion(nn.Module):
     layer approximate it. Depth is passed as ``log1p`` because coverage is
     heavy-tailed and its informative variation is multiplicative.
 
-    Both auxiliary channels are optional, controlled by
-    :attr:`~.config.ModelConfig.use_base_quality` and
-    :attr:`~.config.ModelConfig.use_depth`, so the ablation is a config
-    change rather than a code change.
+    VAF is already a bounded fraction in ``[0, 1]``, so it needs no
+    transform and is projected directly. It is the channel that most
+    directly separates a true variant from a sequencing error: a germline
+    heterozygous site sits near 0.5 and a homozygous one near 1.0, while an
+    error sits near the per-base error rate. Deletion gaps count toward it,
+    so all three variant classes land on a comparable scale.
+
+    All three auxiliary channels are optional, controlled by
+    :attr:`~.config.ModelConfig.use_base_quality`,
+    :attr:`~.config.ModelConfig.use_depth` and
+    :attr:`~.config.ModelConfig.use_vaf`, so an ablation is a config change
+    rather than a code change.
     """
 
     def __init__(self, config: ModelConfig) -> None:
@@ -180,6 +188,7 @@ class InputFusion(nn.Module):
 
         self.quality_embedding: nn.Embedding | None = None
         self.depth_proj: nn.Linear | None = None
+        self.vaf_proj: nn.Linear | None = None
         channels = 2
 
         if config.use_base_quality:
@@ -188,6 +197,10 @@ class InputFusion(nn.Module):
 
         if config.use_depth:
             self.depth_proj = nn.Linear(1, config.d_model)
+            channels += 1
+
+        if config.use_vaf:
+            self.vaf_proj = nn.Linear(1, config.d_model)
             channels += 1
 
         self.channels = channels
@@ -216,6 +229,7 @@ class InputFusion(nn.Module):
         reference_ids: torch.Tensor,
         base_quality: torch.Tensor | None = None,
         depth: torch.Tensor | None = None,
+        vaf: torch.Tensor | None = None,
     ) -> torch.Tensor:
         """Fuse all active channels into one hidden stream.
 
@@ -226,6 +240,8 @@ class InputFusion(nn.Module):
                 Required when ``use_base_quality`` is set.
             depth: Float tensor ``[batch, seq_len]`` of read depth. Required
                 when ``use_depth`` is set.
+            vaf: Float tensor ``[batch, seq_len]`` of variant allele
+                fractions in ``[0, 1]``. Required when ``use_vaf`` is set.
 
         Returns:
             Float tensor ``[batch, seq_len, d_model]``.
@@ -247,6 +263,11 @@ class InputFusion(nn.Module):
             if depth is None:
                 raise ValueError("depth is required when use_depth is enabled")
             features.append(self.depth_proj(torch.log1p(depth).unsqueeze(-1)))
+
+        if self.vaf_proj is not None:
+            if vaf is None:
+                raise ValueError("vaf is required when use_vaf is enabled")
+            features.append(self.vaf_proj(vaf.unsqueeze(-1)))
 
         if self.fusion_proj is not None:
             fused = self.fusion_proj(torch.cat(features, dim=-1))
@@ -289,6 +310,7 @@ class VariantCaller(nn.Module):
         reference_ids: torch.Tensor,
         base_quality: torch.Tensor | None = None,
         depth: torch.Tensor | None = None,
+        vaf: torch.Tensor | None = None,
     ) -> torch.Tensor:
         """Classify every alignment column.
 
@@ -298,6 +320,8 @@ class VariantCaller(nn.Module):
             base_quality: Optional float tensor ``[batch, seq_len]`` of Phred
                 scores.
             depth: Optional float tensor ``[batch, seq_len]`` of read depth.
+            vaf: Optional float tensor ``[batch, seq_len]`` of variant allele
+                fractions.
 
         Returns:
             Logit tensor ``[batch, seq_len, num_classes]``.
@@ -314,13 +338,17 @@ class VariantCaller(nn.Module):
         if input_ids.dim() != 2:
             raise ValueError(f"expected 2-D [batch, seq_len] inputs, got {input_ids.dim()}-D")
 
-        for name, tensor in (("base_quality", base_quality), ("depth", depth)):
+        for name, tensor in (
+            ("base_quality", base_quality),
+            ("depth", depth),
+            ("vaf", vaf),
+        ):
             if tensor is not None and tensor.shape != input_ids.shape:
                 raise ValueError(
                     f"{name} {tuple(tensor.shape)} must match input_ids {tuple(input_ids.shape)}"
                 )
 
-        hidden_states = self.input_fusion(input_ids, reference_ids, base_quality, depth)
+        hidden_states = self.input_fusion(input_ids, reference_ids, base_quality, depth, vaf)
 
         for block in self.blocks:
             hidden_states = block(hidden_states)

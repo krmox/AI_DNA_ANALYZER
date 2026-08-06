@@ -76,6 +76,11 @@ def parse_args(argv: List[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Ablation: drop the coverage channel from the input embedding.",
     )
+    parser.add_argument(
+        "--no-vaf",
+        action="store_true",
+        help="Ablation: drop the allele-fraction channel (inert on synthetic data).",
+    )
     parser.add_argument("--quiet", action="store_true", help="Suppress per-epoch logging.")
     return parser.parse_args(argv)
 
@@ -106,6 +111,7 @@ def build_config(args: argparse.Namespace) -> ExperimentConfig:
             fusion=args.fusion,
             use_base_quality=not args.no_base_quality,
             use_depth=not args.no_depth,
+            use_vaf=not args.no_vaf,
         ),
         training=TrainingConfig(
             num_epochs=args.epochs,
@@ -144,11 +150,15 @@ def show_prediction(
     reference_ids = sample["reference_ids"].unsqueeze(0).to(device)
     base_quality = sample["base_quality"].unsqueeze(0).to(device)
     depth = sample["depth"].unsqueeze(0).to(device)
+    vaf = sample["vaf"].unsqueeze(0).to(device)
     truth = sample["labels"]
 
     with torch.no_grad():
         prediction = (
-            model(input_ids, reference_ids, base_quality, depth).argmax(dim=-1).squeeze(0).cpu()
+            model(input_ids, reference_ids, base_quality, depth, vaf)
+            .argmax(dim=-1)
+            .squeeze(0)
+            .cpu()
         )
 
     reference = tokenizer.decode(sample["reference_ids"])

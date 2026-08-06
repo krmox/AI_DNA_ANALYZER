@@ -249,7 +249,7 @@ class TestSyntheticVariantDataset:
         dataset = SyntheticVariantDataset(20, seq_len=48, mutation_rate=0.2, seed=24)
         for index in range(len(dataset)):
             sample = dataset[index]
-            for key in ("reference_ids", "input_ids", "labels", "base_quality", "depth"):
+            for key in ("reference_ids", "input_ids", "labels", "base_quality", "depth", "vaf"):
                 assert sample[key].shape == (48,)
 
     def test_noise_is_never_labelled(self) -> None:
@@ -315,6 +315,17 @@ class TestSyntheticVariantDataset:
         mean_error = sum(error_quality) / len(error_quality)
         mean_clean = sum(clean_quality) / len(clean_quality)
         assert mean_error < mean_clean - 10.0
+
+    def test_synthetic_vaf_is_all_zeros_not_label_derived(self) -> None:
+        """A single read cannot express an allele fraction.
+
+        Synthesising one from the labels would hand the model a copy of its
+        own target, so the channel is deliberately inert here.
+        """
+        dataset = SyntheticVariantDataset(20, seq_len=64, mutation_rate=0.3, seed=51)
+        for index in range(len(dataset)):
+            sample = dataset[index]
+            assert torch.equal(sample["vaf"], torch.zeros(64))
 
     def test_gap_columns_carry_zero_quality_and_depth(self) -> None:
         """A gap has no base call, so it has no confidence or coverage."""
@@ -415,6 +426,7 @@ class TestModel:
             torch.randint(0, 6, (batch, length)),
             torch.rand(batch, length) * 60.0,
             torch.rand(batch, length) * 50.0,
+            torch.rand(batch, length),
         )
 
     def test_forward_returns_per_token_logits(self, small_config: ModelConfig) -> None:
@@ -424,23 +436,59 @@ class TestModel:
     def test_quality_channel_changes_the_output(self, small_config: ModelConfig) -> None:
         """If quality were ignored, noise and SNPs stay inseparable."""
         model = VariantCaller(small_config).eval()
-        observed, reference, _, depth = self._inputs(1, 16)
+        observed, reference, _, depth, vaf = self._inputs(1, 16)
         low = torch.full((1, 16), 5.0)
         high = torch.full((1, 16), 40.0)
         with torch.no_grad():
             assert not torch.allclose(
-                model(observed, reference, low, depth),
-                model(observed, reference, high, depth),
+                model(observed, reference, low, depth, vaf),
+                model(observed, reference, high, depth, vaf),
             )
 
     def test_depth_channel_changes_the_output(self, small_config: ModelConfig) -> None:
         model = VariantCaller(small_config).eval()
-        observed, reference, quality, _ = self._inputs(1, 16)
+        observed, reference, quality, _, vaf = self._inputs(1, 16)
         with torch.no_grad():
             assert not torch.allclose(
-                model(observed, reference, quality, torch.full((1, 16), 2.0)),
-                model(observed, reference, quality, torch.full((1, 16), 90.0)),
+                model(observed, reference, quality, torch.full((1, 16), 2.0), vaf),
+                model(observed, reference, quality, torch.full((1, 16), 90.0), vaf),
             )
+
+    def test_vaf_channel_changes_the_output(self, small_config: ModelConfig) -> None:
+        """VAF must reach the network, not be collected and discarded."""
+        model = VariantCaller(small_config).eval()
+        observed, reference, quality, depth, _ = self._inputs(1, 16)
+        with torch.no_grad():
+            assert not torch.allclose(
+                model(observed, reference, quality, depth, torch.zeros(1, 16)),
+                model(observed, reference, quality, depth, torch.full((1, 16), 0.5)),
+            )
+
+    def test_vaf_can_be_ablated(self) -> None:
+        with_vaf = VariantCaller(ModelConfig(use_vaf=True))
+        without = VariantCaller(ModelConfig(use_vaf=False))
+        assert with_vaf.input_fusion.vaf_proj is not None
+        assert without.input_fusion.vaf_proj is None
+        assert with_vaf.count_parameters() > without.count_parameters()
+
+    def test_missing_vaf_raises_when_enabled(self) -> None:
+        model = VariantCaller(ModelConfig(d_model=16, num_layers=1, use_vaf=True))
+        with pytest.raises(ValueError, match="vaf is required"):
+            model(
+                torch.randint(0, 6, (1, 8)),
+                torch.randint(0, 6, (1, 8)),
+                torch.rand(1, 8),
+                torch.rand(1, 8),
+            )
+
+    def test_fusion_channel_count_tracks_the_config(self) -> None:
+        assert VariantCaller(ModelConfig()).input_fusion.channels == 5
+        assert (
+            VariantCaller(
+                ModelConfig(use_base_quality=False, use_depth=False, use_vaf=False)
+            ).input_fusion.channels
+            == 2
+        )
 
     def test_disabled_channels_are_not_constructed(self) -> None:
         """Ablation must remove the parameters, not merely ignore them."""
@@ -478,10 +526,10 @@ class TestModel:
     def test_reference_channel_changes_the_output(self, small_config: ModelConfig) -> None:
         """If the reference were ignored the task would be unsolvable."""
         model = VariantCaller(small_config).eval()
-        observed, _, quality, depth = self._inputs(1, 16)
+        observed, _, quality, depth, vaf = self._inputs(1, 16)
         with torch.no_grad():
-            first = model(observed, observed, quality, depth)
-            second = model(observed, torch.roll(observed, shifts=3, dims=1), quality, depth)
+            first = model(observed, observed, quality, depth, vaf)
+            second = model(observed, torch.roll(observed, shifts=3, dims=1), quality, depth, vaf)
         assert not torch.allclose(first, second)
 
     def test_mismatched_shapes_raise(self, small_config: ModelConfig) -> None:
@@ -531,6 +579,8 @@ class TestModel:
         assert fusion.quality_embedding.weight.grad is not None
         assert fusion.depth_proj is not None
         assert fusion.depth_proj.weight.grad is not None
+        assert fusion.vaf_proj is not None
+        assert fusion.vaf_proj.weight.grad is not None
 
     def test_parameter_count_is_positive(self, small_config: ModelConfig) -> None:
         assert VariantCaller(small_config).count_parameters() > 0
