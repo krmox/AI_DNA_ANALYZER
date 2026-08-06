@@ -222,9 +222,13 @@ class TrainingConfig:
         label_smoothing: Target smoothing. Kept at 0.0: smoothing caps the
             achievable confidence on the rare mutation classes and measurably
             slowed convergence in this setup.
-        max_weight_cap: Upper clamp on per-class alpha weights after sqrt
-            smoothing and normalisation. Prevents the runaway ~16x mutation
-            weighting that previously drove mass false positives.
+        class_weight_alpha: Exponent in ``(N_total / N_c) ** alpha``. ``0.5``
+            is sqrt weighting; ``1.0`` is raw inverse frequency. At real
+            genomic density (~1:1000) raw inverse frequency asks for ~1000x
+            on variant classes and reproduces the false-positive flood.
+        max_weight_cap: Upper clamp on per-class alpha weights after
+            smoothing and normalisation. Load-bearing at real density, where
+            sqrt weighting alone still leaves ~32x.
         weight_sample_size: Sequences sampled when estimating class frequencies.
         early_stopping_patience: Epochs without ``val_loss`` improvement before
             stopping.
@@ -241,7 +245,8 @@ class TrainingConfig:
     grad_clip_norm: float | None = 1.0
     focal_gamma: float = 2.0
     label_smoothing: float = 0.0
-    max_weight_cap: float = 6.0
+    class_weight_alpha: float = 0.5
+    max_weight_cap: float = 10.0
     weight_sample_size: int = 200
     early_stopping_patience: int = 5
     early_stopping_min_delta: float = 1e-4
@@ -270,6 +275,10 @@ class TrainingConfig:
             raise ValueError("label_smoothing must lie in [0, 1)")
         if self.max_weight_cap <= 0.0:
             raise ValueError("max_weight_cap must be positive")
+        if self.max_weight_cap > 10.0:
+            raise ValueError("max_weight_cap must not exceed 10.0")
+        if self.class_weight_alpha < 0.0:
+            raise ValueError("class_weight_alpha must be non-negative")
         if self.weight_sample_size <= 0:
             raise ValueError("weight_sample_size must be positive")
         if self.early_stopping_patience <= 0:

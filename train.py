@@ -385,6 +385,7 @@ class Trainer:
             num_classes=config.model.num_classes,
             sample_size=config.training.weight_sample_size,
             max_weight_cap=config.training.max_weight_cap,
+            alpha=config.training.class_weight_alpha,
         ).to(self.device)
 
         self.criterion = FocalLoss(

@@ -154,37 +154,88 @@ def estimate_class_counts(
     return counts.clamp(min=1.0)
 
 
+def weights_from_counts(
+    counts: torch.Tensor,
+    alpha: float = 0.5,
+    max_weight_cap: float = 10.0,
+    normalise: bool = True,
+) -> torch.Tensor:
+    """Derive alpha weights from class counts, given the counts directly.
+
+    Computes ``w_c = min((N_total / N_c) ** alpha, max_weight_cap)``, with
+    optional normalisation to mean 1 before the clamp.
+
+    Separated from :func:`compute_calibrated_class_weights` so real-data
+    counts produced by ``summarise_label_distribution.py`` can be fed in
+    without re-scanning a dataset — scanning a real chr21 BAM is minutes of
+    work, not milliseconds.
+
+    On the exponent. At real genomic density (roughly 1:1000) raw inverse
+    frequency asks for a weight near 1000x on the variant classes, which
+    makes predicting variants everywhere the cheaper strategy and reproduces
+    the false-positive flood seen early in this project. ``alpha=0.5``
+    reduces that to about 32x, and the cap then brings it inside a range the
+    optimiser can work with. The cap is doing real work at this density and
+    is not a formality: without it, the sqrt alone is still too aggressive.
+
+    Args:
+        counts: Float tensor ``[num_classes]`` of per-class token counts.
+        alpha: Smoothing exponent. ``0.5`` is sqrt weighting; ``1.0`` is raw
+            inverse frequency; ``0.0`` disables weighting.
+        max_weight_cap: Upper clamp on the resulting weights.
+        normalise: Whether to rescale to mean 1 before clamping. Keeps the
+            overall loss magnitude comparable across datasets.
+
+    Returns:
+        Float tensor ``[num_classes]`` of per-class weights.
+
+    Raises:
+        ValueError: If ``alpha`` is negative or ``max_weight_cap`` is not
+            positive.
+    """
+    if alpha < 0.0:
+        raise ValueError("alpha must be non-negative")
+    if max_weight_cap <= 0.0:
+        raise ValueError("max_weight_cap must be positive")
+
+    counts = counts.float().clamp(min=1.0)
+    raw_weights = (counts.sum() / counts) ** alpha
+
+    if normalise:
+        raw_weights = raw_weights / raw_weights.mean()
+
+    return raw_weights.clamp(max=max_weight_cap)
+
+
 def compute_calibrated_class_weights(
     dataset: Dataset,
     num_classes: int = len(LABEL_NAMES),
     sample_size: int = 200,
-    max_weight_cap: float = 6.0,
+    max_weight_cap: float = 10.0,
+    alpha: float = 0.5,
 ) -> torch.Tensor:
-    """Derive alpha weights that correct imbalance without over-correcting.
+    """Estimate class frequencies from a dataset and derive alpha weights.
 
-    The pipeline is ``sqrt(inverse frequency)`` -> normalise to mean 1 ->
-    clamp at ``max_weight_cap``. See the module docstring for why the square
-    root and the clamp are both load-bearing.
+    Thin wrapper over :func:`weights_from_counts`; see that function for the
+    reasoning behind the exponent and the cap.
 
     Args:
         dataset: Dataset to estimate frequencies from.
         num_classes: Number of classes.
         sample_size: Maximum number of samples to inspect.
         max_weight_cap: Upper clamp applied after normalisation.
+        alpha: Smoothing exponent passed through.
 
     Returns:
         Float tensor ``[num_classes]`` of per-class weights.
-
-    Raises:
-        ValueError: If ``max_weight_cap`` is non-positive.
     """
-    if max_weight_cap <= 0.0:
-        raise ValueError("max_weight_cap must be positive")
-
     counts = estimate_class_counts(dataset, num_classes, sample_size)
-    raw_weights = torch.sqrt(counts.sum() / (num_classes * counts))
-    normalised = raw_weights / raw_weights.mean()
-    return normalised.clamp(max=max_weight_cap)
+    return weights_from_counts(counts, alpha=alpha, max_weight_cap=max_weight_cap)
 
 
-__all__ = ["FocalLoss", "estimate_class_counts", "compute_calibrated_class_weights"]
+__all__ = [
+    "FocalLoss",
+    "estimate_class_counts",
+    "weights_from_counts",
+    "compute_calibrated_class_weights",
+]
