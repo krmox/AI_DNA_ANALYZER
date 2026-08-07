@@ -14,10 +14,10 @@ from typing import List
 
 import torch
 
-from .config import LABEL_NAMES, DataConfig, ExperimentConfig, ModelConfig, TrainingConfig
-from .dataset import DNATokenizer, SyntheticVariantDataset
-from .model import VariantCaller
-from .train import Trainer
+from config import LABEL_NAMES, DataConfig, ExperimentConfig, ModelConfig, TrainingConfig
+from dataset import DNATokenizer, SyntheticVariantDataset
+from model import VariantCaller
+from train import Trainer
 
 
 def parse_args(argv: List[str] | None = None) -> argparse.Namespace:

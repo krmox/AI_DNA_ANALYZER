@@ -52,7 +52,7 @@ from typing import TYPE_CHECKING, Dict, Iterator, List, Sequence, Tuple
 
 import torch
 
-from .config import (
+from config import (
     GAP_TOKEN,
     LABEL_DELETION,
     LABEL_INSERTION,
@@ -60,7 +60,7 @@ from .config import (
     LABEL_SNP,
     NUCLEOTIDES,
 )
-from .dataset import DNATokenizer, SyntheticVariantDataset, VariantSample
+from dataset import DNATokenizer, SyntheticVariantDataset, VariantSample
 
 if TYPE_CHECKING:  # pragma: no cover - typing only
     import pysam

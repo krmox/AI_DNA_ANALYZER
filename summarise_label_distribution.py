@@ -29,9 +29,9 @@ from typing import Dict, List, Tuple
 
 import torch
 
-from .config import LABEL_NAMES
-from .loss import weights_from_counts
-from .providers import GiabAlignmentProvider
+from config import LABEL_NAMES
+from loss import weights_from_counts
+from providers import GiabAlignmentProvider
 
 
 def scan_provider(provider: GiabAlignmentProvider) -> Tuple[Counter, Dict[str, List[float]], Dict[str, List[float]]]:

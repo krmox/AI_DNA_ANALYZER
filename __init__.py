@@ -19,17 +19,17 @@ Typical use::
 
 from __future__ import annotations
 
-from .config import (
+from config import (
     LABEL_NAMES,
     DataConfig,
     ExperimentConfig,
     ModelConfig,
     TrainingConfig,
 )
-from .dataset import DNATokenizer, SyntheticVariantDataset, VariantSample, build_dataloaders
-from .loss import FocalLoss, compute_calibrated_class_weights
-from .model import BiMambaBlock, CausalGatedConvCore, VariantCaller
-from .providers import (
+from dataset import DNATokenizer, SyntheticVariantDataset, VariantSample, build_dataloaders
+from loss import FocalLoss, compute_calibrated_class_weights
+from model import BiMambaBlock, CausalGatedConvCore, VariantCaller
+from providers import (
     GenomicWindow,
     GiabAlignmentProvider,
     ProviderDataset,
@@ -37,7 +37,7 @@ from .providers import (
     VariantDataProvider,
     WindowTensors,
 )
-from .train import EarlyStopping, EpochReport, Trainer, compute_metrics, train_epoch, validate
+from train import EarlyStopping, EpochReport, Trainer, compute_metrics, train_epoch, validate
 
 __version__ = "1.0.0"
 

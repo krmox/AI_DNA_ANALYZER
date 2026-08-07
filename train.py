@@ -26,10 +26,10 @@ from torch.optim import Optimizer
 from torch.optim.lr_scheduler import CosineAnnealingLR, LinearLR, LRScheduler, SequentialLR
 from torch.utils.data import DataLoader
 
-from .config import LABEL_NAMES, ExperimentConfig
-from .dataset import VariantSample, build_dataloaders
-from .loss import FocalLoss, compute_calibrated_class_weights
-from .model import VariantCaller
+from config import LABEL_NAMES, ExperimentConfig
+from dataset import VariantSample, build_dataloaders
+from loss import FocalLoss, compute_calibrated_class_weights
+from model import VariantCaller
 
 
 @dataclass

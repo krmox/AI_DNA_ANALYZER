@@ -44,7 +44,7 @@ from typing import Dict, List, Sequence, Tuple, TypedDict
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from .config import (
+from config import (
     GAP_ID,
     GAP_TOKEN,
     INV_VOCAB,

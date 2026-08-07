@@ -25,7 +25,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset
 
-from .config import LABEL_NAMES
+from config import LABEL_NAMES
 
 
 class FocalLoss(nn.Module):
@@ -59,8 +59,8 @@ class FocalLoss(nn.Module):
             raise ValueError("gamma must be non-negative")
         if not 0.0 <= label_smoothing < 1.0:
             raise ValueError("label_smoothing must lie in [0, 1)")
-        if reduction not in ("mean", "sum", "none"):
-            raise ValueError("reduction must be 'mean', 'sum' or 'none'")
+        if reduction not in ("mean", "sum", "none", "weighted_mean"):
+            raise ValueError("reduction must be 'mean', 'sum', 'weighted_mean' or 'none'")
 
         self.gamma = gamma
         self.label_smoothing = label_smoothing
@@ -110,13 +110,26 @@ class FocalLoss(nn.Module):
         focal_factor = (1.0 - true_class_prob.clamp(min=1e-6, max=1.0)) ** self.gamma
 
         loss = focal_factor * cross_entropy
+        alpha_factor: torch.Tensor | None = None
         if self.alpha is not None:
-            loss = self.alpha[targets] * loss
+            alpha_factor = self.alpha[targets]
+            loss = alpha_factor * loss
 
         if self.reduction == "mean":
             return loss.mean()
         if self.reduction == "sum":
             return loss.sum()
+        if self.reduction == "weighted_mean":
+            # A plain ``mean`` divides by the *token* count, so at ~95%
+            # background density the rare-class tokens are outnumbered
+            # ~20:1 even after ``alpha`` upweights their per-token loss —
+            # their total contribution to the gradient still rounds down
+            # to noise. Dividing by the sum of alpha weights instead turns
+            # this into a true weighted average: a token's share of the
+            # loss depends on its class weight, not on how many of its
+            # class happen to be in the batch.
+            denom = (alpha_factor if alpha_factor is not None else torch.ones_like(loss)).sum()
+            return loss.sum() / denom.clamp(min=1e-8)
         return loss
 
 

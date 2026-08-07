@@ -33,7 +33,7 @@ from __future__ import annotations
 import torch
 import torch.nn as nn
 
-from .config import ModelConfig
+from config import ModelConfig
 
 
 class CausalGatedConvCore(nn.Module):

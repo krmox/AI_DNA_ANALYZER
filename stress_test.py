@@ -17,9 +17,9 @@ from typing import Dict, List, Tuple
 
 import torch
 
-from .config import LABEL_NAMES, DataConfig, ExperimentConfig, ModelConfig, TrainingConfig
-from .dataset import SyntheticVariantDataset
-from .train import Trainer
+from config import LABEL_NAMES, DataConfig, ExperimentConfig, ModelConfig, TrainingConfig
+from dataset import SyntheticVariantDataset
+from train import Trainer
 
 
 def build_experiment(
