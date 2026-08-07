@@ -356,7 +356,7 @@ class DNAMambaBaseline(nn.Module):
 
     def __init__(
         self,
-        vocab_size: int = 5,
+        vocab_size: int = 6,  # N,A,C,G,T,GAP — must match config.VOCAB (len 6), not just the 5 real bases
         d_model: int = 128,
         num_layers: int = 6,
         num_classes: int = 4,

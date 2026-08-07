@@ -33,7 +33,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import DataLoader, Dataset, Subset, WeightedRandomSampler
 from tqdm import tqdm
 
-from config import LABEL_NAMES, LABEL_NORMAL
+from config import LABEL_NAMES, LABEL_NORMAL, VOCAB
 from dna_mamba_baseline_v5 import DNAMambaBaseline
 from loss import FocalLoss, compute_calibrated_class_weights
 from providers import GiabAlignmentProvider, ProviderDataset
@@ -56,6 +56,7 @@ TRAIN_FRACTION = 0.9
 NUM_WORKERS = 0
 SEQ_LEN = 64
 NUM_CLASSES = len(LABEL_NAMES)
+VOCAB_SIZE = len(VOCAB)
 
 # Focal-loss dynamics. gamma=3.0 pushes harder on hard-to-classify tokens
 # than the gamma=2.0 default; "weighted_mean" reduction (see loss.py)
@@ -423,7 +424,12 @@ def main() -> None:
             val_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=NUM_WORKERS
         )
 
-        model = DNAMambaBaseline(num_classes=NUM_CLASSES).to(device)
+        # vocab_size must be explicit, not the class default: the tokenizer's
+        # real vocabulary (config.VOCAB) includes the gap token id (5), which
+        # only started appearing in real windows once generate_mock_bam.py's
+        # indel splicing fix landed. An undersized embedding table here is a
+        # silent latent bug until then and a CUDA device-side assert after.
+        model = DNAMambaBaseline(num_classes=NUM_CLASSES, vocab_size=VOCAB_SIZE).to(device)
 
         class_weights = compute_calibrated_class_weights(
             train_ds,
