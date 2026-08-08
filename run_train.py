@@ -33,7 +33,7 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import DataLoader, Dataset, Subset, WeightedRandomSampler
 from tqdm import tqdm
 
-from config import LABEL_NAMES, LABEL_NORMAL, VOCAB
+from config import LABEL_NAMES, LABEL_NORMAL, LABEL_SNP, VOCAB
 from dna_mamba_baseline_v5 import DNAMambaBaseline
 from loss import FocalLoss, compute_calibrated_class_weights
 from providers import GiabAlignmentProvider, ProviderDataset
@@ -172,6 +172,83 @@ def predict_with_threshold(logits: torch.Tensor, threshold: float) -> torch.Tens
     return predictions
 
 
+def binary_auc(scores: torch.Tensor, positives: torch.Tensor) -> float:
+    """Rank-based AUC (Mann-Whitney U statistic, normalised) for one class.
+
+    Reported alongside — never instead of — the F1@``VARIANT_PROB_THRESHOLD``
+    table, because the two answer different questions. F1 at a fixed absolute
+    probability bar conflates *ranking quality* with *where the decision
+    boundary happens to sit*, and on this dataset the model's ``p(SNP)`` on
+    background tokens sits in a narrow band just under 0.5, so a drift of a
+    few hundredths moves thousands of tokens across the bar and craters
+    precision while the ranking is untouched. AUC is threshold-free and
+    isolates the ranking half of that.
+
+    Ties contribute 0.5, via average ranks within each tied group.
+
+    Args:
+        scores: Float tensor ``[N]`` of per-token scores for the class.
+        positives: Bool tensor ``[N]``, True where the token's true label is
+            the class in question.
+
+    Returns:
+        AUC in ``[0, 1]``, or ``float("nan")`` if either group is empty
+        (undefined rather than silently 0 — a 0 here would read as
+        "perfectly wrong ranking", which is a very different claim).
+    """
+    num_positive = int(positives.sum().item())
+    num_negative = int(positives.numel() - num_positive)
+    if num_positive == 0 or num_negative == 0:
+        return float("nan")
+
+    scores = scores.double()
+    order = scores.argsort()
+    sorted_scores = scores[order]
+    _, inverse, counts = torch.unique(sorted_scores, return_inverse=True, return_counts=True)
+    positions = torch.arange(1, scores.numel() + 1, dtype=torch.float64, device=scores.device)
+    tie_group_sums = torch.zeros(counts.numel(), dtype=torch.float64, device=scores.device)
+    tie_group_sums.index_add_(0, inverse, positions)
+    mean_rank_per_group = tie_group_sums / counts.double()
+
+    ranks = torch.empty_like(scores)
+    ranks[order] = mean_rank_per_group[inverse]
+
+    positive_rank_sum = ranks[positives].sum()
+    u_statistic = positive_rank_sum - num_positive * (num_positive + 1) / 2
+    return float((u_statistic / (num_positive * num_negative)).item())
+
+
+def average_precision(scores: torch.Tensor, positives: torch.Tensor) -> float:
+    """Area under the precision-recall curve for one class (step interpolation).
+
+    The companion to :func:`binary_auc`, and the more informative of the two
+    at this class balance: with ~374 positives against ~474k background
+    tokens, AUC stays high for a model that still emits far more false
+    positives than true ones, because the negatives it ranks correctly
+    overwhelm the few it does not. AP is computed against the positive class
+    directly and does not flatter that regime.
+
+    Args:
+        scores: Float tensor ``[N]`` of per-token scores for the class.
+        positives: Bool tensor ``[N]``, True where the token's true label is
+            the class in question.
+
+    Returns:
+        Average precision in ``[0, 1]``, or ``float("nan")`` if there are no
+        positives.
+    """
+    num_positive = int(positives.sum().item())
+    if num_positive == 0:
+        return float("nan")
+
+    order = scores.double().argsort(descending=True)
+    positive_sorted = positives[order].double()
+    true_positives = torch.cumsum(positive_sorted, dim=0)
+    false_positives = torch.cumsum(1.0 - positive_sorted, dim=0)
+    precision_at_k = true_positives / (true_positives + false_positives).clamp_min(1e-12)
+    return float(((precision_at_k * positive_sorted).sum() / num_positive).item())
+
+
 def torch_confusion_matrix(
     y_true: torch.Tensor, y_pred: torch.Tensor, num_classes: int
 ) -> torch.Tensor:
@@ -293,12 +370,21 @@ def compute_mutation_presence_weights(dataset: Dataset, num_classes: int) -> tor
 
 
 class EpochMetrics(NamedTuple):
-    """Summary of one training or validation pass."""
+    """Summary of one training or validation pass.
+
+    ``snp_auc``/``snp_ap`` are threshold-free diagnostics appended after the
+    2026-08-08 investigation; they are *reported only*. Checkpoint selection
+    and early stopping still key off ``mutation_macro_f1`` (measured at
+    ``VARIANT_PROB_THRESHOLD``) exactly as before, so scores stay comparable
+    with every run already recorded in ``History/3_DEVLOG.md``.
+    """
 
     loss: float
     macro_f1: float
     mutation_macro_f1: float
     confusion: torch.Tensor
+    snp_auc: float = float("nan")
+    snp_ap: float = float("nan")
 
 
 def run_epoch(
@@ -337,6 +423,15 @@ def run_epoch(
     num_batches = 0
     confusion = torch.zeros(NUM_CLASSES, NUM_CLASSES, dtype=torch.long, device=device)
 
+    # Buffered on CPU for the threshold-free AUC/AP report. Both metrics are
+    # rank-based, so they cannot be accumulated batch-wise the way the
+    # confusion matrix can — the scores have to be ranked against each other
+    # globally. One float + one bool per token (~5 MB per validation pass at
+    # the current split); moved off-device immediately so this never competes
+    # with the model for GPU memory.
+    snp_scores: list[torch.Tensor] = []
+    snp_positives: list[torch.Tensor] = []
+
     progress = tqdm(loader, desc=f"Epoch {epoch}/{total_epochs} [{phase}]", leave=False)
 
     context = torch.enable_grad() if is_train else torch.no_grad()
@@ -369,6 +464,12 @@ def run_epoch(
                     preds = detached_logits.argmax(dim=-1)
                 confusion += torch_confusion_matrix(labels, preds, NUM_CLASSES)
 
+                # p(SNP) per token, independent of any decision threshold.
+                snp_scores.append(
+                    torch.softmax(detached_logits, dim=-1)[:, LABEL_SNP].float().cpu()
+                )
+                snp_positives.append((labels == LABEL_SNP).cpu())
+
             progress.set_postfix(loss=f"{running_loss / num_batches:.4f}")
 
     mean_loss = running_loss / max(num_batches, 1)
@@ -376,10 +477,18 @@ def run_epoch(
     macro_f1 = float(f1.mean().item())
     mutation_macro_f1 = float(f1[1:].mean().item())
 
+    if snp_scores:
+        all_scores = torch.cat(snp_scores)
+        all_positives = torch.cat(snp_positives)
+        snp_auc = binary_auc(all_scores, all_positives)
+        snp_ap = average_precision(all_scores, all_positives)
+    else:
+        snp_auc = snp_ap = float("nan")
+
     if report_diagnostics:
         log_confusion_and_per_class_metrics(confusion)
 
-    return EpochMetrics(mean_loss, macro_f1, mutation_macro_f1, confusion)
+    return EpochMetrics(mean_loss, macro_f1, mutation_macro_f1, confusion, snp_auc, snp_ap)
 
 
 def main() -> None:
@@ -478,6 +587,15 @@ def main() -> None:
                 "Epoch %d/%d [Val]   loss=%.4f macro_f1=%.4f mutation_macro_f1=%.4f",
                 epoch, MAX_EPOCHS, val_metrics.loss, val_metrics.macro_f1,
                 val_metrics.mutation_macro_f1,
+            )
+            # Threshold-free companions to the F1@VARIANT_PROB_THRESHOLD table
+            # above. A large gap between these two lines — AUC/AP flat while
+            # mutation_macro_f1 falls — means the ranking is intact and only
+            # the fixed decision bar has gone stale, not that the model got
+            # worse. See History/3_DEVLOG.md, 2026-08-08.
+            logger.info(
+                "Epoch %d/%d [Val]   SNP-vs-rest (threshold-free): auc=%.4f ap=%.4f",
+                epoch, MAX_EPOCHS, val_metrics.snp_auc, val_metrics.snp_ap,
             )
 
             current_lr = optimizer.param_groups[0]["lr"]
