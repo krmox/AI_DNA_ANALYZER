@@ -23,6 +23,7 @@ diagnosis this file's commit message / PR description links back to.
 
 from __future__ import annotations
 
+import argparse
 import inspect
 import logging
 from pathlib import Path
@@ -76,6 +77,34 @@ VARIANT_PROB_THRESHOLD = 0.5
 
 EARLY_STOPPING_PATIENCE = 5
 EARLY_STOPPING_MIN_DELTA = 1e-4
+
+
+def parse_args() -> argparse.Namespace:
+    """CLI overrides for one-off experiments, all defaulting to no-op.
+
+    Every default below reproduces this module's original hardcoded
+    behaviour exactly (``python run_train.py`` with no flags is
+    byte-for-byte the same run as before this function existed): gamma
+    stays ``FOCAL_GAMMA``, no seed is set (matching the previous
+    unseeded run), the epoch cap stays ``MAX_EPOCHS``, and checkpoint
+    filenames stay ``best_model.pt`` / ``last_checkpoint.pt`` with no
+    per-epoch snapshots. ``--tag`` exists specifically so an experiment
+    run's checkpoints never collide with (and can never overwrite) a
+    prior run's ``best_model.pt`` / ``last_checkpoint.pt``.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--gamma", type=float, default=FOCAL_GAMMA, help="Focal loss gamma.")
+    parser.add_argument("--seed", type=int, default=None, help="torch.manual_seed value.")
+    parser.add_argument("--max-epochs", type=int, default=MAX_EPOCHS, help="Epoch cap.")
+    parser.add_argument(
+        "--tag",
+        type=str,
+        default="",
+        help="Suffix distinguishing this run's checkpoint filenames from the default "
+        "best_model.pt/last_checkpoint.pt, and enabling a per-epoch snapshot of every "
+        "epoch's weights (checkpoints/epoch{N}_{tag}.pt) rather than only best+last.",
+    )
+    return parser.parse_args()
 
 
 def _warn_if_bam_lacks_indel_evidence(bam_path: str | Path, sample_reads: int = 5000) -> None:
@@ -492,8 +521,20 @@ def run_epoch(
 
 
 def main() -> None:
+    args = parse_args()
+    gamma = args.gamma
+    max_epochs = args.max_epochs
+    suffix = f"_{args.tag}" if args.tag else ""
+    best_model_path = CHECKPOINT_DIR / f"best_model{suffix}.pt"
+    last_checkpoint_path = CHECKPOINT_DIR / f"last_checkpoint{suffix}.pt"
+
+    if args.seed is not None:
+        torch.manual_seed(args.seed)
+        logger.info("Seeded torch with seed=%d", args.seed)
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     logger.info("Using device: %s", device)
+    logger.info("gamma=%.2f max_epochs=%d tag=%r", gamma, max_epochs, args.tag)
 
     CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -554,7 +595,7 @@ def main() -> None:
         # it would hand it a trivial way to shrink the rare-class loss
         # contribution back toward zero instead of actually learning those
         # classes — exactly the collapse this loss is meant to prevent.
-        criterion = FocalLoss(alpha=class_weights, gamma=FOCAL_GAMMA, reduction="weighted_mean")
+        criterion = FocalLoss(alpha=class_weights, gamma=gamma, reduction="weighted_mean")
         optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
         scheduler = ReduceLROnPlateau(optimizer, mode="max", factor=0.5, patience=1)
 
@@ -562,13 +603,13 @@ def main() -> None:
         best_val_loss = float("inf")
         epochs_without_improvement = 0
 
-        for epoch in range(1, MAX_EPOCHS + 1):
+        for epoch in range(1, max_epochs + 1):
             train_metrics = run_epoch(
-                model, train_loader, criterion, device, optimizer, epoch, MAX_EPOCHS
+                model, train_loader, criterion, device, optimizer, epoch, max_epochs
             )
             logger.info(
                 "Epoch %d/%d [Train] loss=%.4f macro_f1=%.4f mutation_macro_f1=%.4f",
-                epoch, MAX_EPOCHS, train_metrics.loss, train_metrics.macro_f1,
+                epoch, max_epochs, train_metrics.loss, train_metrics.macro_f1,
                 train_metrics.mutation_macro_f1,
             )
 
@@ -579,13 +620,13 @@ def main() -> None:
                 device,
                 None,
                 epoch,
-                MAX_EPOCHS,
+                max_epochs,
                 variant_prob_threshold=VARIANT_PROB_THRESHOLD,
                 report_diagnostics=True,
             )
             logger.info(
                 "Epoch %d/%d [Val]   loss=%.4f macro_f1=%.4f mutation_macro_f1=%.4f",
-                epoch, MAX_EPOCHS, val_metrics.loss, val_metrics.macro_f1,
+                epoch, max_epochs, val_metrics.loss, val_metrics.macro_f1,
                 val_metrics.mutation_macro_f1,
             )
             # Threshold-free companions to the F1@VARIANT_PROB_THRESHOLD table
@@ -595,7 +636,7 @@ def main() -> None:
             # worse. See History/3_DEVLOG.md, 2026-08-08.
             logger.info(
                 "Epoch %d/%d [Val]   SNP-vs-rest (threshold-free): auc=%.4f ap=%.4f",
-                epoch, MAX_EPOCHS, val_metrics.snp_auc, val_metrics.snp_ap,
+                epoch, max_epochs, val_metrics.snp_auc, val_metrics.snp_ap,
             )
 
             current_lr = optimizer.param_groups[0]["lr"]
@@ -619,11 +660,11 @@ def main() -> None:
                         "val_macro_f1": val_metrics.macro_f1,
                         "val_mutation_macro_f1": val_metrics.mutation_macro_f1,
                     },
-                    BEST_MODEL_PATH,
+                    best_model_path,
                 )
                 logger.info(
                     "New best model saved (mutation_macro_f1=%.4f) -> %s",
-                    best_score, BEST_MODEL_PATH,
+                    best_score, best_model_path,
                 )
             else:
                 epochs_without_improvement += 1
@@ -635,8 +676,32 @@ def main() -> None:
                     "optimizer_state_dict": optimizer.state_dict(),
                     "best_score": best_score,
                 },
-                LAST_CHECKPOINT_PATH,
+                last_checkpoint_path,
             )
+
+            # Per-epoch snapshot, additive only: enabled by --tag so an
+            # experiment run's intermediate epochs are recoverable for
+            # post-hoc analysis (e.g. threshold_selection.py), unlike the
+            # default best+last-only behaviour where epochs 2..N-1 are
+            # silently overwritten. Never written when --tag is empty, so
+            # a bare `python run_train.py` invocation is unaffected.
+            if args.tag:
+                epoch_checkpoint_path = CHECKPOINT_DIR / f"epoch{epoch}{suffix}.pt"
+                torch.save(
+                    {
+                        "epoch": epoch,
+                        "model_state_dict": model.state_dict(),
+                        "val_loss": val_metrics.loss,
+                        "val_macro_f1": val_metrics.macro_f1,
+                        "val_mutation_macro_f1": val_metrics.mutation_macro_f1,
+                        "snp_auc": val_metrics.snp_auc,
+                        "snp_ap": val_metrics.snp_ap,
+                        "gamma": gamma,
+                        "seed": args.seed,
+                    },
+                    epoch_checkpoint_path,
+                )
+                logger.info("Epoch snapshot saved -> %s", epoch_checkpoint_path)
 
             if epochs_without_improvement >= EARLY_STOPPING_PATIENCE:
                 logger.info(
