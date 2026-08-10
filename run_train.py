@@ -402,10 +402,19 @@ class EpochMetrics(NamedTuple):
     """Summary of one training or validation pass.
 
     ``snp_auc``/``snp_ap`` are threshold-free diagnostics appended after the
-    2026-08-08 investigation; they are *reported only*. Checkpoint selection
-    and early stopping still key off ``mutation_macro_f1`` (measured at
-    ``VARIANT_PROB_THRESHOLD``) exactly as before, so scores stay comparable
-    with every run already recorded in ``History/3_DEVLOG.md``.
+    2026-08-08 investigation; they are *reported only*.
+
+    ``mutation_macro_f1`` (measured at ``VARIANT_PROB_THRESHOLD``, fixed
+    0.5) is kept and logged every epoch purely for continuity with every
+    run already recorded in ``History/3_DEVLOG.md`` onward — it is no
+    longer what checkpoint selection or early stopping key off (see
+    2026-08-10 Part B: fixed-0.5 selection measures threshold drift, not
+    model quality, once ranking is near-perfect). ``logits``/``labels``
+    are the buffered raw validation outputs a caller needs to run its own
+    per-checkpoint optimal-threshold sweep (``threshold_selection.
+    sweep_thresholds``); populated only when ``collect_logits=True`` was
+    passed to :func:`run_epoch`, ``None`` otherwise so training passes
+    never pay for a buffer nobody reads.
     """
 
     loss: float
@@ -414,6 +423,8 @@ class EpochMetrics(NamedTuple):
     confusion: torch.Tensor
     snp_auc: float = float("nan")
     snp_ap: float = float("nan")
+    logits: torch.Tensor | None = None
+    labels: torch.Tensor | None = None
 
 
 def run_epoch(
@@ -426,6 +437,7 @@ def run_epoch(
     total_epochs: int,
     variant_prob_threshold: float | None = None,
     report_diagnostics: bool = False,
+    collect_logits: bool = False,
 ) -> EpochMetrics:
     """Run one training or validation pass over ``loader``.
 
@@ -460,6 +472,14 @@ def run_epoch(
     # with the model for GPU memory.
     snp_scores: list[torch.Tensor] = []
     snp_positives: list[torch.Tensor] = []
+
+    # Buffered only when a caller needs a post-hoc threshold sweep (the
+    # per-checkpoint optimal-threshold selection, 2026-08-10 Part B). Reuses
+    # logits already produced by this pass instead of a second forward pass
+    # over the loader, so wiring the sweep into every validation epoch costs
+    # no extra model compute.
+    all_logits: list[torch.Tensor] = []
+    all_labels: list[torch.Tensor] = []
 
     progress = tqdm(loader, desc=f"Epoch {epoch}/{total_epochs} [{phase}]", leave=False)
 
@@ -499,6 +519,10 @@ def run_epoch(
                 )
                 snp_positives.append((labels == LABEL_SNP).cpu())
 
+                if collect_logits:
+                    all_logits.append(detached_logits.cpu())
+                    all_labels.append(labels.cpu())
+
             progress.set_postfix(loss=f"{running_loss / num_batches:.4f}")
 
     mean_loss = running_loss / max(num_batches, 1)
@@ -517,10 +541,23 @@ def run_epoch(
     if report_diagnostics:
         log_confusion_and_per_class_metrics(confusion)
 
-    return EpochMetrics(mean_loss, macro_f1, mutation_macro_f1, confusion, snp_auc, snp_ap)
+    collected_logits = torch.cat(all_logits) if all_logits else None
+    collected_labels = torch.cat(all_labels) if all_labels else None
+
+    return EpochMetrics(
+        mean_loss, macro_f1, mutation_macro_f1, confusion, snp_auc, snp_ap,
+        collected_logits, collected_labels,
+    )
 
 
 def main() -> None:
+    # Deferred: threshold_selection.py imports several helpers back out of
+    # this module (filter_batch_for_model, predict_with_threshold, ...), so
+    # a top-level import here would be circular at module-load time. By
+    # main()'s first call this module is already fully defined, so a local
+    # import is safe.
+    from threshold_selection import sweep_thresholds
+
     args = parse_args()
     gamma = args.gamma
     max_epochs = args.max_epochs
@@ -623,6 +660,7 @@ def main() -> None:
                 max_epochs,
                 variant_prob_threshold=VARIANT_PROB_THRESHOLD,
                 report_diagnostics=True,
+                collect_logits=True,
             )
             logger.info(
                 "Epoch %d/%d [Val]   loss=%.4f macro_f1=%.4f mutation_macro_f1=%.4f",
@@ -639,15 +677,39 @@ def main() -> None:
                 epoch, max_epochs, val_metrics.snp_auc, val_metrics.snp_ap,
             )
 
+            # 2026-08-10 Part B: per-checkpoint optimal-threshold selection.
+            # F1@0.5 (val_metrics.mutation_macro_f1, logged above) measures
+            # threshold drift once ranking is near-perfect, not model
+            # quality (3x disproven — see History/5_DEVLOG.md). The sweep
+            # below reuses the same buffered validation logits/labels (no
+            # extra forward pass) to find this epoch's own best-scoring
+            # threshold; that score, not F1@0.5, drives selection.
+            threshold_sweep = sweep_thresholds(
+                val_metrics.logits, val_metrics.labels, fixed_reference=VARIANT_PROB_THRESHOLD
+            )
+            selection_f1 = threshold_sweep.f1_at_best
+            selection_threshold = threshold_sweep.best_threshold
+            logger.info(
+                "Epoch %d/%d [Val]   optimal-threshold selection: "
+                "f1@0.5=%.4f f1@optimal=%.4f threshold=%.2f",
+                epoch, max_epochs, threshold_sweep.f1_at_fixed, selection_f1,
+                selection_threshold,
+            )
+
+            # LR scheduling intentionally still keys off F1@0.5, unchanged
+            # from before this session: Part B's scope is checkpoint
+            # SELECTION and early stopping only (see task brief), and
+            # changing what drives the LR schedule would alter training
+            # dynamics, not just which checkpoint gets kept.
             current_lr = optimizer.param_groups[0]["lr"]
             scheduler.step(val_metrics.mutation_macro_f1)
             new_lr = optimizer.param_groups[0]["lr"]
             if new_lr != current_lr:
                 logger.info("LR reduced: %.2e -> %.2e", current_lr, new_lr)
 
-            improved = val_metrics.mutation_macro_f1 > best_score + EARLY_STOPPING_MIN_DELTA
+            improved = selection_f1 > best_score + EARLY_STOPPING_MIN_DELTA
             if improved:
-                best_score = val_metrics.mutation_macro_f1
+                best_score = selection_f1
                 best_val_loss = val_metrics.loss
                 epochs_without_improvement = 0
                 torch.save(
@@ -656,15 +718,18 @@ def main() -> None:
                         "model_state_dict": model.state_dict(),
                         "optimizer_state_dict": optimizer.state_dict(),
                         "best_score": best_score,
+                        "best_threshold": selection_threshold,
                         "val_loss": val_metrics.loss,
                         "val_macro_f1": val_metrics.macro_f1,
                         "val_mutation_macro_f1": val_metrics.mutation_macro_f1,
+                        "val_mutation_macro_f1_at_0.5": threshold_sweep.f1_at_fixed,
+                        "val_mutation_macro_f1_at_optimal": selection_f1,
                     },
                     best_model_path,
                 )
                 logger.info(
-                    "New best model saved (mutation_macro_f1=%.4f) -> %s",
-                    best_score, best_model_path,
+                    "New best model saved (f1@optimal=%.4f, threshold=%.2f) -> %s",
+                    best_score, selection_threshold, best_model_path,
                 )
             else:
                 epochs_without_improvement += 1
@@ -675,6 +740,7 @@ def main() -> None:
                     "model_state_dict": model.state_dict(),
                     "optimizer_state_dict": optimizer.state_dict(),
                     "best_score": best_score,
+                    "best_threshold": selection_threshold,
                 },
                 last_checkpoint_path,
             )
@@ -694,6 +760,9 @@ def main() -> None:
                         "val_loss": val_metrics.loss,
                         "val_macro_f1": val_metrics.macro_f1,
                         "val_mutation_macro_f1": val_metrics.mutation_macro_f1,
+                        "val_mutation_macro_f1_at_0.5": threshold_sweep.f1_at_fixed,
+                        "val_mutation_macro_f1_at_optimal": selection_f1,
+                        "best_threshold": selection_threshold,
                         "snp_auc": val_metrics.snp_auc,
                         "snp_ap": val_metrics.snp_ap,
                         "gamma": gamma,
@@ -710,7 +779,10 @@ def main() -> None:
                 )
                 break
 
-        logger.info("Training complete. Best validation mutation macro F1: %.4f", best_score)
+        logger.info(
+            "Training complete. Best validation mutation macro F1 (at its own optimal "
+            "threshold): %.4f", best_score,
+        )
 
 
 if __name__ == "__main__":
