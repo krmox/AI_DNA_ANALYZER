@@ -1,0 +1,88 @@
+{
+  "test_counts": "cache/test_15x_counts.npz",
+  "binom_v1_threshold": 10.5,
+  "logit_tolerance": 0.001,
+  "loci": 455488,
+  "snp": 549,
+  "binomial_reference": {
+    "precision": 0.9980842911877394,
+    "recall": 0.9489981785063752,
+    "f1": 0.972922502334267,
+    "tp": 521,
+    "fp": 1,
+    "fn": 28,
+    "roc_auc": 0.9999804543323856,
+    "pr_auc": 0.9938519238337264
+  },
+  "seeds": {
+    "1": {
+      "pearson_logit_vs_llr": 0.9999999999999948,
+      "spearman_logit_vs_llr": 1.0,
+      "max_abs_logit_difference": 7.159008532653388e-06,
+      "identical_calls": true,
+      "n_call_disagreements": 0,
+      "at_frozen_binomial_threshold": {
+        "precision": 0.9980842911877394,
+        "recall": 0.9489981785063752,
+        "f1": 0.972922502334267,
+        "tp": 521,
+        "fp": 1,
+        "fn": 28,
+        "roc_auc": 0.9999804543323856,
+        "pr_auc": 0.9938519238337264
+      },
+      "delta_vs_binomial": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "pr_auc": 0.0
+      },
+      "checks": {
+        "max_abs_difference_within_tolerance": true,
+        "pearson_is_one": true,
+        "spearman_is_one": true,
+        "calls_identical": true,
+        "tp_fp_fn_identical": true,
+        "auc_identical": true,
+        "ap_identical": true
+      },
+      "passed": true
+    },
+    "20260811": {
+      "pearson_logit_vs_llr": 0.9999999999999948,
+      "spearman_logit_vs_llr": 1.0,
+      "max_abs_logit_difference": 7.159008532653388e-06,
+      "identical_calls": true,
+      "n_call_disagreements": 0,
+      "at_frozen_binomial_threshold": {
+        "precision": 0.9980842911877394,
+        "recall": 0.9489981785063752,
+        "f1": 0.972922502334267,
+        "tp": 521,
+        "fp": 1,
+        "fn": 28,
+        "roc_auc": 0.9999804543323856,
+        "pr_auc": 0.9938519238337264
+      },
+      "delta_vs_binomial": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "pr_auc": 0.0
+      },
+      "checks": {
+        "max_abs_difference_within_tolerance": true,
+        "pearson_is_one": true,
+        "spearman_is_one": true,
+        "calls_identical": true,
+        "tp_fp_fn_identical": true,
+        "auc_identical": true,
+        "ap_identical": true
+      },
+      "passed": true
+    }
+  },
+  "passed": true
+}

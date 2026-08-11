@@ -18,6 +18,7 @@ represented faithfully in the reads — the BAM generator sanitises anything
 outside ACGT to 'A', which would recreate the same evidence-free label.
 """
 
+import argparse
 import random
 
 import pysam
@@ -69,8 +70,35 @@ def make_record(seq: str, pos0: int, rand: float, rng: random.Random) -> tuple[s
     return ref, ref[0]
 
 
+def parse_args() -> argparse.Namespace:
+    """Path/region overrides, all defaulting to this module's constants.
+
+    Added so a second genomic region can be generated into its own
+    directory without touching the existing dataset; a bare ``python
+    generate_mock_vcf.py`` invocation is byte-for-byte the run it was
+    before this function existed. No scientific parameter is exposed
+    here on purpose — ``VARIANT_STRIDE``, ``SNP_PROB``, ``INSERTION_PROB``
+    and :func:`make_record` stay fixed so two regions are only ever
+    compared under one identical data-generating process.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--fasta", default=FASTA_PATH, help="Indexed reference FASTA.")
+    parser.add_argument("--vcf-out", default=vcf_path, help="Plain-text VCF output path.")
+    parser.add_argument("--vcf-gz-out", default=vcf_gz_path, help="bgzipped VCF output path.")
+    parser.add_argument(
+        "--region-start", type=int, default=REGION_START,
+        help="First 1-based POS considered (inclusive).",
+    )
+    parser.add_argument(
+        "--region-end", type=int, default=REGION_END,
+        help="Upper bound on 1-based POS (exclusive), as in the original range().",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    fasta = pysam.FastaFile(FASTA_PATH)
+    args = parse_args()
+    fasta = pysam.FastaFile(args.fasta)
     contig = fasta.references[0]
     contig_len = fasta.lengths[0]
     seq = fasta.fetch(contig)
@@ -88,18 +116,18 @@ def main() -> None:
     # ``pos`` is the 1-based VCF POS, unchanged from the original generator so
     # the variant loci land on exactly the same coordinates as before; the
     # FASTA is indexed 0-based at ``pos - 1``, matching ``load_variants``.
-    for pos in range(REGION_START, REGION_END, VARIANT_STRIDE):
+    for pos in range(args.region_start, args.region_end, VARIANT_STRIDE):
         record = make_record(seq, pos - 1, rng.random(), rng)
         if record is None:
             continue
         ref, alt = record
         lines.append(f"{contig}\t{pos}\t.\t{ref}\t{alt}\t99\tPASS\t.\tGT\t0/1\n")
 
-    with open(vcf_path, "w") as f:
+    with open(args.vcf_out, "w") as f:
         f.writelines(lines)
 
-    pysam.tabix_compress(vcf_path, vcf_gz_path, force=True)
-    pysam.tabix_index(vcf_gz_path, preset="vcf", force=True)
+    pysam.tabix_compress(args.vcf_out, args.vcf_gz_out, force=True)
+    pysam.tabix_index(args.vcf_gz_out, preset="vcf", force=True)
     print(f"✅ Синтетический VCF создан и заиндексирован! Записей: {len(lines) - 1}")
 
 

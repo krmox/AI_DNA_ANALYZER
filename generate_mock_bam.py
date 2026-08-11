@@ -16,6 +16,7 @@ it in :data:`VARIANT_SPLICERS`. Nothing else in this module needs to change.
 
 from __future__ import annotations
 
+import argparse
 import os
 import random
 from typing import Callable, Dict, List, Tuple
@@ -244,12 +245,29 @@ def generate_reads(
     return reads
 
 
+def parse_args() -> argparse.Namespace:
+    """Path overrides, all defaulting to this module's constants.
+
+    Paths only, deliberately: ``READ_LEN``, ``COVERAGE``, ``BASE_QUALITY``,
+    ``MAPPING_QUALITY`` and ``HET_ALT_READ_FRACTION`` are not exposed, so a
+    second region is generated under exactly the process that produced the
+    first. ``main()`` already derives contig name and length from the FASTA
+    itself, so a different-width region needs no other change.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--fasta", default=FASTA_PATH, help="Indexed reference FASTA.")
+    parser.add_argument("--vcf", default=VCF_PATH, help="Variants to splice into reads.")
+    parser.add_argument("--bam", default=BAM_PATH, help="Output BAM path.")
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
     print(f"🧬 Генерация BAM с внедрением VCF-мутаций (VAF ~ {HET_ALT_READ_FRACTION:.2f}) для...")
 
-    variants = load_variants(VCF_PATH)
+    variants = load_variants(args.vcf)
 
-    fasta = pysam.FastaFile(FASTA_PATH)
+    fasta = pysam.FastaFile(args.fasta)
     contig = fasta.references[0]
     seq = list(fasta.fetch(contig))
     fasta.close()
@@ -258,7 +276,7 @@ def main() -> None:
 
     reads = generate_reads(seq, variants)
 
-    with pysam.AlignmentFile(BAM_PATH, "wb", header=header) as out_bam:
+    with pysam.AlignmentFile(args.bam, "wb", header=header) as out_bam:
         for index, (start, query_sequence, cigar_ops) in enumerate(reads):
             alignment = pysam.AlignedSegment()
             alignment.query_name = f"read_{index}"
@@ -272,12 +290,15 @@ def main() -> None:
             out_bam.write(alignment)
 
     print("⚙️ Сортировка и индексирование BAM...")
-    sorted_bam = "data/giab_chr21/chr21_slice_sorted.bam"
-    pysam.sort("-o", sorted_bam, BAM_PATH)
+    # Derived from the output path rather than hardcoded, so generating into
+    # a different directory never drops a temp file into (or moves one out
+    # of) the original dataset's directory.
+    sorted_bam = os.path.splitext(args.bam)[0] + "_sorted.bam"
+    pysam.sort("-o", sorted_bam, args.bam)
     pysam.index(sorted_bam)
 
-    os.replace(sorted_bam, BAM_PATH)
-    os.replace(sorted_bam + ".bai", BAM_PATH + ".bai")
+    os.replace(sorted_bam, args.bam)
+    os.replace(sorted_bam + ".bai", args.bam + ".bai")
 
     print("✅ Валидный BAM файл готов: SNP, Insertion и Deletion теперь спроецированы в риды!")
 

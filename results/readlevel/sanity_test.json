@@ -1,0 +1,149 @@
+{
+  "reads_cache": "data/giab_hg002_15x_readlevel/test_15x_reads.npz",
+  "counts_cache": "cache/test_15x_counts.npz",
+  "checks": {
+    "dtype_is_uint8": true,
+    "same_locus_count": true,
+    "labels_identical_to_aggregate_cache": true,
+    "same_region": true,
+    "same_bam": true,
+    "counts_reconstructed_exactly": true,
+    "features_finite": true,
+    "padded_rows_are_zero": true,
+    "features_bounded": true,
+    "reference_absent_from_read_rows": true,
+    "extraction_deterministic_within_run": true,
+    "extraction_matches_cache": true,
+    "read_order_not_sorted_by_feature": true
+  },
+  "summary": {
+    "loci": 455488,
+    "max_reads": 48,
+    "read_rows_total": 21863424,
+    "read_rows_valid": 6843780,
+    "read_rows_padded": 15019644,
+    "padding_fraction": 0.6869758369045946,
+    "depth": {
+      "mean": 15.025159828579458,
+      "median": 15.0,
+      "min": 1,
+      "max": 38,
+      "p99": 28.0
+    },
+    "loci_at_capacity": 0,
+    "truncation_rate": 0.0,
+    "zero_depth_loci": 0,
+    "base_quality": {
+      "min": 0,
+      "max": 115,
+      "mean": 37.15531723696554
+    },
+    "mapping_quality": {
+      "min": 26,
+      "max": 70,
+      "mean": 69.9967918314148
+    },
+    "strand_balance_forward_fraction": 0.49975934352068596,
+    "read_position": {
+      "mean": 0.4979928034266581,
+      "p05": 0.047058823529411764,
+      "p95": 0.9490196078431372
+    },
+    "fraction_valid_reads_counted": 0.8051619134454936,
+    "fraction_valid_reads_gap": 0.00015868423590471932,
+    "fraction_valid_reads_near_end": 0.03888991171545549
+  },
+  "reconstruction_max_abs_difference_per_column": {
+    "count_A": 0.0,
+    "count_C": 0.0,
+    "count_G": 0.0,
+    "count_T": 0.0,
+    "gap_reads": 0.0,
+    "insertion_reads": 0.0,
+    "depth": 0.0,
+    "quality_sum": 0.0,
+    "mapping_sum": 0.0,
+    "reference_index": 0.0
+  },
+  "reconstruction_mismatched_loci": 0,
+  "feature_ranges": {
+    "is_A": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.3134983479976654
+    },
+    "is_C": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.18345431983470917
+    },
+    "is_G": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.18026798963546753
+    },
+    "is_T": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.322488933801651
+    },
+    "is_gap": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.00015466671902686357
+    },
+    "base_quality": {
+      "min": 0.0,
+      "max": 1.9166666269302368,
+      "mean": 0.6195095181465149
+    },
+    "mapping_quality": {
+      "min": 0.4333333373069763,
+      "max": 1.1666666269302368,
+      "mean": 1.1665472984313965
+    },
+    "strand": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.5005912780761719
+    },
+    "read_position": {
+      "min": 0.0,
+      "max": 0.9960784316062927,
+      "mean": 0.4981185495853424
+    },
+    "end_distance": {
+      "min": 0.0,
+      "max": 0.9960784316062927,
+      "mean": 0.49759313464164734
+    },
+    "near_end": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.039014846086502075
+    },
+    "insertion_next": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 3.589312109397724e-05
+    },
+    "deletion_next": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 7.145994459278882e-05
+    },
+    "low_quality_base": {
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.19345349073410034
+    }
+  },
+  "loci_with_monotone_read_position_order": 0,
+  "label_distribution": {
+    "normal": 454822,
+    "snp": 549,
+    "insertion": 40,
+    "deletion": 77
+  },
+  "passed": true
+}

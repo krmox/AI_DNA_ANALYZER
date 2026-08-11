@@ -1,0 +1,282 @@
+{
+  "runs": {
+    "residual_lambda0": {
+      "residual_lambda": 0.0,
+      "epoch0_val_f1": 0.996,
+      "best_trained_val_f1": 0.9939879759519038,
+      "final_mean_squared_residual": 6.959799289703369,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9980924638379639,
+          "threshold": 13.0,
+          "mean_squared_residual": 3.0179026126861572
+        },
+        {
+          "epoch": 2,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9987385303055389,
+          "threshold": 12.5,
+          "mean_squared_residual": 4.804266452789307
+        },
+        {
+          "epoch": 3,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9994049182787978,
+          "threshold": 12.5,
+          "mean_squared_residual": 4.211892604827881
+        },
+        {
+          "epoch": 4,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9980537418108533,
+          "threshold": 10.5,
+          "mean_squared_residual": 4.362757205963135
+        },
+        {
+          "epoch": 5,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9978290892577971,
+          "threshold": 10.0,
+          "mean_squared_residual": 4.2823052406311035
+        },
+        {
+          "epoch": 6,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.996308178625844,
+          "threshold": 10.5,
+          "mean_squared_residual": 4.489451885223389
+        },
+        {
+          "epoch": 7,
+          "val_f1": 0.9900199600798404,
+          "val_pr_auc": 0.9978482097344031,
+          "threshold": 8.5,
+          "mean_squared_residual": 3.9776217937469482
+        },
+        {
+          "epoch": 8,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9950862933916043,
+          "threshold": 11.0,
+          "mean_squared_residual": 6.959799289703369
+        }
+      ]
+    },
+    "residual_lambda1e-4": {
+      "residual_lambda": 0.0001,
+      "epoch0_val_f1": 0.996,
+      "best_trained_val_f1": 0.9939879759519038,
+      "final_mean_squared_residual": 2.9412038326263428,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9980860383415943,
+          "threshold": 13.0,
+          "mean_squared_residual": 2.9259674549102783
+        },
+        {
+          "epoch": 2,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9989887005233289,
+          "threshold": 13.5,
+          "mean_squared_residual": 4.453123569488525
+        },
+        {
+          "epoch": 3,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9993309122159612,
+          "threshold": 11.0,
+          "mean_squared_residual": 3.7090518474578857
+        },
+        {
+          "epoch": 4,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9985636337972482,
+          "threshold": 10.5,
+          "mean_squared_residual": 3.6487534046173096
+        },
+        {
+          "epoch": 5,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9986726899920686,
+          "threshold": 11.0,
+          "mean_squared_residual": 3.445720672607422
+        },
+        {
+          "epoch": 6,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9966144164305664,
+          "threshold": 10.5,
+          "mean_squared_residual": 4.022933483123779
+        },
+        {
+          "epoch": 7,
+          "val_f1": 0.9919678714859438,
+          "val_pr_auc": 0.9977327519447893,
+          "threshold": 11.5,
+          "mean_squared_residual": 2.8083078861236572
+        },
+        {
+          "epoch": 8,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.994329478803209,
+          "threshold": 9.5,
+          "mean_squared_residual": 2.9412038326263428
+        }
+      ]
+    },
+    "residual_lambda1e-3": {
+      "residual_lambda": 0.001,
+      "epoch0_val_f1": 0.996,
+      "best_trained_val_f1": 0.9939879759519038,
+      "final_mean_squared_residual": 1.3608359098434448,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "val_f1": 0.99203187250996,
+          "val_pr_auc": 0.998023868494498,
+          "threshold": 10.5,
+          "mean_squared_residual": 2.104543924331665
+        },
+        {
+          "epoch": 2,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.998693540840104,
+          "threshold": 13.0,
+          "mean_squared_residual": 2.824993133544922
+        },
+        {
+          "epoch": 3,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9987357389691824,
+          "threshold": 9.5,
+          "mean_squared_residual": 1.7640141248703003
+        },
+        {
+          "epoch": 4,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9984391707074726,
+          "threshold": 10.5,
+          "mean_squared_residual": 2.184324026107788
+        },
+        {
+          "epoch": 5,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9967667350857705,
+          "threshold": 11.0,
+          "mean_squared_residual": 2.3371474742889404
+        },
+        {
+          "epoch": 6,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.997969789742664,
+          "threshold": 9.5,
+          "mean_squared_residual": 1.4058998823165894
+        },
+        {
+          "epoch": 7,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9967420762674408,
+          "threshold": 9.5,
+          "mean_squared_residual": 1.1919366121292114
+        },
+        {
+          "epoch": 8,
+          "val_f1": 0.9919678714859438,
+          "val_pr_auc": 0.9950858498754572,
+          "threshold": 10.5,
+          "mean_squared_residual": 1.3608359098434448
+        }
+      ]
+    },
+    "residual_lambda1e-2": {
+      "residual_lambda": 0.01,
+      "epoch0_val_f1": 0.996,
+      "best_trained_val_f1": 0.9940119760479043,
+      "final_mean_squared_residual": 0.5130501985549927,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "val_f1": 0.9940119760479043,
+          "val_pr_auc": 0.99791296544294,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.5563215017318726
+        },
+        {
+          "epoch": 2,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9977586255204538,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.6807473301887512
+        },
+        {
+          "epoch": 3,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9980719203494034,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.4437340199947357
+        },
+        {
+          "epoch": 4,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9970741931149728,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.4085737466812134
+        },
+        {
+          "epoch": 5,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9968421505257247,
+          "threshold": 9.5,
+          "mean_squared_residual": 0.47401800751686096
+        },
+        {
+          "epoch": 6,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9979667498175079,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.4311455190181732
+        },
+        {
+          "epoch": 7,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9976521774401972,
+          "threshold": 9.5,
+          "mean_squared_residual": 0.3861461579799652
+        },
+        {
+          "epoch": 8,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9943290866715789,
+          "threshold": 9.5,
+          "mean_squared_residual": 0.5130501985549927
+        }
+      ]
+    }
+  },
+  "selected": {
+    "residual_lambda": 0.0,
+    "epoch": 0,
+    "run": "residual_lambda0",
+    "val_f1": 0.996,
+    "val_pr_auc": 0.9981022258366228,
+    "val_roc_auc": 0.9999967158353238,
+    "threshold": 10.5,
+    "val_mean_squared_residual": 0.0
+  },
+  "best_trained": {
+    "residual_lambda": 0.01,
+    "epoch": 1,
+    "run": "residual_lambda1e-2",
+    "val_f1": 0.9940119760479043,
+    "val_pr_auc": 0.99791296544294,
+    "val_roc_auc": 0.9999960037348924,
+    "threshold": 10.0,
+    "val_mean_squared_residual": 0.5563215017318726
+  },
+  "note": "validation split only; the test region was not read by this script",
+  "any_trained_epoch_beats_untrained": false
+}

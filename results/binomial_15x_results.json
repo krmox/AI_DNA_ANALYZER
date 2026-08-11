@@ -1,0 +1,406 @@
+{
+  "thresholds": {
+    "frequency": {
+      "threshold": 0.33499999999999996,
+      "source": "validation split (last 10% of training region), test labels unused",
+      "validation": {
+        "precision": 0.9879518072289156,
+        "recall": 0.9800796812749004,
+        "f1": 0.984,
+        "tp": 246,
+        "fp": 3,
+        "fn": 5
+      }
+    },
+    "binomial_v1": {
+      "threshold": 10.5,
+      "source": "validation split (last 10% of training region), test labels unused",
+      "validation": {
+        "precision": 1.0,
+        "recall": 0.9920318725099602,
+        "f1": 0.996,
+        "tp": 249,
+        "fp": 0,
+        "fn": 2
+      }
+    },
+    "binomial_v2_qual": {
+      "threshold": 17.5,
+      "source": "validation split (last 10% of training region), test labels unused",
+      "validation": {
+        "precision": 1.0,
+        "recall": 0.9880478087649402,
+        "f1": 0.9939879759519038,
+        "tp": 248,
+        "fp": 0,
+        "fn": 3
+      }
+    },
+    "rawpileup_mamba": {
+      "threshold": 0.94,
+      "source": "validation split of the 15x training region (frozen at training time)"
+    }
+  },
+  "primary": {
+    "frequency": {
+      "precision": 0.9942084942084942,
+      "recall": 0.9380692167577414,
+      "f1": 0.965323336457357,
+      "tp": 515,
+      "fp": 3,
+      "fn": 34
+    },
+    "binomial_v1": {
+      "precision": 0.9980842911877394,
+      "recall": 0.9489981785063752,
+      "f1": 0.972922502334267,
+      "tp": 521,
+      "fp": 1,
+      "fn": 28
+    },
+    "binomial_v2_qual": {
+      "precision": 1.0,
+      "recall": 0.9453551912568307,
+      "f1": 0.9719101123595506,
+      "tp": 519,
+      "fp": 0,
+      "fn": 30
+    },
+    "rawpileup_mamba": {
+      "precision": 0.9693486590038314,
+      "recall": 0.9216757741347905,
+      "f1": 0.9449112978524743,
+      "tp": 506,
+      "fp": 16,
+      "fn": 43
+    },
+    "_loci": 455371,
+    "_snp": 549
+  },
+  "secondary": {
+    "frequency": {
+      "precision": 0.9942084942084942,
+      "recall": 0.9380692167577414,
+      "f1": 0.965323336457357,
+      "tp": 515,
+      "fp": 3,
+      "fn": 34
+    },
+    "binomial_v1": {
+      "precision": 0.9980842911877394,
+      "recall": 0.9489981785063752,
+      "f1": 0.972922502334267,
+      "tp": 521,
+      "fp": 1,
+      "fn": 28
+    },
+    "binomial_v2_qual": {
+      "precision": 1.0,
+      "recall": 0.9453551912568307,
+      "f1": 0.9719101123595506,
+      "tp": 519,
+      "fp": 0,
+      "fn": 30
+    },
+    "rawpileup_mamba": {
+      "precision": 0.9693486590038314,
+      "recall": 0.9216757741347905,
+      "f1": 0.9449112978524743,
+      "tp": 506,
+      "fp": 16,
+      "fn": 43
+    },
+    "_loci": 455488,
+    "_snp": 549
+  },
+  "by_depth": {
+    "1-4": {
+      "loci": 4137,
+      "snp": 7,
+      "frequency": {
+        "precision": 0.7777777777777778,
+        "recall": 1.0,
+        "f1": 0.8750000000000001,
+        "tp": 7,
+        "fp": 2,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.923076923076923,
+        "tp": 6,
+        "fp": 0,
+        "fn": 1
+      },
+      "binomial_v2_qual": {
+        "precision": 1.0,
+        "recall": 0.5714285714285714,
+        "f1": 0.7272727272727273,
+        "tp": 4,
+        "fp": 0,
+        "fn": 3
+      },
+      "rawpileup_mamba": {
+        "precision": 0.75,
+        "recall": 0.8571428571428571,
+        "f1": 0.7999999999999999,
+        "tp": 6,
+        "fp": 2,
+        "fn": 1
+      }
+    },
+    "5-9": {
+      "loci": 54981,
+      "snp": 79,
+      "frequency": {
+        "precision": 0.9855072463768116,
+        "recall": 0.8607594936708861,
+        "f1": 0.918918918918919,
+        "tp": 68,
+        "fp": 1,
+        "fn": 11
+      },
+      "binomial_v1": {
+        "precision": 0.9852941176470589,
+        "recall": 0.8481012658227848,
+        "f1": 0.91156462585034,
+        "tp": 67,
+        "fp": 1,
+        "fn": 12
+      },
+      "binomial_v2_qual": {
+        "precision": 1.0,
+        "recall": 0.8481012658227848,
+        "f1": 0.9178082191780821,
+        "tp": 67,
+        "fp": 0,
+        "fn": 12
+      },
+      "rawpileup_mamba": {
+        "precision": 0.8441558441558441,
+        "recall": 0.8227848101265823,
+        "f1": 0.8333333333333334,
+        "tp": 65,
+        "fp": 12,
+        "fn": 14
+      }
+    },
+    "10-14": {
+      "loci": 160626,
+      "snp": 209,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 0.9234449760765551,
+        "f1": 0.9601990049751244,
+        "tp": 193,
+        "fp": 0,
+        "fn": 16
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 0.9425837320574163,
+        "f1": 0.9704433497536945,
+        "tp": 197,
+        "fp": 0,
+        "fn": 12
+      },
+      "binomial_v2_qual": {
+        "precision": 1.0,
+        "recall": 0.9425837320574163,
+        "f1": 0.9704433497536945,
+        "tp": 197,
+        "fp": 0,
+        "fn": 12
+      },
+      "rawpileup_mamba": {
+        "precision": 0.9897959183673469,
+        "recall": 0.9282296650717703,
+        "f1": 0.9580246913580247,
+        "tp": 194,
+        "fp": 2,
+        "fn": 15
+      }
+    },
+    "15-19": {
+      "loci": 153458,
+      "snp": 162,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 0.9567901234567902,
+        "f1": 0.9779179810725552,
+        "tp": 155,
+        "fp": 0,
+        "fn": 7
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 0.9814814814814815,
+        "f1": 0.9906542056074767,
+        "tp": 159,
+        "fp": 0,
+        "fn": 3
+      },
+      "binomial_v2_qual": {
+        "precision": 1.0,
+        "recall": 0.9814814814814815,
+        "f1": 0.9906542056074767,
+        "tp": 159,
+        "fp": 0,
+        "fn": 3
+      },
+      "rawpileup_mamba": {
+        "precision": 1.0,
+        "recall": 0.9320987654320988,
+        "f1": 0.9648562300319489,
+        "tp": 151,
+        "fp": 0,
+        "fn": 11
+      }
+    },
+    "20-29": {
+      "loci": 79425,
+      "snp": 91,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 91,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 91,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v2_qual": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 91,
+        "fp": 0,
+        "fn": 0
+      },
+      "rawpileup_mamba": {
+        "precision": 1.0,
+        "recall": 0.978021978021978,
+        "f1": 0.9888888888888888,
+        "tp": 89,
+        "fp": 0,
+        "fn": 2
+      }
+    },
+    "30+": {
+      "loci": 2744,
+      "snp": 1,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v2_qual": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "rawpileup_mamba": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    }
+  },
+  "runtime": {
+    "count_extraction_seconds": 34.32180393100134,
+    "binomial_scoring_seconds": 0.2754627890026313,
+    "binomial_loci_per_second": 1653537.3131492145,
+    "model_inference_seconds": 0.7459171720001905,
+    "model_loci_per_second": 610641.5257589534,
+    "device": "cuda"
+  },
+  "validation": {
+    "loci": 187648,
+    "snp": 251
+  },
+  "oracle_diagnostic": {
+    "frequency": {
+      "threshold": 0.25499999999999995,
+      "precision": 0.9657657657657658,
+      "recall": 0.97632058287796,
+      "f1": 0.9710144927536233,
+      "tp": 536,
+      "fp": 19,
+      "fn": 13
+    },
+    "binomial_v1": {
+      "threshold": 6.0,
+      "precision": 0.9799270072992701,
+      "recall": 0.9781420765027322,
+      "f1": 0.9790337283500455,
+      "tp": 537,
+      "fp": 11,
+      "fn": 12
+    },
+    "binomial_v2_qual": {
+      "threshold": 10.5,
+      "precision": 0.9853211009174312,
+      "recall": 0.9781420765027322,
+      "f1": 0.9817184643510054,
+      "tp": 537,
+      "fp": 8,
+      "fn": 12
+    },
+    "rawpileup_mamba": {
+      "threshold": 0.925,
+      "precision": 0.9513513513513514,
+      "recall": 0.9617486338797814,
+      "f1": 0.9565217391304348,
+      "tp": 528,
+      "fp": 27,
+      "fn": 21
+    }
+  },
+  "multiple_testing_diagnostic": {
+    "method": "binomial upper-tail p-value under H0 + Benjamini-Hochberg, alpha=0.05",
+    "precision": 0.9906542056074766,
+    "recall": 0.9653916211293261,
+    "f1": 0.9778597785977861,
+    "tp": 530,
+    "fp": 5,
+    "fn": 19
+  },
+  "dataset": {
+    "test_region": [
+      29999999,
+      30469999
+    ],
+    "loci": 455488,
+    "snp": 549,
+    "normal": 454822,
+    "insertion": 40,
+    "deletion": 77,
+    "depth_median": 15.0,
+    "depth_mean": 15.025159828579458
+  }
+}

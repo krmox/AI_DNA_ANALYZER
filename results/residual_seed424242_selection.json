@@ -1,0 +1,90 @@
+{
+  "runs": {
+    "residual_lambda1e-2_seed424242": {
+      "residual_lambda": 0.01,
+      "epoch0_val_f1": 0.996,
+      "best_trained_val_f1": 0.996,
+      "final_mean_squared_residual": 0.43677106499671936,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "val_f1": 0.992,
+          "val_pr_auc": 0.9982674286779374,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.4187754690647125
+        },
+        {
+          "epoch": 2,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9971005244422525,
+          "threshold": 10.5,
+          "mean_squared_residual": 0.7284737229347229
+        },
+        {
+          "epoch": 3,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.998448040356191,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.4395844042301178
+        },
+        {
+          "epoch": 4,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9986084984413446,
+          "threshold": 9.5,
+          "mean_squared_residual": 0.3818594515323639
+        },
+        {
+          "epoch": 5,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9985967467411035,
+          "threshold": 9.5,
+          "mean_squared_residual": 0.5399993658065796
+        },
+        {
+          "epoch": 6,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9979810997598999,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.3946892023086548
+        },
+        {
+          "epoch": 7,
+          "val_f1": 0.9939879759519038,
+          "val_pr_auc": 0.9961773367614253,
+          "threshold": 9.5,
+          "mean_squared_residual": 0.47558239102363586
+        },
+        {
+          "epoch": 8,
+          "val_f1": 0.996,
+          "val_pr_auc": 0.9979046275971295,
+          "threshold": 10.0,
+          "mean_squared_residual": 0.43677106499671936
+        }
+      ]
+    }
+  },
+  "selected": {
+    "residual_lambda": 0.01,
+    "epoch": 0,
+    "run": "residual_lambda1e-2_seed424242",
+    "val_f1": 0.996,
+    "val_pr_auc": 0.9981022258366228,
+    "val_roc_auc": 0.9999967158353238,
+    "threshold": 10.5,
+    "val_mean_squared_residual": 0.0
+  },
+  "best_trained": {
+    "residual_lambda": 0.01,
+    "epoch": 8,
+    "run": "residual_lambda1e-2_seed424242",
+    "val_f1": 0.996,
+    "val_pr_auc": 0.9979046275971295,
+    "val_roc_auc": 0.9999960249916217,
+    "threshold": 10.0,
+    "val_mean_squared_residual": 0.43677106499671936
+  },
+  "note": "validation split only; the test region was not read by this script",
+  "any_trained_epoch_beats_untrained": false
+}
