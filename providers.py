@@ -45,6 +45,7 @@ from __future__ import annotations
 
 import gzip
 from abc import ABC, abstractmethod
+from bisect import bisect_right
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
@@ -446,6 +447,8 @@ class GiabAlignmentProvider(VariantDataProvider):
         self._vcf: "pysam.VariantFile | None" = None
         self._windows: List[GenomicWindow] | None = None
         self._confident_regions: List[Tuple[int, int]] | None = None
+        self._confident_starts: List[int] = []
+        self._confident_ends: List[int] = []
 
         # Per-handle contig spellings, resolved on open().
         self._fasta_contig: str | None = None
@@ -562,11 +565,21 @@ class GiabAlignmentProvider(VariantDataProvider):
 
         if self._confident_regions is None:
             self._confident_regions = load_bed_regions(self.high_confidence_bed, self.contig)
+            # ``load_bed_regions`` returns sorted, merged, non-overlapping
+            # intervals, so the containing interval -- if any -- is the last one
+            # starting at or before ``start``. Binary search finds it in
+            # O(log n) instead of scanning every interval per window, which on
+            # a multi-megabase region with thousands of intervals is the
+            # difference between minutes and tens of minutes. The predicate is
+            # unchanged: a window is confident iff one interval contains it.
+            self._confident_starts = [s for s, _ in self._confident_regions]
+            self._confident_ends = [e for _, e in self._confident_regions]
 
-        return any(
-            region_start <= start and end <= region_end
-            for region_start, region_end in self._confident_regions
-        )
+        if not self._confident_starts:
+            return False
+
+        index = bisect_right(self._confident_starts, start) - 1
+        return index >= 0 and end <= self._confident_ends[index]
 
     def _build_windows(self) -> List[GenomicWindow]:
         """Tile the contig into windows, skipping uncallable regions.
