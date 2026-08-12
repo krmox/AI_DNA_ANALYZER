@@ -156,6 +156,10 @@ def build_tensors(features: np.ndarray, llr: np.ndarray,
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train-evidence", default="cache/train_15x_evidence.npz")
+    parser.add_argument("--validation-evidence", default="",
+                        help="Optional disjoint validation set. When given the whole "
+                             "training file is used as fit and this file as validation, "
+                             "instead of splitting the training file 90/10.")
     parser.add_argument("--epochs", type=int, default=8)
     parser.add_argument("--seed", type=int, default=20260811)
     parser.add_argument("--residual-lambda", type=float, default=0.0)
@@ -193,18 +197,36 @@ def main() -> None:
         logger.info("ABLATION: zeroing feature groups %s (%d channels)",
                     args.drop_groups, len(drop_indices))
 
-    # Sequential split by batch, byte-identical to train_residual_binomial.py.
-    n_windows = labels.size // SEQ_LEN
-    n_batches = (n_windows + BATCH_SIZE - 1) // BATCH_SIZE
-    split_locus = int(n_batches * TRAIN_FRACTION) * BATCH_SIZE * SEQ_LEN
-    logger.info("Training region: %d loci / %d windows; fit=%d loci, val=%d loci",
-                labels.size, n_windows, split_locus, labels.size - split_locus)
+    if args.validation_evidence:
+        # An externally supplied validation set, used by the powered benchmark
+        # where validation is a disjoint set of genomic blocks rather than the
+        # tail of the training region. The whole training file becomes the fit
+        # split. Omitting the flag leaves the original behaviour untouched, so
+        # every earlier run reproduces byte-identically.
+        validation_blob = np.load(args.validation_evidence, allow_pickle=True)
+        val_labels_flat = validation_blob["labels"]
+        val_llr = validation_blob["pb_llr"]
+        if args.shuffle_prior:
+            val_llr = np.random.default_rng(args.shuffle_seed).permutation(val_llr)
+        logger.info("Training region: %d loci (all fit); external validation: %d loci",
+                    labels.size, val_labels_flat.size)
+        fit_features, fit_prior = build_tensors(features, llr, drop_indices)
+        val_features, val_prior = build_tensors(validation_blob["features"], val_llr,
+                                                drop_indices)
+        fit_labels_flat = labels
+    else:
+        # Sequential split by batch, byte-identical to train_residual_binomial.py.
+        n_windows = labels.size // SEQ_LEN
+        n_batches = (n_windows + BATCH_SIZE - 1) // BATCH_SIZE
+        split_locus = int(n_batches * TRAIN_FRACTION) * BATCH_SIZE * SEQ_LEN
+        logger.info("Training region: %d loci / %d windows; fit=%d loci, val=%d loci",
+                    labels.size, n_windows, split_locus, labels.size - split_locus)
 
-    fit_features, fit_prior = build_tensors(features[:split_locus], llr[:split_locus],
-                                            drop_indices)
-    val_features, val_prior = build_tensors(features[split_locus:], llr[split_locus:],
-                                            drop_indices)
-    fit_labels_flat, val_labels_flat = labels[:split_locus], labels[split_locus:]
+        fit_features, fit_prior = build_tensors(features[:split_locus], llr[:split_locus],
+                                                drop_indices)
+        val_features, val_prior = build_tensors(features[split_locus:], llr[split_locus:],
+                                                drop_indices)
+        fit_labels_flat, val_labels_flat = labels[:split_locus], labels[split_locus:]
     fit_window_labels = torch.tensor(fit_labels_flat, dtype=torch.long).reshape(-1, SEQ_LEN)
 
     has_mutation = (fit_window_labels != LABEL_NORMAL).any(dim=1)
