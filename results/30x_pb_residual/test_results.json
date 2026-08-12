@@ -1,0 +1,1639 @@
+{
+  "split": {
+    "validation_loci": 187776,
+    "validation_frame_loci": 187677,
+    "validation_snp": 251,
+    "rule": "last 10% of training-region window batches; test labels unused"
+  },
+  "thresholds": {
+    "frequency": {
+      "threshold": 0.25499999999999995,
+      "source": "30x validation split, F1-maximizing"
+    },
+    "binomial_v1": {
+      "threshold": 11.5,
+      "source": "30x validation split, F1-maximizing"
+    },
+    "poisson_binomial": {
+      "threshold": 14.0,
+      "source": "30x validation split, F1-maximizing"
+    },
+    "pb_residual_seedA": {
+      "threshold": 14.0,
+      "source": "validation selection inside checkpoints_30x_pb_residual/best_30x_pb_residual_seedA.pt"
+    },
+    "pb_residual_seedB": {
+      "threshold": 14.0,
+      "source": "validation selection inside checkpoints_30x_pb_residual/best_30x_pb_residual_seedB.pt"
+    },
+    "DIAG_seedA_lastepoch": {
+      "threshold": 9.5,
+      "source": "validation selection inside checkpoints_30x_pb_residual/last_30x_pb_residual_seedA.pt"
+    },
+    "DIAG_seedB_lastepoch": {
+      "threshold": 15.5,
+      "source": "validation selection inside checkpoints_30x_pb_residual/last_30x_pb_residual_seedB.pt"
+    },
+    "DIAG_shuffled_control": {
+      "threshold": 9.0,
+      "source": "validation selection inside checkpoints_30x_pb_residual/best_30x_pb_residual_shuffled.pt"
+    },
+    "pb_constant_shift": {
+      "threshold": 19.5,
+      "source": "best additive constant on validation; algebraically a moved boundary",
+      "shift": -5.5
+    }
+  },
+  "validation": {
+    "frequency": {
+      "precision": 1.0,
+      "recall": 0.9960159362549801,
+      "f1": 0.998003992015968,
+      "tp": 250,
+      "fp": 0,
+      "fn": 1
+    },
+    "binomial_v1": {
+      "precision": 1.0,
+      "recall": 0.9960159362549801,
+      "f1": 0.998003992015968,
+      "tp": 250,
+      "fp": 0,
+      "fn": 1
+    },
+    "poisson_binomial": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 251,
+      "fp": 0,
+      "fn": 0
+    },
+    "pb_constant_shift": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 251,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "primary": {
+    "frequency": {
+      "precision": 0.9981785063752276,
+      "recall": 0.9981785063752276,
+      "f1": 0.9981785063752276,
+      "tp": 548,
+      "fp": 1,
+      "fn": 1
+    },
+    "binomial_v1": {
+      "precision": 0.9963702359346642,
+      "recall": 1.0,
+      "f1": 0.9981818181818182,
+      "tp": 549,
+      "fp": 2,
+      "fn": 0
+    },
+    "poisson_binomial": {
+      "precision": 0.9963702359346642,
+      "recall": 1.0,
+      "f1": 0.9981818181818182,
+      "tp": 549,
+      "fp": 2,
+      "fn": 0
+    },
+    "pb_residual_seedA": {
+      "precision": 0.9963702359346642,
+      "recall": 1.0,
+      "f1": 0.9981818181818182,
+      "tp": 549,
+      "fp": 2,
+      "fn": 0
+    },
+    "pb_residual_seedB": {
+      "precision": 0.9963702359346642,
+      "recall": 1.0,
+      "f1": 0.9981818181818182,
+      "tp": 549,
+      "fp": 2,
+      "fn": 0
+    },
+    "DIAG_seedA_lastepoch": {
+      "precision": 0.9963702359346642,
+      "recall": 1.0,
+      "f1": 0.9981818181818182,
+      "tp": 549,
+      "fp": 2,
+      "fn": 0
+    },
+    "DIAG_seedB_lastepoch": {
+      "precision": 0.9963702359346642,
+      "recall": 1.0,
+      "f1": 0.9981818181818182,
+      "tp": 549,
+      "fp": 2,
+      "fn": 0
+    },
+    "DIAG_shuffled_control": {
+      "precision": 0.6361529548088065,
+      "recall": 1.0,
+      "f1": 0.7776203966005666,
+      "tp": 549,
+      "fp": 314,
+      "fn": 0
+    },
+    "pb_constant_shift": {
+      "precision": 0.9981785063752276,
+      "recall": 0.9981785063752276,
+      "f1": 0.9981785063752276,
+      "tp": 548,
+      "fp": 1,
+      "fn": 1
+    }
+  },
+  "by_depth": {
+    "1-4": {
+      "loci": 4,
+      "snp": 0,
+      "frequency": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "5-9": {
+      "loci": 1172,
+      "snp": 2,
+      "frequency": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1": 0.8,
+        "tp": 2,
+        "fp": 1,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 0.2857142857142857,
+        "recall": 1.0,
+        "f1": 0.4444444444444445,
+        "tp": 2,
+        "fp": 5,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "10-14": {
+      "loci": 6501,
+      "snp": 12,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 12,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 12,
+        "fp": 0,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 12,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 12,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 12,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 12,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 12,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 0.46153846153846156,
+        "recall": 1.0,
+        "f1": 0.631578947368421,
+        "tp": 12,
+        "fp": 14,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 1.0,
+        "recall": 0.9166666666666666,
+        "f1": 0.9565217391304348,
+        "tp": 11,
+        "fp": 0,
+        "fn": 1
+      }
+    },
+    "15-19": {
+      "loci": 28432,
+      "snp": 54,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 0.6206896551724138,
+        "recall": 1.0,
+        "f1": 0.7659574468085107,
+        "tp": 54,
+        "fp": 33,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "20-29": {
+      "loci": 183358,
+      "snp": 218,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 0.9954128440366973,
+        "f1": 0.9977011494252873,
+        "tp": 217,
+        "fp": 0,
+        "fn": 1
+      },
+      "binomial_v1": {
+        "precision": 0.990909090909091,
+        "recall": 1.0,
+        "f1": 0.995433789954338,
+        "tp": 218,
+        "fp": 2,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 0.990909090909091,
+        "recall": 1.0,
+        "f1": 0.995433789954338,
+        "tp": 218,
+        "fp": 2,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 0.990909090909091,
+        "recall": 1.0,
+        "f1": 0.995433789954338,
+        "tp": 218,
+        "fp": 2,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 0.990909090909091,
+        "recall": 1.0,
+        "f1": 0.995433789954338,
+        "tp": 218,
+        "fp": 2,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 0.990909090909091,
+        "recall": 1.0,
+        "f1": 0.995433789954338,
+        "tp": 218,
+        "fp": 2,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 0.990909090909091,
+        "recall": 1.0,
+        "f1": 0.995433789954338,
+        "tp": 218,
+        "fp": 2,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 0.5844504021447721,
+        "recall": 1.0,
+        "f1": 0.7377326565143824,
+        "tp": 218,
+        "fp": 155,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 0.9954337899543378,
+        "recall": 1.0,
+        "f1": 0.9977116704805492,
+        "tp": 218,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    "30-39": {
+      "loci": 189775,
+      "snp": 208,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 0.6775244299674267,
+        "recall": 1.0,
+        "f1": 0.8077669902912622,
+        "tp": 208,
+        "fp": 99,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 208,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "40-49": {
+      "loci": 43039,
+      "snp": 54,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 0.8709677419354839,
+        "recall": 1.0,
+        "f1": 0.9310344827586207,
+        "tp": 54,
+        "fp": 8,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 54,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "50+": {
+      "loci": 3090,
+      "snp": 1,
+      "frequency": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "binomial_v1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "poisson_binomial": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedA": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_residual_seedB": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedA_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_seedB_lastepoch": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "DIAG_shuffled_control": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "pb_constant_shift": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    }
+  },
+  "diagnostics": {
+    "pb_residual_seedA": {
+      "epoch": 0,
+      "validation_threshold": 14.0,
+      "use_gate": false,
+      "drop_groups": [],
+      "residual_gap_mean": 0.0,
+      "residual_gap_std": 0.0,
+      "residual_gap_p1": 0.0,
+      "residual_gap_p99": 0.0,
+      "gate_mean": 1.0,
+      "gate_std": 0.0
+    },
+    "pb_residual_seedB": {
+      "epoch": 0,
+      "validation_threshold": 14.0,
+      "use_gate": false,
+      "drop_groups": [],
+      "residual_gap_mean": 0.0,
+      "residual_gap_std": 0.0,
+      "residual_gap_p1": 0.0,
+      "residual_gap_p99": 0.0,
+      "gate_mean": 1.0,
+      "gate_std": 0.0
+    },
+    "DIAG_seedA_lastepoch": {
+      "epoch": 8,
+      "validation_threshold": 9.5,
+      "use_gate": false,
+      "drop_groups": [],
+      "residual_gap_mean": -1.5920721292495728,
+      "residual_gap_std": 1.160711646080017,
+      "residual_gap_p1": -5.082393169403076,
+      "residual_gap_p99": -0.5679110288619995,
+      "gate_mean": 1.0,
+      "gate_std": 0.0
+    },
+    "DIAG_seedB_lastepoch": {
+      "epoch": 8,
+      "validation_threshold": 15.5,
+      "use_gate": false,
+      "drop_groups": [],
+      "residual_gap_mean": 4.057750225067139,
+      "residual_gap_std": 0.9422303438186646,
+      "residual_gap_p1": 1.2804949283599854,
+      "residual_gap_p99": 5.307367324829102,
+      "gate_mean": 1.0,
+      "gate_std": 0.0
+    },
+    "DIAG_shuffled_control": {
+      "epoch": 7,
+      "validation_threshold": 9.0,
+      "use_gate": false,
+      "drop_groups": [],
+      "residual_gap_mean": -27.35295295715332,
+      "residual_gap_std": 2.836819887161255,
+      "residual_gap_p1": -28.12384796142578,
+      "residual_gap_p99": -25.28023338317871,
+      "gate_mean": 1.0,
+      "gate_std": 0.0
+    }
+  },
+  "runtime": {
+    "binomial_v1": {
+      "scoring_seconds": 0.21935180299988133,
+      "loci_per_second": 2076518.1492501632
+    },
+    "pb_residual_seedA": {
+      "inference_seconds": 0.49905916700299713,
+      "loci_per_second": 912693.3841038222
+    },
+    "pb_residual_seedB": {
+      "inference_seconds": 0.36579169999822625,
+      "loci_per_second": 1245211.4140430433
+    },
+    "DIAG_seedA_lastepoch": {
+      "inference_seconds": 0.36151284200241207,
+      "loci_per_second": 1259949.7087767657
+    },
+    "DIAG_seedB_lastepoch": {
+      "inference_seconds": 0.3578978239966091,
+      "loci_per_second": 1272676.0808814405
+    },
+    "DIAG_shuffled_control": {
+      "inference_seconds": 0.3605061090020172,
+      "loci_per_second": 1263468.1871575478
+    }
+  },
+  "oracle_diagnostic": {
+    "_note": "test-optimal thresholds; a ceiling diagnostic, NOT a result",
+    "frequency": {
+      "threshold": 0.25499999999999995,
+      "precision": 0.9981785063752276,
+      "recall": 0.9981785063752276,
+      "f1": 0.9981785063752276,
+      "tp": 548,
+      "fp": 1,
+      "fn": 1
+    },
+    "binomial_v1": {
+      "threshold": 10.5,
+      "precision": 0.9963702359346642,
+      "recall": 1.0,
+      "f1": 0.9981818181818182,
+      "tp": 549,
+      "fp": 2,
+      "fn": 0
+    },
+    "poisson_binomial": {
+      "threshold": 16.5,
+      "precision": 0.9981818181818182,
+      "recall": 1.0,
+      "f1": 0.9990900818926297,
+      "tp": 549,
+      "fp": 1,
+      "fn": 0
+    },
+    "pb_residual_seedA": {
+      "threshold": 16.5,
+      "precision": 0.9981818181818182,
+      "recall": 1.0,
+      "f1": 0.9990900818926297,
+      "tp": 549,
+      "fp": 1,
+      "fn": 0
+    },
+    "pb_residual_seedB": {
+      "threshold": 16.5,
+      "precision": 0.9981818181818182,
+      "recall": 1.0,
+      "f1": 0.9990900818926297,
+      "tp": 549,
+      "fp": 1,
+      "fn": 0
+    },
+    "DIAG_seedA_lastepoch": {
+      "threshold": 12.0,
+      "precision": 0.9981818181818182,
+      "recall": 1.0,
+      "f1": 0.9990900818926297,
+      "tp": 549,
+      "fp": 1,
+      "fn": 0
+    },
+    "DIAG_seedB_lastepoch": {
+      "threshold": 18.0,
+      "precision": 0.9981818181818182,
+      "recall": 1.0,
+      "f1": 0.9990900818926297,
+      "tp": 549,
+      "fp": 1,
+      "fn": 0
+    },
+    "DIAG_shuffled_control": {
+      "threshold": 33.0,
+      "precision": 0.9981818181818182,
+      "recall": 1.0,
+      "f1": 0.9990900818926297,
+      "tp": 549,
+      "fp": 1,
+      "fn": 0
+    },
+    "pb_constant_shift": {
+      "threshold": 16.5,
+      "precision": 0.9981818181818182,
+      "recall": 1.0,
+      "f1": 0.9990900818926297,
+      "tp": 549,
+      "fp": 1,
+      "fn": 0
+    }
+  },
+  "bootstrap_vs_poisson_binomial": {
+    "frequency": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": -3.311806590522437e-06,
+      "delta_f1_ci95": [
+        -0.0036969003002478044,
+        0.003628125682600968
+      ],
+      "delta_f1_p_two_sided": 0.9496,
+      "delta_tp": -1,
+      "delta_tp_ci95": [
+        -3.0,
+        0.0
+      ],
+      "delta_fp": -1,
+      "delta_fp_ci95": [
+        -5.0,
+        2.0
+      ],
+      "delta_fn": 1,
+      "delta_fn_ci95": [
+        0.0,
+        3.0
+      ]
+    },
+    "binomial_v1": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0,
+      "delta_f1_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_f1_p_two_sided": 2.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pb_residual_seedA": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0,
+      "delta_f1_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_f1_p_two_sided": 2.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pb_residual_seedB": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0,
+      "delta_f1_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_f1_p_two_sided": 2.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "DIAG_seedA_lastepoch": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0,
+      "delta_f1_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_f1_p_two_sided": 2.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "DIAG_seedB_lastepoch": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0,
+      "delta_f1_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_f1_p_two_sided": 2.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "DIAG_shuffled_control": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": -0.22056142158125158,
+      "delta_f1_ci95": [
+        -0.24504035391682738,
+        -0.1971388175193156
+      ],
+      "delta_f1_p_two_sided": 0.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 312,
+      "delta_fp_ci95": [
+        277.975,
+        347.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "pb_constant_shift": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": -3.311806590522437e-06,
+      "delta_f1_ci95": [
+        -0.002695396491034749,
+        0.002739850779877249
+      ],
+      "delta_f1_p_two_sided": 0.972,
+      "delta_tp": -1,
+      "delta_tp_ci95": [
+        -3.0,
+        0.0
+      ],
+      "delta_fp": -1,
+      "delta_fp_ci95": [
+        -3.0,
+        0.0
+      ],
+      "delta_fn": 1,
+      "delta_fn_ci95": [
+        0.0,
+        3.0
+      ]
+    }
+  },
+  "error_overlap": {
+    "frequency": {
+      "pb_fn": 0,
+      "frequency_fn": 1,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_frequency": 0,
+      "frequency_fn_recovered_by_pb": 1,
+      "pb_fp": 2,
+      "frequency_fp": 1,
+      "shared_fp": 0,
+      "frequency_fp_not_made_by_pb": 1,
+      "pb_fp_not_made_by_frequency": 2,
+      "disagreements": 4
+    },
+    "binomial_v1": {
+      "pb_fn": 0,
+      "binomial_v1_fn": 0,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_binomial_v1": 0,
+      "binomial_v1_fn_recovered_by_pb": 0,
+      "pb_fp": 2,
+      "binomial_v1_fp": 2,
+      "shared_fp": 2,
+      "binomial_v1_fp_not_made_by_pb": 0,
+      "pb_fp_not_made_by_binomial_v1": 0,
+      "disagreements": 0
+    },
+    "pb_residual_seedA": {
+      "pb_fn": 0,
+      "pb_residual_seedA_fn": 0,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_pb_residual_seedA": 0,
+      "pb_residual_seedA_fn_recovered_by_pb": 0,
+      "pb_fp": 2,
+      "pb_residual_seedA_fp": 2,
+      "shared_fp": 2,
+      "pb_residual_seedA_fp_not_made_by_pb": 0,
+      "pb_fp_not_made_by_pb_residual_seedA": 0,
+      "disagreements": 0
+    },
+    "pb_residual_seedB": {
+      "pb_fn": 0,
+      "pb_residual_seedB_fn": 0,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_pb_residual_seedB": 0,
+      "pb_residual_seedB_fn_recovered_by_pb": 0,
+      "pb_fp": 2,
+      "pb_residual_seedB_fp": 2,
+      "shared_fp": 2,
+      "pb_residual_seedB_fp_not_made_by_pb": 0,
+      "pb_fp_not_made_by_pb_residual_seedB": 0,
+      "disagreements": 0
+    },
+    "DIAG_seedA_lastepoch": {
+      "pb_fn": 0,
+      "DIAG_seedA_lastepoch_fn": 0,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_DIAG_seedA_lastepoch": 0,
+      "DIAG_seedA_lastepoch_fn_recovered_by_pb": 0,
+      "pb_fp": 2,
+      "DIAG_seedA_lastepoch_fp": 2,
+      "shared_fp": 2,
+      "DIAG_seedA_lastepoch_fp_not_made_by_pb": 0,
+      "pb_fp_not_made_by_DIAG_seedA_lastepoch": 0,
+      "disagreements": 0
+    },
+    "DIAG_seedB_lastepoch": {
+      "pb_fn": 0,
+      "DIAG_seedB_lastepoch_fn": 0,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_DIAG_seedB_lastepoch": 0,
+      "DIAG_seedB_lastepoch_fn_recovered_by_pb": 0,
+      "pb_fp": 2,
+      "DIAG_seedB_lastepoch_fp": 2,
+      "shared_fp": 2,
+      "DIAG_seedB_lastepoch_fp_not_made_by_pb": 0,
+      "pb_fp_not_made_by_DIAG_seedB_lastepoch": 0,
+      "disagreements": 0
+    },
+    "DIAG_shuffled_control": {
+      "pb_fn": 0,
+      "DIAG_shuffled_control_fn": 0,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_DIAG_shuffled_control": 0,
+      "DIAG_shuffled_control_fn_recovered_by_pb": 0,
+      "pb_fp": 2,
+      "DIAG_shuffled_control_fp": 314,
+      "shared_fp": 2,
+      "DIAG_shuffled_control_fp_not_made_by_pb": 312,
+      "pb_fp_not_made_by_DIAG_shuffled_control": 0,
+      "disagreements": 312
+    },
+    "pb_constant_shift": {
+      "pb_fn": 0,
+      "pb_constant_shift_fn": 1,
+      "shared_fn": 0,
+      "pb_fn_recovered_by_pb_constant_shift": 0,
+      "pb_constant_shift_fn_recovered_by_pb": 1,
+      "pb_fp": 2,
+      "pb_constant_shift_fp": 1,
+      "shared_fp": 1,
+      "pb_constant_shift_fp_not_made_by_pb": 0,
+      "pb_fp_not_made_by_pb_constant_shift": 1,
+      "disagreements": 2
+    }
+  },
+  "residual": {
+    "pb_residual_seedA": {
+      "mean_all": -4.884913353405736e-10,
+      "std_all": 4.743336724442811e-07,
+      "mean_snp": 4.559387095436066e-08,
+      "mean_normal": -5.441157706076583e-10,
+      "std_snp": 5.235213438695162e-06,
+      "std_normal": 4.3838207606671713e-07,
+      "percentiles": {
+        "1": -9.182395199758275e-07,
+        "25": -3.169110591727531e-07,
+        "50": -3.851337027072077e-10,
+        "75": 3.1606765382719004e-07,
+        "99": 9.190061547315053e-07
+      },
+      "roc_auc": 0.5011959441544253,
+      "correlations": {
+        "depth": -0.0008750126397494379,
+        "vaf": -0.000808567399926752,
+        "pb_llr": 0.003112034665048596,
+        "alt_mean_phred": 0.0014272158491224045,
+        "alt_strand_bias": -0.005604610849235277,
+        "alt_mean_mapq": 0.00044645187466534064
+      },
+      "by_depth": {
+        "1-4": {
+          "loci": 4,
+          "mean": 1.5624407545544727e-08,
+          "std": 8.761265181474006e-08
+        },
+        "5-9": {
+          "loci": 1172,
+          "mean": 1.3908279175682665e-09,
+          "std": 1.5389670966373226e-07
+        },
+        "10-14": {
+          "loci": 6501,
+          "mean": -3.926946574442861e-09,
+          "std": 2.2099029734587184e-07
+        },
+        "15-19": {
+          "loci": 28432,
+          "mean": 2.4594325831361854e-09,
+          "std": 3.132836540002283e-07
+        },
+        "20-29": {
+          "loci": 183358,
+          "mean": 1.1132931094272855e-10,
+          "std": 3.4807788479822837e-07
+        },
+        "30-39": {
+          "loci": 189775,
+          "mean": -1.3754204354801345e-09,
+          "std": 5.587800805714831e-07
+        },
+        "40-49": {
+          "loci": 43039,
+          "mean": -1.735487037675064e-09,
+          "std": 6.256798873611862e-07
+        },
+        "50+": {
+          "loci": 3090,
+          "mean": 1.5134652629023708e-08,
+          "std": 5.687142541880857e-07
+        }
+      },
+      "dispersion_over_location": 971.0175762146899,
+      "pb_at_own_mean_residual": {
+        "shift": -4.884913353405736e-10,
+        "threshold": 14.000000000488491,
+        "precision": 0.9963702359346642,
+        "recall": 1.0,
+        "f1": 0.9981818181818182,
+        "tp": 549,
+        "fp": 2,
+        "fn": 0
+      }
+    },
+    "pb_residual_seedB": {
+      "mean_all": -4.884913353405736e-10,
+      "std_all": 4.743336724442811e-07,
+      "mean_snp": 4.559387095436066e-08,
+      "mean_normal": -5.441157706076583e-10,
+      "std_snp": 5.235213438695162e-06,
+      "std_normal": 4.3838207606671713e-07,
+      "percentiles": {
+        "1": -9.182395199758275e-07,
+        "25": -3.169110591727531e-07,
+        "50": -3.851337027072077e-10,
+        "75": 3.1606765382719004e-07,
+        "99": 9.190061547315053e-07
+      },
+      "roc_auc": 0.5011959441544253,
+      "correlations": {
+        "depth": -0.0008750126397494379,
+        "vaf": -0.000808567399926752,
+        "pb_llr": 0.003112034665048596,
+        "alt_mean_phred": 0.0014272158491224045,
+        "alt_strand_bias": -0.005604610849235277,
+        "alt_mean_mapq": 0.00044645187466534064
+      },
+      "by_depth": {
+        "1-4": {
+          "loci": 4,
+          "mean": 1.5624407545544727e-08,
+          "std": 8.761265181474006e-08
+        },
+        "5-9": {
+          "loci": 1172,
+          "mean": 1.3908279175682665e-09,
+          "std": 1.5389670966373226e-07
+        },
+        "10-14": {
+          "loci": 6501,
+          "mean": -3.926946574442861e-09,
+          "std": 2.2099029734587184e-07
+        },
+        "15-19": {
+          "loci": 28432,
+          "mean": 2.4594325831361854e-09,
+          "std": 3.132836540002283e-07
+        },
+        "20-29": {
+          "loci": 183358,
+          "mean": 1.1132931094272855e-10,
+          "std": 3.4807788479822837e-07
+        },
+        "30-39": {
+          "loci": 189775,
+          "mean": -1.3754204354801345e-09,
+          "std": 5.587800805714831e-07
+        },
+        "40-49": {
+          "loci": 43039,
+          "mean": -1.735487037675064e-09,
+          "std": 6.256798873611862e-07
+        },
+        "50+": {
+          "loci": 3090,
+          "mean": 1.5134652629023708e-08,
+          "std": 5.687142541880857e-07
+        }
+      },
+      "dispersion_over_location": 971.0175762146899,
+      "pb_at_own_mean_residual": {
+        "shift": -4.884913353405736e-10,
+        "threshold": 14.000000000488491,
+        "precision": 0.9963702359346642,
+        "recall": 1.0,
+        "f1": 0.9981818181818182,
+        "tp": 549,
+        "fp": 2,
+        "fn": 0
+      }
+    },
+    "DIAG_seedA_lastepoch": {
+      "mean_all": -1.5868507318544198,
+      "std_all": 1.1096813998051946,
+      "mean_snp": -23.12827974113273,
+      "mean_normal": -1.560848813464162,
+      "std_snp": 11.312206390026185,
+      "std_normal": 0.7194589819102668,
+      "percentiles": {
+        "1": -5.052498020010543,
+        "25": -1.7379132530687338,
+        "50": -1.4576572840860305,
+        "75": -1.192761225523988,
+        "99": -0.5678878654386196
+      },
+      "roc_auc": 0.018697540627575445,
+      "correlations": {
+        "depth": 0.010049229285303635,
+        "vaf": -0.8147609914943315,
+        "pb_llr": -0.6996619784191552,
+        "alt_mean_phred": -0.44720799255582255,
+        "alt_strand_bias": 0.6308837391829838,
+        "alt_mean_mapq": -0.5034206116447871
+      },
+      "by_depth": {
+        "1-4": {
+          "loci": 4,
+          "mean": -3.5141614519277775,
+          "std": 1.9910629001471698
+        },
+        "5-9": {
+          "loci": 1172,
+          "mean": -1.9152592228613883,
+          "std": 1.4743644679316172
+        },
+        "10-14": {
+          "loci": 6501,
+          "mean": -1.6531338556773,
+          "std": 1.368361642563837
+        },
+        "15-19": {
+          "loci": 28432,
+          "mean": -1.6205812627586191,
+          "std": 1.29744158442801
+        },
+        "20-29": {
+          "loci": 183358,
+          "mean": -1.5843922071612888,
+          "std": 1.0931122181878887
+        },
+        "30-39": {
+          "loci": 189775,
+          "mean": -1.5799086366707324,
+          "std": 1.074553471924623
+        },
+        "40-49": {
+          "loci": 43039,
+          "mean": -1.5871413590775032,
+          "std": 1.1530846090688884
+        },
+        "50+": {
+          "loci": 3090,
+          "mean": -1.5781714251009664,
+          "std": 0.8969335899731301
+        }
+      },
+      "dispersion_over_location": 0.6992979097084971,
+      "pb_at_own_mean_residual": {
+        "shift": -1.5868507318544198,
+        "threshold": 15.586850731854419,
+        "precision": 0.9963702359346642,
+        "recall": 1.0,
+        "f1": 0.9981818181818182,
+        "tp": 549,
+        "fp": 2,
+        "fn": 0
+      }
+    },
+    "DIAG_seedB_lastepoch": {
+      "mean_all": 4.062779763892141,
+      "std_all": 0.8853665142980996,
+      "mean_snp": -9.369171336705667,
+      "mean_normal": 4.078993010292333,
+      "std_snp": 8.067315300331096,
+      "std_normal": 0.6987302172444876,
+      "percentiles": {
+        "1": 1.3039474721987812,
+        "25": 3.69067150339621,
+        "50": 4.05672648038626,
+        "75": 4.599556352067219,
+        "99": 5.30738501906028
+      },
+      "roc_auc": 0.013983676666271068,
+      "correlations": {
+        "depth": 0.0018265737469481571,
+        "vaf": -0.6685688800728196,
+        "pb_llr": -0.572790983351186,
+        "alt_mean_phred": -0.4411327461108222,
+        "alt_strand_bias": 0.49632460458972727,
+        "alt_mean_mapq": -0.4993357929366876
+      },
+      "by_depth": {
+        "1-4": {
+          "loci": 4,
+          "mean": 3.7062922127326763,
+          "std": 0.40005836737925116
+        },
+        "5-9": {
+          "loci": 1172,
+          "mean": 3.9586758611784596,
+          "std": 1.0289384265600454
+        },
+        "10-14": {
+          "loci": 6501,
+          "mean": 4.044865000696807,
+          "std": 1.0468293937979822
+        },
+        "15-19": {
+          "loci": 28432,
+          "mean": 4.052047511399681,
+          "std": 0.9677182377169268
+        },
+        "20-29": {
+          "loci": 183358,
+          "mean": 4.064820247658906,
+          "std": 0.8789542740551785
+        },
+        "30-39": {
+          "loci": 189775,
+          "mean": 4.065584825788747,
+          "std": 0.8622522536544295
+        },
+        "40-49": {
+          "loci": 43039,
+          "mean": 4.0546231607361785,
+          "std": 0.9287871189576766
+        },
+        "50+": {
+          "loci": 3090,
+          "mean": 4.05942099427337,
+          "std": 0.8168665637621979
+        }
+      },
+      "dispersion_over_location": 0.21792136560459754,
+      "pb_at_own_mean_residual": {
+        "shift": 4.062779763892141,
+        "threshold": 9.937220236107859,
+        "precision": 0.9945652173913043,
+        "recall": 1.0,
+        "f1": 0.9972752043596731,
+        "tp": 549,
+        "fp": 3,
+        "fn": 0
+      }
+    },
+    "DIAG_shuffled_control": {
+      "mean_all": -27.35831067473229,
+      "std_all": 2.816700549400761,
+      "mean_snp": 32.028563098606845,
+      "mean_normal": -27.42999452841915,
+      "std_snp": 0.285326606537773,
+      "std_normal": 1.9186093376457138,
+      "percentiles": {
+        "1": -28.12385273251342,
+        "25": -27.927647656133928,
+        "50": -27.654873690881324,
+        "75": -27.270392612493723,
+        "99": -25.31733535677547
+      },
+      "roc_auc": 0.9999999919903012,
+      "correlations": {
+        "depth": -0.008270603939264657,
+        "vaf": 0.7317018007216762,
+        "pb_llr": 0.6334252569870025,
+        "alt_mean_phred": 0.6557055434280333,
+        "alt_strand_bias": -0.6737794956225718,
+        "alt_mean_mapq": 0.3075451932262596
+      },
+      "by_depth": {
+        "1-4": {
+          "loci": 4,
+          "mean": -27.02750061380064,
+          "std": 0.2655342046964973
+        },
+        "5-9": {
+          "loci": 1172,
+          "mean": -26.62223623100721,
+          "std": 4.280266435466407
+        },
+        "10-14": {
+          "loci": 6501,
+          "mean": -27.18201657275867,
+          "std": 3.516741724866375
+        },
+        "15-19": {
+          "loci": 28432,
+          "mean": -27.309469956518424,
+          "std": 3.2398579401705514
+        },
+        "20-29": {
+          "loci": 183358,
+          "mean": -27.360243967679747,
+          "std": 2.8363791067521427
+        },
+        "30-39": {
+          "loci": 189775,
+          "mean": -27.371558253057227,
+          "std": 2.704974306561584
+        },
+        "40-49": {
+          "loci": 43039,
+          "mean": -27.367651958333557,
+          "std": 2.7787708626205596
+        },
+        "50+": {
+          "loci": 3090,
+          "mean": -27.399781980780634,
+          "std": 2.2430129660086684
+        }
+      },
+      "dispersion_over_location": 0.10295593843088498,
+      "pb_at_own_mean_residual": {
+        "shift": -27.35831067473229,
+        "threshold": 41.358310674732294,
+        "precision": 1.0,
+        "recall": 0.9872495446265938,
+        "f1": 0.993583868010999,
+        "tp": 542,
+        "fp": 0,
+        "fn": 7
+      }
+    }
+  },
+  "dataset": {
+    "loci": 455488,
+    "frame_loci": 455371,
+    "snp": 549,
+    "mean_depth": 29.972700119018555,
+    "median_depth": 30.0
+  }
+}
