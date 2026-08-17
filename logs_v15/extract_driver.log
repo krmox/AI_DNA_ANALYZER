@@ -1,0 +1,17 @@
+chr16_segdup native_mean_depth=62.1893
+  30x: fraction=42.4824 achieved_mean_depth=30.04
+  15x: fraction=42.2412 achieved_mean_depth=15.06
+chr15_segdup native_mean_depth=55.3281
+  30x: fraction=42.5422 achieved_mean_depth=30.06
+  15x: fraction=42.2711 achieved_mean_depth=14.99
+chr7_segdup native_mean_depth=62.6316
+  30x: fraction=42.4790 achieved_mean_depth=30.10
+  15x: fraction=42.2395 achieved_mean_depth=15.08
+chr14_neutral native_mean_depth=73.8952
+  30x: fraction=42.4060 achieved_mean_depth=30.08
+  15x: fraction=42.2030 achieved_mean_depth=14.98
+DEPTHS READY 2026-08-17T15:55:02+05:00
+START chr16_segdup_full 2026-08-17T15:55:02+05:00
+START chr7_segdup_full 2026-08-17T15:55:02+05:00
+START chr15_segdup_full 2026-08-17T15:55:02+05:00
+START chr14_neutral_full 2026-08-17T15:55:02+05:00

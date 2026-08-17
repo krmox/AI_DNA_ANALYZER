@@ -1,0 +1,303 @@
+{
+  "previously_used_contigs": [
+    "chr1",
+    "chr19",
+    "chr20",
+    "chr21",
+    "chr4"
+  ],
+  "rule_frozen_at": "2026-08-17T15:52:06+0500",
+  "rule_file_mtime": "2026-08-17T16:01:23+0500",
+  "cells": {
+    "chr16_segdup_full": {
+      "contig": "chr16",
+      "region": [
+        29000000,
+        30000000
+      ],
+      "expected_region": [
+        29000000,
+        30000000
+      ],
+      "loci_cached": 815680,
+      "loci_from_window_tiling": 815680,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 29000000,
+      "position_max": 29999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:07:01+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr16_segdup_full.bam",
+      "ok": true
+    },
+    "chr16_segdup_30x": {
+      "contig": "chr16",
+      "region": [
+        29000000,
+        30000000
+      ],
+      "expected_region": [
+        29000000,
+        30000000
+      ],
+      "loci_cached": 815680,
+      "loci_from_window_tiling": 815680,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 29000000,
+      "position_max": 29999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:16:54+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr16_segdup_30x.bam",
+      "ok": true
+    },
+    "chr16_segdup_15x": {
+      "contig": "chr16",
+      "region": [
+        29000000,
+        30000000
+      ],
+      "expected_region": [
+        29000000,
+        30000000
+      ],
+      "loci_cached": 815680,
+      "loci_from_window_tiling": 815680,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 29000000,
+      "position_max": 29999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:22:18+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr16_segdup_15x.bam",
+      "ok": true
+    },
+    "chr15_segdup_full": {
+      "contig": "chr15",
+      "region": [
+        30000000,
+        31000000
+      ],
+      "expected_region": [
+        30000000,
+        31000000
+      ],
+      "loci_cached": 724800,
+      "loci_from_window_tiling": 724800,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 30000000,
+      "position_max": 30999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:05:16+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr15_segdup_full.bam",
+      "ok": true
+    },
+    "chr15_segdup_30x": {
+      "contig": "chr15",
+      "region": [
+        30000000,
+        31000000
+      ],
+      "expected_region": [
+        30000000,
+        31000000
+      ],
+      "loci_cached": 724800,
+      "loci_from_window_tiling": 724800,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 30000000,
+      "position_max": 30999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:16:17+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr15_segdup_30x.bam",
+      "ok": true
+    },
+    "chr15_segdup_15x": {
+      "contig": "chr15",
+      "region": [
+        30000000,
+        31000000
+      ],
+      "expected_region": [
+        30000000,
+        31000000
+      ],
+      "loci_cached": 724800,
+      "loci_from_window_tiling": 724800,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 30000000,
+      "position_max": 30999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:21:42+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr15_segdup_15x.bam",
+      "ok": true
+    },
+    "chr7_segdup_full": {
+      "contig": "chr7",
+      "region": [
+        57000000,
+        58000000
+      ],
+      "expected_region": [
+        57000000,
+        58000000
+      ],
+      "loci_cached": 648768,
+      "loci_from_window_tiling": 648768,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 57022144,
+      "position_max": 57863199,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:04:47+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr7_segdup_full.bam",
+      "ok": true
+    },
+    "chr7_segdup_30x": {
+      "contig": "chr7",
+      "region": [
+        57000000,
+        58000000
+      ],
+      "expected_region": [
+        57000000,
+        58000000
+      ],
+      "loci_cached": 648768,
+      "loci_from_window_tiling": 648768,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 57022144,
+      "position_max": 57863199,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:15:34+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr7_segdup_30x.bam",
+      "ok": true
+    },
+    "chr7_segdup_15x": {
+      "contig": "chr7",
+      "region": [
+        57000000,
+        58000000
+      ],
+      "expected_region": [
+        57000000,
+        58000000
+      ],
+      "loci_cached": 648768,
+      "loci_from_window_tiling": 648768,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 57022144,
+      "position_max": 57863199,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:21:24+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr7_segdup_15x.bam",
+      "ok": true
+    },
+    "chr14_neutral_full": {
+      "contig": "chr14",
+      "region": [
+        53000000,
+        54000000
+      ],
+      "expected_region": [
+        53000000,
+        54000000
+      ],
+      "loci_cached": 978112,
+      "loci_from_window_tiling": 978112,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 53000000,
+      "position_max": 53999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:09:58+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr14_neutral_full.bam",
+      "ok": true
+    },
+    "chr14_neutral_30x": {
+      "contig": "chr14",
+      "region": [
+        53000000,
+        54000000
+      ],
+      "expected_region": [
+        53000000,
+        54000000
+      ],
+      "loci_cached": 978112,
+      "loci_from_window_tiling": 978112,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 53000000,
+      "position_max": 53999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:17:47+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr14_neutral_30x.bam",
+      "ok": true
+    },
+    "chr14_neutral_15x": {
+      "contig": "chr14",
+      "region": [
+        53000000,
+        54000000
+      ],
+      "expected_region": [
+        53000000,
+        54000000
+      ],
+      "loci_cached": 978112,
+      "loci_from_window_tiling": 978112,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 53000000,
+      "position_max": 53999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "cache_mtime": "2026-08-17T16:22:51+0500",
+      "extracted_after_rule_was_frozen": true,
+      "bam": "data/giab_hg002_v15/chr14_neutral_15x.bam",
+      "ok": true
+    }
+  },
+  "n_cells": 12,
+  "all_ok": true
+}

@@ -1,0 +1,325 @@
+{
+  "loci": 10368078,
+  "snp": 12261,
+  "routed": 7298,
+  "disagreements": 41,
+  "disagreement_rate": 3.954445558762193e-06,
+  "populations": {
+    "router_fn": {
+      "n": {
+        "min": 24.0,
+        "median": 32.0,
+        "max": 91.0
+      },
+      "binomial_llr": {
+        "min": -5.296799603182134,
+        "median": 0.647637162914986,
+        "max": 0.8872005996605008
+      },
+      "pb_llr": {
+        "min": 11.886039995754528,
+        "median": 13.483846981180655,
+        "max": 24.11976654558667
+      },
+      "vaf": {
+        "min": 0.10989010989010989,
+        "median": 0.12244897959183673,
+        "max": 0.125
+      },
+      "k": {
+        "min": 3.0,
+        "median": 4.0,
+        "max": 10.0
+      },
+      "depth": {
+        "min": 29.0,
+        "median": 43.0,
+        "max": 107.0
+      },
+      "mean_base_quality": {
+        "min": 37.093023255813954,
+        "median": 38.58620689655172,
+        "max": 38.833333333333336
+      },
+      "mean_mapq": {
+        "min": 47.205607476635514,
+        "median": 57.3,
+        "max": 66.79069767441861
+      },
+      "epsilon_sensitivity_shift": {
+        "min": 17.656396201896253,
+        "median": 23.607857526269573,
+        "max": 58.47517744480874
+      },
+      "router_margin": {
+        "min": 6.112799400339499,
+        "median": 6.352362837085014,
+        "max": 12.296799603182134
+      },
+      "cells": {
+        "chr1_segdup_30x": 2,
+        "chr1_segdup_full": 3
+      }
+    },
+    "router_recovers_fn": {
+      "n": {
+        "min": 5.0,
+        "median": 50.0,
+        "max": 95.0
+      },
+      "binomial_llr": {
+        "min": 13.645511444684853,
+        "median": 22.712913596424116,
+        "max": 31.780315748163375
+      },
+      "pb_llr": {
+        "min": 3.702389080027448,
+        "median": 6.952060171434763,
+        "max": 10.201731262842078
+      },
+      "vaf": {
+        "min": 0.17894736842105263,
+        "median": 0.3894736842105263,
+        "max": 0.6
+      },
+      "k": {
+        "min": 3.0,
+        "median": 10.0,
+        "max": 17.0
+      },
+      "depth": {
+        "min": 5.0,
+        "median": 62.0,
+        "max": 119.0
+      },
+      "mean_base_quality": {
+        "min": 17.8,
+        "median": 27.152100840336132,
+        "max": 36.50420168067227
+      },
+      "mean_mapq": {
+        "min": 57.294117647058826,
+        "median": 60.94705882352941,
+        "max": 64.6
+      },
+      "epsilon_sensitivity_shift": {
+        "min": 18.6463350580148,
+        "median": 60.50455209985174,
+        "max": 102.36276914168869
+      },
+      "router_margin": {
+        "min": 6.645511444684853,
+        "median": 15.712913596424114,
+        "max": 24.780315748163375
+      },
+      "cells": {
+        "chr1_segdup_full": 2
+      }
+    },
+    "router_fp": {
+      "n": {
+        "min": 6.0,
+        "median": 48.5,
+        "max": 65.0
+      },
+      "binomial_llr": {
+        "min": 12.465457547787683,
+        "median": 14.191130176057474,
+        "max": 27.033696165793806
+      },
+      "pb_llr": {
+        "min": -5.464561586031719,
+        "median": 6.119490243729889,
+        "max": 10.289419808964938
+      },
+      "vaf": {
+        "min": 0.15384615384615385,
+        "median": 0.19433962264150945,
+        "max": 0.5
+      },
+      "k": {
+        "min": 3.0,
+        "median": 8.5,
+        "max": 11.0
+      },
+      "depth": {
+        "min": 13.0,
+        "median": 58.0,
+        "max": 88.0
+      },
+      "mean_base_quality": {
+        "min": 9.615384615384615,
+        "median": 21.95138888888889,
+        "max": 24.134615384615383
+      },
+      "mean_mapq": {
+        "min": 68.42307692307692,
+        "median": 70.0,
+        "max": 70.0
+      },
+      "epsilon_sensitivity_shift": {
+        "min": 18.596838115208875,
+        "median": 51.05764221382954,
+        "max": 66.70349813825473
+      },
+      "router_margin": {
+        "min": 5.465457547787683,
+        "median": 7.191130176057473,
+        "max": 20.033696165793806
+      },
+      "cells": {
+        "chr19_gcrich_15x": 1,
+        "chr19_gcrich_full": 3,
+        "chr20_neutral_full": 3,
+        "chr4_atrich_full": 1
+      }
+    },
+    "router_avoids_fp": {
+      "n": {
+        "min": 35.0,
+        "median": 51.5,
+        "max": 133.0
+      },
+      "binomial_llr": {
+        "min": -28.302566496842918,
+        "median": -3.9038271997850273,
+        "max": 1.3308008994907503
+      },
+      "pb_llr": {
+        "min": 11.15393304805502,
+        "median": 15.836710948128015,
+        "max": 26.671468848667722
+      },
+      "vaf": {
+        "min": 0.0684931506849315,
+        "median": 0.1070843570843571,
+        "max": 0.125
+      },
+      "k": {
+        "min": 4.0,
+        "median": 5.0,
+        "max": 12.0
+      },
+      "depth": {
+        "min": 44.0,
+        "median": 64.0,
+        "max": 157.0
+      },
+      "mean_base_quality": {
+        "min": 26.75,
+        "median": 37.66261755485893,
+        "max": 38.65909090909091
+      },
+      "mean_mapq": {
+        "min": 39.72727272727273,
+        "median": 59.705280172413794,
+        "max": 70.0
+      },
+      "epsilon_sensitivity_shift": {
+        "min": 22.865403384180656,
+        "median": 29.336582608016222,
+        "max": 70.62558480758501
+      },
+      "router_margin": {
+        "min": 5.66919910050925,
+        "median": 10.903827199785027,
+        "max": 35.302566496842914
+      },
+      "cells": {
+        "chr19_gcrich_full": 1,
+        "chr1_segdup_30x": 10,
+        "chr1_segdup_full": 14,
+        "chr20_neutral_full": 1
+      }
+    }
+  },
+  "background_unrouted": {
+    "n": {
+      "min": 0.0,
+      "median": 24.0,
+      "max": 260.0
+    },
+    "binomial_llr": {
+      "min": -177.62257150969813,
+      "median": -16.395929677818287,
+      "max": 529.8296942450027
+    },
+    "pb_llr": {
+      "min": -33.26567745544862,
+      "median": -15.939517921901352,
+      "max": 465.45801902630166
+    },
+    "vaf": {
+      "min": 0.0,
+      "median": 0.0,
+      "max": 1.0
+    },
+    "k": {
+      "min": 0.0,
+      "median": 0.0,
+      "max": 93.0
+    },
+    "depth": {
+      "min": 0.0,
+      "median": 30.0,
+      "max": 337.0
+    },
+    "mean_base_quality": {
+      "min": 0.0,
+      "median": 36.63636363636363,
+      "max": 51.666666666666664
+    },
+    "mean_mapq": {
+      "min": 0.0,
+      "median": 70.0,
+      "max": 70.0
+    },
+    "epsilon_sensitivity_shift": {
+      "min": -12.869205129541143,
+      "median": -1.088932741730403,
+      "max": 581.1051972524264
+    },
+    "router_margin": {
+      "min": 5.429635663763738,
+      "median": 23.395929677818287,
+      "max": 522.8296942450027
+    },
+    "cells": {
+      "chr19_gcrich_15x": 884408,
+      "chr19_gcrich_30x": 885813,
+      "chr19_gcrich_full": 886118,
+      "chr1_segdup_15x": 655560,
+      "chr1_segdup_30x": 655977,
+      "chr1_segdup_full": 656036,
+      "chr20_neutral_15x": 945974,
+      "chr20_neutral_30x": 947318,
+      "chr20_neutral_full": 947576,
+      "chr4_atrich_15x": 964783,
+      "chr4_atrich_30x": 965559,
+      "chr4_atrich_full": 965658
+    }
+  },
+  "failures_inside_router_band": 0,
+  "failures_outside_router_band": 13,
+  "router_margin_at_failures": {
+    "min": 5.465457547787683,
+    "median": 6.627748157854466,
+    "max": 20.033696165793806
+  },
+  "flip_0.001_0.05": {
+    "loci": 392,
+    "fraction": 3.780835753743365e-05,
+    "captures_router_fn": 4,
+    "captures_router_fp": 6,
+    "captures_router_avoids_fp": 16,
+    "enrichment_vs_background": 20345.52197802198
+  },
+  "flip_0.0001_0.05": {
+    "loci": 2703,
+    "fraction": 0.00026070405720327337,
+    "captures_router_fn": 5,
+    "captures_router_fp": 6,
+    "captures_router_avoids_fp": 24,
+    "enrichment_vs_background": 3245.6489370784598
+  }
+}

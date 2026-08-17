@@ -1,0 +1,25 @@
+ALL FETCHED 2026-08-17T15:54:48+05:00
+total 178424
+-rw-r--r--. 1 mark mark 43157170 Aug 17 15:54 chr14_neutral_full.bam
+-rw-r--r--. 1 mark mark    49776 Aug 17 15:54 chr14_neutral_full.bam.bai
+-rw-r--r--. 1 mark mark     3048 Aug 17 15:54 chr14_neutral_highconf.bed
+-rw-r--r--. 1 mark mark    60295 Aug 17 15:54 chr14_neutral.vcf.gz
+-rw-r--r--. 1 mark mark      758 Aug 17 15:54 chr14_neutral.vcf.gz.tbi
+-rw-r--r--. 1 mark mark 33972046 Aug 17 15:54 chr15_segdup_full.bam
+-rw-r--r--. 1 mark mark    38440 Aug 17 15:54 chr15_segdup_full.bam.bai
+-rw-r--r--. 1 mark mark    21768 Aug 17 15:54 chr15_segdup_highconf.bed
+-rw-r--r--. 1 mark mark    25901 Aug 17 15:54 chr15_segdup.vcf.gz
+-rw-r--r--. 1 mark mark      669 Aug 17 15:54 chr15_segdup.vcf.gz.tbi
+-rw-r--r--. 1 mark mark  5114779 Aug 17 15:54 chr16_segdup_15x.bam
+-rw-r--r--. 1 mark mark 20382725 Aug 17 15:54 chr16_segdup_30x.bam
+-rw-r--r--. 1 mark mark    37896 Aug 17 15:54 chr16_segdup_30x.bam.bai
+-rw-r--r--. 1 mark mark 41497275 Aug 17 15:54 chr16_segdup_full.bam
+-rw-r--r--. 1 mark mark    37976 Aug 17 15:54 chr16_segdup_full.bam.bai
+-rw-r--r--. 1 mark mark    16296 Aug 17 15:54 chr16_segdup_highconf.bed
+-rw-r--r--. 1 mark mark    37206 Aug 17 15:54 chr16_segdup.vcf.gz
+-rw-r--r--. 1 mark mark      679 Aug 17 15:54 chr16_segdup.vcf.gz.tbi
+-rw-r--r--. 1 mark mark 38070170 Aug 17 15:54 chr7_segdup_full.bam
+-rw-r--r--. 1 mark mark    51632 Aug 17 15:54 chr7_segdup_full.bam.bai
+-rw-r--r--. 1 mark mark    11707 Aug 17 15:54 chr7_segdup_highconf.bed
+-rw-r--r--. 1 mark mark    63032 Aug 17 15:54 chr7_segdup.vcf.gz
+-rw-r--r--. 1 mark mark      678 Aug 17 15:54 chr7_segdup.vcf.gz.tbi

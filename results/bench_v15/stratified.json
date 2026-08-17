@@ -1,0 +1,416 @@
+{
+  "frozen_rules": {
+    "frozen_full": {
+      "family": "SK",
+      "name": "SK[0.0001,0.05]&k>=3",
+      "k_min": 3,
+      "epsilon_lo": 0.0001,
+      "epsilon_hi": 0.05
+    },
+    "frozen_lean": {
+      "family": "Sq",
+      "name": "Sq(floor=0.001)",
+      "k_min": 1,
+      "quality_floor": 0.001
+    }
+  },
+  "loci": 9498705,
+  "strata": {
+    "vaf 0-0.15": {
+      "loci": 9483072,
+      "snp": 577,
+      "routed": 371,
+      "pb_only_f1": 0.016415868673050615,
+      "frozen_cascade_f1": 0.015197568389057751,
+      "frozen_cascade_lost_true_snp": 1,
+      "arms": {
+        "frozen_full": {
+          "escalated": 894,
+          "f1": 0.016483516483516484,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 70
+        },
+        "frozen_lean": {
+          "escalated": 223,
+          "f1": 0.014265335235378028,
+          "lost_true_snp": 1,
+          "calls_changed_vs_cascade": 43
+        }
+      }
+    },
+    "vaf 0.15-0.25": {
+      "loci": 3600,
+      "snp": 113,
+      "routed": 3340,
+      "pb_only_f1": 0.29090909090909095,
+      "frozen_cascade_f1": 0.28758169934640526,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 113,
+          "f1": 0.2894736842105263,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 4
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.28758169934640526,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "vaf 0.25-0.35": {
+      "loci": 1753,
+      "snp": 504,
+      "routed": 1235,
+      "pb_only_f1": 0.7881773399014779,
+      "frozen_cascade_f1": 0.7881773399014779,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 9,
+          "f1": 0.7881773399014779,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.7881773399014779,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "vaf 0.35-0.45": {
+      "loci": 1572,
+      "snp": 1456,
+      "routed": 85,
+      "pb_only_f1": 0.9645578005962239,
+      "frozen_cascade_f1": 0.9645578005962239,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 0,
+          "f1": 0.9645578005962239,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.9645578005962239,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "vaf 0.45-0.55": {
+      "loci": 2581,
+      "snp": 2299,
+      "routed": 244,
+      "pb_only_f1": 0.9862247094274644,
+      "frozen_cascade_f1": 0.9862247094274644,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 0,
+          "f1": 0.9862247094274644,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.9862247094274644,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "vaf 0.55-0.75": {
+      "loci": 1570,
+      "snp": 1542,
+      "routed": 11,
+      "pb_only_f1": 0.9922779922779923,
+      "frozen_cascade_f1": 0.9922779922779923,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 0,
+          "f1": 0.9922779922779923,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.9922779922779923,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "vaf 0.75-1.01": {
+      "loci": 4557,
+      "snp": 4372,
+      "routed": 232,
+      "pb_only_f1": 0.9941533875960106,
+      "frozen_cascade_f1": 0.9941533875960106,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 0,
+          "f1": 0.9941533875960106,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.9941533875960106,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "meanQ 0-20": {
+      "loci": 278780,
+      "snp": 311,
+      "routed": 299,
+      "pb_only_f1": 0.0,
+      "frozen_cascade_f1": 0.0,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 5,
+          "f1": 0.0,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.0,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "meanQ 20-25": {
+      "loci": 13473,
+      "snp": 22,
+      "routed": 596,
+      "pb_only_f1": 0.4761904761904761,
+      "frozen_cascade_f1": 0.4651162790697674,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 145,
+          "f1": 0.4761904761904761,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 2
+        },
+        "frozen_lean": {
+          "escalated": 38,
+          "f1": 0.4651162790697674,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "meanQ 25-30": {
+      "loci": 130403,
+      "snp": 162,
+      "routed": 1356,
+      "pb_only_f1": 0.8277945619335346,
+      "frozen_cascade_f1": 0.8277945619335346,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 348,
+          "f1": 0.8277945619335346,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 79,
+          "f1": 0.8277945619335346,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "meanQ 30-35": {
+      "loci": 1500126,
+      "snp": 1661,
+      "routed": 2081,
+      "pb_only_f1": 0.9476534296028881,
+      "frozen_cascade_f1": 0.9490810485085868,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 237,
+          "f1": 0.9476534296028881,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 5
+        },
+        "frozen_lean": {
+          "escalated": 32,
+          "f1": 0.9479386096900392,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 4
+        }
+      }
+    },
+    "meanQ 35-60": {
+      "loci": 7575923,
+      "snp": 8707,
+      "routed": 1186,
+      "pb_only_f1": 0.9414577194640573,
+      "frozen_cascade_f1": 0.9446552108904261,
+      "frozen_cascade_lost_true_snp": 1,
+      "arms": {
+        "frozen_full": {
+          "escalated": 281,
+          "f1": 0.9414577194640573,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 67
+        },
+        "frozen_lean": {
+          "escalated": 74,
+          "f1": 0.9426042420531091,
+          "lost_true_snp": 1,
+          "calls_changed_vs_cascade": 39
+        }
+      }
+    },
+    "depth 1-5": {
+      "loci": 157935,
+      "snp": 194,
+      "routed": 1116,
+      "pb_only_f1": 0.49640287769784175,
+      "frozen_cascade_f1": 0.49640287769784175,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 0,
+          "f1": 0.49640287769784175,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.49640287769784175,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "depth 5-10": {
+      "loci": 365354,
+      "snp": 484,
+      "routed": 2731,
+      "pb_only_f1": 0.8819068255687974,
+      "frozen_cascade_f1": 0.8819068255687974,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 0,
+          "f1": 0.8819068255687974,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.8819068255687974,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "depth 10-15": {
+      "loci": 924610,
+      "snp": 1182,
+      "routed": 652,
+      "pb_only_f1": 0.9486963835155593,
+      "frozen_cascade_f1": 0.9486963835155593,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 0,
+          "f1": 0.9486963835155593,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.9486963835155593,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "depth 15-20": {
+      "loci": 1148464,
+      "snp": 1405,
+      "routed": 474,
+      "pb_only_f1": 0.9654199011997177,
+      "frozen_cascade_f1": 0.9654199011997177,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 8,
+          "f1": 0.9654199011997177,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        },
+        "frozen_lean": {
+          "escalated": 0,
+          "f1": 0.9654199011997177,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 0
+        }
+      }
+    },
+    "depth 20-30": {
+      "loci": 1719218,
+      "snp": 1995,
+      "routed": 285,
+      "pb_only_f1": 0.9595516569200779,
+      "frozen_cascade_f1": 0.9604878048780489,
+      "frozen_cascade_lost_true_snp": 0,
+      "arms": {
+        "frozen_full": {
+          "escalated": 85,
+          "f1": 0.9595516569200779,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 4
+        },
+        "frozen_lean": {
+          "escalated": 36,
+          "f1": 0.9600195026816187,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 2
+        }
+      }
+    },
+    "depth 30-10001": {
+      "loci": 4908670,
+      "snp": 5300,
+      "routed": 260,
+      "pb_only_f1": 0.9364203027604628,
+      "frozen_cascade_f1": 0.9414398280802293,
+      "frozen_cascade_lost_true_snp": 1,
+      "arms": {
+        "frozen_full": {
+          "escalated": 923,
+          "f1": 0.9364203027604628,
+          "lost_true_snp": 0,
+          "calls_changed_vs_cascade": 70
+        },
+        "frozen_lean": {
+          "escalated": 187,
+          "f1": 0.9379962530109734,
+          "lost_true_snp": 1,
+          "calls_changed_vs_cascade": 41
+        }
+      }
+    }
+  }
+}

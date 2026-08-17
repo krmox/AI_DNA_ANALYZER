@@ -1,0 +1,3 @@
+2026-08-17 16:13:21,830 | INFO | 57000000-57500000: 392448 loci (1022 SNP) | pool windows 514 | cumulative 3.3 min
+2026-08-17 16:15:33,453 | INFO | 57500000-58000000: 256320 loci (303 SNP) | pool windows 372 | cumulative 5.5 min
+2026-08-17 16:15:34,446 | INFO | Wrote cache/bench_v15/chr7_segdup_30x.npz | 648768 loci | 1325 SNP | counts 74s reads 164s pb 93s feat 0s

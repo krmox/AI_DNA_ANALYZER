@@ -1,0 +1,29 @@
+START chr16 2026-08-17T15:42:33+05:00
+DONE chr16 rc=0 2026-08-17T15:43:04+05:00
+START chr15 2026-08-17T15:43:04+05:00
+DONE chr15 rc=0 2026-08-17T15:43:31+05:00
+START chr7 2026-08-17T15:43:31+05:00
+DONE chr7 rc=0 2026-08-17T15:44:13+05:00
+START chr14 2026-08-17T15:44:13+05:00
+DONE chr14 rc=0 2026-08-17T15:44:33+05:00
+ALL REFERENCES 2026-08-17T15:44:33+05:00
+total 1060072
+-rw-r--r--. 1 mark mark 108827838 Aug 17 15:44 chr14_full.fa
+-rw-r--r--. 1 mark mark        22 Aug 17 15:44 chr14_full.fa.fai
+-rw-r--r--. 1 mark mark 103691101 Aug 17 15:43 chr15_full.fa
+-rw-r--r--. 1 mark mark        22 Aug 17 15:43 chr15_full.fa.fai
+-rw-r--r--. 1 mark mark  91844042 Aug 17 15:43 chr16_full.fa
+-rw-r--r--. 1 mark mark        21 Aug 17 15:43 chr16_full.fa.fai
+-rw-r--r--. 1 mark mark  59594634 Aug 17 09:34 chr19_full.fa
+-rw-r--r--. 1 mark mark        21 Aug 17 09:34 chr19_full.fa.fai
+-rw-r--r--. 1 mark mark 253105752 Aug 17 09:35 chr1_full.fa
+-rw-r--r--. 1 mark mark        21 Aug 17 09:35 chr1_full.fa.fai
+-rw-r--r--. 1 mark mark  65518294 Aug 17 09:34 chr20_full.fa
+-rw-r--r--. 1 mark mark        21 Aug 17 09:34 chr20_full.fa.fai
+-rw-r--r--. 1 mark mark  47488540 Aug 11 12:48 chr21_full.fa
+-rw-r--r--. 1 mark mark        21 Aug 11 12:48 chr21_full.fa.fai
+-rw-r--r--. 1 mark mark 193384854 Aug 17 09:34 chr4_full.fa
+-rw-r--r--. 1 mark mark        21 Aug 17 09:34 chr4_full.fa.fai
+-rw-r--r--. 1 mark mark 162001796 Aug 17 15:44 chr7_full.fa
+-rw-r--r--. 1 mark mark        21 Aug 17 15:44 chr7_full.fa.fai
+drwxr-xr-x. 1 mark mark       142 Aug 11 15:01 remote_index_cache

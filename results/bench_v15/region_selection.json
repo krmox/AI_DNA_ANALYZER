@@ -1,0 +1,240 @@
+{
+  "previously_used_contigs": [
+    "chr21",
+    "chr20",
+    "chr19",
+    "chr4",
+    "chr1"
+  ],
+  "candidate_contigs": [
+    "chr2",
+    "chr3",
+    "chr5",
+    "chr6",
+    "chr7",
+    "chr8",
+    "chr9",
+    "chr10",
+    "chr11",
+    "chr12",
+    "chr13",
+    "chr14",
+    "chr15",
+    "chr16",
+    "chr17",
+    "chr18",
+    "chr22"
+  ],
+  "contig_ranking": [
+    {
+      "contig": "chr16",
+      "hc_bases": 72717976,
+      "hc_fraction": 0.8049513858151818,
+      "segdup_hc_bases": 6620086,
+      "segdup_hc_fraction": 0.09103781986451329,
+      "rank_by_segdup": 0
+    },
+    {
+      "contig": "chr15",
+      "hc_bases": 76255587,
+      "hc_fraction": 0.7476683794714856,
+      "segdup_hc_bases": 6796716,
+      "segdup_hc_fraction": 0.08913072821798618,
+      "rank_by_segdup": 1
+    },
+    {
+      "contig": "chr7",
+      "hc_bases": 145208090,
+      "hc_fraction": 0.9112755551092591,
+      "segdup_hc_bases": 12665360,
+      "segdup_hc_fraction": 0.0872221375544572,
+      "rank_by_segdup": 2
+    },
+    {
+      "contig": "chr17",
+      "hc_bases": 72303121,
+      "hc_fraction": 0.8684283366335989,
+      "segdup_hc_bases": 6224739,
+      "segdup_hc_fraction": 0.08609225872836111,
+      "rank_by_segdup": 3
+    },
+    {
+      "contig": "chr22",
+      "hc_bases": 30717797,
+      "hc_fraction": 0.6044612954487333,
+      "segdup_hc_bases": 2538831,
+      "segdup_hc_fraction": 0.08265016530970629,
+      "rank_by_segdup": 4
+    },
+    {
+      "contig": "chr9",
+      "hc_bases": 107380644,
+      "hc_fraction": 0.7759013228806992,
+      "segdup_hc_bases": 7646785,
+      "segdup_hc_fraction": 0.07121194952043684,
+      "rank_by_segdup": 5
+    },
+    {
+      "contig": "chr10",
+      "hc_bases": 123640877,
+      "hc_fraction": 0.9240901293299956,
+      "segdup_hc_bases": 7981782,
+      "segdup_hc_fraction": 0.0645561742497184,
+      "rank_by_segdup": 6
+    },
+    {
+      "contig": "chr11",
+      "hc_bases": 124785527,
+      "hc_fraction": 0.9237445214967327,
+      "segdup_hc_bases": 7944690,
+      "segdup_hc_fraction": 0.06366675840540385,
+      "rank_by_segdup": 7
+    },
+    {
+      "contig": "chr2",
+      "hc_bases": 227375060,
+      "hc_fraction": 0.9388155866047107,
+      "segdup_hc_bases": 11654023,
+      "segdup_hc_fraction": 0.05125462308838973,
+      "rank_by_segdup": 8
+    },
+    {
+      "contig": "chr13",
+      "hc_bases": 92390841,
+      "hc_fraction": 0.8078641532349143,
+      "segdup_hc_bases": 4496431,
+      "segdup_hc_fraction": 0.04866749724683207,
+      "rank_by_segdup": 9
+    },
+    {
+      "contig": "chr5",
+      "hc_bases": 169619078,
+      "hc_fraction": 0.9343434212399272,
+      "segdup_hc_bases": 8213513,
+      "segdup_hc_fraction": 0.048423285262758,
+      "rank_by_segdup": 10
+    },
+    {
+      "contig": "chr6",
+      "hc_bases": 162271096,
+      "hc_fraction": 0.9500317081991608,
+      "segdup_hc_bases": 7572825,
+      "segdup_hc_fraction": 0.04666773804251621,
+      "rank_by_segdup": 11
+    },
+    {
+      "contig": "chr18",
+      "hc_bases": 71874289,
+      "hc_fraction": 0.8942559583075397,
+      "segdup_hc_bases": 3105810,
+      "segdup_hc_fraction": 0.04321169702283942,
+      "rank_by_segdup": 12
+    },
+    {
+      "contig": "chr12",
+      "hc_bases": 124066104,
+      "hc_fraction": 0.9309008917773359,
+      "segdup_hc_bases": 5346303,
+      "segdup_hc_fraction": 0.0430923743684254,
+      "rank_by_segdup": 13
+    },
+    {
+      "contig": "chr3",
+      "hc_bases": 187963548,
+      "hc_fraction": 0.9478959032057798,
+      "segdup_hc_bases": 7803287,
+      "segdup_hc_fraction": 0.0415148952178749,
+      "rank_by_segdup": 14
+    },
+    {
+      "contig": "chr8",
+      "hc_bases": 136495254,
+      "hc_fraction": 0.9404474078149666,
+      "segdup_hc_bases": 5039966,
+      "segdup_hc_fraction": 0.036924111661787155,
+      "rank_by_segdup": 15
+    },
+    {
+      "contig": "chr14",
+      "hc_bases": 82807199,
+      "hc_fraction": 0.7735829859721427,
+      "segdup_hc_bases": 2762245,
+      "segdup_hc_fraction": 0.03335754660654565,
+      "rank_by_segdup": 16
+    }
+  ],
+  "chosen_contigs": {
+    "hard": [
+      "chr16",
+      "chr15",
+      "chr7"
+    ],
+    "neutral": "chr14"
+  },
+  "selected": {
+    "chr16_segdup": {
+      "contig": "chr16",
+      "start": 29000000,
+      "stop": 30000000,
+      "gc": 0.490081,
+      "n_fraction": 0.0,
+      "hc_fraction": 0.858091,
+      "lowmap_segdup_fraction": 0.608598,
+      "lowmap_segdup_hc_fraction": 0.5693300593992945,
+      "alldifficult_fraction": 0.677139,
+      "alldifficult_hc_fraction": 0.6336355934277367,
+      "tandemrepeats_fraction": 0.103327,
+      "tandemrepeats_hc_fraction": 0.06122194499184819,
+      "rule": "H",
+      "regime": "segmental duplication / low mappability"
+    },
+    "chr15_segdup": {
+      "contig": "chr15",
+      "start": 30000000,
+      "stop": 31000000,
+      "gc": 0.426872,
+      "n_fraction": 0.0,
+      "hc_fraction": 0.780053,
+      "lowmap_segdup_fraction": 0.777115,
+      "lowmap_segdup_hc_fraction": 0.7228713946360055,
+      "alldifficult_fraction": 0.826917,
+      "alldifficult_hc_fraction": 0.7818507203997677,
+      "tandemrepeats_fraction": 0.064205,
+      "tandemrepeats_hc_fraction": 0.03367335296447806,
+      "rule": "H",
+      "regime": "segmental duplication / low mappability"
+    },
+    "chr7_segdup": {
+      "contig": "chr7",
+      "start": 57000000,
+      "stop": 58000000,
+      "gc": 0.419391,
+      "n_fraction": 0.0,
+      "hc_fraction": 0.680969,
+      "lowmap_segdup_fraction": 0.802394,
+      "lowmap_segdup_hc_fraction": 0.8941493665644105,
+      "alldifficult_fraction": 0.940879,
+      "alldifficult_hc_fraction": 0.9195704943984234,
+      "tandemrepeats_fraction": 0.231981,
+      "tandemrepeats_hc_fraction": 0.09041527587893135,
+      "rule": "H",
+      "regime": "segmental duplication / low mappability"
+    },
+    "chr14_neutral": {
+      "contig": "chr14",
+      "start": 53000000,
+      "stop": 54000000,
+      "gc": 0.392849,
+      "n_fraction": 0.0,
+      "hc_fraction": 0.985541,
+      "lowmap_segdup_fraction": 0.03159,
+      "lowmap_segdup_hc_fraction": 0.03105908328522101,
+      "alldifficult_fraction": 0.119617,
+      "alldifficult_hc_fraction": 0.11356097818355604,
+      "tandemrepeats_fraction": 0.048574,
+      "tandemrepeats_hc_fraction": 0.04230062473301466,
+      "rule": "O",
+      "regime": "ordinary euchromatin (control)"
+    }
+  }
+}
