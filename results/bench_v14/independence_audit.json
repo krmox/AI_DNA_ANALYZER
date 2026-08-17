@@ -1,0 +1,261 @@
+{
+  "previously_used_contigs": [
+    "chr21"
+  ],
+  "cells": {
+    "chr20_neutral_full": {
+      "contig": "chr20",
+      "region": [
+        33000000,
+        34000000
+      ],
+      "expected_region": [
+        33000000,
+        34000000
+      ],
+      "loci_cached": 947904,
+      "loci_from_window_tiling": 947904,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 33000000,
+      "position_max": 33999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr20_neutral_30x": {
+      "contig": "chr20",
+      "region": [
+        33000000,
+        34000000
+      ],
+      "expected_region": [
+        33000000,
+        34000000
+      ],
+      "loci_cached": 947904,
+      "loci_from_window_tiling": 947904,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 33000000,
+      "position_max": 33999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr20_neutral_15x": {
+      "contig": "chr20",
+      "region": [
+        33000000,
+        34000000
+      ],
+      "expected_region": [
+        33000000,
+        34000000
+      ],
+      "loci_cached": 947904,
+      "loci_from_window_tiling": 947904,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 33000000,
+      "position_max": 33999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr19_gcrich_full": {
+      "contig": "chr19",
+      "region": [
+        1000000,
+        2000000
+      ],
+      "expected_region": [
+        1000000,
+        2000000
+      ],
+      "loci_cached": 886848,
+      "loci_from_window_tiling": 886848,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 1000000,
+      "position_max": 1999903,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr19_gcrich_30x": {
+      "contig": "chr19",
+      "region": [
+        1000000,
+        2000000
+      ],
+      "expected_region": [
+        1000000,
+        2000000
+      ],
+      "loci_cached": 886848,
+      "loci_from_window_tiling": 886848,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 1000000,
+      "position_max": 1999903,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr19_gcrich_15x": {
+      "contig": "chr19",
+      "region": [
+        1000000,
+        2000000
+      ],
+      "expected_region": [
+        1000000,
+        2000000
+      ],
+      "loci_cached": 886848,
+      "loci_from_window_tiling": 886848,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 1000000,
+      "position_max": 1999903,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr4_atrich_full": {
+      "contig": "chr4",
+      "region": [
+        101000000,
+        102000000
+      ],
+      "expected_region": [
+        101000000,
+        102000000
+      ],
+      "loci_cached": 966016,
+      "loci_from_window_tiling": 966016,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 101000000,
+      "position_max": 101999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr4_atrich_30x": {
+      "contig": "chr4",
+      "region": [
+        101000000,
+        102000000
+      ],
+      "expected_region": [
+        101000000,
+        102000000
+      ],
+      "loci_cached": 966016,
+      "loci_from_window_tiling": 966016,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 101000000,
+      "position_max": 101999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr4_atrich_15x": {
+      "contig": "chr4",
+      "region": [
+        101000000,
+        102000000
+      ],
+      "expected_region": [
+        101000000,
+        102000000
+      ],
+      "loci_cached": 966016,
+      "loci_from_window_tiling": 966016,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 101000000,
+      "position_max": 101999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr1_segdup_full": {
+      "contig": "chr1",
+      "region": [
+        120000000,
+        121000000
+      ],
+      "expected_region": [
+        120000000,
+        121000000
+      ],
+      "loci_cached": 656512,
+      "loci_from_window_tiling": 656512,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 120000064,
+      "position_max": 120999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr1_segdup_30x": {
+      "contig": "chr1",
+      "region": [
+        120000000,
+        121000000
+      ],
+      "expected_region": [
+        120000000,
+        121000000
+      ],
+      "loci_cached": 656512,
+      "loci_from_window_tiling": 656512,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 120000064,
+      "position_max": 120999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    },
+    "chr1_segdup_15x": {
+      "contig": "chr1",
+      "region": [
+        120000000,
+        121000000
+      ],
+      "expected_region": [
+        120000000,
+        121000000
+      ],
+      "loci_cached": 656512,
+      "loci_from_window_tiling": 656512,
+      "window_aligned": true,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 120000064,
+      "position_max": 120999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "ok": true
+    }
+  },
+  "all_ok": true,
+  "n_cells": 12
+}

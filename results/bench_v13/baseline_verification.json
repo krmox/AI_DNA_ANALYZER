@@ -1,0 +1,24 @@
+{
+  "test_15x": {
+    "tensor_width": 48,
+    "loci": 455488,
+    "max_depth": 38.0,
+    "loci_depth_gt_width": 0,
+    "k_out_of_support": 0,
+    "fixed_equals_cached": true,
+    "legacy_equals_cached": true,
+    "fixed_equals_legacy": true,
+    "max_abs_diff_fixed_vs_cached": 0.0
+  },
+  "test_30x": {
+    "tensor_width": 96,
+    "loci": 455488,
+    "max_depth": 62.0,
+    "loci_depth_gt_width": 0,
+    "k_out_of_support": 0,
+    "fixed_equals_cached": true,
+    "legacy_equals_cached": true,
+    "fixed_equals_legacy": true,
+    "max_abs_diff_fixed_vs_cached": 0.0
+  }
+}

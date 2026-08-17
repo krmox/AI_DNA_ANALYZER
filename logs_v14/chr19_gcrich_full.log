@@ -1,0 +1,3 @@
+2026-08-17 09:59:53,302 | INFO | 1000000-1500000: 442432 loci (487 SNP) | pool windows 219 | cumulative 6.8 min
+2026-08-17 10:06:32,555 | INFO | 1500000-2000000: 444416 loci (596 SNP) | pool windows 165 | cumulative 13.4 min
+2026-08-17 10:06:34,431 | INFO | Wrote cache/bench_v14/chr19_gcrich_full.npz | 886848 loci | 1083 SNP | counts 204s reads 459s pb 143s feat 0s

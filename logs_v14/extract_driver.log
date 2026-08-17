@@ -1,0 +1,41 @@
+START chr20_neutral_full 2026-08-17T09:53:03+05:00
+START chr19_gcrich_full 2026-08-17T09:53:03+05:00
+START chr4_atrich_full 2026-08-17T09:53:03+05:00
+START chr1_segdup_full 2026-08-17T09:53:03+05:00
+DONE chr1_segdup_full rc=0 2026-08-17T10:01:01+05:00
+DONE chr19_gcrich_full rc=0 2026-08-17T10:06:35+05:00
+DONE chr20_neutral_full rc=0 2026-08-17T10:07:58+05:00
+DONE chr4_atrich_full rc=0 2026-08-17T10:08:40+05:00
+BATCH full COMPLETE 2026-08-17T10:08:40+05:00
+START chr20_neutral_30x 2026-08-17T10:08:40+05:00
+START chr19_gcrich_30x 2026-08-17T10:08:40+05:00
+START chr4_atrich_30x 2026-08-17T10:08:40+05:00
+START chr1_segdup_30x 2026-08-17T10:08:40+05:00
+DONE chr1_segdup_30x rc=0 2026-08-17T10:15:31+05:00
+DONE chr19_gcrich_30x rc=0 2026-08-17T10:18:16+05:00
+DONE chr20_neutral_30x rc=0 2026-08-17T10:18:39+05:00
+DONE chr4_atrich_30x rc=0 2026-08-17T10:19:04+05:00
+BATCH 30x COMPLETE 2026-08-17T10:19:04+05:00
+START chr4_atrich_15x 2026-08-17T10:19:04+05:00
+START chr1_segdup_15x 2026-08-17T10:19:04+05:00
+START chr20_neutral_15x 2026-08-17T10:19:04+05:00
+START chr19_gcrich_15x 2026-08-17T10:19:04+05:00
+DONE chr1_segdup_15x rc=0 2026-08-17T10:23:08+05:00
+DONE chr19_gcrich_15x rc=0 2026-08-17T10:24:59+05:00
+DONE chr20_neutral_15x rc=0 2026-08-17T10:25:22+05:00
+DONE chr4_atrich_15x rc=0 2026-08-17T10:25:30+05:00
+BATCH 15x COMPLETE 2026-08-17T10:25:30+05:00
+ALL EXTRACTED 2026-08-17T10:25:30+05:00
+total 157120
+-rw-r--r--. 1 mark mark 12761493 Aug 17 10:24 chr19_gcrich_15x.npz
+-rw-r--r--. 1 mark mark 14569317 Aug 17 10:18 chr19_gcrich_30x.npz
+-rw-r--r--. 1 mark mark 16055321 Aug 17 10:06 chr19_gcrich_full.npz
+-rw-r--r--. 1 mark mark  8411768 Aug 17 10:23 chr1_segdup_15x.npz
+-rw-r--r--. 1 mark mark  9900235 Aug 17 10:15 chr1_segdup_30x.npz
+-rw-r--r--. 1 mark mark 10662034 Aug 17 10:01 chr1_segdup_full.npz
+-rw-r--r--. 1 mark mark 12893300 Aug 17 10:25 chr20_neutral_15x.npz
+-rw-r--r--. 1 mark mark 15131048 Aug 17 10:18 chr20_neutral_30x.npz
+-rw-r--r--. 1 mark mark 16819030 Aug 17 10:07 chr20_neutral_full.npz
+-rw-r--r--. 1 mark mark 12172303 Aug 17 10:25 chr4_atrich_15x.npz
+-rw-r--r--. 1 mark mark 14837042 Aug 17 10:19 chr4_atrich_30x.npz
+-rw-r--r--. 1 mark mark 16654316 Aug 17 10:08 chr4_atrich_full.npz

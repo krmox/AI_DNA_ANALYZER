@@ -1,0 +1,3 @@
+2026-08-17 10:00:46,365 | INFO | 101000000-101500000: 482432 loci (483 SNP) | pool windows 73 | cumulative 7.7 min
+2026-08-17 10:08:38,157 | INFO | 101500000-102000000: 483584 loci (628 SNP) | pool windows 36 | cumulative 15.5 min
+2026-08-17 10:08:40,031 | INFO | Wrote cache/bench_v14/chr4_atrich_full.npz | 966016 loci | 1111 SNP | counts 220s reads 558s pb 154s feat 0s

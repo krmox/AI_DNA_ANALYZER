@@ -57,15 +57,59 @@ FROZEN_ROUTER_CUTOFF = 5.411872376933351
 
 def poisson_binomial_for_chunk(reads: np.ndarray, counts: np.ndarray) -> np.ndarray:
     """Poisson-binomial LLR for one chunk, blocked to bound peak memory."""
-    out = []
+    return poisson_binomial_diagnostics(reads, counts)["pb_llr"]
+
+
+def poisson_binomial_diagnostics(reads: np.ndarray, counts: np.ndarray,
+                                 legacy: bool = False) -> dict[str, np.ndarray]:
+    """PB LLR plus the per-locus quantities devlog 13's failure analysis needs.
+
+    ``k_full`` is the ALT count over *all* reads (what ``candidate_alt`` returns
+    from the uncapped count matrix); ``k_retained`` is the ALT count over the
+    <=48 reads the read tensor kept, i.e. the count the Poisson-binomial pmf is
+    actually a distribution over. Their difference is the depth-clipping
+    condition, so both are recorded rather than inferred.
+
+    Args:
+        reads: ``[N, R, READ_DIM]`` read tensor for the chunk.
+        counts: ``[N, 10]`` count matrix for the same loci.
+        legacy: Additionally compute the pre-fix (defective) LLR, so the fix can
+            be A/B-compared on identical reads in a single pass.
+
+    Returns:
+        Dict of ``[N]`` arrays: ``pb_llr``, ``k_full``, ``k_retained``,
+        ``n_counted``, and (when ``legacy``) ``pb_llr_legacy``.
+    """
+    keys = ("pb_llr", "k_full", "k_retained", "n_counted") + (("pb_llr_legacy",) if legacy else ())
+    blocks: dict[str, list[np.ndarray]] = {name: [] for name in keys}
+    # The legacy arm is a benchmark artefact, so its cost is timed out of the
+    # production path rather than folded into it.
+    seconds = {"fixed": 0.0, "legacy": 0.0}
     for start in range(0, counts.shape[0], PB_BLOCK):
         stop = min(start + PB_BLOCK, counts.shape[0])
         block_counts = counts[start:stop]
         reference_index = block_counts[:, 9].astype(int)
+        clock = time.perf_counter()
         evidence = extract_quality_evidence(reads[start:stop], reference_index)
-        _, k, _ = candidate_alt(block_counts[:, 0:4], reference_index)
-        out.append(poisson_binomial_llr(evidence, k.astype(np.int64))["llr"])
-    return np.concatenate(out).astype(np.float64)
+        alt_index, k, _ = candidate_alt(block_counts[:, 0:4], reference_index)
+        result = poisson_binomial_llr(evidence, k.astype(np.int64), alt_index=alt_index)
+        seconds["fixed"] += time.perf_counter() - clock
+        blocks["pb_llr"].append(result["llr"])
+        blocks["k_full"].append(k.astype(np.int32))
+        blocks["k_retained"].append(result["k_effective"].astype(np.int32))
+        blocks["n_counted"].append(evidence.n_counted.astype(np.int32))
+        if legacy:
+            clock = time.perf_counter()
+            blocks["pb_llr_legacy"].append(poisson_binomial_llr(
+                evidence, k.astype(np.int64), legacy_truncation=True)["llr"])
+            seconds["legacy"] += time.perf_counter() - clock
+    out = {name: np.concatenate(values) for name, values in blocks.items()}
+    out["pb_llr"] = out["pb_llr"].astype(np.float64)
+    if legacy:
+        out["pb_llr_legacy"] = out["pb_llr_legacy"].astype(np.float64)
+    out["_seconds_fixed"] = seconds["fixed"]
+    out["_seconds_legacy"] = seconds["legacy"]
+    return out
 
 
 def parse_args() -> argparse.Namespace:
@@ -75,6 +119,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--vcf", required=True)
     parser.add_argument("--bed", required=True)
     parser.add_argument("--region", type=int, nargs=2, required=True)
+    parser.add_argument("--contig", default="chr21",
+                        help=("Contig to extract. Defaults to chr21, the only contig used "
+                              "before devlog 14, so every previous invocation of this "
+                              "script is reproduced byte-for-byte by omitting the flag."))
     parser.add_argument("--chunk-bp", type=int, default=CHUNK_BP)
     parser.add_argument("--features", choices=("full", "none", "scores"), default="full",
                         help=("full: keep the 44-channel features for every pool window "
@@ -82,6 +130,10 @@ def parse_args() -> argparse.Namespace:
                               "scores: score the pool windows with the benchmark's "
                               "checkpoints in-process and keep only the per-locus "
                               "decision scores -- same numbers, ~30x less disk."))
+    parser.add_argument("--legacy-pb", action="store_true",
+                        help=("also store the pre-devlog-13 (defective) PB LLR under "
+                              "``pb_llr_legacy``, computed on the same reads in the same "
+                              "pass, so the depth-clipping fix can be A/B-compared exactly."))
     parser.add_argument("--out", required=True)
     return parser.parse_args()
 
@@ -129,18 +181,21 @@ def main() -> None:
 
         start = time.perf_counter()
         counts, labels = load_counts(args.fasta, args.bam, args.vcf, args.bed,
-                                     (chunk_start, chunk_end))
+                                     (chunk_start, chunk_end), contig=args.contig)
         timing["counts_seconds"] += time.perf_counter() - start
 
         start = time.perf_counter()
         reads, read_labels = load_reads(args.fasta, args.bam, args.vcf, args.bed,
-                                        (chunk_start, chunk_end))
+                                        (chunk_start, chunk_end), contig=args.contig)
         timing["reads_seconds"] += time.perf_counter() - start
         assert np.array_equal(read_labels, labels), "count/read label mismatch"
 
-        start = time.perf_counter()
-        pb = poisson_binomial_for_chunk(reads, counts)
-        timing["pb_seconds"] += time.perf_counter() - start
+        pb_diagnostics = poisson_binomial_diagnostics(reads, counts, legacy=args.legacy_pb)
+        pb = pb_diagnostics["pb_llr"]
+        timing["pb_seconds"] += pb_diagnostics["_seconds_fixed"]
+        for name in ("k_full", "k_retained", "n_counted", "pb_llr_legacy"):
+            if name in pb_diagnostics:
+                blocks.setdefault(name, []).append(pb_diagnostics[name])
 
         binomial = caller.score_counts(counts[:, 0:4], counts[:, 9].astype(int)).llr
 
@@ -191,7 +246,8 @@ def main() -> None:
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(
         args.out, **payload,
-        region=np.asarray(args.region), bam=np.asarray([args.bam]),
+        region=np.asarray(args.region), contig=np.asarray([args.contig]),
+        bam=np.asarray([args.bam]),
         vcf=np.asarray([args.vcf]), bed=np.asarray([args.bed]),
         fasta=np.asarray([args.fasta]),
         feature_pool_margin=np.asarray([FEATURE_POOL_MARGIN]),

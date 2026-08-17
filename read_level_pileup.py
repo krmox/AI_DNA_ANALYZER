@@ -422,7 +422,8 @@ def resolve_drop_indices(drop_groups: tuple[str, ...]) -> tuple[int, ...]:
 
 def load_reads(fasta: str, bam: str, vcf: str, bed: str | None,
                region: tuple[int, int], seq_len: int = 64,
-               max_reads: int = MAX_READS) -> tuple[np.ndarray, np.ndarray]:
+               max_reads: int = MAX_READS,
+               contig: str = "chr21") -> tuple[np.ndarray, np.ndarray]:
     """Materialize a region's read-level tensor and labels.
 
     Args:
@@ -433,12 +434,14 @@ def load_reads(fasta: str, bam: str, vcf: str, bed: str | None,
         region: ``(start, end)`` coordinates.
         seq_len: Window width.
         max_reads: Rows per locus.
+        contig: Contig to tile. Defaults to ``"chr21"`` for backward
+            compatibility; see :func:`pileup_counts.load_counts`.
 
     Returns:
         ``(reads [N, R, READ_DIM] uint8, labels [N])``.
     """
     provider = ReadLevelPileupProvider(
-        fasta_path=fasta, bam_path=bam, vcf_path=vcf, contig="chr21",
+        fasta_path=fasta, bam_path=bam, vcf_path=vcf, contig=contig,
         region=region, seq_len=seq_len, high_confidence_bed=bed, max_reads=max_reads)
     with provider:
         reads, labels = [], []

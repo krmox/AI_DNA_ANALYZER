@@ -1,0 +1,3 @@
+2026-08-16 21:25:09,440 | INFO | 32000000-32500000: 470464 loci (655 SNP) | pool windows 70 | cumulative 11.4 min
+2026-08-16 21:34:12,696 | INFO | 32500000-33000000: 479552 loci (521 SNP) | pool windows 83 | cumulative 20.5 min
+2026-08-16 21:34:14,548 | INFO | Wrote cache/bench_v13/new32_33M_full.npz | 950016 loci | 1176 SNP | counts 262s reads 612s pb 175s feat 0s

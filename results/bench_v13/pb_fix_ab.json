@@ -1,0 +1,530 @@
+{
+  "new32_33M_15x": {
+    "loci": 949553,
+    "snp": 1176,
+    "legacy": {
+      "pb_only": {
+        "precision": 0.9965397923875432,
+        "recall": 0.9795918367346939,
+        "f1": 0.9879931389365352,
+        "tp": 1152,
+        "fp": 4,
+        "fn": 24,
+        "tn": 948373,
+        "accuracy": 0.999970512441117,
+        "balanced_accuracy": 0.989793809501358
+      },
+      "cheap_router_pb": {
+        "precision": 0.9956784788245462,
+        "recall": 0.9795918367346939,
+        "f1": 0.9875696528075439,
+        "tp": 1152,
+        "fp": 5,
+        "fn": 24,
+        "tn": 948372,
+        "accuracy": 0.999969459314014,
+        "balanced_accuracy": 0.9897932822848607
+      },
+      "pb_llr_zero_loci": 2,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": null,
+      "pb_llr_zero_snp_rate_depth_gt_48": null
+    },
+    "fixed": {
+      "pb_only": {
+        "precision": 0.9965397923875432,
+        "recall": 0.9795918367346939,
+        "f1": 0.9879931389365352,
+        "tp": 1152,
+        "fp": 4,
+        "fn": 24,
+        "tn": 948373,
+        "accuracy": 0.999970512441117,
+        "balanced_accuracy": 0.989793809501358
+      },
+      "cheap_router_pb": {
+        "precision": 0.9956784788245462,
+        "recall": 0.9795918367346939,
+        "f1": 0.9875696528075439,
+        "tp": 1152,
+        "fp": 5,
+        "fn": 24,
+        "tn": 948372,
+        "accuracy": 0.999969459314014,
+        "balanced_accuracy": 0.9897932822848607
+      },
+      "pb_llr_zero_loci": 2,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": null,
+      "pb_llr_zero_snp_rate_depth_gt_48": null
+    },
+    "pb_call_changes": 0,
+    "pb_llr_changes": 0,
+    "delta_f1_fixed_minus_legacy": 0.0,
+    "fixed_vs_legacy_paired_bootstrap": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0,
+      "delta_f1_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_f1_p_two_sided": 2.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "new32_33M_30x": {
+    "loci": 949553,
+    "snp": 1176,
+    "legacy": {
+      "pb_only": {
+        "precision": 0.9840604026845637,
+        "recall": 0.9974489795918368,
+        "f1": 0.9907094594594594,
+        "tp": 1173,
+        "fp": 19,
+        "fn": 3,
+        "tn": 948358,
+        "accuracy": 0.9999768312037348,
+        "balanced_accuracy": 0.9987144726824708
+      },
+      "cheap_router_pb": {
+        "precision": 0.9857262804366079,
+        "recall": 0.9982993197278912,
+        "f1": 0.9919729615547106,
+        "tp": 1174,
+        "fp": 17,
+        "fn": 2,
+        "tn": 948360,
+        "accuracy": 0.9999799905850437,
+        "balanced_accuracy": 0.9991406971834926
+      },
+      "pb_llr_zero_loci": 1,
+      "pb_llr_zero_snp": 1,
+      "pb_llr_zero_rate_depth_gt_48": 0.00012049644535486203,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.2
+    },
+    "fixed": {
+      "pb_only": {
+        "precision": 0.9840737636211232,
+        "recall": 0.9982993197278912,
+        "f1": 0.9911355002110596,
+        "tp": 1174,
+        "fp": 19,
+        "fn": 2,
+        "tn": 948358,
+        "accuracy": 0.9999778843308378,
+        "balanced_accuracy": 0.9991396427504982
+      },
+      "cheap_router_pb": {
+        "precision": 0.9857262804366079,
+        "recall": 0.9982993197278912,
+        "f1": 0.9919729615547106,
+        "tp": 1174,
+        "fp": 17,
+        "fn": 2,
+        "tn": 948360,
+        "accuracy": 0.9999799905850437,
+        "balanced_accuracy": 0.9991406971834926
+      },
+      "pb_llr_zero_loci": 0,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": 0.0,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.0
+    },
+    "pb_call_changes": 1,
+    "pb_llr_changes": 34,
+    "delta_f1_fixed_minus_legacy": 0.0004260407516001319,
+    "fixed_vs_legacy_paired_bootstrap": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0004260407516001319,
+      "delta_f1_ci95": [
+        0.0,
+        0.0013232293425848502
+      ],
+      "delta_f1_p_two_sided": 0.7304,
+      "delta_tp": 1,
+      "delta_tp_ci95": [
+        0.0,
+        3.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": -1,
+      "delta_fn_ci95": [
+        -3.0,
+        0.0
+      ]
+    }
+  },
+  "new32_33M_full": {
+    "loci": 949553,
+    "snp": 1176,
+    "legacy": {
+      "pb_only": {
+        "precision": 0.9288956127080181,
+        "recall": 0.5221088435374149,
+        "f1": 0.668481219379423,
+        "tp": 614,
+        "fp": 47,
+        "fn": 562,
+        "tn": 948330,
+        "accuracy": 0.9993586455942954,
+        "balanced_accuracy": 0.7610296425933374
+      },
+      "cheap_router_pb": {
+        "precision": 0.9890664423885618,
+        "recall": 1.0,
+        "f1": 0.9945031712473573,
+        "tp": 1176,
+        "fp": 13,
+        "fn": 0,
+        "tn": 948364,
+        "accuracy": 0.9999863093476615,
+        "balanced_accuracy": 0.9999931461855359
+      },
+      "pb_llr_zero_loci": 562,
+      "pb_llr_zero_snp": 562,
+      "pb_llr_zero_rate_depth_gt_48": 0.0006172263254715685,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.5081374321880651
+    },
+    "fixed": {
+      "pb_only": {
+        "precision": 0.9874055415617129,
+        "recall": 1.0,
+        "f1": 0.9936628643852978,
+        "tp": 1176,
+        "fp": 15,
+        "fn": 0,
+        "tn": 948362,
+        "accuracy": 0.9999842030934556,
+        "balanced_accuracy": 0.9999920917525414
+      },
+      "cheap_router_pb": {
+        "precision": 0.9924050632911392,
+        "recall": 1.0,
+        "f1": 0.9961880559085133,
+        "tp": 1176,
+        "fp": 9,
+        "fn": 0,
+        "tn": 948368,
+        "accuracy": 0.9999905218560733,
+        "balanced_accuracy": 0.9999952550515249
+      },
+      "pb_llr_zero_loci": 0,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": 0.0,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.0
+    },
+    "pb_call_changes": 594,
+    "pb_llr_changes": 33105,
+    "delta_f1_fixed_minus_legacy": 0.3251816450058749,
+    "fixed_vs_legacy_paired_bootstrap": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.3251816450058749,
+      "delta_f1_ci95": [
+        0.3008063788869572,
+        0.3504038675526091
+      ],
+      "delta_f1_p_two_sided": 0.0,
+      "delta_tp": 562,
+      "delta_tp_ci95": [
+        515.0,
+        609.0
+      ],
+      "delta_fp": -32,
+      "delta_fp_ci95": [
+        -44.0,
+        -21.0
+      ],
+      "delta_fn": -562,
+      "delta_fn_ci95": [
+        -609.0,
+        -515.0
+      ]
+    }
+  },
+  "r30M_full": {
+    "loci": 455371,
+    "snp": 549,
+    "legacy": {
+      "pb_only": {
+        "precision": 0.9540229885057471,
+        "recall": 0.302367941712204,
+        "f1": 0.45919778699861685,
+        "tp": 166,
+        "fp": 8,
+        "fn": 383,
+        "tn": 454814,
+        "accuracy": 0.9991413594629434,
+        "balanced_accuracy": 0.6511751762067667
+      },
+      "cheap_router_pb": {
+        "precision": 0.9909747292418772,
+        "recall": 1.0,
+        "f1": 0.9954669084315504,
+        "tp": 549,
+        "fp": 5,
+        "fn": 0,
+        "tn": 454817,
+        "accuracy": 0.9999890199419814,
+        "balanced_accuracy": 0.9999945033441654
+      },
+      "pb_llr_zero_loci": 383,
+      "pb_llr_zero_snp": 383,
+      "pb_llr_zero_rate_depth_gt_48": 0.0008716550521855101,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.7226415094339622
+    },
+    "fixed": {
+      "pb_only": {
+        "precision": 0.9909747292418772,
+        "recall": 1.0,
+        "f1": 0.9954669084315504,
+        "tp": 549,
+        "fp": 5,
+        "fn": 0,
+        "tn": 454817,
+        "accuracy": 0.9999890199419814,
+        "balanced_accuracy": 0.9999945033441654
+      },
+      "cheap_router_pb": {
+        "precision": 0.9909747292418772,
+        "recall": 1.0,
+        "f1": 0.9954669084315504,
+        "tp": 549,
+        "fp": 5,
+        "fn": 0,
+        "tn": 454817,
+        "accuracy": 0.9999890199419814,
+        "balanced_accuracy": 0.9999945033441654
+      },
+      "pb_llr_zero_loci": 0,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": 0.0,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.0
+    },
+    "pb_call_changes": 386,
+    "pb_llr_changes": 14448,
+    "delta_f1_fixed_minus_legacy": 0.5362691214329336,
+    "fixed_vs_legacy_paired_bootstrap": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.5362691214329336,
+      "delta_f1_ci95": [
+        0.49144624786206215,
+        0.5826203430687774
+      ],
+      "delta_f1_p_two_sided": 0.0,
+      "delta_tp": 383,
+      "delta_tp_ci95": [
+        345.0,
+        422.0
+      ],
+      "delta_fp": -3,
+      "delta_fp_ci95": [
+        -7.0,
+        0.0
+      ],
+      "delta_fn": -383,
+      "delta_fn_ci95": [
+        -422.0,
+        -345.0
+      ]
+    }
+  },
+  "re31_32M_full": {
+    "loci": 925418,
+    "snp": 924,
+    "legacy": {
+      "pb_only": {
+        "precision": 0.9360902255639098,
+        "recall": 0.538961038961039,
+        "f1": 0.684065934065934,
+        "tp": 498,
+        "fp": 34,
+        "fn": 426,
+        "tn": 924460,
+        "accuracy": 0.9995029273258138,
+        "balanced_accuracy": 0.7694621310431689
+      },
+      "cheap_router_pb": {
+        "precision": 0.9777777777777777,
+        "recall": 1.0,
+        "f1": 0.9887640449438202,
+        "tp": 924,
+        "fp": 21,
+        "fn": 0,
+        "tn": 924473,
+        "accuracy": 0.9999773075518307,
+        "balanced_accuracy": 0.999988642435754
+      },
+      "pb_llr_zero_loci": 426,
+      "pb_llr_zero_snp": 426,
+      "pb_llr_zero_rate_depth_gt_48": 0.0004956692931709337,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.5095693779904307
+    },
+    "fixed": {
+      "pb_only": {
+        "precision": 0.9819341126461212,
+        "recall": 1.0,
+        "f1": 0.9908847184986596,
+        "tp": 924,
+        "fp": 17,
+        "fn": 0,
+        "tn": 924477,
+        "accuracy": 0.9999816299229105,
+        "balanced_accuracy": 0.9999908057813247
+      },
+      "cheap_router_pb": {
+        "precision": 0.9819341126461212,
+        "recall": 1.0,
+        "f1": 0.9908847184986596,
+        "tp": 924,
+        "fp": 17,
+        "fn": 0,
+        "tn": 924477,
+        "accuracy": 0.9999816299229105,
+        "balanced_accuracy": 0.9999908057813247
+      },
+      "pb_llr_zero_loci": 0,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": 0.0,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.0
+    },
+    "pb_call_changes": 443,
+    "pb_llr_changes": 29217,
+    "delta_f1_fixed_minus_legacy": 0.3068187844327256,
+    "fixed_vs_legacy_paired_bootstrap": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.3068187844327256,
+      "delta_f1_ci95": [
+        0.28094009042593776,
+        0.33397050146400176
+      ],
+      "delta_f1_p_two_sided": 0.0,
+      "delta_tp": 426,
+      "delta_tp_ci95": [
+        386.0,
+        466.0
+      ],
+      "delta_fp": -17,
+      "delta_fp_ci95": [
+        -26.0,
+        -10.0
+      ],
+      "delta_fn": -426,
+      "delta_fn_ci95": [
+        -466.0,
+        -386.0
+      ]
+    }
+  },
+  "re31_32M_30x": {
+    "loci": 925418,
+    "snp": 924,
+    "legacy": {
+      "pb_only": {
+        "precision": 0.9871382636655949,
+        "recall": 0.9967532467532467,
+        "f1": 0.9919224555735057,
+        "tp": 921,
+        "fp": 12,
+        "fn": 3,
+        "tn": 924482,
+        "accuracy": 0.9999837911084505,
+        "balanced_accuracy": 0.9983701333399113
+      },
+      "cheap_router_pb": {
+        "precision": 0.9871382636655949,
+        "recall": 0.9967532467532467,
+        "f1": 0.9919224555735057,
+        "tp": 921,
+        "fp": 12,
+        "fn": 3,
+        "tn": 924482,
+        "accuracy": 0.9999837911084505,
+        "balanced_accuracy": 0.9983701333399113
+      },
+      "pb_llr_zero_loci": 0,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": 0.0,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.0
+    },
+    "fixed": {
+      "pb_only": {
+        "precision": 0.9871382636655949,
+        "recall": 0.9967532467532467,
+        "f1": 0.9919224555735057,
+        "tp": 921,
+        "fp": 12,
+        "fn": 3,
+        "tn": 924482,
+        "accuracy": 0.9999837911084505,
+        "balanced_accuracy": 0.9983701333399113
+      },
+      "cheap_router_pb": {
+        "precision": 0.9871382636655949,
+        "recall": 0.9967532467532467,
+        "f1": 0.9919224555735057,
+        "tp": 921,
+        "fp": 12,
+        "fn": 3,
+        "tn": 924482,
+        "accuracy": 0.9999837911084505,
+        "balanced_accuracy": 0.9983701333399113
+      },
+      "pb_llr_zero_loci": 0,
+      "pb_llr_zero_snp": 0,
+      "pb_llr_zero_rate_depth_gt_48": 0.0,
+      "pb_llr_zero_snp_rate_depth_gt_48": 0.0
+    },
+    "pb_call_changes": 0,
+    "pb_llr_changes": 20,
+    "delta_f1_fixed_minus_legacy": 0.0,
+    "fixed_vs_legacy_paired_bootstrap": {
+      "resamples": 10000,
+      "seed": 20260812,
+      "delta_f1": 0.0,
+      "delta_f1_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_f1_p_two_sided": 2.0,
+      "delta_tp": 0,
+      "delta_tp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fp": 0,
+      "delta_fp_ci95": [
+        0.0,
+        0.0
+      ],
+      "delta_fn": 0,
+      "delta_fn_ci95": [
+        0.0,
+        0.0
+      ]
+    }
+  }
+}

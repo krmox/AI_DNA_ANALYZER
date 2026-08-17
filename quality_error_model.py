@@ -407,6 +407,8 @@ def poisson_binomial_llr(
     ceiling: float = EPSILON_CEILING,
     include_homozygous: bool = True,
     chunk: int = 65536,
+    alt_index: np.ndarray | None = None,
+    legacy_truncation: bool = False,
 ) -> dict[str, np.ndarray]:
     """LLR under read-specific error probabilities, no plug-in epsilon.
 
@@ -428,22 +430,71 @@ def poisson_binomial_llr(
     the reference -- but it does mean a genuine variant carried by low-quality
     reads is penalised, which the error analysis should check for.
 
+    Which ``k`` this is a likelihood *of* (devlog 13 fix)
+    -----------------------------------------------------
+    ``evidence`` describes at most ``read_level_pileup.MAX_READS = 48`` reads
+    per locus, because that is the width of the cached read tensor. ``k`` as
+    supplied by :func:`candidate_alt` is computed from the *uncapped* pileup
+    count matrix. Above ~48x depth the two are on different scales, and the
+    pre-fix code reconciled them with ``np.clip(k, 0, tensor_width)``. That is
+    not a valid reconciliation:
+
+    * if ``k`` exceeded the locus' number of counted slots, the pmf was indexed
+      outside its own support, every hypothesis returned ``-inf``, the LLR came
+      out ``nan`` and the trailing ``nan_to_num`` turned the *strongest possible
+      evidence for a variant* into exactly ``0.0`` (devlog 12 §15);
+    * if it did not, clipping still asserted "48 of 48 retained reads are ALT"
+      for a locus where only a fraction of the retained reads were.
+
+    A likelihood must be evaluated on the observation the likelihood's own
+    parameters describe, so the ALT count is now taken over the retained reads:
+
+    * ``alt_index`` given (preferred): the exact count of retained, counted
+      reads carrying the candidate ALT base;
+    * otherwise: ``min(k, n_counted)``, which cannot leave the support and so
+      cannot produce the ``nan -> 0`` collapse.
+
+    Both are identities when every read fits the tensor (``depth <= 48``), so
+    every result obtained at <=30x is reproduced bit-for-bit.
+
     Args:
         evidence: Output of :func:`extract_quality_evidence`.
-        k: ``[N]`` observed ALT-supporting counts.
+        k: ``[N]`` observed ALT-supporting counts, from the full pileup.
         floor: Lower clamp on each ``p_i``, same rationale as
             :data:`EPSILON_FLOOR`.
         ceiling: Upper clamp on each ``p_i``.
         include_homozygous: Take the max over het and hom, as v1 does.
         chunk: Loci per block, to bound peak memory.
+        alt_index: ``[N]`` candidate ALT base code (0=A..3=T) from
+            :func:`candidate_alt`. When given, the ALT count is recounted over
+            the retained reads rather than taken from ``k``.
+        legacy_truncation: Reproduce the pre-fix ``clip(k, 0, tensor_width)``
+            behaviour. **Benchmark use only** -- it exists so the fix can be
+            A/B-compared on identical reads, and must never be enabled in a
+            calling path.
 
     Returns:
-        Dict with ``llr``, ``loglik_h0``, ``loglik_het``, ``loglik_hom``.
+        Dict with ``llr``, ``loglik_h0``, ``loglik_het``, ``loglik_hom``,
+        ``k_effective`` (the count actually scored), and the diagnostic
+        integers ``n_out_of_support`` (loci where the supplied ``k`` exceeded
+        the retained read count) and ``n_non_finite`` (loci whose raw LLR was
+        not finite before the ``nan_to_num`` guard).
     """
     p = np.clip(evidence.error_probability, floor, ceiling)
     active = evidence.counted
     k = np.asarray(k).astype(np.int64)
     n_loci = p.shape[0]
+    n_counted = np.asarray(evidence.n_counted).astype(np.int64)
+    out_of_support = int(np.count_nonzero(k > n_counted))
+
+    if legacy_truncation:
+        k_effective = np.clip(k, 0, p.shape[1])
+    elif alt_index is None:
+        k_effective = np.clip(k, 0, n_counted)
+    else:
+        alt_index = np.asarray(alt_index).astype(np.int64)
+        k_effective = np.sum(active & (evidence.base_code == alt_index[:, None]),
+                             axis=1).astype(np.int64)
 
     out = {name: np.zeros(n_loci, dtype=np.float64)
            for name in ("loglik_h0", "loglik_het", "loglik_hom")}
@@ -453,7 +504,7 @@ def poisson_binomial_llr(
         block_p = p[start:stop]
         block_active = active[start:stop]
         rows = np.arange(stop - start)
-        block_k = np.clip(k[start:stop], 0, block_p.shape[1])
+        block_k = k_effective[start:stop]
 
         for name, q in (
             ("loglik_h0", block_p / 3.0),
@@ -464,10 +515,13 @@ def poisson_binomial_llr(
 
     alternative = np.maximum(out["loglik_het"], out["loglik_hom"]) if include_homozygous \
         else out["loglik_het"]
-    llr = alternative - out["loglik_h0"]
+    with np.errstate(invalid="ignore"):
+        llr = alternative - out["loglik_h0"]
     llr = np.where(evidence.n_counted <= 0, 0.0, llr)
+    non_finite = int(np.count_nonzero(~np.isfinite(llr)))
     llr = np.nan_to_num(llr, nan=0.0, posinf=0.0, neginf=0.0)
-    return {"llr": llr, **out}
+    return {"llr": llr, "k_effective": k_effective,
+            "n_out_of_support": out_of_support, "n_non_finite": non_finite, **out}
 
 
 __all__ = [

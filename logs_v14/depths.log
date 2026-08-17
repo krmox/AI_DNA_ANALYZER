@@ -1,0 +1,12 @@
+chr20_neutral native_mean_depth=70.1755
+  30x: fraction=42.4275 achieved_mean_depth=30.04
+  15x: fraction=42.2137 achieved_mean_depth=14.99
+chr19_gcrich native_mean_depth=66.2259
+  30x: fraction=42.4530 achieved_mean_depth=29.75
+  15x: fraction=42.2265 achieved_mean_depth=14.92
+chr4_atrich native_mean_depth=73.6753
+  30x: fraction=42.4072 achieved_mean_depth=29.99
+  15x: fraction=42.2036 achieved_mean_depth=15.07
+chr1_segdup native_mean_depth=47.6049
+  30x: fraction=42.6302 achieved_mean_depth=30.16
+  15x: fraction=42.3151 achieved_mean_depth=15.10

@@ -1,0 +1,2015 @@
+{
+  "chr20_neutral_full": {
+    "region": "chr20_neutral_full",
+    "loci_scored": 947626,
+    "disagreements": 4,
+    "disagreement_rate": 4.221074558950472e-06,
+    "records": [
+      {
+        "frame_index": 135560,
+        "depth": 72.0,
+        "vaf": 0.16363636363636364,
+        "mean_base_quality": 22.02777777777778,
+        "binomial_llr": 13.609984871024079,
+        "pb_llr": -5.464561586031719,
+        "router_margin": 6.6099848710240785,
+        "pb_margin": 15.964561586031719,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      },
+      {
+        "frame_index": 135610,
+        "depth": 64.0,
+        "vaf": 0.21153846153846154,
+        "mean_base_quality": 23.515625,
+        "binomial_llr": 27.033696165793806,
+        "pb_llr": 6.849436155855793,
+        "router_margin": 20.033696165793806,
+        "pb_margin": 3.650563844144207,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      },
+      {
+        "frame_index": 215429,
+        "depth": 64.0,
+        "vaf": 0.18867924528301888,
+        "mean_base_quality": 21.875,
+        "binomial_llr": 20.663422386696823,
+        "pb_llr": 6.327001751978074,
+        "router_margin": 13.663422386696823,
+        "pb_margin": 4.172998248021926,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      },
+      {
+        "frame_index": 460367,
+        "depth": 68.0,
+        "vaf": 0.1206896551724138,
+        "mean_base_quality": 26.75,
+        "binomial_llr": 0.18627357625434726,
+        "pb_llr": 11.189930943541697,
+        "router_margin": 6.813726423745653,
+        "pb_margin": 0.6899309435416967,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 255,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 6642,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 51404,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 137766,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 502592,
+        "disagreements": 4,
+        "rate": 7.95874188208328e-06
+      },
+      "80-10000x": {
+        "loci": 248967,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 46,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1073,
+        "disagreements": 3,
+        "rate": 0.0027958993476234857
+      },
+      "q25-30": {
+        "loci": 15172,
+        "disagreements": 1,
+        "rate": 6.59108884787767e-05
+      },
+      "q30-35": {
+        "loci": 182393,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 748942,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 106284,
+        "disagreements": 1,
+        "rate": 9.40875390463287e-06
+      },
+      "vaf0.15-0.25": {
+        "loci": 39,
+        "disagreements": 3,
+        "rate": 0.07692307692307693
+      },
+      "vaf0.25-0.35": {
+        "loci": 10,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 83,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 173,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 66,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 436,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 765,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 946861,
+        "disagreements": 4,
+        "rate": 4.224484903275137e-06
+      }
+    }
+  },
+  "chr20_neutral_30x": {
+    "region": "chr20_neutral_30x",
+    "loci_scored": 947626,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 3714,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 441957,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 486585,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 15229,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 113,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 143,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 2121,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 19081,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 203486,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 722767,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 48623,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 232,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 37,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 63,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 125,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 109,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 440,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 765,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 946861,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "chr20_neutral_15x": {
+    "region": "chr20_neutral_15x",
+    "loci_scored": 947626,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 119463,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 823313,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 4496,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 717,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 4054,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 27722,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 218511,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 696268,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 24036,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 1426,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 152,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 77,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 118,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 92,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 460,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 765,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 946861,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "chr19_gcrich_full": {
+    "region": "chr19_gcrich_full",
+    "loci_scored": 886344,
+    "disagreements": 4,
+    "disagreement_rate": 4.512920491366783e-06,
+    "records": [
+      {
+        "frame_index": 256271,
+        "depth": 51.0,
+        "vaf": 0.2,
+        "mean_base_quality": 18.274509803921568,
+        "binomial_llr": 15.899039517496877,
+        "pb_llr": 5.769609274103567,
+        "router_margin": 8.899039517496877,
+        "pb_margin": 4.730390725896433,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      },
+      {
+        "frame_index": 256287,
+        "depth": 51.0,
+        "vaf": 0.2,
+        "mean_base_quality": 14.96078431372549,
+        "binomial_llr": 13.627748157854466,
+        "pb_llr": 9.315316738867807,
+        "router_margin": 6.627748157854466,
+        "pb_margin": 1.184683261132193,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      },
+      {
+        "frame_index": 281932,
+        "depth": 52.0,
+        "vaf": 0.17777777777777778,
+        "mean_base_quality": 24.134615384615383,
+        "binomial_llr": 14.75451219426048,
+        "pb_llr": 5.9119787354817035,
+        "router_margin": 7.75451219426048,
+        "pb_margin": 4.5880212645182965,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      },
+      {
+        "frame_index": 549738,
+        "depth": 58.0,
+        "vaf": 0.125,
+        "mean_base_quality": 28.913793103448278,
+        "binomial_llr": 1.3308008994907503,
+        "pb_llr": 11.659638913778144,
+        "router_margin": 5.66919910050925,
+        "pb_margin": 1.159638913778144,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 1921,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 11300,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 55555,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 152580,
+        "disagreements": 4,
+        "rate": 2.6215755669157164e-05
+      },
+      "60-79x": {
+        "loci": 493045,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 171915,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 205,
+        "disagreements": 2,
+        "rate": 0.00975609756097561
+      },
+      "q20-25": {
+        "loci": 2556,
+        "disagreements": 1,
+        "rate": 0.0003912363067292645
+      },
+      "q25-30": {
+        "loci": 33461,
+        "disagreements": 1,
+        "rate": 2.988553838797406e-05
+      },
+      "q30-35": {
+        "loci": 377139,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 472955,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 96852,
+        "disagreements": 1,
+        "rate": 1.0325032007599223e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 144,
+        "disagreements": 3,
+        "rate": 0.020833333333333332
+      },
+      "vaf0.25-0.35": {
+        "loci": 37,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 153,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 295,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 144,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 497,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1083,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 885261,
+        "disagreements": 4,
+        "rate": 4.518441453989275e-06
+      }
+    }
+  },
+  "chr19_gcrich_30x": {
+    "region": "chr19_gcrich_30x",
+    "loci_scored": 886344,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 7089,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 392960,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 470674,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 14748,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 403,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 568,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 4294,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 42718,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 362196,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 476098,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 46832,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 374,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 74,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 161,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 208,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 190,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 506,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1083,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 885261,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "chr19_gcrich_15x": {
+    "region": "chr19_gcrich_15x",
+    "loci_scored": 886344,
+    "disagreements": 1,
+    "disagreement_rate": 1.1282301228416958e-06,
+    "records": [
+      {
+        "frame_index": 256293,
+        "depth": 13.0,
+        "vaf": 0.5,
+        "mean_base_quality": 9.615384615384615,
+        "binomial_llr": 12.96234770810909,
+        "pb_llr": 10.289419808964938,
+        "router_margin": 5.962347708109091,
+        "pb_margin": 0.21058019103506176,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 108783,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 771202,
+        "disagreements": 1,
+        "rate": 1.2966771351734046e-06
+      },
+      "30-47x": {
+        "loci": 4936,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 1326,
+        "disagreements": 1,
+        "rate": 0.0007541478129713424
+      },
+      "q20-25": {
+        "loci": 7950,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 58060,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 332465,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 485120,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 22848,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 1616,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 200,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 133,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 184,
+        "disagreements": 1,
+        "rate": 0.005434782608695652
+      },
+      "vaf0.55-0.75": {
+        "loci": 205,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 522,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1083,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 885261,
+        "disagreements": 1,
+        "rate": 1.1296103634973188e-06
+      }
+    }
+  },
+  "chr4_atrich_full": {
+    "region": "chr4_atrich_full",
+    "loci_scored": 965687,
+    "disagreements": 1,
+    "disagreement_rate": 1.035532216960568e-06,
+    "records": [
+      {
+        "frame_index": 477724,
+        "depth": 88.0,
+        "vaf": 0.15384615384615385,
+        "mean_base_quality": 23.863636363636363,
+        "binomial_llr": 12.465457547787683,
+        "pb_llr": -2.307099969417308,
+        "router_margin": 5.465457547787683,
+        "pb_margin": 12.807099969417308,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "10-29x": {
+        "loci": 2553,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 24576,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 97689,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 522988,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 317881,
+        "disagreements": 1,
+        "rate": 3.145831301650618e-06
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 2,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 242,
+        "disagreements": 1,
+        "rate": 0.004132231404958678
+      },
+      "q25-30": {
+        "loci": 4968,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 66896,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 893579,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 88076,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 10,
+        "disagreements": 1,
+        "rate": 0.1
+      },
+      "vaf0.25-0.35": {
+        "loci": 10,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 144,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 349,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 132,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 476,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1111,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 964576,
+        "disagreements": 1,
+        "rate": 1.036724944431543e-06
+      }
+    }
+  },
+  "chr4_atrich_30x": {
+    "region": "chr4_atrich_30x",
+    "loci_scored": 965687,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 1901,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 465378,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 487473,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 10811,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 124,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 28,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 559,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 6616,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 89073,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 869411,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 37243,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 95,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 47,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 151,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 256,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 174,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 479,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1111,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 964576,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "chr4_atrich_15x": {
+    "region": "chr4_atrich_15x",
+    "loci_scored": 965687,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 110599,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 851500,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 3486,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 157,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1211,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 10159,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 118346,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 835712,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 18199,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 772,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 97,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 166,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 178,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 205,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 494,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1111,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 964576,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "chr1_segdup_full": {
+    "region": "chr1_segdup_full",
+    "loci_scored": 656369,
+    "disagreements": 19,
+    "disagreement_rate": 2.8947131872468077e-05,
+    "records": [
+      {
+        "frame_index": 20057,
+        "depth": 46.0,
+        "vaf": 0.10810810810810811,
+        "mean_base_quality": 35.91304347826087,
+        "binomial_llr": -2.5286180832183085,
+        "pb_llr": 14.56318135293054,
+        "router_margin": 9.528618083218308,
+        "pb_margin": 4.06318135293054,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 23060,
+        "depth": 44.0,
+        "vaf": 0.11904761904761904,
+        "mean_base_quality": 38.65909090909091,
+        "binomial_llr": -0.2573267235758987,
+        "pb_llr": 18.061027973808194,
+        "router_margin": 7.257326723575899,
+        "pb_margin": 7.561027973808194,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 27094,
+        "depth": 90.0,
+        "vaf": 0.0684931506849315,
+        "mean_base_quality": 37.56666666666667,
+        "binomial_llr": -21.435402557424517,
+        "pb_llr": 11.15393304805502,
+        "router_margin": 28.435402557424517,
+        "pb_margin": 0.6539330480550198,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 61837,
+        "depth": 73.0,
+        "vaf": 0.08333333333333333,
+        "mean_base_quality": 38.04109589041096,
+        "binomial_llr": -12.554273981939613,
+        "pb_llr": 22.496177143112554,
+        "router_margin": 19.554273981939613,
+        "pb_margin": 11.996177143112554,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 62931,
+        "depth": 80.0,
+        "vaf": 0.10344827586206896,
+        "mean_base_quality": 36.2625,
+        "binomial_llr": -5.500836466266868,
+        "pb_llr": 14.835729677117012,
+        "router_margin": 12.500836466266868,
+        "pb_margin": 4.335729677117012,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 73306,
+        "depth": 62.0,
+        "vaf": 0.0851063829787234,
+        "mean_base_quality": 36.87096774193548,
+        "binomial_llr": -9.36025544897593,
+        "pb_llr": 15.433692542713347,
+        "router_margin": 16.36025544897593,
+        "pb_margin": 4.933692542713347,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 81040,
+        "depth": 72.0,
+        "vaf": 0.1016949152542373,
+        "mean_base_quality": 37.84722222222222,
+        "binomial_llr": -6.184000202842633,
+        "pb_llr": 21.535899118799215,
+        "router_margin": 13.184000202842633,
+        "pb_margin": 11.035899118799215,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 88189,
+        "depth": 84.0,
+        "vaf": 0.07575757575757576,
+        "mean_base_quality": 37.726190476190474,
+        "binomial_llr": -16.653256401394188,
+        "pb_llr": 12.634937367382387,
+        "router_margin": 23.653256401394188,
+        "pb_margin": 2.1349373673823866,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 106900,
+        "depth": 73.0,
+        "vaf": 0.10606060606060606,
+        "mean_base_quality": 37.35616438356164,
+        "binomial_llr": -5.279036316351746,
+        "pb_llr": 26.671468848667722,
+        "router_margin": 12.279036316351746,
+        "pb_margin": 16.171468848667722,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 115302,
+        "depth": 58.0,
+        "vaf": 0.08695652173913043,
+        "mean_base_quality": 37.62068965517241,
+        "binomial_llr": -8.677091712400165,
+        "pb_llr": 12.232917382000121,
+        "router_margin": 15.677091712400165,
+        "pb_margin": 1.732917382000121,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 120454,
+        "depth": 43.0,
+        "vaf": 0.125,
+        "mean_base_quality": 37.093023255813954,
+        "binomial_llr": 0.8872005996605008,
+        "pb_llr": 16.508810163054825,
+        "router_margin": 6.112799400339499,
+        "pb_margin": 6.008810163054825,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn"
+      },
+      {
+        "frame_index": 134117,
+        "depth": 75.0,
+        "vaf": 0.11666666666666667,
+        "mean_base_quality": 35.72,
+        "binomial_llr": -1.1800538968971743,
+        "pb_llr": 21.178752583740128,
+        "router_margin": 8.180053896897174,
+        "pb_margin": 10.678752583740128,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 207198,
+        "depth": 53.0,
+        "vaf": 0.11627906976744186,
+        "mean_base_quality": 37.9811320754717,
+        "binomial_llr": -0.940490460151663,
+        "pb_llr": 19.894067975150953,
+        "router_margin": 7.940490460151663,
+        "pb_margin": 9.394067975150953,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 265734,
+        "depth": 5.0,
+        "vaf": 0.6,
+        "mean_base_quality": 17.8,
+        "binomial_llr": 13.645511444684853,
+        "pb_llr": 10.201731262842078,
+        "router_margin": 6.645511444684853,
+        "pb_margin": 0.29826873715792246,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_recovers_fn"
+      },
+      {
+        "frame_index": 282016,
+        "depth": 128.0,
+        "vaf": 0.12,
+        "mean_base_quality": 37.9609375,
+        "binomial_llr": -0.07105314732154966,
+        "pb_llr": 17.401395793405833,
+        "router_margin": 7.07105314732155,
+        "pb_margin": 6.9013957934058325,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 288931,
+        "depth": 29.0,
+        "vaf": 0.125,
+        "mean_base_quality": 38.58620689655172,
+        "binomial_llr": 0.6654004497453752,
+        "pb_llr": 13.483846981180655,
+        "router_margin": 6.334599550254625,
+        "pb_margin": 2.9838469811806547,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn"
+      },
+      {
+        "frame_index": 430444,
+        "depth": 119.0,
+        "vaf": 0.17894736842105263,
+        "mean_base_quality": 36.50420168067227,
+        "binomial_llr": 31.780315748163375,
+        "pb_llr": 3.702389080027448,
+        "router_margin": 24.780315748163375,
+        "pb_margin": 6.797610919972552,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_recovers_fn"
+      },
+      {
+        "frame_index": 515010,
+        "depth": 157.0,
+        "vaf": 0.08270676691729323,
+        "mean_base_quality": 37.71974522292994,
+        "binomial_llr": -28.302566496842918,
+        "pb_llr": 19.20649031747452,
+        "router_margin": 35.302566496842914,
+        "pb_margin": 8.706490317474518,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 604015,
+        "depth": 107.0,
+        "vaf": 0.10989010989010989,
+        "mean_base_quality": 38.06542056074766,
+        "binomial_llr": -5.296799603182134,
+        "pb_llr": 11.886039995754528,
+        "router_margin": 12.296799603182134,
+        "pb_margin": 1.386039995754528,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 43574,
+        "disagreements": 1,
+        "rate": 2.2949465277459034e-05
+      },
+      "10-29x": {
+        "loci": 75275,
+        "disagreements": 1,
+        "rate": 1.328462304882099e-05
+      },
+      "30-47x": {
+        "loci": 94031,
+        "disagreements": 3,
+        "rate": 3.190437196243792e-05
+      },
+      "48-59x": {
+        "loci": 99538,
+        "disagreements": 2,
+        "rate": 2.009282886937652e-05
+      },
+      "60-79x": {
+        "loci": 199688,
+        "disagreements": 5,
+        "rate": 2.503906093505869e-05
+      },
+      "80-10000x": {
+        "loci": 87827,
+        "disagreements": 7,
+        "rate": 7.970214171040797e-05
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 613,
+        "disagreements": 1,
+        "rate": 0.0016313213703099511
+      },
+      "q20-25": {
+        "loci": 515,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 3906,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 55470,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 539429,
+        "disagreements": 18,
+        "rate": 3.336861755671275e-05
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 39885,
+        "disagreements": 17,
+        "rate": 0.0004262253980193055
+      },
+      "vaf0.15-0.25": {
+        "loci": 186,
+        "disagreements": 1,
+        "rate": 0.005376344086021506
+      },
+      "vaf0.25-0.35": {
+        "loci": 102,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 103,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 158,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 79,
+        "disagreements": 1,
+        "rate": 0.012658227848101266
+      },
+      "vaf0.75-1.01": {
+        "loci": 668,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1128,
+        "disagreements": 5,
+        "rate": 0.004432624113475178
+      },
+      "non_snp": {
+        "loci": 655241,
+        "disagreements": 14,
+        "rate": 2.136618435049089e-05
+      }
+    }
+  },
+  "chr1_segdup_30x": {
+    "region": "chr1_segdup_30x",
+    "loci_scored": 656369,
+    "disagreements": 12,
+    "disagreement_rate": 1.828239907734826e-05,
+    "records": [
+      {
+        "frame_index": 27094,
+        "depth": 64.0,
+        "vaf": 0.09803921568627451,
+        "mean_base_quality": 38.390625,
+        "binomial_llr": -6.405800352757758,
+        "pb_llr": 14.056190645318129,
+        "router_margin": 13.405800352757758,
+        "pb_margin": 3.5561906453181287,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 61837,
+        "depth": 44.0,
+        "vaf": 0.11428571428571428,
+        "mean_base_quality": 37.70454545454545,
+        "binomial_llr": -1.162290610066787,
+        "pb_llr": 16.239729353542685,
+        "router_margin": 8.162290610066787,
+        "pb_margin": 5.739729353542685,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 62931,
+        "depth": 57.0,
+        "vaf": 0.125,
+        "mean_base_quality": 35.175438596491226,
+        "binomial_llr": 1.1090007495756247,
+        "pb_llr": 22.94091743184489,
+        "router_margin": 5.890999250424375,
+        "pb_margin": 12.440917431844891,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 88189,
+        "depth": 56.0,
+        "vaf": 0.11363636363636363,
+        "mean_base_quality": 38.392857142857146,
+        "binomial_llr": -1.6236541967274238,
+        "pb_llr": 14.458096551489977,
+        "router_margin": 8.623654196727424,
+        "pb_margin": 3.9580965514899766,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 116011,
+        "depth": 46.0,
+        "vaf": 0.10810810810810811,
+        "mean_base_quality": 38.630434782608695,
+        "binomial_llr": -2.5286180832183085,
+        "pb_llr": 14.885177775027461,
+        "router_margin": 9.528618083218308,
+        "pb_margin": 4.385177775027461,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 142521,
+        "depth": 70.0,
+        "vaf": 0.10344827586206896,
+        "mean_base_quality": 37.47142857142857,
+        "binomial_llr": -5.500836466266868,
+        "pb_llr": 19.281111946010952,
+        "router_margin": 12.500836466266868,
+        "pb_margin": 8.781111946010952,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 142524,
+        "depth": 71.0,
+        "vaf": 0.10344827586206896,
+        "mean_base_quality": 37.15492957746479,
+        "binomial_llr": -5.500836466266868,
+        "pb_llr": 20.930191752860438,
+        "router_margin": 12.500836466266868,
+        "pb_margin": 10.430191752860438,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 148016,
+        "depth": 47.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 35.61702127659574,
+        "binomial_llr": -1.8454543466425477,
+        "pb_llr": 11.433828343587471,
+        "router_margin": 8.845454346642548,
+        "pb_margin": 0.9338283435874715,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 277330,
+        "depth": 56.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 38.17857142857143,
+        "binomial_llr": -2.3068179333031846,
+        "pb_llr": 22.847117042920814,
+        "router_margin": 9.306817933303185,
+        "pb_margin": 12.347117042920814,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 378857,
+        "depth": 30.0,
+        "vaf": 0.12,
+        "mean_base_quality": 38.833333333333336,
+        "binomial_llr": -0.017763286830387415,
+        "pb_llr": 12.364982727358441,
+        "router_margin": 7.017763286830387,
+        "pb_margin": 1.8649827273584414,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn"
+      },
+      {
+        "frame_index": 604015,
+        "depth": 58.0,
+        "vaf": 0.12244897959183673,
+        "mean_base_quality": 38.63793103448276,
+        "binomial_llr": 0.647637162914986,
+        "pb_llr": 24.11976654558667,
+        "router_margin": 6.352362837085014,
+        "pb_margin": 13.619766545586671,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn"
+      },
+      {
+        "frame_index": 639547,
+        "depth": 64.0,
+        "vaf": 0.09615384615384616,
+        "mean_base_quality": 37.84375,
+        "binomial_llr": -7.0889640893335155,
+        "pb_llr": 11.60011401437449,
+        "router_margin": 14.088964089333516,
+        "pb_margin": 1.1001140143744905,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 61521,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 149096,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 251478,
+        "disagreements": 4,
+        "rate": 1.5905963941179747e-05
+      },
+      "48-59x": {
+        "loci": 100702,
+        "disagreements": 4,
+        "rate": 3.972115747452881e-05
+      },
+      "60-79x": {
+        "loci": 28699,
+        "disagreements": 4,
+        "rate": 0.00013937767866476183
+      },
+      "80-10000x": {
+        "loci": 4375,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 640,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 559,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 4368,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 61713,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 528591,
+        "disagreements": 12,
+        "rate": 2.2701862120240413e-05
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 25427,
+        "disagreements": 12,
+        "rate": 0.0004719392771463405
+      },
+      "vaf0.15-0.25": {
+        "loci": 248,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 88,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 83,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 168,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 77,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 649,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1128,
+        "disagreements": 2,
+        "rate": 0.0017730496453900709
+      },
+      "non_snp": {
+        "loci": 655241,
+        "disagreements": 10,
+        "rate": 1.5261560250350634e-05
+      }
+    }
+  },
+  "chr1_segdup_15x": {
+    "region": "chr1_segdup_15x",
+    "loci_scored": 656369,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 121921,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 414434,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 49030,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 1691,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 466,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 202,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 955,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 992,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 7080,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 77586,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 501131,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 12468,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 535,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 127,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 76,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 165,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 92,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 647,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1128,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 655241,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  }
+}

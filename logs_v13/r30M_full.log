@@ -1,0 +1,2 @@
+2026-08-16 21:25:13,302 | INFO | 29999999-30469999: 455488 loci (549 SNP) | pool windows 55 | cumulative 11.5 min
+2026-08-16 21:25:14,435 | INFO | Wrote cache/bench_v13/r30M_full.npz | 455488 loci | 549 SNP | counts 140s reads 344s pb 102s feat 0s

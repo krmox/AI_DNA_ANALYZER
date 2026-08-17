@@ -370,6 +370,135 @@ class TestPoissonBinomial:
                               poisson_binomial_llr(evidence, k, chunk=4096)["llr"])
 
 
+class TestPoissonBinomialDepthClipping:
+    """Regression tests for the >=48x depth-clipping defect (devlog 12 §15, fixed devlog 13).
+
+    The defect: ``evidence`` covers at most ``MAX_READS = 48`` reads while ``k``
+    comes from the uncapped count matrix, and the two were reconciled by
+    clipping ``k`` to the tensor width. Where that pushed ``k`` past a locus'
+    number of *counted* slots, every hypothesis returned ``-inf``, the LLR came
+    out ``nan``, and ``nan_to_num`` mapped the strongest possible variant
+    evidence to exactly ``0.0``.
+
+    Each test below states the property that must hold rather than a magic
+    number, except where the number is the point (``!= 0``).
+    """
+
+    def test_legacy_path_reproduces_the_defect(self) -> None:
+        """Guard on the A/B control itself: without the fix, a strong ALT locus scores 0.
+
+        If this ever stops failing the way it used to, the benchmark's
+        before/after comparison would be measuring nothing.
+        """
+        # 40 counted ALT reads + 8 gap reads fills all 48 slots; the uncapped
+        # pileup at ~70x reports k = 54.
+        evidence = evidence_for([("C", 35)] * 40, gaps=8, reference="A")
+        legacy = poisson_binomial_llr(evidence, np.array([54]), legacy_truncation=True)
+        assert legacy["llr"][0] == 0.0
+        assert legacy["n_non_finite"] == 1
+
+    def test_high_depth_strong_evidence_is_no_longer_zeroed(self) -> None:
+        """The previously failing case: k above the retained read count."""
+        evidence = evidence_for([("C", 35)] * 40, gaps=8, reference="A")
+        result = poisson_binomial_llr(evidence, np.array([54]))
+        assert np.isfinite(result["llr"][0])
+        assert result["llr"][0] > 0, "40/40 ALT reads is evidence *for* a variant"
+        assert result["n_out_of_support"] == 1
+        assert result["n_non_finite"] == 0
+
+    def test_high_depth_strong_evidence_clears_the_frozen_threshold(self) -> None:
+        """The defect's consequence was a confident false negative; it must be gone."""
+        from cascade import FROZEN_PB_THRESHOLD
+
+        evidence = evidence_for([("C", 35)] * 40, gaps=8, reference="A")
+        assert poisson_binomial_llr(evidence, np.array([54]))["llr"][0] > FROZEN_PB_THRESHOLD
+
+    def test_alt_index_recounts_over_the_retained_reads(self) -> None:
+        """With ``alt_index``, ``k`` is taken from the evidence, not from the caller.
+
+        The retained sample here is 30 ALT + 10 REF, so a caller-supplied
+        ``k = 54`` (the uncapped count at ~70x) must be replaced by 30, and the
+        answer must equal the answer for a locus that simply had k = 30.
+        """
+        evidence = evidence_for([("C", 35)] * 30 + [("A", 35)] * 10, reference="A")
+        with_alt = poisson_binomial_llr(evidence, np.array([54]), alt_index=np.array([1]))
+        assert int(with_alt["k_effective"][0]) == 30
+        direct = poisson_binomial_llr(evidence, np.array([30]))
+        assert with_alt["llr"][0] == direct["llr"][0]
+
+    def test_clipping_no_longer_overstates_evidence(self) -> None:
+        """The other half of the defect: clipping asserted 'all retained reads are ALT'.
+
+        With 30 of 48 retained reads carrying ALT, the pre-fix path scored the
+        locus as though all 48 did, i.e. strictly more confident than the truth.
+        """
+        evidence = evidence_for([("C", 35)] * 30 + [("A", 35)] * 18, reference="A")
+        legacy = poisson_binomial_llr(evidence, np.array([54]), legacy_truncation=True)["llr"][0]
+        fixed = poisson_binomial_llr(evidence, np.array([54]), alt_index=np.array([1]))["llr"][0]
+        assert legacy > fixed, "the pre-fix path was over-confident here, not zeroed"
+
+    @pytest.mark.parametrize("depth,alt", [(10, 0), (10, 5), (30, 15), (30, 30), (48, 24),
+                                           (48, 48), (1, 1), (2, 0)])
+    def test_at_or_below_tensor_width_the_fix_is_a_no_op(self, depth: int, alt: int) -> None:
+        """Every result at <=48x must be reproduced bit-for-bit.
+
+        This is what licenses carrying the <=30x results of devlogs 3-12
+        forward unchanged: below the tensor width, ``k <= n_counted`` always,
+        so all three code paths coincide exactly.
+        """
+        evidence = evidence_for([("C", 32)] * alt + [("A", 32)] * (depth - alt), reference="A")
+        legacy = poisson_binomial_llr(evidence, np.array([alt]), legacy_truncation=True)["llr"][0]
+        fixed = poisson_binomial_llr(evidence, np.array([alt]))["llr"][0]
+        exact = poisson_binomial_llr(evidence, np.array([alt]), alt_index=np.array([1]))["llr"][0]
+        assert fixed == legacy
+        assert exact == legacy
+
+    def test_random_sweep_below_tensor_width_is_bit_identical(self) -> None:
+        """The same no-op claim, over 500 randomised <=44x loci at mixed qualities."""
+        rng = np.random.default_rng(1301)
+        reads = np.zeros((500, 48, READ_DIM), dtype=np.uint8)
+        reads[:, :, 0] = 255
+        alt_counts = np.zeros(500, dtype=np.int64)
+        for locus in range(500):
+            depth = int(rng.integers(0, 44))
+            for row in range(depth):
+                reads[locus, row] = [int(rng.integers(0, 4)), int(rng.integers(0, 61)),
+                                     60, 0, 128, 255, FLAG_VALID | FLAG_COUNTED, 0]
+            alt_counts[locus] = int(rng.integers(0, depth + 1))
+        evidence = extract_quality_evidence(reads, rng.integers(0, 5, size=500))
+        assert np.array_equal(poisson_binomial_llr(evidence, alt_counts)["llr"],
+                              poisson_binomial_llr(evidence, alt_counts,
+                                                   legacy_truncation=True)["llr"])
+
+    def test_k_never_leaves_the_pmf_support(self) -> None:
+        """Numerical edge: whatever the caller passes, the scored count is admissible."""
+        evidence = evidence_for([("C", 30)] * 5 + [("A", 30)] * 5, gaps=10, reference="A")
+        for k in (-3, 0, 10, 11, 48, 500):
+            result = poisson_binomial_llr(evidence, np.array([k]))
+            assert 0 <= int(result["k_effective"][0]) <= int(evidence.n_counted[0])
+            assert np.isfinite(result["llr"][0])
+
+    def test_zero_counted_reads_stays_neutral_at_high_k(self) -> None:
+        """A locus with only gap reads scores 0 -- the one place 0 is correct."""
+        evidence = evidence_for([], gaps=48, reference="A")
+        assert poisson_binomial_llr(evidence, np.array([54]))["llr"][0] == 0.0
+
+    def test_llr_is_monotone_in_retained_alt_count(self) -> None:
+        """Sanity on the repaired axis: more ALT support cannot mean less evidence."""
+        scores = [poisson_binomial_llr(
+            evidence_for([("C", 33)] * alt + [("A", 33)] * (48 - alt), reference="A"),
+            np.array([alt]))["llr"][0] for alt in range(0, 49, 4)]
+        assert all(later >= earlier for earlier, later in zip(scores, scores[1:]))
+
+    def test_out_of_support_diagnostic_counts_affected_loci(self) -> None:
+        """The diagnostic that tells a benchmark how much data the defect touched."""
+        reads = np.concatenate([make_locus([("C", 35)] * 40, gaps=8),
+                                make_locus([("C", 35)] * 10)])
+        evidence = extract_quality_evidence(reads, np.array([1, 1]))
+        result = poisson_binomial_llr(evidence, np.array([54, 10]))
+        assert result["n_out_of_support"] == 1
+
+
 class TestLeakage:
     def test_module_never_mentions_truth_sources(self) -> None:
         """Static guard: the estimator module must not touch labels or VCFs.

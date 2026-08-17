@@ -224,7 +224,8 @@ def score_all_arms(counts: np.ndarray, reads: np.ndarray,
         "seconds": 0.0}
 
     start = time.perf_counter()
-    scores["poisson_binomial"] = poisson_binomial_llr(evidence, k.astype(np.int64))["llr"]
+    scores["poisson_binomial"] = poisson_binomial_llr(
+        evidence, k.astype(np.int64), alt_index=alt_index)["llr"]
     diagnostics["poisson_binomial"] = {"seconds": time.perf_counter() - start}
 
     diagnostics["binomial_v1"] = {"seconds": fixed_seconds, "estimator": "fixed"}

@@ -1,0 +1,3 @@
+2026-08-17 09:56:50,440 | INFO | 120000000-120500000: 318464 loci (549 SNP) | pool windows 841 | cumulative 3.7 min
+2026-08-17 10:01:00,049 | INFO | 120500000-121000000: 338048 loci (579 SNP) | pool windows 1000 | cumulative 7.9 min
+2026-08-17 10:01:01,135 | INFO | Wrote cache/bench_v14/chr1_segdup_full.npz | 656512 loci | 1128 SNP | counts 118s reads 264s pb 91s feat 0s

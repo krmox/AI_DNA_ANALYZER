@@ -1,0 +1,3 @@
+2026-08-17 10:22:13,265 | INFO | 33000000-33500000: 475776 loci (407 SNP) | pool windows 3585 | cumulative 3.1 min
+2026-08-17 10:25:20,807 | INFO | 33500000-34000000: 472128 loci (358 SNP) | pool windows 3563 | cumulative 6.2 min
+2026-08-17 10:25:22,289 | INFO | Wrote cache/bench_v14/chr20_neutral_15x.npz | 947904 loci | 765 SNP | counts 80s reads 148s pb 144s feat 0s

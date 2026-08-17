@@ -162,7 +162,7 @@ class PileupCountsProvider(GiabAlignmentProvider):
 
 def load_counts(
     fasta: str, bam: str, vcf: str, bed: str | None, region: tuple[int, int],
-    seq_len: int = 64, window_slice: slice | None = None,
+    seq_len: int = 64, window_slice: slice | None = None, contig: str = "chr21",
 ) -> tuple[np.ndarray, np.ndarray]:
     """Materialize a region's raw counts and labels.
 
@@ -176,12 +176,16 @@ def load_counts(
         window_slice: Optional slice restricting which tiled windows are
             materialized -- used to build the validation split without paying
             the pileup cost of the whole training region.
+        contig: Contig to tile. Defaults to ``"chr21"``, the only contig used
+            before devlog 14, so every existing caller is unaffected.
+            ``PileupCountsProvider`` resolves the ``chr`` prefix per file, so a
+            single spelling works across FASTA, BAM and VCF.
 
     Returns:
         ``(counts [N, COUNT_DIM], labels [N])`` flattened over loci.
     """
     provider = PileupCountsProvider(
-        fasta_path=fasta, bam_path=bam, vcf_path=vcf, contig="chr21",
+        fasta_path=fasta, bam_path=bam, vcf_path=vcf, contig=contig,
         region=region, seq_len=seq_len, high_confidence_bed=bed,
     )
     with provider:

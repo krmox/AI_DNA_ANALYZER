@@ -71,8 +71,9 @@ def build(counts_npz: str, reads_npz: str, chunk: int = CHUNK) -> dict:
 
         start = time.perf_counter()
         evidence = extract_quality_evidence(block_reads, reference_index)
-        _, k, _ = candidate_alt(block_counts[:, 0:4], reference_index)
-        llr_blocks.append(poisson_binomial_llr(evidence, k.astype(np.int64))["llr"])
+        alt_index, k, _ = candidate_alt(block_counts[:, 0:4], reference_index)
+        llr_blocks.append(poisson_binomial_llr(
+            evidence, k.astype(np.int64), alt_index=alt_index)["llr"])
         prior_seconds += time.perf_counter() - start
         logger.info("  %d/%d loci", stop, n_loci)
 

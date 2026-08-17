@@ -1,0 +1,1740 @@
+{
+  "new32_33M_15x": {
+    "region": "new32_33M_15x",
+    "loci_scored": 949553,
+    "disagreements": 1,
+    "disagreement_rate": 1.0531271029631838e-06,
+    "records": [
+      {
+        "frame_index": 118204,
+        "depth": 6.0,
+        "vaf": 0.5,
+        "mean_base_quality": 15.333333333333334,
+        "binomial_llr": 12.96234770810909,
+        "pb_llr": 9.699336633418152,
+        "router_margin": 5.962347708109091,
+        "pb_margin": 0.8006633665818477,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 127663,
+        "disagreements": 1,
+        "rate": 7.833123144528955e-06
+      },
+      "10-29x": {
+        "loci": 816799,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 5091,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 293,
+        "disagreements": 1,
+        "rate": 0.0034129692832764505
+      },
+      "q20-25": {
+        "loci": 1925,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 16027,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 165793,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 765515,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 19910,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 1057,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 141,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 136,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 191,
+        "disagreements": 1,
+        "rate": 0.005235602094240838
+      },
+      "vaf0.55-0.75": {
+        "loci": 188,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 578,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1176,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 948377,
+        "disagreements": 1,
+        "rate": 1.0544329944737166e-06
+      }
+    }
+  },
+  "new32_33M_30x": {
+    "region": "new32_33M_30x",
+    "loci_scored": 949553,
+    "disagreements": 2,
+    "disagreement_rate": 2.1062542059263676e-06,
+    "records": [
+      {
+        "frame_index": 411481,
+        "depth": 35.0,
+        "vaf": 0.12903225806451613,
+        "mean_base_quality": 37.857142857142854,
+        "binomial_llr": 1.5703643362362616,
+        "pb_llr": 16.727570879371584,
+        "router_margin": 5.429635663763738,
+        "pb_margin": 6.227570879371584,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 459272,
+        "depth": 25.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 36.44,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 13.354991543306209,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 2.854991543306209,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 2551,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 473480,
+        "disagreements": 1,
+        "rate": 2.1120216271014615e-06
+      },
+      "30-47x": {
+        "loci": 461927,
+        "disagreements": 1,
+        "rate": 2.1648442286335285e-06
+      },
+      "48-59x": {
+        "loci": 11319,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 276,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 66,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 786,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 10789,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 145332,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 792580,
+        "disagreements": 2,
+        "rate": 2.5234045774559035e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 41748,
+        "disagreements": 2,
+        "rate": 4.790648653827728e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 170,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 59,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 154,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 252,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 145,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 561,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1176,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 948377,
+        "disagreements": 2,
+        "rate": 2.108865988947433e-06
+      }
+    }
+  },
+  "new32_33M_full": {
+    "region": "new32_33M_full",
+    "loci_scored": 949553,
+    "disagreements": 8,
+    "disagreement_rate": 8.42501682370547e-06,
+    "records": [
+      {
+        "frame_index": 411606,
+        "depth": 72.0,
+        "vaf": 0.10526315789473684,
+        "mean_base_quality": 38.05555555555556,
+        "binomial_llr": -4.817672729691111,
+        "pb_llr": 13.467000434617749,
+        "router_margin": 11.817672729691111,
+        "pb_margin": 2.9670004346177485,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 411607,
+        "depth": 72.0,
+        "vaf": 0.10526315789473684,
+        "mean_base_quality": 37.59722222222222,
+        "binomial_llr": -4.817672729691111,
+        "pb_llr": 12.13349105149002,
+        "router_margin": 11.817672729691111,
+        "pb_margin": 1.6334910514900205,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 411728,
+        "depth": 59.0,
+        "vaf": 0.12244897959183673,
+        "mean_base_quality": 37.33898305084746,
+        "binomial_llr": 0.647637162914986,
+        "pb_llr": 23.976476225983944,
+        "router_margin": 6.352362837085014,
+        "pb_margin": 13.476476225983944,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 411729,
+        "depth": 59.0,
+        "vaf": 0.12244897959183673,
+        "mean_base_quality": 36.067796610169495,
+        "binomial_llr": 0.647637162914986,
+        "pb_llr": 25.388097852610805,
+        "router_margin": 6.352362837085014,
+        "pb_margin": 14.888097852610805,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 411736,
+        "depth": 61.0,
+        "vaf": 0.12,
+        "mean_base_quality": 36.557377049180324,
+        "binomial_llr": -0.03552657366077483,
+        "pb_llr": 27.481072361163253,
+        "router_margin": 7.035526573660775,
+        "pb_margin": 16.981072361163253,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 459272,
+        "depth": 73.0,
+        "vaf": 0.06557377049180328,
+        "mean_base_quality": 33.821917808219176,
+        "binomial_llr": -18.9245477610366,
+        "pb_llr": 10.605494514297401,
+        "router_margin": 25.9245477610366,
+        "pb_margin": 0.10549451429740131,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 627735,
+        "depth": 70.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 28.32857142857143,
+        "binomial_llr": -3.2295451066244603,
+        "pb_llr": 11.857021341071652,
+        "router_margin": 10.22954510662446,
+        "pb_margin": 1.3570213410716523,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 932039,
+        "depth": 67.0,
+        "vaf": 0.18518518518518517,
+        "mean_base_quality": 24.44776119402985,
+        "binomial_llr": 19.980258650121062,
+        "pb_llr": 0.8807411822811986,
+        "router_margin": 12.980258650121062,
+        "pb_margin": 9.619258817718801,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 29,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 3970,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 30299,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 109033,
+        "disagreements": 2,
+        "rate": 1.834307044656205e-05
+      },
+      "60-79x": {
+        "loci": 493327,
+        "disagreements": 6,
+        "rate": 1.216231830003223e-05
+      },
+      "80-10000x": {
+        "loci": 312895,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 19,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 351,
+        "disagreements": 1,
+        "rate": 0.002849002849002849
+      },
+      "q25-30": {
+        "loci": 7459,
+        "disagreements": 1,
+        "rate": 0.0001340662287169862
+      },
+      "q30-35": {
+        "loci": 118954,
+        "disagreements": 1,
+        "rate": 8.406610958858046e-06
+      },
+      "q35-60": {
+        "loci": 822770,
+        "disagreements": 5,
+        "rate": 6.07703246350742e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 96502,
+        "disagreements": 7,
+        "rate": 7.253735673872045e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 23,
+        "disagreements": 1,
+        "rate": 0.043478260869565216
+      },
+      "vaf0.25-0.35": {
+        "loci": 19,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 146,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 337,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 117,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 556,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 1176,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 948377,
+        "disagreements": 8,
+        "rate": 8.435463955789733e-06
+      }
+    }
+  },
+  "r30M_full": {
+    "region": "r30M_full",
+    "loci_scored": 455371,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "10-29x": {
+        "loci": 1200,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 12921,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 48995,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 244248,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 148007,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 1,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 62,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 1832,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 29504,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 423972,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 41347,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 3,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 1,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 35,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 90,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 34,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 389,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 549,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 454822,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "re31_32M_full": {
+    "region": "re31_32M_full",
+    "loci_scored": 925418,
+    "disagreements": 2,
+    "disagreement_rate": 2.1611855399397893e-06,
+    "records": [
+      {
+        "frame_index": 341377,
+        "depth": 67.0,
+        "vaf": 0.11538461538461539,
+        "mean_base_quality": 28.91044776119403,
+        "binomial_llr": -1.4018540468123,
+        "pb_llr": 11.522773102878418,
+        "router_margin": 8.4018540468123,
+        "pb_margin": 1.0227731028784177,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp"
+      },
+      {
+        "frame_index": 579605,
+        "depth": 63.0,
+        "vaf": 0.16666666666666666,
+        "mean_base_quality": 21.571428571428573,
+        "binomial_llr": 12.70502098453319,
+        "pb_llr": 6.193972359848711,
+        "router_margin": 5.70502098453319,
+        "pb_margin": 4.306027640151289,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 32,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 7017,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 52316,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 152082,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 511017,
+        "disagreements": 2,
+        "rate": 3.9137641213501705e-06
+      },
+      "80-10000x": {
+        "loci": 202954,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 13,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 527,
+        "disagreements": 1,
+        "rate": 0.0018975332068311196
+      },
+      "q25-30": {
+        "loci": 11257,
+        "disagreements": 1,
+        "rate": 8.883361463977969e-05
+      },
+      "q30-35": {
+        "loci": 134436,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 779185,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 94983,
+        "disagreements": 1,
+        "rate": 1.0528199783119084e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 37,
+        "disagreements": 1,
+        "rate": 0.02702702702702703
+      },
+      "vaf0.25-0.35": {
+        "loci": 20,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 121,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 232,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 94,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 461,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 924,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 924494,
+        "disagreements": 2,
+        "rate": 2.163345570658111e-06
+      }
+    }
+  },
+  "re31_32M_30x": {
+    "region": "re31_32M_30x",
+    "loci_scored": 925418,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 5400,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 540984,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 373695,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 5268,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 71,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 78,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1226,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 14147,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 160006,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 749961,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 41049,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 233,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 52,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 117,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 152,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 140,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 463,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 924,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 924494,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "gen14_near_40_44M": {
+    "region": "gen14_near_40_44M",
+    "loci_scored": 3372463,
+    "disagreements": 2,
+    "disagreement_rate": 5.930383817405854e-07,
+    "records": [
+      {
+        "frame_index": 2088503,
+        "depth": 5.0,
+        "vaf": 0.75,
+        "mean_base_quality": 11.199999809265137,
+        "binomial_llr": 14.328675181260614,
+        "pb_llr": 10.124842037733004,
+        "router_margin": 7.328675181260614,
+        "pb_margin": 0.3751579622669965,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_recovers_fn"
+      },
+      {
+        "frame_index": 2816876,
+        "depth": 14.0,
+        "vaf": 0.3076923076923077,
+        "mean_base_quality": 18.14285659790039,
+        "binomial_llr": 13.867311594599979,
+        "pb_llr": 10.481712628684608,
+        "router_margin": 6.867311594599979,
+        "pb_margin": 0.01828737131539171,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp"
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 525811,
+        "disagreements": 1,
+        "rate": 1.9018240394362232e-06
+      },
+      "10-29x": {
+        "loci": 2737006,
+        "disagreements": 1,
+        "rate": 3.653627357777075e-07
+      },
+      "30-47x": {
+        "loci": 9970,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 2652,
+        "disagreements": 2,
+        "rate": 0.0007541478129713424
+      },
+      "q20-25": {
+        "loci": 10108,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 75638,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 685113,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2499275,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 65103,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 4460,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 946,
+        "disagreements": 1,
+        "rate": 0.0010570824524312897
+      },
+      "vaf0.35-0.45": {
+        "loci": 895,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 1158,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 1313,
+        "disagreements": 1,
+        "rate": 0.0007616146230007616
+      },
+      "vaf0.75-1.01": {
+        "loci": 1914,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 5951,
+        "disagreements": 1,
+        "rate": 0.00016803898504453034
+      },
+      "non_snp": {
+        "loci": 3366512,
+        "disagreements": 1,
+        "rate": 2.970433493182261e-07
+      }
+    }
+  },
+  "gen14_far_13_17M": {
+    "region": "gen14_far_13_17M",
+    "loci_scored": 3567862,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 593524,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 2924684,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 11924,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 1630,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 5763,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 41896,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 454618,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 3026225,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 63055,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 3900,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 559,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 518,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 624,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 651,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2074,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4097,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 3563765,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "gen14_far_17_21M": {
+    "region": "gen14_far_17_21M",
+    "loci_scored": 3863504,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 659219,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 3198142,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 5721,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 1177,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 5852,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 44812,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 489683,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 3321558,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 66008,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 4177,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 666,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 745,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 912,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 1014,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2730,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 5873,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 3857631,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "gen14_far_21_25M": {
+    "region": "gen14_far_21_25M",
+    "loci_scored": 3878571,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 545976,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 3321819,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 10629,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 851,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 5129,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 38809,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 455713,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 3377922,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 68955,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 3634,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 561,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 688,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 793,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 846,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 3041,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 5833,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 3872738,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "gen14_far_25_29M": {
+    "region": "gen14_far_25_29M",
+    "loci_scored": 3835404,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 482579,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 3334934,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 16798,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 891,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 5210,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 42492,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 494066,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 3291652,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 74511,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 3655,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 582,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 693,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 861,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 992,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2056,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 5116,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 3830288,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "test_15x": {
+    "region": "test_15x",
+    "loci_scored": 455371,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 59118,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 393509,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 2744,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 58,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 491,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 4290,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 54328,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 396204,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 8532,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 395,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 37,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 32,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 38,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 48,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 400,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 549,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 454822,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "test_30x": {
+    "region": "test_30x",
+    "loci_scored": 455371,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 1176,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 218291,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 230248,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 5622,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 34,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 2,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 155,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 2404,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 40815,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 411995,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 17472,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 27,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 11,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 36,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 60,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 49,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 393,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 549,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 454822,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    }
+  }
+}
