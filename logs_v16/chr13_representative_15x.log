@@ -1,0 +1,7 @@
+2026-08-17 18:30:47,109 | INFO | 70000000-70500000: 485248 loci (1152 SNP) | pool windows 3178 | cumulative 2.4 min
+2026-08-17 18:33:14,102 | INFO | 70500000-71000000: 488960 loci (893 SNP) | pool windows 3205 | cumulative 4.8 min
+2026-08-17 18:35:48,928 | INFO | 71000000-71500000: 487808 loci (647 SNP) | pool windows 3148 | cumulative 7.4 min
+2026-08-17 18:38:15,318 | INFO | 71500000-72000000: 480192 loci (394 SNP) | pool windows 3143 | cumulative 9.9 min
+2026-08-17 18:40:46,402 | INFO | 72000000-72500000: 485248 loci (861 SNP) | pool windows 3241 | cumulative 12.4 min
+2026-08-17 18:43:59,614 | INFO | 72500000-73000000: 483136 loci (811 SNP) | pool windows 3329 | cumulative 15.6 min
+2026-08-17 18:44:04,738 | INFO | Wrote cache/bench_v16/chr13_representative_15x.partial.npz | 2910592 loci | 4758 SNP | counts 195s reads 422s pb 319s feat 0s

@@ -1,0 +1,671 @@
+{
+  "note": "supersedes the by_mapq block of benchmark_results.json, which used edges topping out at MAPQ 61 and therefore covered 0.02% of loci; this library's MAPQ is 70. Diagnostic axis only.",
+  "edges": [
+    [
+      0,
+      20
+    ],
+    [
+      20,
+      40
+    ],
+    [
+      40,
+      60
+    ],
+    [
+      60,
+      71
+    ]
+  ],
+  "cells": {
+    "chr13_representative_full": {
+      "mq0-20": {
+        "loci": 0,
+        "snp": 0,
+        "binomial_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "pb_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "cheap_router_pb": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0
+      },
+      "mq20-40": {
+        "loci": 0,
+        "snp": 0,
+        "binomial_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "pb_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "cheap_router_pb": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0
+      },
+      "mq40-60": {
+        "loci": 255,
+        "snp": 2,
+        "binomial_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "tn": 253,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "pb_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "tn": 253,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "cheap_router_pb": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "tn": 253,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0,
+        "vs_pb_paired_bootstrap": {
+          "resamples": 10000,
+          "seed": 20260812,
+          "delta_f1": 0.0,
+          "delta_f1_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_f1_p_two_sided": 2.0,
+          "delta_tp": 0,
+          "delta_tp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fp": 0,
+          "delta_fp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fn": 0,
+          "delta_fn_ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "mq60-71": {
+        "loci": 2908662,
+        "snp": 4756,
+        "binomial_only": {
+          "precision": 0.992901878914405,
+          "recall": 1.0,
+          "f1": 0.9964382987638801,
+          "tp": 4756,
+          "fp": 34,
+          "fn": 0,
+          "tn": 2903872,
+          "accuracy": 0.9999883107765701,
+          "balanced_accuracy": 0.9999941458160146
+        },
+        "pb_only": {
+          "precision": 0.9947709684166492,
+          "recall": 1.0,
+          "f1": 0.9973786305966237,
+          "tp": 4756,
+          "fp": 25,
+          "fn": 0,
+          "tn": 2903881,
+          "accuracy": 0.9999914049827722,
+          "balanced_accuracy": 0.999995695452952
+        },
+        "cheap_router_pb": {
+          "precision": 0.9945629443747386,
+          "recall": 1.0,
+          "f1": 0.9972740616481442,
+          "tp": 4756,
+          "fp": 26,
+          "fn": 0,
+          "tn": 2903880,
+          "accuracy": 0.999991061182083,
+          "balanced_accuracy": 0.99999552327107
+        },
+        "fraction_routed_to_pb": 3.403626822229602e-05,
+        "pb_compute_loci": 99,
+        "disagreement_vs_pb": 3,
+        "delta_f1_vs_pb": -0.00010456894847943321,
+        "vs_pb_paired_bootstrap": {
+          "resamples": 10000,
+          "seed": 20260812,
+          "delta_f1": -0.00010456894847943321,
+          "delta_f1_ci95": [
+            -0.000438860091641023,
+            0.00021186491457749756
+          ],
+          "delta_f1_p_two_sided": 0.7806,
+          "delta_tp": 0,
+          "delta_tp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fp": 1,
+          "delta_fp_ci95": [
+            -2.0,
+            4.024999999999636
+          ],
+          "delta_fn": 0,
+          "delta_fn_ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "chr13_representative_30x": {
+      "mq0-20": {
+        "loci": 0,
+        "snp": 0,
+        "binomial_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "pb_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "cheap_router_pb": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0
+      },
+      "mq20-40": {
+        "loci": 0,
+        "snp": 0,
+        "binomial_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "pb_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "cheap_router_pb": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0
+      },
+      "mq40-60": {
+        "loci": 475,
+        "snp": 4,
+        "binomial_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "tn": 471,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "pb_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "tn": 471,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "cheap_router_pb": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "tn": 471,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0,
+        "vs_pb_paired_bootstrap": {
+          "resamples": 10000,
+          "seed": 20260812,
+          "delta_f1": 0.0,
+          "delta_f1_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_f1_p_two_sided": 2.0,
+          "delta_tp": 0,
+          "delta_tp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fp": 0,
+          "delta_fp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fn": 0,
+          "delta_fn_ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "mq60-71": {
+        "loci": 2908442,
+        "snp": 4754,
+        "binomial_only": {
+          "precision": 0.9908141962421712,
+          "recall": 0.9983172065628944,
+          "f1": 0.9945515507124895,
+          "tp": 4746,
+          "fp": 44,
+          "fn": 8,
+          "tn": 2903644,
+          "accuracy": 0.9999821210118682,
+          "balanced_accuracy": 0.9991510267098596
+        },
+        "pb_only": {
+          "precision": 0.9955974842767296,
+          "recall": 0.998948254101809,
+          "f1": 0.997270054598908,
+          "tp": 4749,
+          "fp": 21,
+          "fn": 5,
+          "tn": 2903667,
+          "accuracy": 0.9999910605059341,
+          "balanced_accuracy": 0.9994705109599196
+        },
+        "cheap_router_pb": {
+          "precision": 0.9955974842767296,
+          "recall": 0.998948254101809,
+          "f1": 0.997270054598908,
+          "tp": 4749,
+          "fp": 21,
+          "fn": 5,
+          "tn": 2903667,
+          "accuracy": 0.9999910605059341,
+          "balanced_accuracy": 0.9994705109599196
+        },
+        "fraction_routed_to_pb": 0.00013134179742968916,
+        "pb_compute_loci": 382,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0,
+        "vs_pb_paired_bootstrap": {
+          "resamples": 10000,
+          "seed": 20260812,
+          "delta_f1": 0.0,
+          "delta_f1_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_f1_p_two_sided": 2.0,
+          "delta_tp": 0,
+          "delta_tp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fp": 0,
+          "delta_fp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fn": 0,
+          "delta_fn_ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "chr13_representative_15x": {
+      "mq0-20": {
+        "loci": 0,
+        "snp": 0,
+        "binomial_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "pb_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "cheap_router_pb": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0
+      },
+      "mq20-40": {
+        "loci": 0,
+        "snp": 0,
+        "binomial_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "pb_only": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "cheap_router_pb": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0,
+          "accuracy": 0.0,
+          "balanced_accuracy": 0.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0
+      },
+      "mq40-60": {
+        "loci": 291,
+        "snp": 1,
+        "binomial_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 290,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "pb_only": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 290,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "cheap_router_pb": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 290,
+          "accuracy": 1.0,
+          "balanced_accuracy": 1.0
+        },
+        "fraction_routed_to_pb": 0.0,
+        "pb_compute_loci": 0,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0,
+        "vs_pb_paired_bootstrap": {
+          "resamples": 10000,
+          "seed": 20260812,
+          "delta_f1": 0.0,
+          "delta_f1_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_f1_p_two_sided": 2.0,
+          "delta_tp": 0,
+          "delta_tp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fp": 0,
+          "delta_fp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fn": 0,
+          "delta_fn_ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "mq60-71": {
+        "loci": 2908476,
+        "snp": 4757,
+        "binomial_only": {
+          "precision": 0.9898772345466293,
+          "recall": 0.9661551397939878,
+          "f1": 0.977872340425532,
+          "tp": 4596,
+          "fp": 47,
+          "fn": 161,
+          "tn": 2903672,
+          "accuracy": 0.9999284848834923,
+          "balanced_accuracy": 0.9830694768273822
+        },
+        "pb_only": {
+          "precision": 0.9965855740503627,
+          "recall": 0.9817111624973723,
+          "f1": 0.9890924494334428,
+          "tp": 4670,
+          "fp": 16,
+          "fn": 87,
+          "tn": 2903703,
+          "accuracy": 0.9999645862644216,
+          "balanced_accuracy": 0.9908528261611588
+        },
+        "cheap_router_pb": {
+          "precision": 0.9965855740503627,
+          "recall": 0.9817111624973723,
+          "f1": 0.9890924494334428,
+          "tp": 4670,
+          "fp": 16,
+          "fn": 87,
+          "tn": 2903703,
+          "accuracy": 0.9999645862644216,
+          "balanced_accuracy": 0.9908528261611588
+        },
+        "fraction_routed_to_pb": 0.0010111824886985487,
+        "pb_compute_loci": 2941,
+        "disagreement_vs_pb": 0,
+        "delta_f1_vs_pb": 0.0,
+        "vs_pb_paired_bootstrap": {
+          "resamples": 10000,
+          "seed": 20260812,
+          "delta_f1": 0.0,
+          "delta_f1_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_f1_p_two_sided": 2.0,
+          "delta_tp": 0,
+          "delta_tp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fp": 0,
+          "delta_fp_ci95": [
+            0.0,
+            0.0
+          ],
+          "delta_fn": 0,
+          "delta_fn_ci95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    }
+  }
+}

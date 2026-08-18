@@ -1,0 +1,156 @@
+{
+  "previously_used_contigs": [
+    "chr1",
+    "chr14",
+    "chr15",
+    "chr16",
+    "chr19",
+    "chr20",
+    "chr21",
+    "chr4",
+    "chr7"
+  ],
+  "historical_regions": [
+    [
+      "chr21",
+      5010000,
+      5510000
+    ],
+    [
+      "chr21",
+      10000000,
+      15000000
+    ],
+    [
+      "chr21",
+      29999999,
+      30470000
+    ],
+    [
+      "chr21",
+      31000000,
+      32000000
+    ],
+    [
+      "chr21",
+      32000000,
+      44000000
+    ],
+    [
+      "chr20",
+      33000000,
+      34000000
+    ],
+    [
+      "chr19",
+      1000000,
+      2000000
+    ],
+    [
+      "chr4",
+      101000000,
+      102000000
+    ],
+    [
+      "chr1",
+      120000000,
+      121000000
+    ],
+    [
+      "chr16",
+      29000000,
+      30000000
+    ],
+    [
+      "chr15",
+      30000000,
+      31000000
+    ],
+    [
+      "chr7",
+      57000000,
+      58000000
+    ],
+    [
+      "chr14",
+      53000000,
+      54000000
+    ]
+  ],
+  "cells": {
+    "chr13_representative_full": {
+      "contig": "chr13",
+      "region": [
+        70000000,
+        73000000
+      ],
+      "expected_region": [
+        70000000,
+        73000000
+      ],
+      "loci_cached": 2910592,
+      "loci_from_window_tiling": 2910592,
+      "window_aligned": true,
+      "snp": 4758,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 70000000,
+      "position_max": 72999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "coordinate_overlaps_historical_regions": [],
+      "bam": "data/giab_hg002_v16/chr13_representative_full.bam",
+      "ok": true
+    },
+    "chr13_representative_30x": {
+      "contig": "chr13",
+      "region": [
+        70000000,
+        73000000
+      ],
+      "expected_region": [
+        70000000,
+        73000000
+      ],
+      "loci_cached": 2910592,
+      "loci_from_window_tiling": 2910592,
+      "window_aligned": true,
+      "snp": 4758,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 70000000,
+      "position_max": 72999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "coordinate_overlaps_historical_regions": [],
+      "bam": "data/giab_hg002_v16/chr13_representative_30x.bam",
+      "ok": true
+    },
+    "chr13_representative_15x": {
+      "contig": "chr13",
+      "region": [
+        70000000,
+        73000000
+      ],
+      "expected_region": [
+        70000000,
+        73000000
+      ],
+      "loci_cached": 2910592,
+      "loci_from_window_tiling": 2910592,
+      "window_aligned": true,
+      "snp": 4758,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "position_min": 70000000,
+      "position_max": 72999967,
+      "positions_inside_region": true,
+      "overlaps_previously_used_contig": false,
+      "coordinate_overlaps_historical_regions": [],
+      "bam": "data/giab_hg002_v16/chr13_representative_15x.bam",
+      "ok": true
+    }
+  },
+  "all_ok": true,
+  "n_cells": 3
+}

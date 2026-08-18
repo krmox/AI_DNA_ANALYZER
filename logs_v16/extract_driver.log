@@ -1,0 +1,11 @@
+START chr13_representative_full 2026-08-17T18:28:21+05:00
+START chr13_representative_30x 2026-08-17T18:28:21+05:00
+START chr13_representative_15x 2026-08-17T18:28:21+05:00
+DONE chr13_representative_15x rc=0 2026-08-17T18:44:05+05:00
+DONE chr13_representative_30x rc=0 2026-08-17T18:51:59+05:00
+DONE chr13_representative_full rc=0 2026-08-17T19:08:04+05:00
+ALL EXTRACTED 2026-08-17T19:08:04+05:00
+total 127812
+-rw-r--r--. 1 mark mark 36489193 Aug 17 18:44 chr13_representative_15x.npz
+-rw-r--r--. 1 mark mark 44618628 Aug 17 18:51 chr13_representative_30x.npz
+-rw-r--r--. 1 mark mark 49763735 Aug 17 19:08 chr13_representative_full.npz

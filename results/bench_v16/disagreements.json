@@ -1,0 +1,415 @@
+{
+  "chr13_representative_full": {
+    "region": "chr13_representative_full",
+    "loci_scored": 2908917,
+    "disagreements": 3,
+    "disagreement_rate": 1.0313116530997618e-06,
+    "records": [
+      {
+        "frame_index": 1701237,
+        "depth": 65.0,
+        "vaf": 0.11320754716981132,
+        "mean_base_quality": 27.584615384615386,
+        "binomial_llr": -2.085017783388057,
+        "pb_llr": 11.066819619820901,
+        "router_margin": 9.085017783388057,
+        "pb_margin": 0.566819619820901,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 71748201,
+        "annotations": []
+      },
+      {
+        "frame_index": 2655456,
+        "depth": 58.0,
+        "vaf": 0.16666666666666666,
+        "mean_base_quality": 24.896551724137932,
+        "binomial_llr": 12.70502098453319,
+        "pb_llr": 2.2753046898269726,
+        "router_margin": 5.70502098453319,
+        "pb_margin": 8.224695310173027,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp",
+        "mean_mapq": 70.0,
+        "position": 72736919,
+        "annotations": []
+      },
+      {
+        "frame_index": 2856856,
+        "depth": 57.0,
+        "vaf": 0.1875,
+        "mean_base_quality": 26.45614035087719,
+        "binomial_llr": 18.392131027054415,
+        "pb_llr": 8.31744628586875,
+        "router_margin": 11.392131027054415,
+        "pb_margin": 2.1825537141312505,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp",
+        "mean_mapq": 70.0,
+        "position": 72944485,
+        "annotations": [
+          "alldifficult"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "10-29x": {
+        "loci": 8466,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 104703,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 455120,
+        "disagreements": 2,
+        "rate": 4.3944454209878715e-06
+      },
+      "60-79x": {
+        "loci": 1721656,
+        "disagreements": 1,
+        "rate": 5.808361252189753e-07
+      },
+      "80-10000x": {
+        "loci": 618972,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 25,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 754,
+        "disagreements": 1,
+        "rate": 0.001326259946949602
+      },
+      "q25-30": {
+        "loci": 13286,
+        "disagreements": 2,
+        "rate": 0.0001505343971097396
+      },
+      "q30-35": {
+        "loci": 185933,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2708919,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 246398,
+        "disagreements": 1,
+        "rate": 4.0584745006047125e-06
+      },
+      "vaf0.15-0.25": {
+        "loci": 53,
+        "disagreements": 2,
+        "rate": 0.03773584905660377
+      },
+      "vaf0.25-0.35": {
+        "loci": 71,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 716,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 1433,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 531,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2007,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4758,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2904159,
+        "disagreements": 3,
+        "rate": 1.0330012922846165e-06
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 1,
+      "in_none": 2,
+      "router_fp": 2,
+      "in_alldifficult": 1
+    }
+  },
+  "chr13_representative_30x": {
+    "region": "chr13_representative_30x",
+    "loci_scored": 2908917,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 5349,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 1409832,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 1457626,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 35799,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 311,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 73,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1385,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 17462,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 250608,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2639389,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 110153,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 297,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 215,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 711,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 973,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 807,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2023,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4758,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2904159,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "record_summary": {}
+  },
+  "chr13_representative_15x": {
+    "region": "chr13_representative_15x",
+    "loci_scored": 2908917,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 357297,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 2539470,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 12000,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 648,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 3516,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 28450,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 339870,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2536283,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 54709,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 2361,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 456,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 627,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 789,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 862,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2114,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4758,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2904159,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "record_summary": {}
+  }
+}
