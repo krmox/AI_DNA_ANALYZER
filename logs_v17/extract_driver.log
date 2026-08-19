@@ -1,0 +1,11 @@
+START chr17_segdup_30x 2026-08-19T11:18:53+05:00
+START chr17_segdup_full 2026-08-19T11:18:53+05:00
+START chr17_segdup_15x 2026-08-19T11:18:53+05:00
+DONE chr17_segdup_15x rc=0 2026-08-19T11:32:51+05:00
+DONE chr17_segdup_30x rc=0 2026-08-19T11:40:17+05:00
+DONE chr17_segdup_full rc=0 2026-08-19T11:55:54+05:00
+ALL EXTRACTED 2026-08-19T11:55:54+05:00
+total 113964
+-rw-r--r--. 1 mark mark 33729598 Aug 19 11:32 chr17_segdup_15x.npz
+-rw-r--r--. 1 mark mark 39416710 Aug 19 11:40 chr17_segdup_30x.npz
+-rw-r--r--. 1 mark mark 43547336 Aug 19 11:55 chr17_segdup_full.npz

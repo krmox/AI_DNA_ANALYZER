@@ -1,0 +1,1169 @@
+{
+  "chr17_segdup_full": {
+    "region": "chr17_segdup_full",
+    "loci_scored": 2466725,
+    "disagreements": 25,
+    "disagreement_rate": 1.0134895458553346e-05,
+    "records": [
+      {
+        "frame_index": 267359,
+        "depth": 93.0,
+        "vaf": 0.10606060606060606,
+        "mean_base_quality": 30.27956989247312,
+        "binomial_llr": -5.279036316351746,
+        "pb_llr": 18.50838082719151,
+        "router_margin": 12.279036316351746,
+        "pb_margin": 8.008380827191509,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.58064516129032,
+        "position": 18297475,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 365874,
+        "depth": 106.0,
+        "vaf": 0.07058823529411765,
+        "mean_base_quality": 38.179245283018865,
+        "binomial_llr": -23.946257353812445,
+        "pb_llr": 13.249113030660967,
+        "router_margin": 30.946257353812445,
+        "pb_margin": 2.7491130306609666,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.4622641509434,
+        "position": 18416083,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 385635,
+        "depth": 65.0,
+        "vaf": 0.10909090909090909,
+        "mean_base_quality": 34.63076923076923,
+        "binomial_llr": -3.451345256539586,
+        "pb_llr": 15.00378442033854,
+        "router_margin": 10.451345256539586,
+        "pb_margin": 4.50378442033854,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.26153846153846,
+        "position": 18448070,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 385671,
+        "depth": 64.0,
+        "vaf": 0.12280701754385964,
+        "mean_base_quality": 34.609375,
+        "binomial_llr": 0.8694373128301152,
+        "pb_llr": 13.123038108912358,
+        "router_margin": 6.130562687169885,
+        "pb_margin": 2.6230381089123576,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.921875,
+        "position": 18448106,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 416976,
+        "depth": 37.0,
+        "vaf": 0.12903225806451613,
+        "mean_base_quality": 36.567567567567565,
+        "binomial_llr": 1.5703643362362616,
+        "pb_llr": 16.698791257122135,
+        "router_margin": 5.429635663763738,
+        "pb_margin": 6.198791257122135,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.86486486486487,
+        "position": 18534743,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 417025,
+        "depth": 46.0,
+        "vaf": 0.125,
+        "mean_base_quality": 36.56521739130435,
+        "binomial_llr": 1.1090007495756247,
+        "pb_llr": 18.642668527490045,
+        "router_margin": 5.890999250424375,
+        "pb_margin": 8.142668527490045,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.8695652173913,
+        "position": 18534792,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 424519,
+        "depth": 45.0,
+        "vaf": 0.10256410256410256,
+        "mean_base_quality": 38.22222222222222,
+        "binomial_llr": -3.8949455563698336,
+        "pb_llr": 12.653194772842017,
+        "router_margin": 10.894945556369834,
+        "pb_margin": 2.153194772842017,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.08888888888889,
+        "position": 18542478,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 427996,
+        "depth": 50.0,
+        "vaf": 0.10810810810810811,
+        "mean_base_quality": 37.98,
+        "binomial_llr": -2.5286180832183085,
+        "pb_llr": 12.174814471345375,
+        "router_margin": 9.528618083218308,
+        "pb_margin": 1.6748144713453748,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 61.36,
+        "position": 18546915,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 456810,
+        "depth": 92.0,
+        "vaf": 0.12,
+        "mean_base_quality": 38.858695652173914,
+        "binomial_llr": -0.05328986049115869,
+        "pb_llr": 18.985457865212812,
+        "router_margin": 7.053289860491159,
+        "pb_margin": 8.485457865212812,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 58.45652173913044,
+        "position": 18587638,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 493145,
+        "depth": 34.0,
+        "vaf": 0.12903225806451613,
+        "mean_base_quality": 36.705882352941174,
+        "binomial_llr": 1.5703643362362616,
+        "pb_llr": 11.779948011347637,
+        "router_margin": 5.429635663763738,
+        "pb_margin": 1.2799480113476367,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn",
+        "mean_mapq": 45.1764705882353,
+        "position": 18640872,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 508592,
+        "depth": 81.0,
+        "vaf": 0.09836065573770492,
+        "mean_base_quality": 37.41975308641975,
+        "binomial_llr": -7.550327675994154,
+        "pb_llr": 16.12223030856856,
+        "router_margin": 14.550327675994154,
+        "pb_margin": 5.622230308568561,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.91358024691358,
+        "position": 18658817,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1203018,
+        "depth": 84.0,
+        "vaf": 0.1076923076923077,
+        "mean_base_quality": 24.75,
+        "binomial_llr": -4.595872579775982,
+        "pb_llr": 17.349041562648086,
+        "router_margin": 11.595872579775982,
+        "pb_margin": 6.849041562648086,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 19613546,
+        "annotations": [
+          "alldifficult",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 1440532,
+        "depth": 98.0,
+        "vaf": 0.08108108108108109,
+        "mean_base_quality": 26.948979591836736,
+        "binomial_llr": -16.43145625147906,
+        "pb_llr": 11.044163596808334,
+        "router_margin": 23.43145625147906,
+        "pb_margin": 0.5441635968083336,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 19864500,
+        "annotations": []
+      },
+      {
+        "frame_index": 1894853,
+        "depth": 66.0,
+        "vaf": 0.08163265306122448,
+        "mean_base_quality": 38.18181818181818,
+        "binomial_llr": -10.726582922127452,
+        "pb_llr": 16.392455479381752,
+        "router_margin": 17.726582922127452,
+        "pb_margin": 5.892455479381752,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 63.60606060606061,
+        "position": 20343020,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1988093,
+        "depth": 55.0,
+        "vaf": 0.11627906976744186,
+        "mean_base_quality": 35.345454545454544,
+        "binomial_llr": -0.940490460151663,
+        "pb_llr": 12.914607170506642,
+        "router_margin": 7.940490460151663,
+        "pb_margin": 2.414607170506642,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 51.09090909090909,
+        "position": 20446784,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1988435,
+        "depth": 77.0,
+        "vaf": 0.07692307692307693,
+        "mean_base_quality": 36.97402597402598,
+        "binomial_llr": -15.970092664818429,
+        "pb_llr": 12.186513516849551,
+        "router_margin": 22.97009266481843,
+        "pb_margin": 1.6865135168495513,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.05194805194805,
+        "position": 20447126,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2000008,
+        "depth": 79.0,
+        "vaf": 0.08955223880597014,
+        "mean_base_quality": 37.41772151898734,
+        "binomial_llr": -11.649310095448726,
+        "pb_llr": 16.54208091536404,
+        "router_margin": 18.649310095448726,
+        "pb_margin": 6.042080915364039,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 54.50632911392405,
+        "position": 20460363,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2000276,
+        "depth": 45.0,
+        "vaf": 0.11363636363636363,
+        "mean_base_quality": 36.46666666666667,
+        "binomial_llr": -1.6236541967274238,
+        "pb_llr": 14.46729355795544,
+        "router_margin": 8.623654196727424,
+        "pb_margin": 3.96729355795544,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 36.644444444444446,
+        "position": 20460631,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2080255,
+        "depth": 88.0,
+        "vaf": 0.09230769230769231,
+        "mean_base_quality": 34.30681818181818,
+        "binomial_llr": -10.282982622297205,
+        "pb_llr": 12.543991547832666,
+        "router_margin": 17.282982622297205,
+        "pb_margin": 2.0439915478326665,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 20558274,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2089698,
+        "depth": 68.0,
+        "vaf": 0.08928571428571429,
+        "mean_base_quality": 35.338235294117645,
+        "binomial_llr": -9.821619035636568,
+        "pb_llr": 15.567936550726266,
+        "router_margin": 16.821619035636566,
+        "pb_margin": 5.067936550726266,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.52941176470588,
+        "position": 20568741,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2093416,
+        "depth": 84.0,
+        "vaf": 0.10606060606060606,
+        "mean_base_quality": 35.54761904761905,
+        "binomial_llr": -5.279036316351746,
+        "pb_llr": 16.954705700646727,
+        "router_margin": 12.279036316351746,
+        "pb_margin": 6.454705700646727,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.27380952380952,
+        "position": 20572459,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2094259,
+        "depth": 68.0,
+        "vaf": 0.08928571428571429,
+        "mean_base_quality": 35.470588235294116,
+        "binomial_llr": -9.821619035636568,
+        "pb_llr": 20.454750490443573,
+        "router_margin": 16.821619035636566,
+        "pb_margin": 9.954750490443573,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.57352941176471,
+        "position": 20573302,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2094439,
+        "depth": 93.0,
+        "vaf": 0.1095890410958904,
+        "mean_base_quality": 35.494623655913976,
+        "binomial_llr": -4.37407242986086,
+        "pb_llr": 23.25157563413112,
+        "router_margin": 11.37407242986086,
+        "pb_margin": 12.751575634131122,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.48387096774194,
+        "position": 20573482,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2119476,
+        "depth": 78.0,
+        "vaf": 0.1,
+        "mean_base_quality": 36.55128205128205,
+        "binomial_llr": -6.867163939418397,
+        "pb_llr": 33.234833903777684,
+        "router_margin": 13.867163939418397,
+        "pb_margin": 22.734833903777684,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.23076923076923,
+        "position": 20601149,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2141190,
+        "depth": 103.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 37.737864077669904,
+        "binomial_llr": -4.152272279945731,
+        "pb_llr": 12.245154487053274,
+        "router_margin": 11.15227227994573,
+        "pb_margin": 1.7451544870532736,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 20628121,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 15858,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 44986,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 153799,
+        "disagreements": 5,
+        "rate": 3.2509964304059194e-05
+      },
+      "48-59x": {
+        "loci": 322403,
+        "disagreements": 2,
+        "rate": 6.203416221313077e-06
+      },
+      "60-79x": {
+        "loci": 1215126,
+        "disagreements": 8,
+        "rate": 6.583679387981164e-06
+      },
+      "80-10000x": {
+        "loci": 693486,
+        "disagreements": 10,
+        "rate": 1.4419901771629132e-05
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 317,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1841,
+        "disagreements": 1,
+        "rate": 0.0005431830526887561
+      },
+      "q25-30": {
+        "loci": 28427,
+        "disagreements": 1,
+        "rate": 3.517782389981356e-05
+      },
+      "q30-35": {
+        "loci": 437943,
+        "disagreements": 4,
+        "rate": 9.13360871163599e-06
+      },
+      "q35-60": {
+        "loci": 1977130,
+        "disagreements": 19,
+        "rate": 9.609889081648653e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 252230,
+        "disagreements": 25,
+        "rate": 9.911588629425525e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 231,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 88,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 314,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 585,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 233,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1580,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 2828,
+        "disagreements": 1,
+        "rate": 0.0003536067892503536
+      },
+      "non_snp": {
+        "loci": 2463897,
+        "disagreements": 24,
+        "rate": 9.740666919112285e-06
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 24,
+      "in_alldifficult": 24,
+      "in_lowmap_segdup": 23,
+      "in_tandemrepeats": 3,
+      "router_fn": 1,
+      "in_none": 1
+    }
+  },
+  "chr17_segdup_30x": {
+    "region": "chr17_segdup_30x",
+    "loci_scored": 2466725,
+    "disagreements": 10,
+    "disagreement_rate": 4.053958183421338e-06,
+    "records": [
+      {
+        "frame_index": 385635,
+        "depth": 28.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 37.17857142857143,
+        "binomial_llr": -1.3840907599819108,
+        "pb_llr": 10.672030995708996,
+        "router_margin": 8.38409075998191,
+        "pb_margin": 0.1720309957089956,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.67857142857143,
+        "position": 18448070,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 394987,
+        "depth": 35.0,
+        "vaf": 0.11538461538461539,
+        "mean_base_quality": 38.77142857142857,
+        "binomial_llr": -0.70092702340615,
+        "pb_llr": 12.273430940761616,
+        "router_margin": 7.70092702340615,
+        "pb_margin": 1.7734309407616156,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn",
+        "mean_mapq": 65.42857142857143,
+        "position": 18461522,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 445182,
+        "depth": 52.0,
+        "vaf": 0.1,
+        "mean_base_quality": 37.94230769230769,
+        "binomial_llr": -4.578109292945594,
+        "pb_llr": 15.459721999918466,
+        "router_margin": 11.578109292945594,
+        "pb_margin": 4.959721999918466,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.03846153846153,
+        "position": 18574789,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1933162,
+        "depth": 44.0,
+        "vaf": 0.12121212121212122,
+        "mean_base_quality": 37.97727272727273,
+        "binomial_llr": 0.20403686308474,
+        "pb_llr": 17.695599307665116,
+        "router_margin": 6.79596313691526,
+        "pb_margin": 7.195599307665116,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.88636363636364,
+        "position": 20386784,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1974693,
+        "depth": 60.0,
+        "vaf": 0.10869565217391304,
+        "mean_base_quality": 36.666666666666664,
+        "binomial_llr": -2.9899816698789454,
+        "pb_llr": 24.89682515471693,
+        "router_margin": 9.989981669878945,
+        "pb_margin": 14.396825154716929,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.7,
+        "position": 20432680,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1974698,
+        "depth": 59.0,
+        "vaf": 0.10869565217391304,
+        "mean_base_quality": 36.83050847457627,
+        "binomial_llr": -2.9899816698789454,
+        "pb_llr": 23.67192380614069,
+        "router_margin": 9.989981669878945,
+        "pb_margin": 13.17192380614069,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.64406779661017,
+        "position": 20432685,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2000008,
+        "depth": 39.0,
+        "vaf": 0.125,
+        "mean_base_quality": 36.56410256410256,
+        "binomial_llr": 0.8872005996605008,
+        "pb_llr": 14.173481960764851,
+        "router_margin": 6.112799400339499,
+        "pb_margin": 3.6734819607648515,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 52.333333333333336,
+        "position": 20460363,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2000276,
+        "depth": 24.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 36.25,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 12.828712203735634,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 2.328712203735634,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 38.833333333333336,
+        "position": 20460631,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2089717,
+        "depth": 34.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 37.911764705882355,
+        "binomial_llr": -1.3840907599819108,
+        "pb_llr": 10.71055439816025,
+        "router_margin": 8.38409075998191,
+        "pb_margin": 0.2105543981602498,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.38235294117646,
+        "position": 20568760,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2093416,
+        "depth": 43.0,
+        "vaf": 0.12121212121212122,
+        "mean_base_quality": 35.18604651162791,
+        "binomial_llr": 0.20403686308474,
+        "pb_llr": 14.775344166736755,
+        "router_margin": 6.79596313691526,
+        "pb_margin": 4.275344166736755,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.44186046511628,
+        "position": 20572459,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 35090,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 859903,
+        "disagreements": 2,
+        "rate": 2.3258437288857e-06
+      },
+      "30-47x": {
+        "loci": 1441824,
+        "disagreements": 5,
+        "rate": 3.467829638014071e-06
+      },
+      "48-59x": {
+        "loci": 97227,
+        "disagreements": 2,
+        "rate": 2.0570417682331038e-05
+      },
+      "60-79x": {
+        "loci": 8560,
+        "disagreements": 1,
+        "rate": 0.00011682242990654206
+      },
+      "80-10000x": {
+        "loci": 252,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 556,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 3348,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 38276,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 480771,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 1919902,
+        "disagreements": 10,
+        "rate": 5.208599188916934e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 121740,
+        "disagreements": 10,
+        "rate": 8.21422704123542e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 558,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 204,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 304,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 458,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 310,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1577,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 2828,
+        "disagreements": 1,
+        "rate": 0.0003536067892503536
+      },
+      "non_snp": {
+        "loci": 2463897,
+        "disagreements": 9,
+        "rate": 3.6527500946671066e-06
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 9,
+      "in_alldifficult": 10,
+      "in_lowmap_segdup": 10,
+      "router_fn": 1
+    }
+  },
+  "chr17_segdup_15x": {
+    "region": "chr17_segdup_15x",
+    "loci_scored": 2466725,
+    "disagreements": 3,
+    "disagreement_rate": 1.2161874550264014e-06,
+    "records": [
+      {
+        "frame_index": 839337,
+        "depth": 28.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 33.607142857142854,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 10.60401920036447,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 0.10401920036447088,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.92857142857143,
+        "position": 19112099,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1996060,
+        "depth": 30.0,
+        "vaf": 0.125,
+        "mean_base_quality": 37.766666666666666,
+        "binomial_llr": 0.6654004497453752,
+        "pb_llr": 12.591551025082696,
+        "router_margin": 6.334599550254625,
+        "pb_margin": 2.091551025082696,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 48.233333333333334,
+        "position": 20455903,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2021925,
+        "depth": 36.0,
+        "vaf": 0.10714285714285714,
+        "mean_base_quality": 38.52777777777778,
+        "binomial_llr": -2.0672544965576716,
+        "pb_llr": 10.704409646937043,
+        "router_margin": 9.067254496557672,
+        "pb_margin": 0.20440964693704267,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 57.47222222222222,
+        "position": 20484460,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 277857,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 2125902,
+        "disagreements": 1,
+        "rate": 4.7038856918145803e-07
+      },
+      "30-47x": {
+        "loci": 34752,
+        "disagreements": 2,
+        "rate": 5.7550644567219155e-05
+      },
+      "48-59x": {
+        "loci": 230,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 1795,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 7478,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 59262,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 519014,
+        "disagreements": 1,
+        "rate": 1.926730300146046e-06
+      },
+      "q35-60": {
+        "loci": 1851192,
+        "disagreements": 2,
+        "rate": 1.0803849627699343e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 60252,
+        "disagreements": 3,
+        "rate": 4.979087831109341e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 2617,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 371,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 277,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 362,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 370,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1629,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 2828,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2463897,
+        "disagreements": 3,
+        "rate": 1.2175833648890356e-06
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 3,
+      "in_alldifficult": 3,
+      "in_lowmap_segdup": 3
+    }
+  }
+}

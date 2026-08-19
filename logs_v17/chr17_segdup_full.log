@@ -1,0 +1,7 @@
+2026-08-19 11:24:16,510 | INFO | 18000000-18500000: 401792 loci (429 SNP) | pool windows 237 | cumulative 5.3 min
+2026-08-19 11:30:04,310 | INFO | 18500000-19000000: 396608 loci (520 SNP) | pool windows 146 | cumulative 11.1 min
+2026-08-19 11:34:37,953 | INFO | 19000000-19500000: 301504 loci (269 SNP) | pool windows 295 | cumulative 15.7 min
+2026-08-19 11:42:23,650 | INFO | 19500000-20000000: 466624 loci (473 SNP) | pool windows 110 | cumulative 23.5 min
+2026-08-19 11:49:33,141 | INFO | 20000000-20500000: 468672 loci (638 SNP) | pool windows 210 | cumulative 30.6 min
+2026-08-19 11:55:49,226 | INFO | 20500000-21000000: 432576 loci (499 SNP) | pool windows 245 | cumulative 36.9 min
+2026-08-19 11:55:53,572 | INFO | Wrote cache/bench_v17/chr17_segdup_full.partial.npz | 2467776 loci | 2828 SNP | counts 559s reads 1312s pb 341s feat 0s

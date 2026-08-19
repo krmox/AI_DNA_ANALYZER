@@ -1,0 +1,28 @@
+git_head: 426c209d4d86226fa0c3227be61e32eb5aec0910
+git_status_clean: no
+date: 2026-08-19T11:11:42+05:00
+--- frozen file sha256 ---
+b0ee9f4b24fe06dc4d677ca80fdd9bedaa9885e52038679812f1f550c5286131  cascade.py
+5e13cca000f4565ab7023352b8b184a3c370cf6f75bf31b6700fd92dbb23f47a  cheap_router.py
+f0408ecae0929aefd59faa74fc96e79228606bb569c0ae3c5efabdda4d3d6ce9  binomial_baseline.py
+a69cb49591cbac13efad07d73eda3004a89e6c0659287676a4c8901cc3db053e  quality_error_model.py
+6fd5c4df39806e0594918bf4fe38333c6ce8e0643d8871dbdd0621e45374a04a  robustness_benchmark.py
+8ec91cbd646cfdebd0dc653b5c1b793a0fe7f311906b30e0927c2b76c217cffc  extract_bench_v12.py
+70b141854cb45fa33d414338d9f88902e4bb7001354b80f48fa54da8c1e7bf91  pileup_counts.py
+2a63c448eb271538f948dd4ff528cf53e3851e3c1d05d0235205021189ce6082  read_level_pileup.py
+745d7d694653ebd9aa9d52b9cc56a032234f793b2068c84da7cff86dd119c478  bench_v12_stage1.py
+839f105a45c3e924f8c558564a3407810cebd5a72fd9e0748b8090e2209b0008  bench_v13_robustness.py
+5c36f1364cc5f8c0382f90c89c09003ef3f52250802d57570acae15079beb383  bench_v14_crosschrom.py
+ce151c1dda28b032480e74435218e5261e95a0eca311a5c0117bdae491b6cfb6  config.py
+d470af393479d3c2426e892c2bc5d5624c6250805660d5df42590fd70946b26f  safety_layer.py
+--- env ---
+Python 3.14.3
+numpy 2.4.4
+scipy 1.17.1
+pysam 0.24.0
+samtools 1.23.1
+Using htslib 1.23.1
+bcftools 1.23.1
+Using htslib 1.23.1
+--- frozen constants ---
+7.0 10.5 5.411872376933351
