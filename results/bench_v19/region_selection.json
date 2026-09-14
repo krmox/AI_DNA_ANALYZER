@@ -1,0 +1,53 @@
+{
+  "chr2": {
+    "contig": "chr2",
+    "start": 210000000,
+    "stop": 213000000,
+    "hc_fraction": 0.978859,
+    "n_fraction": 0.0,
+    "gc_fraction": 0.3589693333333333,
+    "lowmap_segdup_fraction": 0.026691666666666666,
+    "lowmap_segdup_hc_fraction": 0.02570407654898884,
+    "alldifficult_fraction": 0.154792,
+    "alldifficult_hc_fraction": 0.1465103758559711,
+    "tandemrepeats_fraction": 0.051613,
+    "tandemrepeats_hc_fraction": 0.04333208357894242,
+    "role": "ordinary",
+    "n_candidate_windows": 80,
+    "contig_alldifficult_hc_fraction": 0.14859917207159878
+  },
+  "chr3": {
+    "contig": "chr3",
+    "start": 75000000,
+    "stop": 78000000,
+    "hc_fraction": 0.8987133333333334,
+    "n_fraction": 0.0,
+    "gc_fraction": 0.37485833333333335,
+    "lowmap_segdup_fraction": 0.274771,
+    "lowmap_segdup_hc_fraction": 0.22584583886593426,
+    "alldifficult_fraction": 0.37409033333333336,
+    "alldifficult_hc_fraction": 0.32410816945707566,
+    "tandemrepeats_fraction": 0.07126633333333333,
+    "tandemrepeats_hc_fraction": 0.04803496851053728,
+    "role": "difficult",
+    "n_candidate_windows": 66,
+    "contig_alldifficult_hc_fraction": 0.14068121936389982
+  },
+  "chr5": {
+    "contig": "chr5",
+    "start": 27000000,
+    "stop": 30000000,
+    "hc_fraction": 0.9743923333333333,
+    "n_fraction": 0.0,
+    "gc_fraction": 0.34677833333333336,
+    "lowmap_segdup_fraction": 0.04305833333333333,
+    "lowmap_segdup_hc_fraction": 0.03908726703856797,
+    "alldifficult_fraction": 0.2504693333333333,
+    "alldifficult_hc_fraction": 0.23916341706301056,
+    "tandemrepeats_fraction": 0.062475,
+    "tandemrepeats_hc_fraction": 0.05264067143385433,
+    "role": "stress",
+    "n_candidate_windows": 60,
+    "contig_alldifficult_hc_fraction": 0.15132247653587158
+  }
+}

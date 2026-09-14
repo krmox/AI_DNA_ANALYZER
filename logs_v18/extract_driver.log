@@ -1,0 +1,11 @@
+START chr13_crosssample_full 2026-09-04T10:22:53+05:00
+START chr13_crosssample_30x 2026-09-04T10:22:53+05:00
+START chr13_crosssample_15x 2026-09-04T10:22:53+05:00
+DONE chr13_crosssample_15x rc=0 2026-09-04T10:38:28+05:00
+DONE chr13_crosssample_30x rc=0 2026-09-04T10:45:00+05:00
+DONE chr13_crosssample_full rc=0 2026-09-04T10:59:08+05:00
+ALL EXTRACTED 2026-09-04T10:59:08+05:00
+total 127008
+-rw-r--r--. 1 mark mark 36578748 Sep  4 10:38 chr13_crosssample_15x.npz
+-rw-r--r--. 1 mark mark 44617604 Sep  4 10:45 chr13_crosssample_30x.npz
+-rw-r--r--. 1 mark mark 48854974 Sep  4 10:59 chr13_crosssample_full.npz

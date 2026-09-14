@@ -1,0 +1,2907 @@
+{
+  "chr2_ordinary_full": {
+    "region": "chr2_ordinary_full",
+    "loci_scored": 2909002,
+    "disagreements": 4,
+    "disagreement_rate": 1.3750420247218806e-06,
+    "records": [
+      {
+        "frame_index": 1182601,
+        "depth": 56.0,
+        "vaf": 0.09090909090909091,
+        "mean_base_quality": 36.69642857142857,
+        "binomial_llr": -7.310764239248643,
+        "pb_llr": 13.56539374798832,
+        "router_margin": 14.310764239248643,
+        "pb_margin": 3.0653937479883204,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 41.464285714285715,
+        "position": 211220756,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1182678,
+        "depth": 58.0,
+        "vaf": 0.10869565217391304,
+        "mean_base_quality": 37.13793103448276,
+        "binomial_llr": -2.9899816698789454,
+        "pb_llr": 13.404038849291046,
+        "router_margin": 9.989981669878945,
+        "pb_margin": 2.9040388492910463,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 38.6551724137931,
+        "position": 211220833,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1396504,
+        "depth": 71.0,
+        "vaf": 0.08771929824561403,
+        "mean_base_quality": 36.50704225352113,
+        "binomial_llr": -10.504782772212325,
+        "pb_llr": 17.85746034565515,
+        "router_margin": 17.504782772212323,
+        "pb_margin": 7.357460345655149,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 211441419,
+        "annotations": []
+      },
+      {
+        "frame_index": 1634004,
+        "depth": 57.0,
+        "vaf": 0.12,
+        "mean_base_quality": 29.964912280701753,
+        "binomial_llr": -0.03552657366077483,
+        "pb_llr": 10.681233644975125,
+        "router_margin": 7.035526573660775,
+        "pb_margin": 0.18123364497512462,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 211683709,
+        "annotations": []
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 76,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 9143,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 96846,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 420126,
+        "disagreements": 3,
+        "rate": 7.14071492837863e-06
+      },
+      "60-79x": {
+        "loci": 1684814,
+        "disagreements": 1,
+        "rate": 5.935373281561051e-07
+      },
+      "80-10000x": {
+        "loci": 697997,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 12,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 627,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 13354,
+        "disagreements": 1,
+        "rate": 7.48839299086416e-05
+      },
+      "q30-35": {
+        "loci": 189383,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2705626,
+        "disagreements": 3,
+        "rate": 1.1088006989879607e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 252438,
+        "disagreements": 4,
+        "rate": 1.5845474928497295e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 50,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 62,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 730,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 1360,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 542,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1334,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4026,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2904976,
+        "disagreements": 4,
+        "rate": 1.3769476925110568e-06
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 4,
+      "in_alldifficult": 2,
+      "in_lowmap_segdup": 2,
+      "in_none": 2
+    }
+  },
+  "chr2_ordinary_30x": {
+    "region": "chr2_ordinary_30x",
+    "loci_scored": 2909002,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 6396,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 1403216,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 1471216,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 28088,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 86,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 96,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1400,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 17661,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 263968,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2625877,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 112774,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 322,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 256,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 712,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 913,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 754,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1359,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4026,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2904976,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "record_summary": {}
+  },
+  "chr2_ordinary_15x": {
+    "region": "chr2_ordinary_15x",
+    "loci_scored": 2909002,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 368152,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 2531048,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 9676,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 625,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 3478,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 29269,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 357411,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2518093,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 55151,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 2537,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 460,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 591,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 734,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 773,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1455,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4026,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2904976,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "record_summary": {}
+  },
+  "chr3_difficult_full": {
+    "region": "chr3_difficult_full",
+    "loci_scored": 2643651,
+    "disagreements": 45,
+    "disagreement_rate": 1.7021914012099177e-05,
+    "records": [
+      {
+        "frame_index": 91542,
+        "depth": 70.0,
+        "vaf": 0.08620689655172414,
+        "mean_base_quality": 38.84285714285714,
+        "binomial_llr": -11.18794650878809,
+        "pb_llr": 12.372763421286908,
+        "router_margin": 18.187946508788087,
+        "pb_margin": 1.8727634212869084,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 56.68571428571428,
+        "position": 75093672,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 117708,
+        "depth": 58.0,
+        "vaf": 0.10869565217391304,
+        "mean_base_quality": 36.8448275862069,
+        "binomial_llr": -2.9899816698789454,
+        "pb_llr": 19.72157781228538,
+        "router_margin": 9.989981669878945,
+        "pb_margin": 9.221577812285378,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 52.3448275862069,
+        "position": 75120479,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 348273,
+        "depth": 78.0,
+        "vaf": 0.07936507936507936,
+        "mean_base_quality": 36.84615384615385,
+        "binomial_llr": -14.603765191666898,
+        "pb_llr": 19.10683607707886,
+        "router_margin": 21.6037651916669,
+        "pb_margin": 8.60683607707886,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.05128205128206,
+        "position": 75370201,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 348286,
+        "depth": 78.0,
+        "vaf": 0.09230769230769231,
+        "mean_base_quality": 35.44871794871795,
+        "binomial_llr": -10.282982622297205,
+        "pb_llr": 31.02031577976294,
+        "router_margin": 17.282982622297205,
+        "pb_margin": 20.52031577976294,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.53846153846153,
+        "position": 75370214,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 348293,
+        "depth": 76.0,
+        "vaf": 0.09523809523809523,
+        "mean_base_quality": 36.18421052631579,
+        "binomial_llr": -8.916655149145683,
+        "pb_llr": 32.10169618803574,
+        "router_margin": 15.916655149145683,
+        "pb_margin": 21.60169618803574,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.47368421052632,
+        "position": 75370221,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 348353,
+        "depth": 73.0,
+        "vaf": 0.11290322580645161,
+        "mean_base_quality": 37.178082191780824,
+        "binomial_llr": -2.546381370048696,
+        "pb_llr": 42.02569242225202,
+        "router_margin": 9.546381370048696,
+        "pb_margin": 31.52569242225202,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.05479452054794,
+        "position": 75370281,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 348373,
+        "depth": 73.0,
+        "vaf": 0.11666666666666667,
+        "mean_base_quality": 36.50684931506849,
+        "binomial_llr": -1.1800538968971743,
+        "pb_llr": 38.211016950404016,
+        "router_margin": 8.180053896897174,
+        "pb_margin": 27.711016950404016,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.05479452054794,
+        "position": 75370301,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 348392,
+        "depth": 68.0,
+        "vaf": 0.12280701754385964,
+        "mean_base_quality": 36.911764705882355,
+        "binomial_llr": 0.8694373128301152,
+        "pb_llr": 35.405044405633404,
+        "router_margin": 6.130562687169885,
+        "pb_margin": 24.905044405633404,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.3529411764706,
+        "position": 75370320,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 348461,
+        "depth": 76.0,
+        "vaf": 0.12280701754385964,
+        "mean_base_quality": 36.96052631578947,
+        "binomial_llr": 0.8694373128301152,
+        "pb_llr": 40.465494890611204,
+        "router_margin": 6.130562687169885,
+        "pb_margin": 29.965494890611204,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.44736842105263,
+        "position": 75370389,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 348471,
+        "depth": 78.0,
+        "vaf": 0.12280701754385964,
+        "mean_base_quality": 36.69230769230769,
+        "binomial_llr": 0.8694373128301152,
+        "pb_llr": 43.811588753192375,
+        "router_margin": 6.130562687169885,
+        "pb_margin": 33.311588753192375,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.15384615384616,
+        "position": 75370399,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 348503,
+        "depth": 79.0,
+        "vaf": 0.11475409836065574,
+        "mean_base_quality": 34.164556962025316,
+        "binomial_llr": -1.8632176334729387,
+        "pb_llr": 29.627284847889953,
+        "router_margin": 8.863217633472939,
+        "pb_margin": 19.127284847889953,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.0253164556962,
+        "position": 75370431,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 348528,
+        "depth": 76.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 38.13157894736842,
+        "binomial_llr": -3.2295451066244603,
+        "pb_llr": 37.983750355383876,
+        "router_margin": 10.22954510662446,
+        "pb_margin": 27.483750355383876,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.39473684210526,
+        "position": 75370456,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 348575,
+        "depth": 75.0,
+        "vaf": 0.11864406779661017,
+        "mean_base_quality": 36.96,
+        "binomial_llr": -0.49689016032141,
+        "pb_llr": 38.84027356160603,
+        "router_margin": 7.49689016032141,
+        "pb_margin": 28.340273561606033,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.89333333333333,
+        "position": 75370503,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 485552,
+        "depth": 66.0,
+        "vaf": 0.08928571428571429,
+        "mean_base_quality": 37.96969696969697,
+        "binomial_llr": -9.821619035636568,
+        "pb_llr": 11.593078952124852,
+        "router_margin": 16.821619035636566,
+        "pb_margin": 1.093078952124852,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.22727272727273,
+        "position": 75559938,
+        "annotations": []
+      },
+      {
+        "frame_index": 490577,
+        "depth": 63.0,
+        "vaf": 0.11764705882352941,
+        "mean_base_quality": 37.58730158730159,
+        "binomial_llr": -0.7186903102365356,
+        "pb_llr": 28.065930977502912,
+        "router_margin": 7.718690310236536,
+        "pb_margin": 17.565930977502912,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.98412698412699,
+        "position": 75566819,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 490584,
+        "depth": 64.0,
+        "vaf": 0.11538461538461539,
+        "mean_base_quality": 36.734375,
+        "binomial_llr": -1.4018540468123,
+        "pb_llr": 24.589075507630064,
+        "router_margin": 8.4018540468123,
+        "pb_margin": 14.089075507630064,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.0,
+        "position": 75566826,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 502817,
+        "depth": 63.0,
+        "vaf": 0.1,
+        "mean_base_quality": 36.38095238095238,
+        "binomial_llr": -5.722636616181994,
+        "pb_llr": 11.299201431234378,
+        "router_margin": 12.722636616181994,
+        "pb_margin": 0.799201431234378,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.74603174603175,
+        "position": 75580724,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 502969,
+        "depth": 53.0,
+        "vaf": 0.10526315789473684,
+        "mean_base_quality": 36.75471698113208,
+        "binomial_llr": -3.2117818197940693,
+        "pb_llr": 12.45358863121041,
+        "router_margin": 10.21178181979407,
+        "pb_margin": 1.95358863121041,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.16981132075472,
+        "position": 75580876,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 544850,
+        "depth": 132.0,
+        "vaf": 0.10309278350515463,
+        "mean_base_quality": 36.52272727272727,
+        "binomial_llr": -9.395782022636702,
+        "pb_llr": 12.172908822230008,
+        "router_margin": 16.395782022636702,
+        "pb_margin": 1.6729088222300081,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 62.68939393939394,
+        "position": 75629293,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 545074,
+        "depth": 76.0,
+        "vaf": 0.0847457627118644,
+        "mean_base_quality": 38.46052631578947,
+        "binomial_llr": -11.871110245363855,
+        "pb_llr": 23.292462320194932,
+        "router_margin": 18.871110245363855,
+        "pb_margin": 12.792462320194932,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.38157894736842,
+        "position": 75629517,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555810,
+        "depth": 59.0,
+        "vaf": 0.08695652173913043,
+        "mean_base_quality": 38.28813559322034,
+        "binomial_llr": -8.677091712400165,
+        "pb_llr": 11.309586131035235,
+        "router_margin": 15.677091712400165,
+        "pb_margin": 0.8095861310352355,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.50847457627118,
+        "position": 75759942,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 555893,
+        "depth": 62.0,
+        "vaf": 0.10416666666666667,
+        "mean_base_quality": 34.37096774193548,
+        "binomial_llr": -4.356309143030472,
+        "pb_llr": 11.004366785435534,
+        "router_margin": 11.356309143030472,
+        "pb_margin": 0.5043667854355345,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.53225806451613,
+        "position": 75760153,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555894,
+        "depth": 61.0,
+        "vaf": 0.10869565217391304,
+        "mean_base_quality": 32.18032786885246,
+        "binomial_llr": -2.9899816698789454,
+        "pb_llr": 11.6427640072542,
+        "router_margin": 9.989981669878945,
+        "pb_margin": 1.1427640072542005,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.52459016393442,
+        "position": 75760154,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555913,
+        "depth": 59.0,
+        "vaf": 0.12195121951219512,
+        "mean_base_quality": 30.152542372881356,
+        "binomial_llr": 0.4258370129998639,
+        "pb_llr": 12.970190971115409,
+        "router_margin": 6.574162987000136,
+        "pb_margin": 2.470190971115409,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.50847457627118,
+        "position": 75760173,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555914,
+        "depth": 59.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 32.42372881355932,
+        "binomial_llr": -2.3068179333031846,
+        "pb_llr": 10.812061480564882,
+        "router_margin": 9.306817933303185,
+        "pb_margin": 0.31206148056488203,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.50847457627118,
+        "position": 75760174,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555919,
+        "depth": 63.0,
+        "vaf": 0.10416666666666667,
+        "mean_base_quality": 34.888888888888886,
+        "binomial_llr": -4.356309143030472,
+        "pb_llr": 11.978591639010526,
+        "router_margin": 11.356309143030472,
+        "pb_margin": 1.478591639010526,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.53968253968254,
+        "position": 75760179,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 556328,
+        "depth": 47.0,
+        "vaf": 0.10526315789473684,
+        "mean_base_quality": 36.744680851063826,
+        "binomial_llr": -3.2117818197940693,
+        "pb_llr": 13.43912804270758,
+        "router_margin": 10.21178181979407,
+        "pb_margin": 2.93912804270758,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.02127659574468,
+        "position": 75761036,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 556341,
+        "depth": 48.0,
+        "vaf": 0.10256410256410256,
+        "mean_base_quality": 38.0,
+        "binomial_llr": -3.8949455563698336,
+        "pb_llr": 13.550496843881914,
+        "router_margin": 10.894945556369834,
+        "pb_margin": 3.0504968438819144,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.04166666666667,
+        "position": 75761049,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 556342,
+        "depth": 48.0,
+        "vaf": 0.1,
+        "mean_base_quality": 36.791666666666664,
+        "binomial_llr": -4.578109292945594,
+        "pb_llr": 10.833134330193818,
+        "router_margin": 11.578109292945594,
+        "pb_margin": 0.33313433019381833,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.04166666666667,
+        "position": 75761050,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 556378,
+        "depth": 58.0,
+        "vaf": 0.125,
+        "mean_base_quality": 36.53448275862069,
+        "binomial_llr": 1.3308008994907503,
+        "pb_llr": 31.748600054273297,
+        "router_margin": 5.66919910050925,
+        "pb_margin": 21.248600054273297,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.01724137931035,
+        "position": 75761086,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 556993,
+        "depth": 79.0,
+        "vaf": 0.10606060606060606,
+        "mean_base_quality": 38.88607594936709,
+        "binomial_llr": -5.279036316351746,
+        "pb_llr": 12.103183829308247,
+        "router_margin": 12.279036316351746,
+        "pb_margin": 1.6031838293082465,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.0,
+        "position": 75761765,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 586666,
+        "depth": 76.0,
+        "vaf": 0.09090909090909091,
+        "mean_base_quality": 38.69736842105263,
+        "binomial_llr": -10.966146358872969,
+        "pb_llr": 13.093039999843473,
+        "router_margin": 17.96614635887297,
+        "pb_margin": 2.593039999843473,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.67105263157895,
+        "position": 75803279,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 593803,
+        "depth": 69.0,
+        "vaf": 0.07692307692307693,
+        "mean_base_quality": 38.028985507246375,
+        "binomial_llr": -12.77607413185474,
+        "pb_llr": 14.044985748049415,
+        "router_margin": 19.77607413185474,
+        "pb_margin": 3.544985748049415,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.14492753623189,
+        "position": 75811315,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 594168,
+        "depth": 69.0,
+        "vaf": 0.10909090909090909,
+        "mean_base_quality": 36.78260869565217,
+        "binomial_llr": -3.451345256539586,
+        "pb_llr": 10.590393330382206,
+        "router_margin": 10.451345256539586,
+        "pb_margin": 0.09039333038220576,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.66666666666667,
+        "position": 75811685,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 594172,
+        "depth": 67.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 37.82089552238806,
+        "binomial_llr": -2.7681815199638216,
+        "pb_llr": 15.04471144794908,
+        "router_margin": 9.768181519963822,
+        "pb_margin": 4.54471144794908,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.56716417910448,
+        "position": 75811689,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 631123,
+        "depth": 68.0,
+        "vaf": 0.10344827586206896,
+        "mean_base_quality": 37.294117647058826,
+        "binomial_llr": -5.500836466266868,
+        "pb_llr": 10.834880656410295,
+        "router_margin": 12.500836466266868,
+        "pb_margin": 0.3348806564102951,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.6470588235294,
+        "position": 75853641,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 637052,
+        "depth": 91.0,
+        "vaf": 0.0958904109589041,
+        "mean_base_quality": 37.78021978021978,
+        "binomial_llr": -10.061182472382079,
+        "pb_llr": 11.53711865421309,
+        "router_margin": 17.06118247238208,
+        "pb_margin": 1.0371186542130904,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.73626373626374,
+        "position": 75860722,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 637087,
+        "depth": 89.0,
+        "vaf": 0.09722222222222222,
+        "mean_base_quality": 37.943820224719104,
+        "binomial_llr": -9.378018735806322,
+        "pb_llr": 16.971417924311744,
+        "router_margin": 16.37801873580632,
+        "pb_margin": 6.471417924311744,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.02247191011236,
+        "position": 75860757,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 639804,
+        "depth": 83.0,
+        "vaf": 0.09836065573770492,
+        "mean_base_quality": 38.144578313253014,
+        "binomial_llr": -7.550327675994154,
+        "pb_llr": 11.97927620661911,
+        "router_margin": 14.550327675994154,
+        "pb_margin": 1.4792762066191099,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.0,
+        "position": 75863858,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 639850,
+        "depth": 77.0,
+        "vaf": 0.10344827586206896,
+        "mean_base_quality": 38.54545454545455,
+        "binomial_llr": -5.500836466266868,
+        "pb_llr": 15.542442549814272,
+        "router_margin": 12.500836466266868,
+        "pb_margin": 5.042442549814272,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.01298701298701,
+        "position": 75863904,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 640390,
+        "depth": 108.0,
+        "vaf": 0.09302325581395349,
+        "mean_base_quality": 37.2037037037037,
+        "binomial_llr": -13.255201005345764,
+        "pb_llr": 23.275192134497903,
+        "router_margin": 20.255201005345764,
+        "pb_margin": 12.775192134497903,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.33333333333333,
+        "position": 75864444,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 640412,
+        "depth": 109.0,
+        "vaf": 0.06896551724137931,
+        "mean_base_quality": 38.14678899082569,
+        "binomial_llr": -25.312584826963974,
+        "pb_llr": 18.49547652573098,
+        "router_margin": 32.31258482696397,
+        "pb_margin": 7.995476525730979,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.88073394495413,
+        "position": 75864466,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 640423,
+        "depth": 107.0,
+        "vaf": 0.06818181818181818,
+        "mean_base_quality": 37.149532710280376,
+        "binomial_llr": -25.995748563539735,
+        "pb_llr": 17.302558645404556,
+        "router_margin": 32.995748563539735,
+        "pb_margin": 6.802558645404556,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.85981308411215,
+        "position": 75864477,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1724899,
+        "depth": 54.0,
+        "vaf": 0.10638297872340426,
+        "mean_base_quality": 38.53703703703704,
+        "binomial_llr": -3.673145406454706,
+        "pb_llr": 19.985105656217094,
+        "router_margin": 10.673145406454706,
+        "pb_margin": 9.485105656217094,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 76997725,
+        "annotations": []
+      },
+      {
+        "frame_index": 1761540,
+        "depth": 62.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 38.66129032258065,
+        "binomial_llr": -2.7681815199638216,
+        "pb_llr": 11.68191560475919,
+        "router_margin": 9.768181519963822,
+        "pb_margin": 1.1819156047591903,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 77036216,
+        "annotations": []
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 910,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 12823,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 148845,
+        "disagreements": 1,
+        "rate": 6.718398333837213e-06
+      },
+      "48-59x": {
+        "loci": 591773,
+        "disagreements": 9,
+        "rate": 1.5208534353544349e-05
+      },
+      "60-79x": {
+        "loci": 1545287,
+        "disagreements": 28,
+        "rate": 1.8119611437875293e-05
+      },
+      "80-10000x": {
+        "loci": 343840,
+        "disagreements": 7,
+        "rate": 2.0358306188925082e-05
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 25,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 605,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 10941,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 191982,
+        "disagreements": 6,
+        "rate": 3.125292996218395e-05
+      },
+      "q35-60": {
+        "loci": 2439925,
+        "disagreements": 39,
+        "rate": 1.5984097871860815e-05
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 217253,
+        "disagreements": 45,
+        "rate": 0.00020713177723667798
+      },
+      "vaf0.15-0.25": {
+        "loci": 101,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 85,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 602,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 1101,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 446,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1677,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 3877,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2639774,
+        "disagreements": 45,
+        "rate": 1.7046913864595986e-05
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 45,
+      "in_alldifficult": 42,
+      "in_lowmap_segdup": 42,
+      "in_tandemrepeats": 7,
+      "in_none": 3
+    }
+  },
+  "chr3_difficult_30x": {
+    "region": "chr3_difficult_30x",
+    "loci_scored": 2643651,
+    "disagreements": 24,
+    "disagreement_rate": 9.078354139786227e-06,
+    "records": [
+      {
+        "frame_index": 91505,
+        "depth": 28.0,
+        "vaf": 0.125,
+        "mean_base_quality": 37.964285714285715,
+        "binomial_llr": 0.6654004497453752,
+        "pb_llr": 12.468198224559119,
+        "router_margin": 6.334599550254625,
+        "pb_margin": 1.968198224559119,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 56.892857142857146,
+        "position": 75093635,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 91526,
+        "depth": 29.0,
+        "vaf": 0.12,
+        "mean_base_quality": 39.03448275862069,
+        "binomial_llr": -0.017763286830387415,
+        "pb_llr": 12.91785429101054,
+        "router_margin": 7.017763286830387,
+        "pb_margin": 2.4178542910105403,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 56.51724137931034,
+        "position": 75093656,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 341722,
+        "depth": 46.0,
+        "vaf": 0.125,
+        "mean_base_quality": 37.34782608695652,
+        "binomial_llr": 0.8872005996605008,
+        "pb_llr": 17.237437206944627,
+        "router_margin": 6.112799400339499,
+        "pb_margin": 6.737437206944627,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.73913043478261,
+        "position": 75362626,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 341757,
+        "depth": 40.0,
+        "vaf": 0.12903225806451613,
+        "mean_base_quality": 35.45,
+        "binomial_llr": 1.5703643362362616,
+        "pb_llr": 13.985931167794702,
+        "router_margin": 5.429635663763738,
+        "pb_margin": 3.4859311677947016,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 63.525,
+        "position": 75362661,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 341839,
+        "depth": 37.0,
+        "vaf": 0.12903225806451613,
+        "mean_base_quality": 33.810810810810814,
+        "binomial_llr": 1.5703643362362616,
+        "pb_llr": 10.689114491998229,
+        "router_margin": 5.429635663763738,
+        "pb_margin": 0.18911449199822883,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.64864864864865,
+        "position": 75362743,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 352076,
+        "depth": 29.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 38.827586206896555,
+        "binomial_llr": -1.3840907599819108,
+        "pb_llr": 10.853700939545172,
+        "router_margin": 8.38409075998191,
+        "pb_margin": 0.35370093954517223,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.89655172413794,
+        "position": 75374324,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 485456,
+        "depth": 38.0,
+        "vaf": 0.12903225806451613,
+        "mean_base_quality": 36.1578947368421,
+        "binomial_llr": 1.5703643362362616,
+        "pb_llr": 17.27378789744394,
+        "router_margin": 5.429635663763738,
+        "pb_margin": 6.773787897443938,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.97368421052632,
+        "position": 75559842,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 485552,
+        "depth": 31.0,
+        "vaf": 0.10714285714285714,
+        "mean_base_quality": 38.38709677419355,
+        "binomial_llr": -2.0672544965576716,
+        "pb_llr": 10.74034338089978,
+        "router_margin": 9.067254496557672,
+        "pb_margin": 0.24034338089978036,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.35483870967742,
+        "position": 75559938,
+        "annotations": []
+      },
+      {
+        "frame_index": 544850,
+        "depth": 62.0,
+        "vaf": 0.08695652173913043,
+        "mean_base_quality": 36.87096774193548,
+        "binomial_llr": -8.677091712400165,
+        "pb_llr": 15.678940235330055,
+        "router_margin": 15.677091712400165,
+        "pb_margin": 5.178940235330055,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.06451612903226,
+        "position": 75629293,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555875,
+        "depth": 29.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 34.89655172413793,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 11.093350438531203,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 0.5933504385312034,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 69.0,
+        "position": 75760135,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555975,
+        "depth": 30.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 33.06666666666667,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 10.978290847120542,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 0.47829084712054204,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 75760235,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 555998,
+        "depth": 31.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 32.483870967741936,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 12.745699266679951,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 2.245699266679951,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 75760258,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 556029,
+        "depth": 31.0,
+        "vaf": 0.12,
+        "mean_base_quality": 35.064516129032256,
+        "binomial_llr": -0.017763286830387415,
+        "pb_llr": 10.64820652317426,
+        "router_margin": 7.017763286830387,
+        "pb_margin": 0.14820652317425953,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 75760289,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 556141,
+        "depth": 31.0,
+        "vaf": 0.11538461538461539,
+        "mean_base_quality": 38.67741935483871,
+        "binomial_llr": -0.70092702340615,
+        "pb_llr": 12.020065719238456,
+        "router_margin": 7.70092702340615,
+        "pb_margin": 1.5200657192384561,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.16129032258064,
+        "position": 75760401,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 557170,
+        "depth": 32.0,
+        "vaf": 0.125,
+        "mean_base_quality": 36.78125,
+        "binomial_llr": 0.6654004497453752,
+        "pb_llr": 12.757556607123908,
+        "router_margin": 6.334599550254625,
+        "pb_margin": 2.2575566071239077,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.09375,
+        "position": 75761942,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 559379,
+        "depth": 48.0,
+        "vaf": 0.11428571428571428,
+        "mean_base_quality": 35.145833333333336,
+        "binomial_llr": -1.162290610066787,
+        "pb_llr": 15.093245742694023,
+        "router_margin": 8.162290610066787,
+        "pb_margin": 4.593245742694023,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 75764599,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 579272,
+        "depth": 31.0,
+        "vaf": 0.125,
+        "mean_base_quality": 36.225806451612904,
+        "binomial_llr": 0.6654004497453752,
+        "pb_llr": 13.016804181715427,
+        "router_margin": 6.334599550254625,
+        "pb_margin": 2.516804181715427,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.96774193548387,
+        "position": 75795117,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 593872,
+        "depth": 43.0,
+        "vaf": 0.12121212121212122,
+        "mean_base_quality": 36.7906976744186,
+        "binomial_llr": 0.20403686308474,
+        "pb_llr": 16.175013630585347,
+        "router_margin": 6.79596313691526,
+        "pb_margin": 5.675013630585347,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.06976744186046,
+        "position": 75811384,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 593996,
+        "depth": 47.0,
+        "vaf": 0.11428571428571428,
+        "mean_base_quality": 35.808510638297875,
+        "binomial_llr": -1.162290610066787,
+        "pb_llr": 11.719703761810058,
+        "router_margin": 8.162290610066787,
+        "pb_margin": 1.2197037618100577,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.23404255319149,
+        "position": 75811513,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 594031,
+        "depth": 44.0,
+        "vaf": 0.125,
+        "mean_base_quality": 35.52272727272727,
+        "binomial_llr": 0.8872005996605008,
+        "pb_llr": 17.90816317555594,
+        "router_margin": 6.112799400339499,
+        "pb_margin": 7.408163175555941,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.9090909090909,
+        "position": 75811548,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 631123,
+        "depth": 29.0,
+        "vaf": 0.125,
+        "mean_base_quality": 37.13793103448276,
+        "binomial_llr": 0.6654004497453752,
+        "pb_llr": 13.843997258759087,
+        "router_margin": 6.334599550254625,
+        "pb_margin": 3.343997258759087,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.72413793103448,
+        "position": 75853641,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 637052,
+        "depth": 47.0,
+        "vaf": 0.10526315789473684,
+        "mean_base_quality": 37.744680851063826,
+        "binomial_llr": -3.2117818197940693,
+        "pb_llr": 12.414506311896133,
+        "router_margin": 10.21178181979407,
+        "pb_margin": 1.9145063118961332,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.55319148936171,
+        "position": 75860722,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 637087,
+        "depth": 46.0,
+        "vaf": 0.10526315789473684,
+        "mean_base_quality": 38.71739130434783,
+        "binomial_llr": -3.2117818197940693,
+        "pb_llr": 13.434712542632814,
+        "router_margin": 10.21178181979407,
+        "pb_margin": 2.9347125426328144,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 68.1086956521739,
+        "position": 75860757,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1197959,
+        "depth": 34.0,
+        "vaf": 0.1111111111111111,
+        "mean_base_quality": 37.85294117647059,
+        "binomial_llr": -1.3840907599819108,
+        "pb_llr": 11.356623821993479,
+        "router_margin": 8.38409075998191,
+        "pb_margin": 0.8566238219934785,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 66.17647058823529,
+        "position": 76452859,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 7009,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 1282555,
+        "disagreements": 5,
+        "rate": 3.8984682918081485e-06
+      },
+      "30-47x": {
+        "loci": 1323628,
+        "disagreements": 17,
+        "rate": 1.284348774731269e-05
+      },
+      "48-59x": {
+        "loci": 29639,
+        "disagreements": 1,
+        "rate": 3.3739329936907456e-05
+      },
+      "60-79x": {
+        "loci": 550,
+        "disagreements": 1,
+        "rate": 0.0018181818181818182
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 99,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1169,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 15181,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 258028,
+        "disagreements": 4,
+        "rate": 1.5502193560388795e-05
+      },
+      "q35-60": {
+        "loci": 2368904,
+        "disagreements": 20,
+        "rate": 8.442722879441295e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 102184,
+        "disagreements": 24,
+        "rate": 0.00023487042981288657
+      },
+      "vaf0.15-0.25": {
+        "loci": 300,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 229,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 597,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 774,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 602,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1692,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 3877,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2639774,
+        "disagreements": 24,
+        "rate": 9.091687394451191e-06
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 24,
+      "in_alldifficult": 23,
+      "in_lowmap_segdup": 23,
+      "in_none": 1
+    }
+  },
+  "chr3_difficult_15x": {
+    "region": "chr3_difficult_15x",
+    "loci_scored": 2643651,
+    "disagreements": 1,
+    "disagreement_rate": 3.7826475582442616e-07,
+    "records": [
+      {
+        "frame_index": 544850,
+        "depth": 34.0,
+        "vaf": 0.125,
+        "mean_base_quality": 36.85294117647059,
+        "binomial_llr": 0.6654004497453752,
+        "pb_llr": 13.033263426720163,
+        "router_margin": 6.334599550254625,
+        "pb_margin": 2.533263426720163,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 62.6764705882353,
+        "position": 75629293,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 342761,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 2291814,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 8543,
+        "disagreements": 1,
+        "rate": 0.00011705489874751258
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 509,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 2919,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 25841,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 343620,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2270229,
+        "disagreements": 1,
+        "rate": 4.4048419784964426e-07
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 50421,
+        "disagreements": 1,
+        "rate": 1.983300608873287e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 2200,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 414,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 550,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 579,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 637,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1759,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 3877,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2639774,
+        "disagreements": 1,
+        "rate": 3.7882030810213296e-07
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 1,
+      "in_alldifficult": 1,
+      "in_lowmap_segdup": 1
+    }
+  },
+  "chr5_stress_full": {
+    "region": "chr5_stress_full",
+    "loci_scored": 2892802,
+    "disagreements": 11,
+    "disagreement_rate": 3.802541618818018e-06,
+    "records": [
+      {
+        "frame_index": 1352141,
+        "depth": 61.0,
+        "vaf": 0.1702127659574468,
+        "mean_base_quality": 24.60655737704918,
+        "binomial_llr": 13.388184721108955,
+        "pb_llr": 10.292301399608933,
+        "router_margin": 6.388184721108955,
+        "pb_margin": 0.20769860039106725,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp",
+        "mean_mapq": 70.0,
+        "position": 28391763,
+        "annotations": [
+          "alldifficult",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 1751286,
+        "depth": 70.0,
+        "vaf": 0.08196721311475409,
+        "mean_base_quality": 37.15714285714286,
+        "binomial_llr": -13.237437718515377,
+        "pb_llr": 10.818049833537064,
+        "router_margin": 20.237437718515377,
+        "pb_margin": 0.3180498335370636,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 67.2,
+        "position": 28804055,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1751317,
+        "depth": 64.0,
+        "vaf": 0.12280701754385964,
+        "mean_base_quality": 37.875,
+        "binomial_llr": 0.8694373128301152,
+        "pb_llr": 29.3864110156457,
+        "router_margin": 6.130562687169885,
+        "pb_margin": 18.8864110156457,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.390625,
+        "position": 28804086,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1751376,
+        "depth": 78.0,
+        "vaf": 0.125,
+        "mean_base_quality": 37.76923076923077,
+        "binomial_llr": 1.5526010494058724,
+        "pb_llr": 24.79545372684889,
+        "router_margin": 5.447398950594128,
+        "pb_margin": 14.29545372684889,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 61.87179487179487,
+        "position": 28804145,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1751524,
+        "depth": 68.0,
+        "vaf": 0.10909090909090909,
+        "mean_base_quality": 38.3235294117647,
+        "binomial_llr": -3.451345256539586,
+        "pb_llr": 11.031386247905463,
+        "router_margin": 10.451345256539586,
+        "pb_margin": 0.5313862479054627,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 63.3235294117647,
+        "position": 28804293,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1751533,
+        "depth": 68.0,
+        "vaf": 0.10909090909090909,
+        "mean_base_quality": 38.36764705882353,
+        "binomial_llr": -3.451345256539586,
+        "pb_llr": 11.742660009779629,
+        "router_margin": 10.451345256539586,
+        "pb_margin": 1.2426600097796285,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 63.588235294117645,
+        "position": 28804302,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1751577,
+        "depth": 63.0,
+        "vaf": 0.09433962264150944,
+        "mean_base_quality": 38.23809523809524,
+        "binomial_llr": -7.772127825909282,
+        "pb_llr": 11.783967557942198,
+        "router_margin": 14.772127825909282,
+        "pb_margin": 1.2839675579421979,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 65.96825396825396,
+        "position": 28804346,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2056267,
+        "depth": 61.0,
+        "vaf": 0.12244897959183673,
+        "mean_base_quality": 27.0,
+        "binomial_llr": 0.647637162914986,
+        "pb_llr": 11.388276093275927,
+        "router_margin": 6.352362837085014,
+        "pb_margin": 0.8882760932759268,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 29121154,
+        "annotations": []
+      },
+      {
+        "frame_index": 2402393,
+        "depth": 27.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 37.2962962962963,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 12.831599445189548,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 2.331599445189548,
+        "routed_to_pb": false,
+        "truth_is_snp": true,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_fn",
+        "mean_mapq": 57.111111111111114,
+        "position": 29487976,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 2700856,
+        "depth": 55.0,
+        "vaf": 0.17391304347826086,
+        "mean_base_quality": 20.072727272727274,
+        "binomial_llr": 14.071348457684715,
+        "pb_llr": 9.536758916025356,
+        "router_margin": 7.071348457684715,
+        "pb_margin": 0.9632410839746441,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp",
+        "mean_mapq": 70.0,
+        "position": 29796874,
+        "annotations": [
+          "alldifficult",
+          "tandemrepeats"
+        ]
+      },
+      {
+        "frame_index": 2775807,
+        "depth": 26.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 38.38461538461539,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 13.530560734150113,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 3.0305607341501126,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 48.69230769230769,
+        "position": 29877417,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 383,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 12286,
+        "disagreements": 2,
+        "rate": 0.00016278691193228064
+      },
+      "30-47x": {
+        "loci": 143255,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 603514,
+        "disagreements": 1,
+        "rate": 1.6569623902676657e-06
+      },
+      "60-79x": {
+        "loci": 1744552,
+        "disagreements": 8,
+        "rate": 4.585704524714654e-06
+      },
+      "80-10000x": {
+        "loci": 388812,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 8,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 633,
+        "disagreements": 2,
+        "rate": 0.00315955766192733
+      },
+      "q25-30": {
+        "loci": 13900,
+        "disagreements": 1,
+        "rate": 7.194244604316547e-05
+      },
+      "q30-35": {
+        "loci": 196737,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2681524,
+        "disagreements": 8,
+        "rate": 2.9833781088664506e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 236384,
+        "disagreements": 9,
+        "rate": 3.807364288615135e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 56,
+        "disagreements": 2,
+        "rate": 0.03571428571428571
+      },
+      "vaf0.25-0.35": {
+        "loci": 81,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 789,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 1630,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 653,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1705,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4877,
+        "disagreements": 1,
+        "rate": 0.0002050440844781628
+      },
+      "non_snp": {
+        "loci": 2887925,
+        "disagreements": 10,
+        "rate": 3.4626938026437667e-06
+      }
+    },
+    "record_summary": {
+      "router_fp": 2,
+      "in_alldifficult": 10,
+      "in_tandemrepeats": 2,
+      "router_avoids_fp": 8,
+      "in_lowmap_segdup": 8,
+      "in_none": 1,
+      "router_fn": 1
+    }
+  },
+  "chr5_stress_30x": {
+    "region": "chr5_stress_30x",
+    "loci_scored": 2892802,
+    "disagreements": 1,
+    "disagreement_rate": 3.456856017107289e-07,
+    "records": [
+      {
+        "frame_index": 1583896,
+        "depth": 31.0,
+        "vaf": 0.11538461538461539,
+        "mean_base_quality": 36.74193548387097,
+        "binomial_llr": -0.70092702340615,
+        "pb_llr": 10.690161840802121,
+        "router_margin": 7.70092702340615,
+        "pb_margin": 0.19016184080212106,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 28630794,
+        "annotations": [
+          "alldifficult",
+          "tandemrepeats"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 6043,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 1378629,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 1476824,
+        "disagreements": 1,
+        "rate": 6.771287573874748e-07
+      },
+      "48-59x": {
+        "loci": 30539,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 622,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 111,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1456,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 17296,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 266914,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2606880,
+        "disagreements": 1,
+        "rate": 3.8360031915546555e-07
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 112514,
+        "disagreements": 1,
+        "rate": 8.887782853689319e-06
+      },
+      "vaf0.15-0.25": {
+        "loci": 305,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 281,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 794,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 1141,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 881,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1736,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4877,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2887925,
+        "disagreements": 1,
+        "rate": 3.462693802643767e-07
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 1,
+      "in_alldifficult": 1,
+      "in_tandemrepeats": 1
+    }
+  },
+  "chr5_stress_15x": {
+    "region": "chr5_stress_15x",
+    "loci_scored": 2892802,
+    "disagreements": 1,
+    "disagreement_rate": 3.456856017107289e-07,
+    "records": [
+      {
+        "frame_index": 684906,
+        "depth": 6.0,
+        "vaf": 0.5,
+        "mean_base_quality": 18.833333333333332,
+        "binomial_llr": 12.96234770810909,
+        "pb_llr": 10.453018026414854,
+        "router_margin": 5.962347708109091,
+        "pb_margin": 0.04698197358514555,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": true,
+        "pb_call": false,
+        "effect": "router_fp",
+        "mean_mapq": 70.0,
+        "position": 27702444,
+        "annotations": []
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 352186,
+        "disagreements": 1,
+        "rate": 2.839408721527829e-06
+      },
+      "10-29x": {
+        "loci": 2528347,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 11771,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 518,
+        "disagreements": 1,
+        "rate": 0.0019305019305019305
+      },
+      "q20-25": {
+        "loci": 3368,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 27859,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 356711,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2503848,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 55230,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 2395,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 513,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 696,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 845,
+        "disagreements": 1,
+        "rate": 0.001183431952662722
+      },
+      "vaf0.55-0.75": {
+        "loci": 957,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 1871,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4877,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2887925,
+        "disagreements": 1,
+        "rate": 3.462693802643767e-07
+      }
+    },
+    "record_summary": {
+      "router_fp": 1,
+      "in_none": 1
+    }
+  }
+}

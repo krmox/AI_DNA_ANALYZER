@@ -1,0 +1,7 @@
+2026-09-04 13:01:43,456 | INFO | 210000000-210500000: 485440 loci (550 SNP) | pool windows 71 | cumulative 19.2 min
+2026-09-04 13:17:23,503 | INFO | 210500000-211000000: 488384 loci (772 SNP) | pool windows 25 | cumulative 34.9 min
+2026-09-04 13:27:26,728 | INFO | 211000000-211500000: 481024 loci (544 SNP) | pool windows 70 | cumulative 45.0 min
+2026-09-04 13:35:01,542 | INFO | 211500000-212000000: 483584 loci (786 SNP) | pool windows 52 | cumulative 52.5 min
+2026-09-04 13:42:29,235 | INFO | 212000000-212500000: 487872 loci (852 SNP) | pool windows 43 | cumulative 60.0 min
+2026-09-04 13:49:33,510 | INFO | 212500000-213000000: 483776 loci (522 SNP) | pool windows 57 | cumulative 67.1 min
+2026-09-04 13:49:38,281 | INFO | Wrote cache/bench_v19/chr2_ordinary_full.partial.npz | 2910080 loci | 4026 SNP | counts 1072s reads 2344s pb 606s feat 0s

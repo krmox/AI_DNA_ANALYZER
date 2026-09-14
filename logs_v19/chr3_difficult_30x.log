@@ -1,0 +1,7 @@
+2026-09-04 12:51:48,400 | INFO | 75000000-75500000: 457408 loci (516 SNP) | pool windows 537 | cumulative 9.3 min
+2026-09-04 12:58:28,276 | INFO | 75500000-76000000: 309184 loci (821 SNP) | pool windows 385 | cumulative 16.0 min
+2026-09-04 13:08:28,993 | INFO | 76000000-76500000: 478272 loci (661 SNP) | pool windows 474 | cumulative 26.0 min
+2026-09-04 13:16:40,133 | INFO | 76500000-77000000: 483008 loci (762 SNP) | pool windows 531 | cumulative 34.2 min
+2026-09-04 13:21:58,715 | INFO | 77000000-77500000: 436288 loci (607 SNP) | pool windows 461 | cumulative 39.5 min
+2026-09-04 13:27:10,587 | INFO | 77500000-78000000: 480576 loci (510 SNP) | pool windows 508 | cumulative 44.7 min
+2026-09-04 13:27:15,822 | INFO | Wrote cache/bench_v19/chr3_difficult_30x.partial.npz | 2644736 loci | 3877 SNP | counts 655s reads 1436s pb 589s feat 0s

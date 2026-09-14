@@ -1,0 +1,15 @@
+chr5_stress native_mean_depth=66.5878
+chr2_ordinary native_mean_depth=70.5956
+chr3_difficult native_mean_depth=66.3794
+  30x: fraction=42.4505 achieved_mean_depth=30.07
+frac=.4505
+  30x: fraction=42.4250 achieved_mean_depth=29.93
+frac=.4250
+  30x: fraction=42.4519 achieved_mean_depth=30.05
+frac=.4519
+got=29.93
+got=30.07
+got=30.05
+  15x: fraction=42.2125 achieved_mean_depth=14.96
+  15x: fraction=42.2253 achieved_mean_depth=15.03
+  15x: fraction=42.2260 achieved_mean_depth=14.98

@@ -1,0 +1,217 @@
+{
+  "previously_used_contigs": [
+    "chr1",
+    "chr13",
+    "chr14",
+    "chr15",
+    "chr16",
+    "chr17",
+    "chr19",
+    "chr20",
+    "chr21",
+    "chr4",
+    "chr7"
+  ],
+  "cells": {
+    "chr2_ordinary_full": {
+      "contig": "chr2",
+      "region": [
+        210000000,
+        213000000
+      ],
+      "expected_region": [
+        210000000,
+        213000000
+      ],
+      "loci_cached": 2910080,
+      "loci_from_window_tiling": 2910080,
+      "window_aligned": true,
+      "snp": 4026,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr2_ordinary_full.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr2_ordinary_30x": {
+      "contig": "chr2",
+      "region": [
+        210000000,
+        213000000
+      ],
+      "expected_region": [
+        210000000,
+        213000000
+      ],
+      "loci_cached": 2910080,
+      "loci_from_window_tiling": 2910080,
+      "window_aligned": true,
+      "snp": 4026,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr2_ordinary_30x.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr2_ordinary_15x": {
+      "contig": "chr2",
+      "region": [
+        210000000,
+        213000000
+      ],
+      "expected_region": [
+        210000000,
+        213000000
+      ],
+      "loci_cached": 2910080,
+      "loci_from_window_tiling": 2910080,
+      "window_aligned": true,
+      "snp": 4026,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr2_ordinary_15x.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr3_difficult_full": {
+      "contig": "chr3",
+      "region": [
+        75000000,
+        78000000
+      ],
+      "expected_region": [
+        75000000,
+        78000000
+      ],
+      "loci_cached": 2644736,
+      "loci_from_window_tiling": 2644736,
+      "window_aligned": true,
+      "snp": 3877,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr3_difficult_full.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr3_difficult_30x": {
+      "contig": "chr3",
+      "region": [
+        75000000,
+        78000000
+      ],
+      "expected_region": [
+        75000000,
+        78000000
+      ],
+      "loci_cached": 2644736,
+      "loci_from_window_tiling": 2644736,
+      "window_aligned": true,
+      "snp": 3877,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr3_difficult_30x.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr3_difficult_15x": {
+      "contig": "chr3",
+      "region": [
+        75000000,
+        78000000
+      ],
+      "expected_region": [
+        75000000,
+        78000000
+      ],
+      "loci_cached": 2644736,
+      "loci_from_window_tiling": 2644736,
+      "window_aligned": true,
+      "snp": 3877,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr3_difficult_15x.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr5_stress_full": {
+      "contig": "chr5",
+      "region": [
+        27000000,
+        30000000
+      ],
+      "expected_region": [
+        27000000,
+        30000000
+      ],
+      "loci_cached": 2894400,
+      "loci_from_window_tiling": 2894400,
+      "window_aligned": true,
+      "snp": 4877,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr5_stress_full.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr5_stress_30x": {
+      "contig": "chr5",
+      "region": [
+        27000000,
+        30000000
+      ],
+      "expected_region": [
+        27000000,
+        30000000
+      ],
+      "loci_cached": 2894400,
+      "loci_from_window_tiling": 2894400,
+      "window_aligned": true,
+      "snp": 4877,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr5_stress_30x.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    },
+    "chr5_stress_15x": {
+      "contig": "chr5",
+      "region": [
+        27000000,
+        30000000
+      ],
+      "expected_region": [
+        27000000,
+        30000000
+      ],
+      "loci_cached": 2894400,
+      "loci_from_window_tiling": 2894400,
+      "window_aligned": true,
+      "snp": 4877,
+      "non_finite_binomial": 0,
+      "non_finite_pb": 0,
+      "positions_inside_region": true,
+      "contig_previously_used": false,
+      "bam": "data/giab_hg004_v19/chr5_stress_15x.bam",
+      "sample_is_hg004": true,
+      "ok": true
+    }
+  },
+  "all_ok": true,
+  "n_cells": 9
+}

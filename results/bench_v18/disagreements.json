@@ -1,0 +1,509 @@
+{
+  "chr13_crosssample_full": {
+    "region": "chr13_crosssample_full",
+    "loci_scored": 2899736,
+    "disagreements": 2,
+    "disagreement_rate": 6.897179605315794e-07,
+    "records": [
+      {
+        "frame_index": 35436,
+        "depth": 71.0,
+        "vaf": 0.11538461538461539,
+        "mean_base_quality": 38.943661971830984,
+        "binomial_llr": -1.4018540468123,
+        "pb_llr": 25.230184596141324,
+        "router_margin": 8.4018540468123,
+        "pb_margin": 14.730184596141324,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 70036359,
+        "annotations": [
+          "alldifficult"
+        ]
+      },
+      {
+        "frame_index": 389773,
+        "depth": 64.0,
+        "vaf": 0.11764705882352941,
+        "mean_base_quality": 33.296875,
+        "binomial_llr": -0.7186903102365356,
+        "pb_llr": 14.53942643548369,
+        "router_margin": 7.718690310236536,
+        "pb_margin": 4.039426435483691,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 70.0,
+        "position": 70410292,
+        "annotations": [
+          "alldifficult",
+          "tandemrepeats"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 53,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 17310,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 316421,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 1052865,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 1401180,
+        "disagreements": 2,
+        "rate": 1.427368360952911e-06
+      },
+      "80-10000x": {
+        "loci": 111907,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 23,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1007,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 16017,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 238957,
+        "disagreements": 1,
+        "rate": 4.184853341814636e-06
+      },
+      "q35-60": {
+        "loci": 2643732,
+        "disagreements": 1,
+        "rate": 3.7825316635725556e-07
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 226183,
+        "disagreements": 2,
+        "rate": 8.842397527665651e-06
+      },
+      "vaf0.15-0.25": {
+        "loci": 56,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 67,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 660,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 1150,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 519,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2025,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4422,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2895314,
+        "disagreements": 2,
+        "rate": 6.907713636586567e-07
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 2,
+      "in_alldifficult": 2,
+      "in_tandemrepeats": 1
+    }
+  },
+  "chr13_crosssample_30x": {
+    "region": "chr13_crosssample_30x",
+    "loci_scored": 2899736,
+    "disagreements": 5,
+    "disagreement_rate": 1.7242949013289486e-06,
+    "records": [
+      {
+        "frame_index": 1347191,
+        "depth": 34.0,
+        "vaf": 0.11538461538461539,
+        "mean_base_quality": 36.3235294117647,
+        "binomial_llr": -0.70092702340615,
+        "pb_llr": 10.615776966339777,
+        "router_margin": 7.70092702340615,
+        "pb_margin": 0.11577696633977652,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 64.08823529411765,
+        "position": 71388914,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1347250,
+        "depth": 35.0,
+        "vaf": 0.12,
+        "mean_base_quality": 37.34285714285714,
+        "binomial_llr": -0.017763286830387415,
+        "pb_llr": 13.363089041592263,
+        "router_margin": 7.017763286830387,
+        "pb_margin": 2.8630890415922625,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 63.02857142857143,
+        "position": 71388973,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1347335,
+        "depth": 30.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 37.36666666666667,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 13.184762564996777,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 2.6847625649967775,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 62.166666666666664,
+        "position": 71389058,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1347379,
+        "depth": 27.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 36.7037037037037,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 13.152966819640554,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 2.652966819640554,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 62.925925925925924,
+        "position": 71389102,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      },
+      {
+        "frame_index": 1347385,
+        "depth": 27.0,
+        "vaf": 0.13043478260869565,
+        "mean_base_quality": 36.81481481481482,
+        "binomial_llr": 1.348564186321136,
+        "pb_llr": 13.639916291465125,
+        "router_margin": 5.651435813678864,
+        "pb_margin": 3.1399162914651253,
+        "routed_to_pb": false,
+        "truth_is_snp": false,
+        "router_call": false,
+        "pb_call": true,
+        "effect": "router_avoids_fp",
+        "mean_mapq": 62.925925925925924,
+        "position": 71389108,
+        "annotations": [
+          "alldifficult",
+          "lowmap_segdup"
+        ]
+      }
+    ],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 5319,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 1392877,
+        "disagreements": 2,
+        "rate": 1.4358769654463388e-06
+      },
+      "30-47x": {
+        "loci": 1470413,
+        "disagreements": 3,
+        "rate": 2.0402431153696276e-06
+      },
+      "48-59x": {
+        "loci": 30779,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "60-79x": {
+        "loci": 348,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 92,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 1755,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 20018,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 309995,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2567876,
+        "disagreements": 5,
+        "rate": 1.947134518956523e-06
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 117453,
+        "disagreements": 5,
+        "rate": 4.257021957719258e-05
+      },
+      "vaf0.15-0.25": {
+        "loci": 305,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 233,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 630,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 838,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 665,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2045,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4422,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2895314,
+        "disagreements": 5,
+        "rate": 1.7269284091466417e-06
+      }
+    },
+    "record_summary": {
+      "router_avoids_fp": 5,
+      "in_alldifficult": 5,
+      "in_lowmap_segdup": 5
+    }
+  },
+  "chr13_crosssample_15x": {
+    "region": "chr13_crosssample_15x",
+    "loci_scored": 2899736,
+    "disagreements": 0,
+    "disagreement_rate": 0.0,
+    "records": [],
+    "records_truncated": false,
+    "by_depth": {
+      "1-9x": {
+        "loci": 349482,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "10-29x": {
+        "loci": 2539007,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "30-47x": {
+        "loci": 11158,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "48-59x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "60-79x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      },
+      "80-10000x": {
+        "loci": 0,
+        "disagreements": 0,
+        "rate": null
+      }
+    },
+    "by_quality": {
+      "q0-20": {
+        "loci": 496,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q20-25": {
+        "loci": 3543,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q25-30": {
+        "loci": 32094,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q30-35": {
+        "loci": 404088,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "q35-60": {
+        "loci": 2459426,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_vaf": {
+      "vaf0.00-0.15": {
+        "loci": 58192,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.15-0.25": {
+        "loci": 2544,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.25-0.35": {
+        "loci": 458,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.35-0.45": {
+        "loci": 525,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.45-0.55": {
+        "loci": 648,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.55-0.75": {
+        "loci": 732,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "vaf0.75-1.01": {
+        "loci": 2116,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "by_truth": {
+      "snp": {
+        "loci": 4422,
+        "disagreements": 0,
+        "rate": 0.0
+      },
+      "non_snp": {
+        "loci": 2895314,
+        "disagreements": 0,
+        "rate": 0.0
+      }
+    },
+    "record_summary": {}
+  }
+}

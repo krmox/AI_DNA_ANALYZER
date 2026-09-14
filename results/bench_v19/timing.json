@@ -1,0 +1,61 @@
+{
+  "pb_only": [
+    {
+      "wall_seconds": 469.96311597100066,
+      "loci": 485440,
+      "pb_loci": 485440,
+      "peak_rss_kb": 979060
+    },
+    {
+      "wall_seconds": 492.83299884400003,
+      "loci": 485440,
+      "pb_loci": 485440,
+      "peak_rss_kb": 22884
+    },
+    {
+      "wall_seconds": 346.0845363030003,
+      "loci": 485440,
+      "pb_loci": 485440,
+      "peak_rss_kb": 0
+    }
+  ],
+  "cascade": [
+    {
+      "wall_seconds": 287.7839352530009,
+      "loci": 485440,
+      "pb_loci": 22,
+      "peak_rss_kb": 0
+    },
+    {
+      "wall_seconds": 284.66306791200077,
+      "loci": 485440,
+      "pb_loci": 22,
+      "peak_rss_kb": 0
+    },
+    {
+      "wall_seconds": 284.48511543899986,
+      "loci": 485440,
+      "pb_loci": 22,
+      "peak_rss_kb": 0
+    }
+  ],
+  "pb_only_summary": {
+    "median_s": 469.96311597100066,
+    "min_s": 346.0845363030003,
+    "max_s": 492.83299884400003,
+    "std_s": 64.46708488431479
+  },
+  "cascade_summary": {
+    "median_s": 284.66306791200077,
+    "min_s": 284.48511543899986,
+    "max_s": 287.7839352530009,
+    "std_s": 1.5148777804758204
+  },
+  "measured_end_to_end_speedup": 1.65094516622115,
+  "span": [
+    210000000,
+    210500000
+  ],
+  "contig": "chr2",
+  "note": "Real wall-clock, full BAM->pileup->caller path, both arms. NOT the caller-only projected speedup reported elsewhere in this project -- see VALIDATION_ROUND_2.md section 11."
+}
