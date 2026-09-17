@@ -1,0 +1,140 @@
+I0916 14:24:11.579925 140544680593216 make_examples_core.py:301] Task 1/8: Preparing inputs
+I0916 14:24:11.597453 140544680593216 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:11.616164 140544680593216 make_examples_core.py:301] Task 1/8: Common contigs are ['chr21']
+I0916 14:24:11.722488 140544680593216 make_examples_core.py:301] Task 1/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:12.440231 140544680593216 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:12.767216 140544680593216 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:12.769742 140544680593216 make_examples_core.py:301] Task 1/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00001-of-00008.gz
+I0916 14:24:12.770004 140544680593216 make_examples_core.py:301] Task 1/8: Overhead for preparing inputs: 1 seconds
+I0916 14:24:12.932766 140544680593216 make_examples_core.py:301] Task 1/8: 8 candidates (8 examples) [0.16s elapsed]
+I0916 14:24:13.265459 140484895651648 make_examples_core.py:301] Task 7/8: Preparing inputs
+I0916 14:24:13.273263 140484895651648 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:13.279816 140484895651648 make_examples_core.py:301] Task 7/8: Common contigs are ['chr21']
+I0916 14:24:13.324158 140484895651648 make_examples_core.py:301] Task 7/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:13.424346 140484895651648 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:13.640104 140484895651648 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:13.642041 140484895651648 make_examples_core.py:301] Task 7/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00007-of-00008.gz
+I0916 14:24:13.642452 140484895651648 make_examples_core.py:301] Task 7/8: Overhead for preparing inputs: 0 seconds
+I0916 14:24:13.744680 140484895651648 make_examples_core.py:301] Task 7/8: 6 candidates (6 examples) [0.10s elapsed]
+I0916 14:24:14.469907 140534454236992 make_examples_core.py:301] Task 4/8: Preparing inputs
+I0916 14:24:14.493093 140534454236992 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:14.507813 140534454236992 make_examples_core.py:301] Task 4/8: Common contigs are ['chr21']
+I0916 14:24:14.573210 140534454236992 make_examples_core.py:301] Task 4/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:14.334653 140691110770496 make_examples_core.py:301] Task 0/8: Preparing inputs
+I0916 14:24:14.353353 140691110770496 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:14.367590 140691110770496 make_examples_core.py:301] Task 0/8: Common contigs are ['chr21']
+I0916 14:24:14.495691 140691110770496 make_examples_core.py:301] Task 0/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:14.303408 139889394349888 make_examples_core.py:301] Task 6/8: Preparing inputs
+I0916 14:24:14.328419 139889394349888 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:14.338836 139889394349888 make_examples_core.py:301] Task 6/8: Common contigs are ['chr21']
+I0916 14:24:14.388537 139889394349888 make_examples_core.py:301] Task 6/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:14.473092 139889394349888 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:14.105206 140596729911104 make_examples_core.py:301] Task 2/8: Preparing inputs
+I0916 14:24:14.113090 140596729911104 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:14.118701 140596729911104 make_examples_core.py:301] Task 2/8: Common contigs are ['chr21']
+I0916 14:24:14.191461 140596729911104 make_examples_core.py:301] Task 2/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:14.273124 140596729911104 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:15.373819 139927790241600 make_examples_core.py:301] Task 3/8: Preparing inputs
+I0916 14:24:15.395285 139927790241600 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:15.415129 139927790241600 make_examples_core.py:301] Task 3/8: Common contigs are ['chr21']
+I0916 14:24:15.479772 139927790241600 make_examples_core.py:301] Task 3/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:15.241721 140534454236992 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:15.445327 140534454236992 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:15.446859 140534454236992 make_examples_core.py:301] Task 4/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00004-of-00008.gz
+I0916 14:24:15.447007 140534454236992 make_examples_core.py:301] Task 4/8: Overhead for preparing inputs: 0 seconds
+I0916 14:24:15.514702 140534454236992 make_examples_core.py:301] Task 4/8: 2 candidates (2 examples) [0.07s elapsed]
+I0916 14:24:15.233787 140691110770496 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:15.413714 140691110770496 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:15.415280 140691110770496 make_examples_core.py:301] Task 0/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00000-of-00008.gz
+I0916 14:24:15.415417 140691110770496 make_examples_core.py:301] Task 0/8: Overhead for preparing inputs: 1 seconds
+I0916 14:24:14.713268 139889394349888 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:14.715903 139889394349888 make_examples_core.py:301] Task 6/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00006-of-00008.gz
+I0916 14:24:14.716087 139889394349888 make_examples_core.py:301] Task 6/8: Overhead for preparing inputs: 0 seconds
+I0916 14:24:14.976568 139889394349888 make_examples_core.py:301] Task 6/8: 5 candidates (5 examples) [0.26s elapsed]
+I0916 14:24:14.680307 140596729911104 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:14.682304 140596729911104 make_examples_core.py:301] Task 2/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00002-of-00008.gz
+I0916 14:24:14.682462 140596729911104 make_examples_core.py:301] Task 2/8: Overhead for preparing inputs: 0 seconds
+I0916 14:24:15.016764 140596729911104 make_examples_core.py:301] Task 2/8: 4 candidates (4 examples) [0.33s elapsed]
+I0916 14:24:15.377243 140304984479552 make_examples_core.py:301] Task 5/8: Preparing inputs
+I0916 14:24:15.397780 140304984479552 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:15.416773 140304984479552 make_examples_core.py:301] Task 5/8: Common contigs are ['chr21']
+I0916 14:24:15.464097 140304984479552 make_examples_core.py:301] Task 5/8: Starting from v0.9.0, --use_ref_for_cram is default to true. If you are using CRAM input, note that we will decode CRAM using the reference you passed in with --ref
+I0916 14:24:15.778180 139927790241600 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:16.273997 139927790241600 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:16.280709 139927790241600 make_examples_core.py:301] Task 3/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00003-of-00008.gz
+I0916 14:24:16.280857 139927790241600 make_examples_core.py:301] Task 3/8: Overhead for preparing inputs: 0 seconds
+I0916 14:24:16.376648 139927790241600 make_examples_core.py:301] Task 3/8: 4 candidates (4 examples) [0.10s elapsed]
+I0916 14:24:15.812378 140691110770496 make_examples_core.py:301] Task 0/8: 6 candidates (6 examples) [0.40s elapsed]
+I0916 14:24:15.737260 140304984479552 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:16.008837 140304984479552 genomics_reader.py:222] Reading /bam/hg002_chr21_32_44M_15x.bam with NativeSamReader
+I0916 14:24:16.010941 140304984479552 make_examples_core.py:301] Task 5/8: Writing examples to /tmp/tmp2_5r618f/make_examples.tfrecord-00005-of-00008.gz
+I0916 14:24:16.011219 140304984479552 make_examples_core.py:301] Task 5/8: Overhead for preparing inputs: 0 seconds
+I0916 14:24:16.184944 140304984479552 make_examples_core.py:301] Task 5/8: 15 candidates (17 examples) [0.17s elapsed]
+I0916 14:24:46.791122 140484895651648 make_examples_core.py:301] Task 7/8: 2003 candidates (2071 examples) [33.05s elapsed]
+I0916 14:24:49.278712 140544680593216 make_examples_core.py:301] Task 1/8: 2000 candidates (2072 examples) [36.35s elapsed]
+I0916 14:24:51.591726 139889394349888 make_examples_core.py:301] Task 6/8: 2012 candidates (2068 examples) [36.61s elapsed]
+I0916 14:24:53.031313 140596729911104 make_examples_core.py:301] Task 2/8: 2003 candidates (2049 examples) [38.01s elapsed]
+I0916 14:24:52.446565 140304984479552 make_examples_core.py:301] Task 5/8: 2001 candidates (2059 examples) [36.26s elapsed]
+I0916 14:24:55.541150 139927790241600 make_examples_core.py:301] Task 3/8: 2006 candidates (2055 examples) [39.16s elapsed]
+I0916 14:24:56.514396 140534454236992 make_examples_core.py:301] Task 4/8: 2011 candidates (2070 examples) [41.00s elapsed]
+I0916 14:24:59.783542 140691110770496 make_examples_core.py:301] Task 0/8: 2005 candidates (2031 examples) [43.96s elapsed]
+I0916 14:25:23.228543 140544680593216 make_examples_core.py:301] Task 1/8: 4009 candidates (4125 examples) [33.95s elapsed]
+I0916 14:25:25.214508 140484895651648 make_examples_core.py:301] Task 7/8: 4001 candidates (4111 examples) [38.42s elapsed]
+I0916 14:25:30.088781 139889394349888 make_examples_core.py:301] Task 6/8: 4001 candidates (4114 examples) [38.50s elapsed]
+I0916 14:25:29.759109 140596729911104 make_examples_core.py:301] Task 2/8: 4001 candidates (4101 examples) [36.73s elapsed]
+I0916 14:25:30.239093 140304984479552 make_examples_core.py:301] Task 5/8: 4002 candidates (4109 examples) [37.79s elapsed]
+I0916 14:25:31.649263 139927790241600 make_examples_core.py:301] Task 3/8: 4000 candidates (4117 examples) [36.11s elapsed]
+I0916 14:25:34.468123 140534454236992 make_examples_core.py:301] Task 4/8: 4002 candidates (4120 examples) [37.95s elapsed]
+I0916 14:25:37.400307 140691110770496 make_examples_core.py:301] Task 0/8: 4001 candidates (4078 examples) [37.62s elapsed]
+I0916 14:26:02.531338 140484895651648 make_examples_core.py:301] Task 7/8: 6000 candidates (6151 examples) [37.32s elapsed]
+I0916 14:26:04.496334 140544680593216 make_examples_core.py:301] Task 1/8: 6001 candidates (6185 examples) [41.27s elapsed]
+I0916 14:26:04.424124 140304984479552 make_examples_core.py:301] Task 5/8: 6004 candidates (6197 examples) [34.18s elapsed]
+I0916 14:26:07.408780 140596729911104 make_examples_core.py:301] Task 2/8: 6000 candidates (6153 examples) [37.65s elapsed]
+I0916 14:26:10.619001 140484895651648 make_examples_core.py:301] Task 7/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00007-of-00008.gz.example_info.json
+I0916 14:26:10.619154 140484895651648 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:10.620182 140484895651648 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:10.624430 140484895651648 make_examples_core.py:301] Task 7/8: Found 6498 candidate variants
+I0916 14:26:10.624562 140484895651648 make_examples_core.py:301] Task 7/8: Created 6655 examples
+I0916 14:26:12.207700 139927790241600 make_examples_core.py:301] Task 3/8: 6003 candidates (6177 examples) [40.56s elapsed]
+I0916 14:26:14.623470 139889394349888 make_examples_core.py:301] Task 6/8: 6002 candidates (6167 examples) [44.53s elapsed]
+I0916 14:26:15.696640 140534454236992 make_examples_core.py:301] Task 4/8: 6001 candidates (6174 examples) [41.23s elapsed]
+I0916 14:26:19.218914 140691110770496 make_examples_core.py:301] Task 0/8: 6019 candidates (6154 examples) [41.82s elapsed]
+I0916 14:26:20.951077 140544680593216 make_examples_core.py:301] Task 1/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00001-of-00008.gz.example_info.json
+I0916 14:26:20.951256 140544680593216 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:20.951626 140544680593216 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:20.952403 140544680593216 make_examples_core.py:301] Task 1/8: Found 6946 candidate variants
+I0916 14:26:20.952543 140544680593216 make_examples_core.py:301] Task 1/8: Created 7154 examples
+I0916 14:26:21.909011 140596729911104 make_examples_core.py:301] Task 2/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00002-of-00008.gz.example_info.json
+I0916 14:26:21.909172 140596729911104 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:21.909487 140596729911104 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:21.910019 140596729911104 make_examples_core.py:301] Task 2/8: Found 6785 candidate variants
+I0916 14:26:21.910102 140596729911104 make_examples_core.py:301] Task 2/8: Created 6944 examples
+I0916 14:26:23.011397 140304984479552 make_examples_core.py:301] Task 5/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00005-of-00008.gz.example_info.json
+I0916 14:26:23.011577 140304984479552 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:23.011962 140304984479552 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:23.012578 140304984479552 make_examples_core.py:301] Task 5/8: Found 7169 candidate variants
+I0916 14:26:23.012671 140304984479552 make_examples_core.py:301] Task 5/8: Created 7388 examples
+I0916 14:26:23.724605 139927790241600 make_examples_core.py:301] Task 3/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00003-of-00008.gz.example_info.json
+I0916 14:26:23.724811 139927790241600 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:23.725159 139927790241600 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:23.725756 139927790241600 make_examples_core.py:301] Task 3/8: Found 6670 candidate variants
+I0916 14:26:23.725853 139927790241600 make_examples_core.py:301] Task 3/8: Created 6866 examples
+I0916 14:26:26.416667 139889394349888 make_examples_core.py:301] Task 6/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00006-of-00008.gz.example_info.json
+I0916 14:26:26.416837 139889394349888 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:26.417286 139889394349888 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:26.418352 139889394349888 make_examples_core.py:301] Task 6/8: Found 6847 candidate variants
+I0916 14:26:26.418492 139889394349888 make_examples_core.py:301] Task 6/8: Created 7057 examples
+I0916 14:26:27.128443 140691110770496 make_examples_core.py:301] Task 0/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00000-of-00008.gz.example_info.json
+I0916 14:26:27.128646 140691110770496 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:27.129038 140691110770496 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:27.129646 140691110770496 make_examples_core.py:301] Task 0/8: Found 6661 candidate variants
+I0916 14:26:27.129736 140691110770496 make_examples_core.py:301] Task 0/8: Created 6810 examples
+I0916 14:26:28.471733 140534454236992 make_examples_core.py:301] Task 4/8: Writing example info to /tmp/tmp2_5r618f/make_examples.tfrecord-00004-of-00008.gz.example_info.json
+I0916 14:26:28.471934 140534454236992 make_examples_core.py:2958] example_shape = [100, 221, 7]
+I0916 14:26:28.472309 140534454236992 make_examples_core.py:2959] example_channels = [1, 2, 3, 4, 5, 6, 19]
+I0916 14:26:28.472879 140534454236992 make_examples_core.py:301] Task 4/8: Found 6955 candidate variants
+I0916 14:26:28.472999 140534454236992 make_examples_core.py:301] Task 4/8: Created 7166 examples
+
+real	2m25.296s
+user	11m54.946s
+sys	0m12.090s

@@ -1,0 +1,10 @@
+{
+  "n_records": 16124,
+  "n_skipped_no_alt": 0,
+  "eps_C": 0.01,
+  "theta0_wins": 7,
+  "invariant_ok": true,
+  "invariant_setA_minus_setC": 0,
+  "invariant_setC_minus_setA": 0,
+  "method_C_runtime_seconds": 7.289225882001119
+}

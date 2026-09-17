@@ -1,0 +1,1 @@
+/opt/bin/run_clair3.sh --bam_fn=/bam/hg002_chr21_32_44M_15x.bam --ref_fn=/ref/chr21_chrname.fa --threads=4 --platform=ilmn --model_path=/opt/models/ilmn --ctg_name=chr21 --sample_name=HG002 --output=/out

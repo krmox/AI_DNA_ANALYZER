@@ -1,0 +1,64 @@
+{
+  "ai_pb_only_C": {
+    "label": "ai_pb_only_C",
+    "n_known": 15924,
+    "n_no_truth": 170,
+    "gt_acc": 0.9891358955036423,
+    "per_class_acc": {
+      "0/0": NaN,
+      "0/1": 0.9837769574509423,
+      "1/1": 0.9989342806394316
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        10127,
+        167
+      ],
+      [
+        0,
+        6,
+        5624
+      ]
+    ],
+    "invariant_ok": true,
+    "n_before": 16094,
+    "n_after": 16094
+  },
+  "ai_cascade_C": {
+    "label": "ai_cascade_C",
+    "n_known": 15925,
+    "n_no_truth": 172,
+    "gt_acc": 0.9890737833594977,
+    "per_class_acc": {
+      "0/0": NaN,
+      "0/1": 0.9837769574509423,
+      "1/1": 0.9987568815485705
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        10127,
+        167
+      ],
+      [
+        0,
+        7,
+        5624
+      ]
+    ],
+    "invariant_ok": true,
+    "n_before": 16097,
+    "n_after": 16097
+  }
+}

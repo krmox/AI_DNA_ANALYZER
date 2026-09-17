@@ -1,0 +1,1 @@
+GATK 4.5.0.0 (static zip release, no Docker); Java: openjdk version "25.0.2" 2026-01-20; no BQSR applied (no known-sites resource available for chr21-only subset — documented protocol deviation from GATK best practices); read group synthetically added via AddOrReplaceReadGroups since original BAM lacked one

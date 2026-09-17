@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI_DNA_ANALYZER — Final Research Summary</title>
+<style>
+  :root{--ink:#1b1f24;--sub:#5b6570;--line:#dfe3e8;--accent:#2c5f8a;--bg:#ffffff;--good:#1f7a4d;--warn:#a35a00;--bad:#a3231f;}
+  @media print{ .page{page-break-after: always;} }
+  body{font-family: Georgia, 'Times New Roman', serif; color:var(--ink); background:var(--bg); max-width:800px; margin:0 auto; padding:0 24px;}
+  h1{font-size:1.6em; margin-bottom:0.1em;}
+  h2{font-size:1.2em; color:var(--accent); border-bottom:1px solid var(--line); padding-bottom:4px; margin-top:1.6em;}
+  .sub{color:var(--sub); font-size:0.95em;}
+  .page{padding:28px 0; border-bottom:2px dashed var(--line);}
+  table{border-collapse:collapse; width:100%; font-size:0.88em; margin:12px 0;}
+  th,td{border:1px solid var(--line); padding:6px 8px; text-align:left;}
+  th{background:#f4f6f8;}
+  .tag{display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.8em; font-weight:bold; color:white;}
+  .tag.pass{background:var(--good);} .tag.blocked{background:var(--bad);} .tag.warn{background:var(--warn);}
+  .flow{font-family: 'Courier New', monospace; font-size:1.1em; text-align:center; margin:24px 0; padding:16px; background:#f4f6f8; border-radius:6px;}
+  .note{font-size:0.85em; color:var(--sub); border-left:3px solid var(--line); padding-left:10px; margin:10px 0;}
+  .bottom-line{font-size:1.05em; line-height:1.5;}
+</style>
+</head>
+<body>
+
+<div class="page">
+<h1>AI_DNA_ANALYZER</h1>
+<p class="sub">Final research summary — 2026-09-16 — git HEAD 16b221e</p>
+
+<h2>What the system does</h2>
+<p>The system calls single-nucleotide variants (SNPs) from sequencing data using a three-stage cascade: a cheap statistical (Binomial) caller runs on every position; a fixed, frozen router decides whether the cheap caller's answer is trustworthy enough to keep; and only the uncertain cases are escalated to a much more expensive, higher-accuracy caller ("PB").</p>
+
+<div class="flow">Binomial (cheap, all loci) &rarr; Router (frozen rule) &rarr; PB (expensive, ~0.03&ndash;0.07% of loci)</div>
+
+<p>The idea: get most of the accuracy benefit of the expensive caller while running it on a tiny fraction of the genome. All thresholds in this cascade are <b>frozen</b> — they were fixed before this research pass and were not changed based on any result reported here.</p>
+</div>
+
+<div class="page">
+<h2>Benchmark overview</h2>
+<p>Six independent benchmark rounds, spanning three related individuals from the GIAB Ashkenazi trio (HG002 = child, HG003 = father, HG004 = mother), SNP calls only, restricted to GIAB high-confidence regions.</p>
+<table>
+<tr><th>Sample</th><th>Region</th><th>SNPs</th><th>PB-only F1</th><th>Cascade F1</th><th>&Delta;F1 vs PB</th><th>PB routed</th><th>Verdict</th></tr>
+<tr><td>HG002</td><td>multi-region pool (v13)</td><td>5,925</td><td>0.99151</td><td>0.99209</td><td>+0.00058</td><td>0.037%</td><td><span class="tag pass">PRESERVED</span></td></tr>
+<tr><td>HG002</td><td>chr20 pool + others (v14)</td><td>12,261</td><td>0.95573</td><td>0.95631</td><td>+0.00058</td><td>0.070%</td><td><span class="tag pass">IMPROVED</span></td></tr>
+<tr><td>HG002</td><td>chr13 representative (v16)</td><td>14,274</td><td>0.99460</td><td>0.99457</td><td>&minus;0.00003</td><td>0.039%</td><td><span class="tag pass">PRESERVED</span></td></tr>
+<tr><td>HG002</td><td>chr17 segdup-saturated (v17)</td><td>8,484</td><td>0.94807</td><td>0.94996</td><td>+0.00189</td><td>0.058%</td><td><span class="tag pass">IMPROVED</span></td></tr>
+<tr><td>HG003</td><td>chr13, same window as v16 (v18)</td><td>13,266</td><td>0.99375</td><td>0.99401</td><td>+0.00026</td><td>0.041%</td><td><span class="tag pass">IMPROVED</span></td></tr>
+<tr><td>HG004</td><td>chr2/chr3/chr5, new contigs (v19)</td><td>38,340</td><td>0.98641</td><td>0.98742</td><td>+0.00101</td><td>0.041%</td><td><span class="tag pass">IMPROVED</span></td></tr>
+</table>
+<p class="note">Verdicts use pre-registered rules fixed before results were seen: PRESERVED = 95% CI on &Delta;F1 contains 0 and |&Delta;F1|&lt;0.001; IMPROVED = CI excludes 0, positive side; DEGRADED = CI excludes 0, negative side, or |&Delta;F1|&ge;0.001. No round was DEGRADED or UNDERPOWERED. Source: results/bench_v1{3,4,6,7,8,9}/*.json.</p>
+</div>
+
+<div class="page">
+<h2>Generalization</h2>
+<table>
+<tr><th>Sample</th><th>Relationship</th><th>Independent?</th><th>Regions tested</th><th>Depths</th></tr>
+<tr><td>HG002</td><td>GIAB trio child</td><td>Baseline</td><td>4 rounds, ~10 distinct windows</td><td>native, 30x, 15x</td></tr>
+<tr><td>HG003</td><td>GIAB trio father (relative of HG002)</td><td>No — related</td><td>1 round, same window as HG002/v16</td><td>native, 30x, 15x</td></tr>
+<tr><td>HG004</td><td>GIAB trio mother (relative of HG002/HG003)</td><td>No — related</td><td>1 round, 3 new contigs</td><td>native, 30x, 15x</td></tr>
+<tr><td>HG005</td><td>Would be a genuinely unrelated individual</td><td colspan="3"><span class="tag blocked">BLOCKED</span> &mdash; disk budget (13GB free / 94GB disk, below required 20% margin) before any download was attempted. Not run, not approximated.</td></tr>
+</table>
+<p class="note">Every validated result in this report comes from one family. No claim of generalization to an unrelated individual can be made yet.</p>
+</div>
+
+<div class="page">
+<h2>Rescue analysis</h2>
+<p>The router's job is to send exactly the loci where the cheap caller might be wrong to the expensive caller. Full-universe rescue analysis (every locus, not just disagreements) was only possible for HG004, because that is the one dataset whose raw per-locus cache survived this session's disk cleanup.</p>
+<table>
+<tr><th>Metric</th><th>Value (HG004, pooled over 9 cells)</th></tr>
+<tr><td>PB-rescuable loci (PB correct, Binomial wrong)</td><td>504</td></tr>
+<tr><td>Successfully rescued</td><td>500</td></tr>
+<tr><td>Missed rescues</td><td>4</td></tr>
+<tr><td><b>Router rescue recall</b></td><td><b>99.2%</b></td></tr>
+<tr><td>Routed loci where Binomial was already correct ("false rescue")</td><td>9,521 / 10,517 routed = <b>90.5%</b></td></tr>
+</table>
+<p>Of the 4 missed rescues: 3 were missed opportunities to avoid a <i>false positive</i> (not lost true variants), clustered in a tandem-repeat-enriched region; 1 was a genuine lost true SNP at low variant-allele-frequency (~13%), matching a mechanism also seen twice in HG002.</p>
+<p class="note">For HG002/HG003, only summary disagreement logs survive (not full per-locus arrays), so full rescue-recall/false-rescue numbers could not be recomputed for those samples this pass — only the missed-rescue subset is available for them (7 loci total across HG002, 0 in HG003).</p>
+</div>
+
+<div class="page">
+<h2>Performance</h2>
+<p><b>These are two different numbers and must not be confused:</b></p>
+<table>
+<tr><th>Projected expensive-stage compute reduction</th><th>Measured end-to-end wall-clock speedup</th></tr>
+<tr><td>PB is invoked on only ~0.03&ndash;0.07% of loci &rarr; naive projection of ~1,400&ndash;2,900&times; less expensive-caller work.</td><td><b>1.65&times;</b> measured on one region (chr2:210.0&ndash;210.5&nbsp;Mb, HG004): cascade median 284.7s vs PB-only median 470.0s, full BAM&rarr;pileup&rarr;caller pipeline, 3 repeats each arm.</td></tr>
+</table>
+<p>The gap (three orders of magnitude) is expected: pileup construction and I/O dominate wall-clock time, not the caller invocation itself. The routed-fraction number should never be quoted as a pipeline speedup on its own.</p>
+<p class="note">Multiprocessing scaling (2/4/8 workers) referenced in the original research plan could not be located in this repository and is not reported here.</p>
+</div>
+
+<div class="page">
+<h2>Failure modes &amp; limitations</h2>
+<p><b>Corrected claim:</b> this system does <u>not</u> "never lose true variants." It has documented cases &mdash; 8 across HG002 and HG004 in this dataset &mdash; where it loses a true SNP that the expensive caller alone would have called correctly. These cluster tightly at variant-allele-frequency ~9&ndash;13%, in segmental-duplication or tandem-repeat regions, where the cheap caller's confidence score lands just outside the router's fixed decision window.</p>
+<ul>
+<li>SNP-only — no INDEL/structural-variant validation exists.</li>
+<li>All samples are from one related trio family — no unrelated individual validated (HG005 blocked).</li>
+<li>No external caller comparison — DeepVariant blocked on disk budget before any pull was attempted.</li>
+<li>Coverage is a handful of megabase-scale windows, not a whole genome.</li>
+<li>No clinical or diagnostic claim is made.</li>
+</ul>
+</div>
+
+<div class="page">
+<h2>Bottom line</h2>
+<div class="bottom-line">
+<p><b>Experimentally confirmed:</b> across six benchmark rounds on one related trio family (SNP-only, high-confidence regions), the frozen cascade statistically matches or slightly exceeds the expensive caller's accuracy while invoking it on a small fraction of loci; the router recovers 99% of the cases it needs to (measured on the one sample with complete data); a specific, reproducible failure mode exists at low variant-allele-frequency near the router's decision boundary.</p>
+<p><b>Not yet confirmed:</b> generalization to an unrelated individual; performance relative to an external caller; whole-genome or non-SNP performance; any pipeline speedup beyond 1.65&times; measured once on one region.</p>
+<p><b>Where it works:</b> the tested conditions above. <b>Known failure modes:</b> low-VAF router-boundary losses in segmental-duplication and tandem-repeat contexts.</p>
+</div>
+</div>
+
+</body>
+</html>

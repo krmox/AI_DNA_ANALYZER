@@ -1,0 +1,21 @@
+evaluator,truth_total,TP,FP,FN,Precision,Recall,F1,notes
+"Internal accuracy_block() (robustness_benchmark.py:77, prf() evaluate_binomial_baseline.py:41)",16597,15923,171,674,0.9894,0.9594,0.9742,"position-only variant/no-variant agreement, no GT/REF/ALT check at all, truth_total=16597 (window-level BED)"
+"Allele-level diagnostic (this analysis, GT-blind, position+ALT correct)",16898,15920,174,978,0.9892,0.9421,0.9651,position+ALT correct regardless of GT; truth_total=16898 (hap.py's BED); diagnostic only
+"hap.py 0.3.15 xcmp (GA4GH standard, GT-aware)",16898,10290,5804,6608,0.6394,0.6089,0.6238,full GT+REF+ALT+representation match required; truth_total=16898
+
+"--- FN error-source attribution (of 6608 total hap.py FN, AI PB-only) ---"
+error_source,count,pct_of_total_FN,note
+"Genotype mismatch (allele correct, forced GT=0/1 vs truth homalt)",5630,85.2,dominant error source: 85.2% of all hap.py FN
+True missed variant (no AI call at all),962,14.6,"genuine recall gap in the underlying LLR call, independent of GT"
+Representation/local-match error,16,0.2,negligible
+
+"--- FP error-source attribution (of 5804 total hap.py FP, AI PB-only) ---"
+error_source,count,pct_of_total_FP,note
+"Genotype mismatch (allele correct, GT wrong)",5630,97.0,dominant
+Representation mismatch,29,0.5,negligible
+True false positive (no truth variant nearby),145,2.5,genuine FP
+
+--- Denominator gap attribution (16898 hap.py vs 16597 internal) ---
+source,count,pct_of_301_gap
+Window-level vs per-base BED granularity mismatch,303,100.7
+"Set-collision/MNP-duplicate artifact (OTHER, negligible)",-2,-0.7

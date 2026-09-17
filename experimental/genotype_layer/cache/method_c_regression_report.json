@@ -1,0 +1,29 @@
+{
+  "scope": "unified_happy (Stage 1 identical inputs)",
+  "datasets": {
+    "ai_pb_only": {
+      "n_records": 16094,
+      "gt_equal": true,
+      "gq_equal": true,
+      "flag_equal": true,
+      "n_gt_mismatch": 0,
+      "n_gq_mismatch": 0,
+      "max_gq_abs_diff": 0.0,
+      "reference_runtime_ms": 5701.2375600024825,
+      "optimized_runtime_ms": 5.549880999751622,
+      "speedup": 1027.2720370504583
+    },
+    "ai_cascade": {
+      "n_records": 16097,
+      "gt_equal": true,
+      "gq_equal": true,
+      "flag_equal": true,
+      "n_gt_mismatch": 0,
+      "n_gq_mismatch": 0,
+      "max_gq_abs_diff": 0.0,
+      "reference_runtime_ms": 5795.847457000491,
+      "optimized_runtime_ms": 10.787046998302685,
+      "speedup": 537.296950491868
+    }
+  }
+}

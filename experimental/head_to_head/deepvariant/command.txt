@@ -1,0 +1,14 @@
+docker run --rm \
+  -v "<REF_DIR containing chr21_chrname.fa (renamed copy of data/reference/chr21_full.fa, header >21 -> >chr21 for contig-name compatibility)>:/ref" \
+  -v "<data/giab_hg002_chr21_12Mb>:/bam" \
+  -v "<OUT_DIR>:/out" \
+  google/deepvariant:1.6.1 \
+  /opt/deepvariant/bin/run_deepvariant \
+  --model_type=WGS \
+  --ref=/ref/chr21_chrname.fa \
+  --reads=/bam/hg002_chr21_32_44M_15x.bam \
+  --regions="chr21:32000000-44000000" \
+  --output_vcf=/out/deepvariant.vcf.gz \
+  --sample_name=HG002 \
+  --num_shards=8 \
+  --logging_dir=/out/logs

@@ -1,0 +1,251 @@
+[INFO] CLAIR3 VERSION: v1.0.10
+[INFO] BAM FILE PATH: /bam/hg002_chr21_32_44M_15x.bam
+[INFO] REFERENCE FILE PATH: /ref/chr21_chrname.fa
+[INFO] MODEL PATH: /opt/models/ilmn
+[INFO] OUTPUT FOLDER: /out
+[INFO] PLATFORM: ilmn
+[INFO] THREADS: 4
+[INFO] BED FILE PATH: EMPTY
+[INFO] VCF FILE PATH: EMPTY
+[INFO] CONTIGS: chr21
+[INFO] CONDA PREFIX: 
+[INFO] SAMTOOLS PATH: samtools
+[INFO] PYTHON PATH: python3
+[INFO] PYPY PATH: pypy3
+[INFO] PARALLEL PATH: parallel
+[INFO] WHATSHAP PATH: whatshap
+[INFO] LONGPHASE PATH: EMPTY
+[INFO] CHUNK SIZE: 5000000
+[INFO] FULL ALIGN PROPORTION: 0.3
+[INFO] FULL ALIGN REFERENCE PROPORTION: 0.3
+[INFO] PHASING PROPORTION: 0.7
+[INFO] MINIMUM MQ: 5
+[INFO] MINIMUM COVERAGE: 2
+[INFO] SNP AF THRESHOLD: 0.08
+[INFO] INDEL AF THRESHOLD: 0.08
+[INFO] BASE ERROR IN GVCF: 0.001
+[INFO] GQ BIN SIZE IN GVCF: 5
+[INFO] ENABLE FILEUP ONLY CALLING: False
+[INFO] ENABLE FAST MODE CALLING: False
+[INFO] ENABLE CALLING SNP CANDIDATES ONLY: False
+[INFO] ENABLE PRINTING REFERENCE CALLS: False
+[INFO] ENABLE OUTPUT GVCF: False
+[INFO] ENABLE HAPLOID PRECISE MODE: False
+[INFO] ENABLE HAPLOID SENSITIVE MODE: False
+[INFO] ENABLE INCLUDE ALL CTGS CALLING: False
+[INFO] ENABLE NO PHASING FOR FULL ALIGNMENT: False
+[INFO] ENABLE REMOVING INTERMEDIATE FILES: False
+[INFO] ENABLE LONGPHASE FOR INTERMEDIATE VCF PHASING: False
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING WHATSHAP: False
+[INFO] ENABLE PHASING FINAL VCF OUTPUT USING LONGPHASE: False
+[INFO] ENABLE HAPLOTAGGING FINAL BAM: False
+[INFO] ENABLE LONG INDEL CALLING: False
+[INFO] ENABLE C_IMPLEMENT: True
+
+[33m[WARNING] Illumina platform will disable C implement to support short read realignment process! [0m
++ /opt/bin/scripts/clair3.sh --bam_fn /bam/hg002_chr21_32_44M_15x.bam --ref_fn /ref/chr21_chrname.fa --threads 4 --model_path /opt/models/ilmn --platform ilmn --output /out --bed_fn=EMPTY --vcf_fn=EMPTY --ctg_name=chr21 --sample_name=HG002 --chunk_num=0 --chunk_size=5000000 --samtools=samtools --python=python3 --pypy=pypy3 --parallel=parallel --whatshap=whatshap --qual=2 --var_pct_full=0.3 --ref_pct_full=0.3 --var_pct_phasing=0.7 --snp_min_af=0.08 --indel_min_af=0.08 --min_mq=5 --min_coverage=2 --min_contig_size=0 --pileup_only=False --gvcf=False --base_err=0.001 --gq_bin_size=5 --fast_mode=False --call_snp_only=False --print_ref_calls=False --haploid_precise=False --haploid_sensitive=False --include_all_ctgs=False --no_phasing_for_fa=False --pileup_model_prefix=pileup --fa_model_prefix=full_alignment --remove_intermediate_dir=False --enable_phasing=False --enable_long_indel=False --keep_iupac_bases=False --use_gpu=False --longphase_for_phasing=False --longphase=EMPTY --use_whatshap_for_intermediate_phasing=True --use_longphase_for_intermediate_phasing=False --use_whatshap_for_final_output_phasing=False --use_longphase_for_final_output_phasing=False --use_whatshap_for_final_output_haplotagging=False
+
+[INFO] Check environment variables
+[INFO] Call variant in contigs: chr21
+[INFO] Chunk number for each contig: 10
+[INFO] 1/7 Call variants using pileup model
+[INFO] Delay 0 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 2/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_2.vcf, remove empty file
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 3/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_3.vcf, remove empty file
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 1/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_1.vcf, remove empty file
+[INFO] Delay 2 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 4/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_4.vcf, remove empty file
+[INFO] Delay 1 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 5/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_5.vcf, remove empty file
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 6/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_6.vcf, remove empty file
+[INFO] Delay 1 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 7/10) : 14141
+Total time elapsed: 37.44 s
+[INFO] Delay 3 seconds before starting variant calling ...
+[faidx] Truncated sequence: chr21:42037991-46710990
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Processed 40000 tensors
+Total processed positions in chr21 (chunk 10/10) : 43019
+Total time elapsed: 111.88 s
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Processed 40000 tensors
+Processed 60000 tensors
+Processed 80000 tensors
+Total processed positions in chr21 (chunk 9/10) : 95013
+Total time elapsed: 220.17 s
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Processed 40000 tensors
+Processed 60000 tensors
+Processed 80000 tensors
+Total processed positions in chr21 (chunk 8/10) : 96681
+Total time elapsed: 224.41 s
+
+real	4m2.516s
+user	9m42.408s
+sys	0m20.666s
+
+[INFO] 2/7 Select heterozygous SNP variants for Whatshap phasing and haplotagging
+[INFO] Select heterozygous pileup variants exceeding phasing quality cutoff 14
+[INFO] Total heterozygous SNP positions selected: chr21: 8284
+
+real	0m0.765s
+user	0m0.653s
+sys	0m0.096s
+
+[INFO] 3/7 Phase VCF file using Whatshap
+This is WhatsHap 1.7 running under Python 3.9.0
+Working on 1 sample from 1 family
+
+# Working on contig chr21 in individual HG002
+Found 8284 usable heterozygous variants (0 skipped due to missing genotypes)
+Found 75459 reads covering 8284 variants
+Kept 18413 reads that cover at least two variants each
+Selected 17955 most phase-informative reads covering 5266 variants
+Phasing 1 sample by solving the MEC problem ...
+Largest block contains 21 variants (0.4% of accessible variants) between position 34556558 and 34559069
+Changed 2 genotypes while writing VCF
+
+# Resource usage
+Maximum memory usage: 0.142 GB
+Time spent reading BAM/CRAM:                    9.8 s
+Time spent parsing VCF:                         0.2 s
+Time spent selecting reads:                     1.8 s
+Time spent phasing:                             7.1 s
+Time spent writing VCF:                         0.3 s
+Time spent finding components:                  0.1 s
+Time spent on rest:                             0.4 s
+Total elapsed time:                            19.7 s
+
+real	0m20.280s
+user	0m19.514s
+sys	0m0.429s
+
+[INFO] 4/7 Haplotag input BAM file using Whatshap
+Found 1 sample(s) in input VCF
+Found 0 sample(s) in BAM file
+Found 39225 reads covering 5263 variants
+
+== SUMMARY ==
+Total alignments processed:                    679756
+Alignments that could be tagged:                77726
+Alignments spanning multiple phase sets:            0
+Finished in 26.5 s
+
+real	0m26.899s
+user	0m25.685s
+sys	0m0.458s
+
+[INFO] 5/7 Select candidates for full-alignment calling
+[INFO] Set variants quality cutoff 14.0
+[INFO] Set reference calls quality cutoff 18.0
+[INFO] Low quality reference calls to be processed in chr21: 67660
+[INFO] Low quality variants to be processed in chr21: 6832
+
+real	0m0.831s
+user	0m0.710s
+sys	0m0.111s
+
+[INFO] 6/7 Call low-quality variants using full-alignment model
+[INFO] Delay 0 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Total processed positions in chr21 (chunk 2/8) : 37123
+Total time elapsed: 378.95 s
+[INFO] Delay 0 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Total processed positions in chr21 (chunk 3/8) : 39142
+Total time elapsed: 387.43 s
+[INFO] Delay 0 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Processed 40000 tensors
+Total processed positions in chr21 (chunk 1/8) : 41206
+Total time elapsed: 432.08 s
+[INFO] Delay 2 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Total processed positions in chr21 (chunk 4/8) : 35591
+Total time elapsed: 347.01 s
+[INFO] Delay 2 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Total processed positions in chr21 (chunk 5/8) : 36053
+Total time elapsed: 361.47 s
+[INFO] Delay 2 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Total processed positions in chr21 (chunk 6/8) : 35875
+Total time elapsed: 352.63 s
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 8/8) : 17274
+Total time elapsed: 151.00 s
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Total processed positions in chr21 (chunk 7/8) : 36570
+Total time elapsed: 299.59 s
+
+real	17m22.159s
+user	50m31.856s
+sys	0m39.852s
+
+[INFO] 7/7 Merge pileup VCF and full-alignment VCF
+[INFO] Pileup positions variants proceeded in chr21: 1314
+[INFO] Realigned positions variants proceeded in chr21: 23942
+
+real	0m2.900s
+user	0m2.921s
+sys	0m0.154s
+
+[INFO] Finish calling, output file: /out/merge_output.vcf.gz
+
+real	22m21.791s
+user	61m9.390s
+sys	1m2.531s

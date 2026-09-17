@@ -1,0 +1,26 @@
+32000000-32500000: 7351 windows | cumulative 0.9 min
+32500000-33000000: 7493 windows | cumulative 1.7 min
+33000000-33500000: 7390 windows | cumulative 2.5 min
+33500000-34000000: 7463 windows | cumulative 3.3 min
+34000000-34500000: 7051 windows | cumulative 4.0 min
+34500000-35000000: 7641 windows | cumulative 5.0 min
+35000000-35500000: 7609 windows | cumulative 6.0 min
+35500000-36000000: 7529 windows | cumulative 6.9 min
+36000000-36500000: 7189 windows | cumulative 7.8 min
+36500000-37000000: 7565 windows | cumulative 8.7 min
+37000000-37500000: 7461 windows | cumulative 9.5 min
+37500000-38000000: 7492 windows | cumulative 10.4 min
+38000000-38500000: 7543 windows | cumulative 11.2 min
+38500000-39000000: 7175 windows | cumulative 11.9 min
+39000000-39500000: 7416 windows | cumulative 12.8 min
+39500000-40000000: 7519 windows | cumulative 13.8 min
+40000000-40500000: 7114 windows | cumulative 14.7 min
+40500000-41000000: 7508 windows | cumulative 15.7 min
+41000000-41500000: 7538 windows | cumulative 16.7 min
+41500000-42000000: 6430 windows | cumulative 17.6 min
+42000000-42500000: 7160 windows | cumulative 18.6 min
+42500000-43000000: 6666 windows | cumulative 19.5 min
+43000000-43500000: 3438 windows | cumulative 19.8 min
+43500000-44000000: 6842 windows | cumulative 20.7 min
+TOTAL loci: 10981312, SNP labels: 16597
+Saved recovered_full.npz

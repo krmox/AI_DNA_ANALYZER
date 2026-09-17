@@ -1,0 +1,8 @@
+condition,evaluator,sample,region,type,filter,truth_total,tp,fp,fn,precision,recall,f1,runtime_seconds,notes
+AI_PB_only_forced01_OLD,hap.py_0.3.15_xcmp,HG002,chr21:32000000-44000000,SNP,PASS,16898,10290,5804,6608,0.639369,0.608948,0.623788,,"prior unified_happy benchmark, forced GT=0/1"
+AI_Cascade_forced01_OLD,hap.py_0.3.15_xcmp,HG002,chr21:32000000-44000000,SNP,PASS,16898,10290,5807,6608,0.639250,0.608948,0.623731,,"prior unified_happy benchmark, forced GT=0/1"
+AI_PB_only_MethodC_NEW,hap.py_0.3.15_xcmp,HG002,chr21:32000000-44000000,SNP,PASS,16898,15748,346,1150,0.978501,0.931945,0.954656,,"optimized vectorized Method C genotype layer, detection invariant vs OLD"
+AI_Cascade_MethodC_NEW,hap.py_0.3.15_xcmp,HG002,chr21:32000000-44000000,SNP,PASS,16898,15748,349,1150,0.978319,0.931945,0.954569,,"optimized vectorized Method C genotype layer, detection invariant vs OLD"
+DeepVariant_1.6.1,hap.py_0.3.15_xcmp,HG002,chr21:32000000-44000000,SNP,PASS,16898,16313,1153,585,0.933997,0.965381,0.949430,819,"reused from head_to_head benchmark, not rerun"
+Clair3_v1.0.10,hap.py_0.3.15_xcmp,HG002,chr21:32000000-44000000,SNP,PASS,16898,16287,1880,611,0.896516,0.963842,0.928961,1342,"reused from head_to_head benchmark, not rerun"
+GATK_HaplotypeCaller_4.5.0.0_noBQSR,hap.py_0.3.15_xcmp,HG002,chr21:32000000-44000000,SNP,PASS,16898,16042,199,856,0.987748,0.949343,0.968165,287,"reused from head_to_head benchmark, not rerun"

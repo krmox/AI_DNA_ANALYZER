@@ -1,0 +1,5 @@
+I0916 14:36:29.038384 140220109510464 genomics_reader.py:222] Reading /out/deepvariant.vcf.gz with NativeVcfReader
+
+real	0m9.060s
+user	0m8.531s
+sys	0m0.971s

@@ -1,0 +1,22 @@
+/usr/local/lib/python3.8/dist-packages/tensorflow_addons/utils/tfa_eol_msg.py:23: UserWarning: 
+
+TensorFlow Addons (TFA) has ended development and introduction of new features.
+TFA has entered a minimal maintenance and release mode until a planned end of life in May 2024.
+Please modify downstream libraries to take dependencies from other repositories in our TensorFlow community (e.g. Keras, Keras-CV, and Keras-NLP). 
+
+For more information see: https://github.com/tensorflow/addons/issues/2807 
+
+  warnings.warn(
+I0916 14:26:35.738841 140137852213056 call_variants.py:563] Total 1 writing processes started.
+I0916 14:26:35.741510 140137852213056 dv_utils.py:370] From /tmp/tmp2_5r618f/make_examples.tfrecord-00000-of-00008.gz.example_info.json: Shape of input examples: [100, 221, 7], Channels of input examples: [1, 2, 3, 4, 5, 6, 19].
+I0916 14:26:35.741660 140137852213056 call_variants.py:588] Shape of input examples: [100, 221, 7]
+I0916 14:26:35.742947 140137852213056 call_variants.py:592] Use saved model: True
+I0916 14:26:49.234073 140137852213056 dv_utils.py:370] From /opt/models/wgs/example_info.json: Shape of input examples: [100, 221, 7], Channels of input examples: [1, 2, 3, 4, 5, 6, 19].
+I0916 14:26:49.234566 140137852213056 dv_utils.py:370] From /tmp/tmp2_5r618f/make_examples.tfrecord-00000-of-00008.gz.example_info.json: Shape of input examples: [100, 221, 7], Channels of input examples: [1, 2, 3, 4, 5, 6, 19].
+I0916 14:27:07.873605 140137852213056 call_variants.py:716] Predicted 1024 examples in 1 batches [1.784 sec per 100].
+I0916 14:35:15.824241 140137852213056 call_variants.py:716] Predicted 52224 examples in 51 batches [0.969 sec per 100].
+I0916 14:36:11.816373 140137852213056 call_variants.py:779] Complete: call_variants.
+
+real	9m44.758s
+user	43m10.857s
+sys	0m29.352s

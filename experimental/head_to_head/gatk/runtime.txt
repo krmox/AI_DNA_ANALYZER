@@ -1,0 +1,1 @@
+runtime_wallclock_seconds: 287 (HaplotypeCaller only, region chr21:32000000-44000000, no BQSR)

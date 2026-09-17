@@ -1,0 +1,1 @@
+runtime_wallclock_seconds: 810 (docker pull 07:18:34-07:22:54=260s excluded; run 07:23:03-07:36:42=819s including make_examples+call_variants+postprocess, region chr21:32000000-44000000, 12Mb, 670928 reads at 15x)

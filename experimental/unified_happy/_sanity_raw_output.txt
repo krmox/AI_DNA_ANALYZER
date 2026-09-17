@@ -1,0 +1,21 @@
+windows kept: 1393 / possible 1562
+dropped starts (first 20): [32005568, 32005632, 32005696, 32007872, 32007936, 32008000, 32022976, 32023040, 32023104, 32024128, 32024192, 32024256, 32024320, 32024384, 32024448, 32024512, 32024576, 32024640, 32024704, 32024768]
+naive==true: False
+idx=0 true_pos_0based=32000000 vcf_pos_1based=32000001 ref_fasta=A ref_from_counts_matrix=A match=True in_bed=True label=0
+idx=8104 true_pos_0based=32008488 vcf_pos_1based=32008489 ref_fasta=A ref_from_counts_matrix=A match=True in_bed=True label=0
+idx=16209 true_pos_0based=32016593 vcf_pos_1based=32016594 ref_fasta=G ref_from_counts_matrix=G match=True in_bed=True label=0
+idx=24313 true_pos_0based=32032697 vcf_pos_1based=32032698 ref_fasta=C ref_from_counts_matrix=C match=True in_bed=True label=0
+idx=32418 true_pos_0based=32040866 vcf_pos_1based=32040867 ref_fasta=C ref_from_counts_matrix=C match=True in_bed=True label=0
+idx=40523 true_pos_0based=32049099 vcf_pos_1based=32049100 ref_fasta=A ref_from_counts_matrix=A match=True in_bed=True label=0
+idx=48627 true_pos_0based=32057587 vcf_pos_1based=32057588 ref_fasta=T ref_from_counts_matrix=T match=True in_bed=True label=0
+idx=56732 true_pos_0based=32065692 vcf_pos_1based=32065693 ref_fasta=T ref_from_counts_matrix=T match=True in_bed=True label=0
+idx=64837 true_pos_0based=32073797 vcf_pos_1based=32073798 ref_fasta=A ref_from_counts_matrix=A match=True in_bed=True label=0
+idx=72941 true_pos_0based=32082669 vcf_pos_1based=32082670 ref_fasta=C ref_from_counts_matrix=C match=True in_bed=True label=0
+idx=81046 true_pos_0based=32091350 vcf_pos_1based=32091351 ref_fasta=A ref_from_counts_matrix=A match=True in_bed=True label=0
+idx=89151 true_pos_0based=32099967 vcf_pos_1based=32099968 ref_fasta=G ref_from_counts_matrix=G match=True in_bed=True label=0
+
+truth_snp pos1based=32000038 pos0based=32000037 ref=A alts=('G',) found_in_true_pos_array=True label_at_idx=1
+truth_snp pos1based=32000436 pos0based=32000435 ref=T alts=('C',) found_in_true_pos_array=True label_at_idx=1
+truth_snp pos1based=32000664 pos0based=32000663 ref=A alts=('T',) found_in_true_pos_array=True label_at_idx=1
+truth_snp pos1based=32000810 pos0based=32000809 ref=C alts=('T',) found_in_true_pos_array=True label_at_idx=1
+truth_snp pos1based=32000815 pos0based=32000814 ref=C alts=('G',) found_in_true_pos_array=True label_at_idx=1

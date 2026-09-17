@@ -1,0 +1,18 @@
+I0916 14:36:18.592485 140525871060800 postprocess_variants.py:1211] Using sample name from call_variants output. Sample name: HG002
+I0916 14:36:18.592805 140525871060800 postprocess_variants.py:1216] --sample_name is set but was not used.
+2026-09-16 14:36:18.596549: I deepvariant/postprocess_variants.cc:94] Read from: /tmp/tmp2_5r618f/call_variants_output-00000-of-00001.tfrecord.gz
+2026-09-16 14:36:19.037810: I deepvariant/postprocess_variants.cc:109] Total #entries in single_site_calls = 56040
+I0916 14:36:19.495065 140525871060800 postprocess_variants.py:1313] CVO sorting took 0.014994096755981446 minutes
+I0916 14:36:19.495403 140525871060800 postprocess_variants.py:1316] Transforming call_variants_output to variants.
+I0916 14:36:19.495505 140525871060800 postprocess_variants.py:1318] Using 8 CPUs for parallelization of variant transformation.
+I0916 14:36:19.615484 140525871060800 postprocess_variants.py:1211] Using sample name from call_variants output. Sample name: HG002
+I0916 14:36:19.615785 140525871060800 postprocess_variants.py:1216] --sample_name is set but was not used.
+I0916 14:36:21.303033 140525871060800 postprocess_variants.py:1365] Writing variants to VCF.
+I0916 14:36:21.303154 140525871060800 postprocess_variants.py:973] Writing output to VCF file: /out/deepvariant.vcf.gz
+I0916 14:36:21.305338 140525871060800 genomics_writer.py:183] Writing /out/deepvariant.vcf.gz with NativeVcfWriter
+I0916 14:36:21.464803 140525871060800 postprocess_variants.py:987] 1 variants written.
+I0916 14:36:24.376872 140525871060800 postprocess_variants.py:1373] VCF creation took 0.051230637232462566 minutes
+
+real	0m11.251s
+user	0m17.584s
+sys	0m1.925s

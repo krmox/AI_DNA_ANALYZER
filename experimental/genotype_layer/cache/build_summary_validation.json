@@ -1,0 +1,10 @@
+{
+  "n_records": 16124,
+  "n_skipped_no_alt": 0,
+  "tau": 0.69,
+  "tau_source": "FROZEN from dev region chr21:30.0-30.47Mb, NOT refit here",
+  "invariant_ok": true,
+  "invariant_setA_minus_setB": 0,
+  "invariant_setB_minus_setA": 0,
+  "method_B_runtime_seconds": 0.01568260800013377
+}

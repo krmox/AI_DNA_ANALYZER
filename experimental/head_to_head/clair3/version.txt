@@ -1,0 +1,1 @@
+v1.0.10 (retry after :latest tag hit an internal AttributeError bug in the realigner shared library during full-alignment step, causing silent fallback to pileup-only output)

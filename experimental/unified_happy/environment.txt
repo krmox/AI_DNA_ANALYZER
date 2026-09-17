@@ -1,0 +1,18 @@
+git commit (main, HEAD, unmodified throughout this pass): 16b221ee82d64f66de25119aafa4e5944cfe63cc
+python: 3.14.3
+docker: 29.4.1, build 055a478
+samtools: 1.23.1
+bcftools: 1.23.1
+hap.py image: quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0
+hap.py digest: sha256:d63b963a6cb01b4830393b22369e7b91d298e4156dde353739e74e4cfa4f96d0
+
+Input file checksums (sha256):
+d5568f8a5db92d79d94e26d28df2b19404d8e208afd78028bcbea7e2d1524ddd  data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz  (truth VCF)
+d6d537968281bf71d0c35ab4b22d38ca92dc202abf46d2640f60917f0f3973d0  data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed  (high-confidence BED)
+816889f0c2ee2214dca8f120d0f586916f93d828aae2dedd741cc216f1c40b3d  data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_15x.bam  (BAM, shared with all callers)
+c783b0026b9fa4347780a7843aa6a6cfcc3f08057bb226f23f8080a782c810b4  experimental/head_to_head/shared_ref/chr21_chrname.fa  (contig-renamed reference, shared with all callers)
+
+Sample: HG002
+Region: chr21:32,000,000-44,000,000 (12 Mb)
+Depth: 15x
+Evaluation scope: SNP, Type=SNP Filter=PASS rows from hap.py 0.3.15 summary.csv

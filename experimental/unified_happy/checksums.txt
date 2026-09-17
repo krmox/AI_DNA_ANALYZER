@@ -1,0 +1,6 @@
+# sha256 of hap.py outputs (this pass)
+073259c19f5c10de0d62b39dbf8c8c055d09c942f02e8606462da75f881523d3  ai_pb_only.vcf.gz
+a8f73a27d749b48eb6cd9cae59a5939e032f0c1870b59cd4d349b9a89dde8972  ai_cascade.vcf.gz
+d0f4c011fc08ee34b47db0a7ab036e89f132de43c8086faf78c346e772b5b4de  happy/ai_pb_only/happy.summary.csv
+aea3533624e262fb8d5c02aaeaa3e5a10170376a0b3ebc5e9624509981f95b88  happy/ai_cascade/happy.summary.csv
+e073682a014f9efe28955d2eac4bd9acd1bc9f48899c9c5fefd604b729330c64  recovered_full.npz

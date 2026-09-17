@@ -1,0 +1,10 @@
+quantity,value,explanation
+"Decision-array differences (pb_calls vs cascade_calls, full 12Mb region, all 10,975,654 SNP-eval-frame loci)",3,from experimental/head_to_head/ai_cascade_per_locus.npz
+Resulting VCF record-count difference,3,ai_pb_only.vcf: 16094 records; ai_cascade.vcf: 16097 records (+3)
+hap.py TP difference,0,both 10290 exactly
+hap.py FP difference,3,5804 (PB) vs 5807 (Cascade)
+hap.py FN difference,0,both 6608 exactly -- the 3-locus difference is entirely on the query/FP side
+hap.py F1 difference,-5.7e-05,0.623731 (cascade) - 0.623788 (PB-only)
+Mechanism at all 3 disagreement loci,routed=False,"At all 3 loci, `routed` (route_mask on binomial_llr) is False, so cascade_calls==binomial_calls there, NOT pb_calls. These are NOT cases of the router invoking PB scoring -- they are cases where the binomial arm calls a variant that the independently-reported pb_calls score does not, at loci the router judged confident enough to skip PB entirely."
+Of the 3: truth_is_snp=True,1,"chr21:42,293,669 (1-based) -- a true SNP the binomial arm recovers that pb_calls alone misses"
+Of the 3: truth_is_snp=False,2,"chr21:32,130,154 and chr21:43,293,084 (1-based) -- additional false positives from binomial_calls vs pb_calls at these unrouted loci"

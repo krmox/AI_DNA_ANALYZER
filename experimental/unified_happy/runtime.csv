@@ -1,0 +1,7 @@
+stage,wallclock_seconds,notes
+position_recovery_full_region,1242,"recover_full_positions.py, single-threaded, chr21:32-44M, 24 chunks of 500kb, re-walks BAM pileup for counts+labels+true positions only (does not recompute PB/binomial LLR, which is reused unmodified from the original extract_bench_v12.py run)"
+build_vcfs,3,"build_vcfs.py: consistency check + VCF text generation for both ai_pb_only and ai_cascade"
+bcftools_sort_index_both_vcfs,1,"bcftools sort -Oz + bcftools index -t, both VCFs"
+hap.py_ai_pb_only,6.2,"docker run, hap.py 0.3.15 xcmp engine"
+hap.py_ai_cascade,6.2,"docker run, hap.py 0.3.15 xcmp engine"
+docker_pull_happy_image,~15,"quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0, ~0.4GB, sequential pull/run/rmi per disk protocol"

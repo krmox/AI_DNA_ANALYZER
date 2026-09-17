@@ -1,0 +1,8 @@
+metric,value
+TP_allele,15921
+FP_allele,176
+FN_allele,977
+Precision_allele,0.989066
+Recall_allele,0.942183
+F1_allele,0.965055
+note,diagnostic only (position+ALT correct regardless of GT); not a replacement metric

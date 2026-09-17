@@ -1,0 +1,11 @@
+{
+  "n_records": 555,
+  "n_skipped_no_alt": 0,
+  "fitted_tau": 0.69,
+  "fitted_tau_gt_acc_at_fit": 1.0,
+  "eps_C": 0.01,
+  "theta0_wins": 3,
+  "invariant_ok": true,
+  "method_B_runtime_seconds": 0.003370693999386276,
+  "method_C_runtime_seconds": 0.17284252099943842
+}

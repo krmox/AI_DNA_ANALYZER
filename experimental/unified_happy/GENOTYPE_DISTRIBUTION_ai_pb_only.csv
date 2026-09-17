@@ -1,0 +1,11 @@
+metric,count
+truth_het_total(in TRUTH.TOTAL),11120
+truth_homalt_total(in TRUTH.TOTAL),5777
+"truth_hetalt_total(in TRUTH.TOTAL, multiallelic)",1
+AI_forced_GT,"0/1 for 100% of calls (hard-coded, see build_vcfs.py)"
+truth_homalt_called_as_0/1_by_AI(count),5630
+truth_homalt_called_as_0/1_by_AI(pct_of_homalt),97.46
+truth_het_correctly_matched_by_AI_0/1(count),10290
+truth_het_correctly_matched_by_AI_0/1(pct_of_het),92.54
+"truth_homalt_exact_match(should be ~0, forced GT never emits 1/1)",0
+truth_het_genotype_error(should be ~0),0

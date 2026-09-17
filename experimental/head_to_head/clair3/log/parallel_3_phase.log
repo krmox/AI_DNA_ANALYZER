@@ -1,0 +1,2 @@
+Seq	Host	Starttime	JobRuntime	Send	Receive	Exitval	Signal	Command
+1	:	1789570856.100	    20.144	0	0	0	0	whatshap phase             --output /out/tmp/phase_output/phase_vcf/phased_chr21.vcf.gz             --reference /ref/chr21_chrname.fa             --chromosome chr21             --distrust-genotypes             --ignore-read-groups             /out/tmp/phase_output/phase_vcf/chr21.vcf             /bam/hg002_chr21_32_44M_15x.bam

@@ -1,0 +1,9 @@
+Found 1 sample(s) in input VCF
+Found 0 sample(s) in BAM file
+Found 39225 reads covering 5263 variants
+
+== SUMMARY ==
+Total alignments processed:                    679756
+Alignments that could be tagged:                77726
+Alignments spanning multiple phase sets:            0
+Finished in 26.5 s

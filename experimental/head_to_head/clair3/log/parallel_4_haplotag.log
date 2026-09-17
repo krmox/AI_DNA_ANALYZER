@@ -1,0 +1,2 @@
+Seq	Host	Starttime	JobRuntime	Send	Receive	Exitval	Signal	Command
+1	:	1789570876.533	    26.766	0	0	0	0	whatshap haplotag         --output /out/tmp/phase_output/phase_bam/chr21.bam         --reference /ref/chr21_chrname.fa         --ignore-read-groups         --regions chr21         /out/tmp/phase_output/phase_vcf/phased_chr21.vcf.gz         /bam/hg002_chr21_32_44M_15x.bam

@@ -1,0 +1,67 @@
+[INFO] Delay 0 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 2/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_2.vcf, remove empty file
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 3/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_3.vcf, remove empty file
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 1/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_1.vcf, remove empty file
+[INFO] Delay 2 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 4/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_4.vcf, remove empty file
+[INFO] Delay 1 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 5/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_5.vcf, remove empty file
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 6/10) : 0
+Total time elapsed: 0.00 s
+[INFO] No vcf output for file /out/tmp/pileup_output/pileup_chr21_6.vcf, remove empty file
+[INFO] Delay 1 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Total processed positions in chr21 (chunk 7/10) : 14141
+Total time elapsed: 37.44 s
+[INFO] Delay 3 seconds before starting variant calling ...
+[faidx] Truncated sequence: chr21:42037991-46710990
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Processed 40000 tensors
+Total processed positions in chr21 (chunk 10/10) : 43019
+Total time elapsed: 111.88 s
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Processed 40000 tensors
+Processed 60000 tensors
+Processed 80000 tensors
+Total processed positions in chr21 (chunk 9/10) : 95013
+Total time elapsed: 220.17 s
+[INFO] Delay 4 seconds before starting variant calling ...
+[mpileup] 1 samples in 1 input files
+Calling variants ...
+Processed 20000 tensors
+Processed 40000 tensors
+Processed 60000 tensors
+Processed 80000 tensors
+Total processed positions in chr21 (chunk 8/10) : 96681
+Total time elapsed: 224.41 s

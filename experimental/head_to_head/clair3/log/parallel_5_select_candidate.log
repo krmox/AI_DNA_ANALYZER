@@ -1,0 +1,2 @@
+Seq	Host	Starttime	JobRuntime	Send	Receive	Exitval	Signal	Command
+1	:	1789570904.433	     0.698	0	0	0	0	pypy3 /opt/bin/scripts/../clair3.py SelectCandidates     --pileup_vcf_fn /out/pileup.vcf.gz     --split_folder /out/tmp/full_alignment_output/candidate_bed     --ref_fn /ref/chr21_chrname.fa     --var_pct_full 0.3     --ref_pct_full 0.3     --platform ilmn     --ctgName chr21
