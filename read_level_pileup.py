@@ -53,12 +53,29 @@ needed downstream, is derived from observed counts alone.
 from __future__ import annotations
 
 import hashlib
+import os
+import sys
+from pathlib import Path
 from typing import Any, Dict, List
 
 import numpy as np
 
 from config import NUCLEOTIDES
 from providers import GenomicWindow, GiabAlignmentProvider
+
+_NATIVE_DIR = Path(__file__).resolve().parent / "native"
+if _NATIVE_DIR.is_dir() and str(_NATIVE_DIR) not in sys.path:
+    sys.path.insert(0, str(_NATIVE_DIR))
+try:
+    import reads_native as _reads_native  # type: ignore[import-not-found]
+except ImportError:
+    _reads_native = None
+
+#: ``AI_DNA_ANALYZER_DISABLE_NATIVE_READS=1`` (or the shared ``..._NATIVE_PILEUP=1``) forces the
+#: original pure-Python ``window_reads`` path, the reference for the equivalence gate.
+NATIVE_READS_AVAILABLE = _reads_native is not None and not (
+    os.environ.get("AI_DNA_ANALYZER_DISABLE_NATIVE_READS")
+    or os.environ.get("AI_DNA_ANALYZER_DISABLE_NATIVE_PILEUP"))
 
 #: Reads retained per locus. Justified from the data: max depth is 43 (train)
 #: and 38 (test), so R=48 truncates nothing in either region.
@@ -444,12 +461,40 @@ def load_reads(fasta: str, bam: str, vcf: str, bed: str | None,
         fasta_path=fasta, bam_path=bam, vcf_path=vcf, contig=contig,
         region=region, seq_len=seq_len, high_confidence_bed=bed, max_reads=max_reads)
     with provider:
+        if NATIVE_READS_AVAILABLE and len(provider):
+            try:
+                return _native_load_reads(provider)
+            except RuntimeError:
+                # The C path refuses inputs it cannot reproduce bit-for-bit
+                # (l_qseq == 0, non-integer NM); fall back rather than diverge.
+                pass
         reads, labels = [], []
         for index in range(len(provider)):
             window = provider[index]
             reads.append(window["reads"])
             labels.append(window["labels"])
     return np.concatenate(reads), np.concatenate(labels)
+
+
+def _native_threads() -> int:
+    """Worker threads inside the C call (output is bit-identical for any count)."""
+    return max(1, int(os.environ.get("AI_DNA_ANALYZER_READ_THREADS", "1")))
+
+
+def _native_load_reads(provider: ReadLevelPileupProvider) -> tuple[np.ndarray, np.ndarray]:
+    """Fill every window from ``reads_native.read_windows``: the same per-window pileup passes
+    ``window_reads`` makes, run in C over one open BAM handle."""
+    assert _reads_native is not None and provider._windows is not None
+    windows = provider._windows
+    starts = np.fromiter((w.start for w in windows), dtype=np.int64, count=len(windows))
+    buf = _reads_native.read_windows(
+        str(provider.bam_path), provider._bam_contig, starts, provider.seq_len,
+        provider.min_mapping_quality, provider.min_base_quality, provider.max_reads,
+        _native_threads())
+    reads = np.frombuffer(buf, dtype=np.uint8).reshape(
+        len(windows) * provider.seq_len, provider.max_reads, READ_DIM)
+    labels = np.concatenate([np.asarray(provider._fetch_labels(w), dtype=np.int64) for w in windows])
+    return reads, labels
 
 
 __all__ = [

@@ -1,0 +1,392 @@
+{
+ "region": "chr20_15x",
+ "loci_scored": 56242693,
+ "disagreements": 10,
+ "disagreement_rate": 1.7780087450648924e-07,
+ "records": [
+  {
+   "frame_index": 487457,
+   "depth": 6.0,
+   "vaf": 0.5,
+   "mean_base_quality": 19.0,
+   "binomial_llr": 12.96234770810909,
+   "pb_llr": 10.018245553025064,
+   "router_margin": 5.962347708109091,
+   "pb_margin": 0.48175444697493575,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 591624,
+   "annotations": [],
+   "flags": [
+    "high_vaf",
+    "low_depth",
+    "low_bq"
+   ],
+   "outside_router_band": true,
+   "primary_class": "low_bq"
+  },
+  {
+   "frame_index": 1528508,
+   "depth": 7.0,
+   "vaf": 0.5,
+   "mean_base_quality": 18.857142857142858,
+   "binomial_llr": 12.96234770810909,
+   "pb_llr": 10.390112755676158,
+   "router_margin": 5.962347708109091,
+   "pb_margin": 0.10988724432384167,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 1736698,
+   "annotations": [],
+   "flags": [
+    "high_vaf",
+    "low_depth",
+    "low_bq"
+   ],
+   "outside_router_band": true,
+   "primary_class": "low_bq"
+  },
+  {
+   "frame_index": 16027246,
+   "depth": 6.0,
+   "vaf": 0.6,
+   "mean_base_quality": 12.5,
+   "binomial_llr": 13.645511444684853,
+   "pb_llr": 9.821920926816214,
+   "router_margin": 6.645511444684853,
+   "pb_margin": 0.6780790731837865,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 16737969,
+   "annotations": [],
+   "flags": [
+    "high_vaf",
+    "low_depth",
+    "low_bq"
+   ],
+   "outside_router_band": true,
+   "primary_class": "low_bq"
+  },
+  {
+   "frame_index": 17664726,
+   "depth": 17.0,
+   "vaf": 0.26666666666666666,
+   "mean_base_quality": 18.705882352941178,
+   "binomial_llr": 12.500984121448454,
+   "pb_llr": 9.436369045256447,
+   "router_margin": 5.500984121448454,
+   "pb_margin": 1.0636309547435534,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 18436435,
+   "annotations": [],
+   "flags": [
+    "high_vaf",
+    "mid_depth",
+    "low_bq"
+   ],
+   "outside_router_band": true,
+   "primary_class": "low_bq"
+  },
+  {
+   "frame_index": 17664730,
+   "depth": 17.0,
+   "vaf": 0.26666666666666666,
+   "mean_base_quality": 16.823529411764707,
+   "binomial_llr": 12.500984121448454,
+   "pb_llr": 9.250158854019007,
+   "router_margin": 5.500984121448454,
+   "pb_margin": 1.2498411459809926,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 18436439,
+   "annotations": [
+    "alldifficult",
+    "tandemrepeats"
+   ],
+   "flags": [
+    "high_vaf",
+    "mid_depth",
+    "low_bq",
+    "alldifficult",
+    "tandemrepeats"
+   ],
+   "outside_router_band": true,
+   "primary_class": "tandem_repeat"
+  },
+  {
+   "frame_index": 18058125,
+   "depth": 6.0,
+   "vaf": 0.5,
+   "mean_base_quality": 22.333333333333332,
+   "binomial_llr": 12.96234770810909,
+   "pb_llr": 10.377102163901045,
+   "router_margin": 5.962347708109091,
+   "pb_margin": 0.12289783609895544,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 18846429,
+   "annotations": [
+    "alldifficult",
+    "lowmap_segdup"
+   ],
+   "flags": [
+    "high_vaf",
+    "low_depth",
+    "low_bq",
+    "alldifficult",
+    "lowmap_segdup"
+   ],
+   "outside_router_band": true,
+   "primary_class": "segdup/lowmap"
+  },
+  {
+   "frame_index": 24334207,
+   "depth": 31.0,
+   "vaf": 0.13043478260869565,
+   "mean_base_quality": 35.935483870967744,
+   "binomial_llr": 1.348564186321136,
+   "pb_llr": 12.234935633826327,
+   "router_margin": 5.651435813678864,
+   "pb_margin": 1.7349356338263267,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": false,
+   "pb_call": true,
+   "effect": "router_avoids_fp",
+   "mean_mapq": 66.58064516129032,
+   "position": 25313341,
+   "annotations": [
+    "alldifficult",
+    "lowmap_segdup"
+   ],
+   "flags": [
+    "low_vaf",
+    "high_depth",
+    "alldifficult",
+    "lowmap_segdup"
+   ],
+   "outside_router_band": true,
+   "primary_class": "segdup/lowmap"
+  },
+  {
+   "frame_index": 28218198,
+   "depth": 8.0,
+   "vaf": 0.5,
+   "mean_base_quality": 11.125,
+   "binomial_llr": 12.96234770810909,
+   "pb_llr": 9.030940759885222,
+   "router_margin": 5.962347708109091,
+   "pb_margin": 1.4690592401147775,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 34649487,
+   "annotations": [],
+   "flags": [
+    "high_vaf",
+    "low_depth",
+    "low_bq"
+   ],
+   "outside_router_band": true,
+   "primary_class": "low_bq"
+  },
+  {
+   "frame_index": 28218217,
+   "depth": 6.0,
+   "vaf": 0.6,
+   "mean_base_quality": 14.166666666666666,
+   "binomial_llr": 13.645511444684853,
+   "pb_llr": 10.1811183120322,
+   "router_margin": 6.645511444684853,
+   "pb_margin": 0.31888168796779937,
+   "routed_to_pb": false,
+   "truth_is_snp": false,
+   "router_call": true,
+   "pb_call": false,
+   "effect": "router_fp",
+   "mean_mapq": 70.0,
+   "position": 34649506,
+   "annotations": [],
+   "flags": [
+    "high_vaf",
+    "low_depth",
+    "low_bq"
+   ],
+   "outside_router_band": true,
+   "primary_class": "low_bq"
+  },
+  {
+   "frame_index": 39176568,
+   "depth": 28.0,
+   "vaf": 0.125,
+   "mean_base_quality": 39.214285714285715,
+   "binomial_llr": 0.6654004497453752,
+   "pb_llr": 13.620508650714452,
+   "router_margin": 6.334599550254625,
+   "pb_margin": 3.120508650714452,
+   "routed_to_pb": false,
+   "truth_is_snp": true,
+   "router_call": false,
+   "pb_call": true,
+   "effect": "router_fn",
+   "mean_mapq": 70.0,
+   "position": 46110516,
+   "annotations": [
+    "alldifficult"
+   ],
+   "flags": [
+    "low_vaf",
+    "mid_depth",
+    "alldifficult"
+   ],
+   "outside_router_band": true,
+   "primary_class": "low_vaf_other"
+  }
+ ],
+ "records_truncated": false,
+ "by_depth": {
+  "1-9x": {
+   "loci": 7553282,
+   "disagreements": 6,
+   "rate": 7.943566783287054e-07
+  },
+  "10-29x": {
+   "loci": 48412473,
+   "disagreements": 3,
+   "rate": 6.196750163950517e-08
+  },
+  "30-47x": {
+   "loci": 233050,
+   "disagreements": 1,
+   "rate": 4.290924694271615e-06
+  },
+  "48-59x": {
+   "loci": 33,
+   "disagreements": 0,
+   "rate": 0.0
+  },
+  "60-79x": {
+   "loci": 0,
+   "disagreements": 0,
+   "rate": null
+  },
+  "80-10000x": {
+   "loci": 0,
+   "disagreements": 0,
+   "rate": null
+  }
+ },
+ "by_quality": {
+  "q0-20": {
+   "loci": 23908,
+   "disagreements": 7,
+   "rate": 0.00029278902459427806
+  },
+  "q20-25": {
+   "loci": 133963,
+   "disagreements": 1,
+   "rate": 7.4647477288505034e-06
+  },
+  "q25-30": {
+   "loci": 1083435,
+   "disagreements": 0,
+   "rate": 0.0
+  },
+  "q30-35": {
+   "loci": 10338671,
+   "disagreements": 0,
+   "rate": 0.0
+  },
+  "q35-60": {
+   "loci": 44618861,
+   "disagreements": 2,
+   "rate": 4.4824093559896115e-08
+  }
+ },
+ "by_vaf": {
+  "vaf0.00-0.15": {
+   "loci": 1196960,
+   "disagreements": 2,
+   "rate": 1.67089961235129e-06
+  },
+  "vaf0.15-0.25": {
+   "loci": 64184,
+   "disagreements": 0,
+   "rate": 0.0
+  },
+  "vaf0.25-0.35": {
+   "loci": 9783,
+   "disagreements": 2,
+   "rate": 0.0002044362669937647
+  },
+  "vaf0.35-0.45": {
+   "loci": 9901,
+   "disagreements": 0,
+   "rate": 0.0
+  },
+  "vaf0.45-0.55": {
+   "loci": 12629,
+   "disagreements": 4,
+   "rate": 0.00031673133264708213
+  },
+  "vaf0.55-0.75": {
+   "loci": 13823,
+   "disagreements": 2,
+   "rate": 0.00014468639224480938
+  },
+  "vaf0.75-1.01": {
+   "loci": 27774,
+   "disagreements": 0,
+   "rate": 0.0
+  }
+ },
+ "by_truth": {
+  "snp": {
+   "loci": 70324,
+   "disagreements": 1,
+   "rate": 1.4219896479153631e-05
+  },
+  "non_snp": {
+   "loci": 56172369,
+   "disagreements": 9,
+   "rate": 1.602211222389428e-07
+  }
+ },
+ "record_summary": {
+  "router_fp": 8,
+  "in_none": 6,
+  "in_alldifficult": 4,
+  "in_tandemrepeats": 1,
+  "in_lowmap_segdup": 2,
+  "router_avoids_fp": 1,
+  "router_fn": 1
+ }
+}

@@ -1,0 +1,1 @@
+{"chunk": [40000000, 40500000], "loci": 491264, "counts": true, "labels": true, "positions": true, "pb_llr": true, "binomial_llr": true, "depth_": true, "k_full": true, "k_retained": true, "n_counted": true, "all_bytewise_equal": true}

@@ -1,0 +1,27 @@
+{
+  "routing": {
+    "n_scored": 20799919,
+    "n_routed_pb": 8601,
+    "pb_routed_fraction": 0.0004135112256927539
+  },
+  "pb_only": {
+    "n_calls": 28153,
+    "n_forced_00_to_01": 38
+  },
+  "cascade": {
+    "n_calls": 28149,
+    "n_forced_00_to_01": 26
+  },
+  "rescue": {
+    "pb_rescuable_loci": 779,
+    "rescued_by_router": 771,
+    "rescue_recall": 0.9897304236200257,
+    "false_rescue_rate": 0.006975933031042902,
+    "unnecessary_pb_rate": 0.878153703057784
+  },
+  "detection_layer_raw": {
+    "binomial_only_accuracy": 0.9999206246908943,
+    "pb_only_accuracy": 0.9999546152078765,
+    "cascade_accuracy": 0.9999548075163177
+  }
+}

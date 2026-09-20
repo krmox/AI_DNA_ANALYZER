@@ -1,0 +1,72 @@
+{
+  "purpose": "chr20 holdout validation freeze (rebuilt after /tmp wipe on 2026-09-20)",
+  "created_local": "2026-09-20T11:36:18+05:00",
+  "git_base_commit": "a3d5761b9ad74a04d0344d94b4ec088c3440aff6",
+  "git_branch": "fix/hg005-extraction-integrity",
+  "working_tree_diff_sha256_tracked_py_sh_c": "e1865f4c72fc298e1470e516670cc222216ec8b3b931cc1a930a5e470267d898",
+  "model_files_sha256": {
+    "cascade.py": "b0ee9f4b24fe06dc4d677ca80fdd9bedaa9885e52038679812f1f550c5286131",
+    "experimental/genotype_layer/method_c_regression.py": "b5cea1f1660eb472190267c743f78ef4c330872b6c4fbede9f136f4cca5882d2",
+    "quality_error_model.py": "a69cb49591cbac13efad07d73eda3004a89e6c0659287676a4c8901cc3db053e",
+    "binomial_baseline.py": "f0408ecae0929aefd59faa74fc96e79228606bb569c0ae3c5efabdda4d3d6ce9",
+    "robustness_benchmark.py": "6fd5c4df39806e0594918bf4fe38333c6ce8e0643d8871dbdd0621e45374a04a",
+    "bench_v12_stage1.py": "745d7d694653ebd9aa9d52b9cc56a032234f793b2068c84da7cff86dd119c478",
+    "bench_v13_robustness.py": "839f105a45c3e924f8c558564a3407810cebd5a72fd9e0748b8090e2209b0008",
+    "bench_v14_crosschrom.py": "5c36f1364cc5f8c0382f90c89c09003ef3f52250802d57570acae15079beb383",
+    "bench_v19_unseen.py": "bf4e29a11f9e9343915ce4feb945363450b26b729afd3696b13a61ef816a224f",
+    "config.py": "ce151c1dda28b032480e74435218e5261e95a0eca311a5c0117bdae491b6cfb6",
+    "locus_evidence.py": "ec36a11478c0dc1f33e6ad3297aad0995e92e45a9f6cd3684c2f88c21f0c4320",
+    "train_raw_pileup.py": "3265899abf069c287efe72a3c7abcf19e634cb65d6550140461a3ac6477c4dc8",
+    "native/pileup_native.c": "85b08e2d8eb59ca01393ff7f2cd95f8c2b5466e90e85c8e78d063cdffb72e793"
+  },
+  "optimised_files_sha256": {
+    "read_level_pileup.py": "31bf5eb80072d609432cafb4fc684e9ad1a97f2b7165d43356842e7785ba2e3c",
+    "providers.py": "144ac4c276c03bddd5ab7098c9e81c98a169ad3012c2db08dc1a7891fc8b97a1",
+    "pileup_counts.py": "53625bf4e79596a8e0e52f6ca822368a9d55ea45cf8c92ba5a4d67c1e3da6f8b",
+    "extract_bench_v12.py": "dbc5af5b2ef4c8b297151b93c652c7130791c98247f20f2b842a2dc8a1b57af6",
+    "native/reads_native.c": "884a156794cabb9376cd7fc1d8e858074c5dec533116f155ca36e3a344925bf9",
+    "native/build.sh": "cfd79d78ac6a2dd46528ac12c8fb9de4e2a62f609bbaea4fbdef4a8377b24fa7"
+  },
+  "frozen_constants_as_imported": {
+    "FROZEN_BINOMIAL_THRESHOLD": 7.0,
+    "FROZEN_PB_THRESHOLD": 10.5,
+    "FROZEN_ROUTER_CUTOFF": 5.411872376933351,
+    "match_expected": true
+  },
+  "method_c": {
+    "eps": 0.01,
+    "gq_cap": 99.0,
+    "zero_zero_forced_to_0/1_gq_cap": 5.0
+  },
+  "data_sha256": {
+    "chr20_full.bam": "6f861fb7d55d0a746df3d584de5d887a24e83c773dfab7bfd6e12ecdca735c42",
+    "chr20_15x.bam": "0c76fd6739ffdeb81b8f21e48409bbf9914ecc1ec16bdcade962662f5f7ad148",
+    "chr20.vcf.gz (truth)": "527f2ecea822b158c5d954748ade0be42a24bac5b0b13e94c327fbd22018eb93",
+    "chr20_highconf.bed": "52d9c15a5c5e4552da1b9111fbcb5514a8d65b4ed5ad95542f22ffdcdd16a3f3",
+    "reference chr20_full.fa": "2d4a4c981164ab75b717775a3c0aaa39addf2f0c9225d4796b22552a4456be22"
+  },
+  "data_sources": {
+    "bam": "GIAB HG002_NA24385_son NIST_Illumina_2x250bps novoalign HG002.GRCh38.2x250.bam (region chr20)",
+    "truth_vcf": "GIAB NISTv4.2.1 GRCh38 HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz (chr20)",
+    "bed": "GIAB NISTv4.2.1 GRCh38 HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed (chr20 rows)",
+    "downsample": "samtools view -s 42.2114 (seed 42; 15 / 70.9603 native mean depth over the chr20 high-confidence BED); achieved 14.99x"
+  },
+  "environment": {
+    "python": "3.14.3",
+    "platform": "Linux-6.19.12-200.fc43.x86_64-x86_64-with-glibc2.42",
+    "cpu": "Model name:                              Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz",
+    "samtools": "samtools 1.23.1",
+    "hap_py_image": "quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0 @sha256:d63b963a6cb01b4830393b22369e7b91d298e4156dde353739e74e4cfa4f96d0",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "pysam": "0.24.0",
+    "psutil": "7.0.0"
+  },
+  "analysis_scripts_sha256": {
+    "bench_v20_chr20.py": "74a0f3f249cf1a1e6a115fe16555b9e4debb1408dc91ebbe5ca33c65f29dfa1f",
+    "experimental/chr20_validation/run_chr20_pipeline.py": "b85d64b3fb11d8d09bb50f4a406a174a1b348c84fb54f0bf0258fbb1e68058ef",
+    "experimental/chr20_validation/run_happy_chr20.sh": "d94143a977952e32165b9789a747d78424821f557d994fab3b8f60767d4c1ed0",
+    "experimental/chr20_validation/run_extract_chr20.sh": "295dbfcf79b6dd18e76ba3be881b62ba72d2fdac125e103327d4ece42012ea21",
+    "cache/chr20_validation/chr20_15x.npz": "18c133911346984668be4cf9fb8ad17a0b63fa775f6a0d0becbac9e59d7cfe9c"
+  }
+}

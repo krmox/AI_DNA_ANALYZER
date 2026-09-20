@@ -5,10 +5,11 @@ call-set-invariant check (set of alleles before vs after genotyping).
 import gzip
 import sys
 
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 import numpy as np
 
-REPO = "/home/mark/Documents/Projects/AI_DNA_ANALYZER"
+REPO = _ROOT
 UNIFIED = f"{REPO}/experimental/unified_happy"
 DATA = f"{REPO}/data/giab_hg002_chr21_12Mb"
 TRUTH_VCF = f"{DATA}/hg002_chr21_32_44M.vcf.gz"

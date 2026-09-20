@@ -1,0 +1,7 @@
+2026-09-18 19:03:15,830 | INFO | 1000000-1500000: 391488 loci (724 SNP) | pool windows 1209 | cumulative 3.8 min
+2026-09-18 19:07:06,602 | INFO | 1500000-2000000: 388224 loci (741 SNP) | pool windows 1205 | cumulative 7.6 min
+2026-09-18 19:11:01,093 | INFO | 2000000-2500000: 429056 loci (623 SNP) | pool windows 1021 | cumulative 11.5 min
+2026-09-18 19:13:56,427 | INFO | 2500000-3000000: 315584 loci (480 SNP) | pool windows 745 | cumulative 14.5 min
+2026-09-18 19:17:53,242 | INFO | 3000000-3500000: 440832 loci (770 SNP) | pool windows 1058 | cumulative 18.4 min
+2026-09-18 19:21:54,464 | INFO | 3500000-4000000: 437824 loci (611 SNP) | pool windows 1108 | cumulative 22.4 min
+2026-09-18 19:21:58,985 | INFO | Wrote cache/hg005_stress/chr1_1000000_4000000.serial.partial.npz | 2403008 loci | 3949 SNP | counts 323s reads 690s pb 332s feat 0s

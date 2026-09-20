@@ -1,0 +1,150 @@
+2026-09-20 06:46:20,263 WARNING  No reference file found at default locations. You can set the environment variable 'HGREF' or 'HG19' to point to a suitable Fasta file.
+[I] Total VCF records:         85951
+[I] Non-reference VCF records: 85951
+[I] Total VCF records:         69291
+[I] Non-reference VCF records: 69291
+2026-09-20 06:46:23,633 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,634 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,634 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,634 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,634 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,634 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,646 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,647 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,647 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,648 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,649 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,649 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,656 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,656 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,657 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,662 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,663 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,663 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,665 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,665 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,665 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,688 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,688 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,688 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,838 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,839 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,839 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,839 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,839 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,839 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,842 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,842 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,843 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,845 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,845 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,846 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,851 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,852 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,852 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,858 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,859 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,859 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,866 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,867 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,867 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,904 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,905 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:23,905 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,026 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,026 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,026 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,031 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,032 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,032 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,034 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,035 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,035 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,039 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,039 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,039 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,042 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,043 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,044 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,078 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,078 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,078 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,086 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,087 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,087 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,100 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,100 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,101 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,149 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,150 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,150 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,186 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,186 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,186 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,192 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,192 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:24,192 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,130 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,893 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,893 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,893 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,893 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,893 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,908 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,908 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,908 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,908 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,908 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,924 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,925 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,925 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,926 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,926 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,970 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,970 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,971 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,971 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,971 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,976 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,976 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,976 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,976 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,976 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,985 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,985 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,985 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,985 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:26,985 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,004 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,004 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,005 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,005 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,005 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,072 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,072 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,072 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,072 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+2026-09-20 06:46:27,072 WARNING  [W::bcf_hdr_register_hrec] The definition of Flag "INFO/IMPORT_FAIL" is invalid, forcing Number=0
+	Command being timed: "docker run --rm -v /home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr20:/truth -v /home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr20/shared_ref:/ref -v /home/mark/Documents/Projects/AI_DNA_ANALYZER/.claude/worktrees/opt-chr20/experimental/chr20_validation:/query -v /home/mark/Documents/Projects/AI_DNA_ANALYZER/.claude/worktrees/opt-chr20/experimental/chr20_validation/happy/ai_pb_only_chr20:/out quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0 hap.py /truth/chr20.vcf.gz /query/ai_pb_only_chr20.vcf.gz -f /truth/chr20_highconf.bed -r /ref/chr20_chrname.fa -o /out/happy"
+	User time (seconds): 0.01
+	System time (seconds): 0.02
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:13.32
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30160
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 19
+	Minor (reclaiming a frame) page faults: 2902
+	Voluntary context switches: 859
+	Involuntary context switches: 39
+	Swaps: 0
+	File system inputs: 26848
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

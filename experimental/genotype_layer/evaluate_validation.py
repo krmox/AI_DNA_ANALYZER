@@ -13,13 +13,14 @@ import gzip
 import json
 import sys
 
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 
 import numpy as np
 
-OUT = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/genotype_layer"
-DATA = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb"
-SEGDUP_BED = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/strat_v31/lowmap_segdup.bed.gz"
+OUT = _ROOT + "/experimental/genotype_layer"
+DATA = _ROOT + "/data/giab_hg002_chr21_12Mb"
+SEGDUP_BED = _ROOT + "/data/strat_v31/lowmap_segdup.bed.gz"
 
 with open(f"{OUT}/cache/build_summary_validation.json") as fh:
     build_summary = json.load(fh)

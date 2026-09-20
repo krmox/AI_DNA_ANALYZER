@@ -17,8 +17,9 @@ REGION_CHROM = "chr21"
 REGION_START = 32_000_000
 REGION_END = 44_000_000
 
-BASE = "/home/mark/Documents/Projects/AI_DNA_ANALYZER"
-WORK = "/tmp/head_to_head_work/experimental/head_to_head"
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+BASE = _ROOT
+WORK = _ROOT + "/experimental/head_to_head"
 
 TRUTH_VCF = f"{BASE}/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz"
 CONF_BED = f"{BASE}/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed"

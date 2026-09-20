@@ -17,7 +17,8 @@ positions, binomial_llr, pb_llr, pb_calls, cascade_calls, binomial_calls.
 import sys
 import time
 
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 
 import numpy as np
 
@@ -27,7 +28,7 @@ from pileup_counts import PileupCountsProvider
 from quality_error_model import candidate_alt, extract_quality_evidence, poisson_binomial_llr
 from read_level_pileup import ReadLevelPileupProvider
 
-REPO = "/home/mark/Documents/Projects/AI_DNA_ANALYZER"
+REPO = _ROOT
 DATA = f"{REPO}/data/giab_hg002_real_30M"
 FASTA = f"{REPO}/data/reference/chr21_full.fa"
 BAM = f"{DATA}/hg002_chr21_30M.bam"

@@ -1,0 +1,4 @@
+Exception ignored while flushing sys.stdout:
+BrokenPipeError: [Errno 32] Broken pipe
+Terminated                 env BENCH_MODE=$mode "$@" python3 bench_candidates.py $cand $ds $s $e $chunk $workers | python3 -c "
+import sys,json; d=json.loads(sys.stdin.read()); d['rep']=$rep; d['label']='$cand/$mode/w$workers/$*'; print(json.dumps(d))" >> $OUT

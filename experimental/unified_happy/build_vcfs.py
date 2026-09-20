@@ -18,7 +18,8 @@ import sys
 
 import numpy as np
 
-REPO = "/home/mark/Documents/Projects/AI_DNA_ANALYZER"
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+REPO = _ROOT
 OUT = f"{REPO}/experimental/unified_happy"
 
 recovered = np.load(f"{OUT}/recovered_full.npz")

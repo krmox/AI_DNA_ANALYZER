@@ -1,0 +1,54 @@
+{
+  "dossier_generated": "2026-09-19",
+  "repo_head_at_generation": "a3d5761b9ad74a04d0344d94b4ec088c3440aff6",
+  "worktree": "fix/hg005-extraction-integrity",
+  "experiments": [
+    {"id": "v13_robustness", "sample": "HG002", "region": "chr21 (multi-region pool)", "evaluator": "frozen_locus_evaluator", "source": "results/bench_v13/robustness_results.json", "status": "VALID"},
+    {"id": "v14_crosschrom", "sample": "HG002", "region": "chr20/19/4/1", "evaluator": "frozen_locus_evaluator", "source": "results/bench_v14/robustness_results.json", "status": "VALID"},
+    {"id": "v15_safety_test", "sample": "HG002", "region": "chr16/15/7/14", "evaluator": "frozen_locus_evaluator", "source": "results/bench_v15/test_results.json", "status": "VALID_MIXED_VERDICT"},
+    {"id": "v16_unseen_chr13", "sample": "HG002", "region": "chr13", "evaluator": "frozen_locus_evaluator", "source": "results/bench_v16/benchmark_results.json", "status": "VALID"},
+    {"id": "v17_unseen_chr17", "sample": "HG002", "region": "chr17:18-21Mb", "evaluator": "frozen_locus_evaluator", "source": "results/bench_v17/benchmark_results.json", "status": "VALID"},
+    {"id": "v18_crosssample_HG003", "sample": "HG003", "region": "chr13:70-73Mb", "evaluator": "frozen_locus_evaluator", "source": "results/bench_v18/benchmark_results.json", "status": "VALID"},
+    {"id": "v19_validation_round2_HG004", "sample": "HG004", "region": "chr2/3/5", "evaluator": "frozen_locus_evaluator", "source": "results/bench_v19/benchmark_results.json", "status": "VALID"},
+    {"id": "unified_happy_methodC", "sample": "HG002", "region": "chr21:32-44Mb", "evaluator": "hap.py_0.3.15_xcmp", "source": "experimental/unified_happy/METHOD_C_FULL_REVALIDATION.md", "status": "VALID"},
+    {"id": "unified_happy_forcedGT", "sample": "HG002", "region": "chr21:32-44Mb", "evaluator": "hap.py_0.3.15_xcmp", "source": "experimental/unified_happy/UNIFIED_HAPPY_BENCHMARK.md", "status": "VALID_BUT_SUPERSEDED"},
+    {"id": "head_to_head_external_callers", "sample": "HG002", "region": "chr21:32-44Mb", "evaluator": "hap.py_0.3.15_xcmp + frozen_locus_evaluator (mixed, see notes)", "source": "experimental/head_to_head/HEAD_TO_HEAD_RESULTS.csv", "status": "VALID_PARTIAL (Strelka2 blocked, FreeBayes not run)"},
+    {"id": "HG005_prefix_INVALIDATED", "sample": "HG005", "region": "chr1:1,000,001-4,000,000 / chr1:1,000,001-25,000,000", "evaluator": "hap.py_0.3.15_xcmp", "source": "experimental/stress_test/HG005_MAX_FEASIBLE_STRESS_TEST.md", "status": "INVALIDATED", "reason": "extraction reference-integrity bug, fabricated genomic positions"},
+    {"id": "HG005_postfix", "sample": "HG005", "region": "chr1:1,000,001-4,000,000", "evaluator": "hap.py_0.3.15_xcmp", "source": "experimental/stress_test/HG005_POSTFIX_STRESS_TEST_REPORT.md", "status": "VALID", "supersedes": "HG005_prefix_INVALIDATED"},
+    {"id": "htslib_thread_scaling", "sample": "HG002", "region": "chr21:0-2Mb", "evaluator": "wall_clock_timing", "source": ".claude/worktrees/agent-afd5734475c9603bd/bench_htslib_io/results/", "status": "VALID_NULL_RESULT", "note": "A DIFFERENT mechanism (pysam threads= / htslib-internal BGZF threading) from the C extension below; genuinely no speedup; not integrated"},
+    {"id": "multiprocess_chunking", "sample": "HG002", "region": "chr21:0-0.6Mb", "evaluator": "wall_clock_timing + correctness_gate", "source": ".claude/worktrees/agent-afd5734475c9603bd/bench_htslib_io/results/", "status": "VALID", "note": "Real but modest process-level parallelism speedup (~3.1x @ 8 workers); not integrated into production"},
+    {"id": "chtslib_extraction_acceleration", "sample": "HG002 + HG005", "region": "chr21:32-44Mb (source) + chr1:1,000,001-4,000,000 (this session's re-verification)", "evaluator": "wall_clock_timing + bit-exact_cell_comparison", "source": ".claude/worktrees/agent-a4cedfdeffb76e3dd/experimental/performance/ (source implementation) + this session's integration into pileup_counts.py", "status": "VALID, NOW INTEGRATED INTO PRODUCTION", "note": "Real C/htslib extension (native/pileup_native.c), 0 mismatches on every equivalence check (109,813,120 cells original + 2,360,448 cells re-verified this session), 21.0x-65.1x measured extraction-stage speedup. An earlier pass of this dossier incorrectly marked this claim NOT SUPPORTED before this worktree was located; see PIPELINE_INTEGRITY_AUDIT.md's correction note."}
+  ],
+  "engineering_this_session": [
+    {
+      "task": "HG005 extraction reference-integrity bug: reproduce, root-cause, fix, regression-test, revalidate",
+      "files_modified": ["extract_bench_v12.py", "pileup_counts.py"],
+      "files_added": ["test_hg005_extraction_integrity.py"],
+      "tests_passing": "90/90 (79 pre-existing + 11 new)",
+      "frozen_files_verified_unchanged": ["cascade.py", "experimental/genotype_layer/method_c_regression.py"],
+      "commits_made": 0,
+      "main_checkout_modified": false
+    },
+    {
+      "task": "C/htslib extraction acceleration: locate the existing validated implementation (a different worktree than initially checked), rebuild portably, re-verify bit-exact equivalence, integrate into production load_counts, regression-test, measure real before/after performance",
+      "files_added": ["native/pileup_native.c", "native/build.sh", "native/equivalence_check.py", "native/integration_equivalence_check.py", "test_native_pileup_equivalence.py", "experimental/performance/CHTSLIB_INTEGRATION_REPORT.md"],
+      "files_modified": ["pileup_counts.py"],
+      "bug_found_and_fixed_in_passing": "load_counts(..., return_positions=True) crashed on an all-windows-dropped empty region (pre-existing, not introduced by this task)",
+      "tests_passing": "102/102 (90 previous + 12 new)",
+      "frozen_files_verified_unchanged": ["cascade.py", "experimental/genotype_layer/method_c_regression.py"],
+      "equivalence_result": "0 mismatches on every check (HG002 + HG005, native ON vs OFF, via the production load_counts entry point)",
+      "measured_speedup": {"extraction_stage_HG005_3Mb": "21.03x (373.11s -> 17.74s)", "extraction_stage_HG002_12Mb_reused": "65.14x (1092.07s -> 16.76s)"},
+      "commits_made": 0,
+      "main_checkout_modified": false,
+      "self_correction_note": "An earlier pass of this session's own audit incorrectly concluded no C/htslib implementation existed in this repository, based on checking only one of several developer worktrees. The user identified the correct worktree; this entry documents the corrected, completed integration."
+    }
+  ],
+  "dossier_files": [
+    "README_RESEARCH.md", "RESEARCH_SUMMARY_1PAGE.md", "METHODS.md", "RESULTS.md",
+    "LIMITATIONS.md", "REPRODUCIBILITY.md", "PIPELINE_INTEGRITY_AUDIT.md",
+    "BENCHMARK_MASTER.csv", "ERROR_ANALYSIS.csv", "RESCUE_ANALYSIS.csv",
+    "PERFORMANCE_RESULTS.csv", "EXPERIMENT_MANIFEST.json", "SCIENTIFIC_CLAIMS.md",
+    "PAPER_DRAFT.md", "OUTREACH_PACKAGE.md", "AI_ASSISTANCE_DISCLOSURE.md",
+    "PEER_REVIEW_SELF_AUDIT.md", "FIGURES/"
+  ]
+}

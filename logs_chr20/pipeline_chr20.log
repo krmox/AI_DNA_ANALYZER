@@ -1,0 +1,48 @@
+merging 1 chunk files
+merged: 56266816 loci total, region 81344-64285631
+frame: 56242693 loci scored, 70324 truth SNP
+PB-routed: 77248 / 56242693 (0.137%)
+[pb_only] 69291 records (0 skipped: ref=N or no alt support)
+wrote /home/mark/Documents/Projects/AI_DNA_ANALYZER/.claude/worktrees/opt-chr20/experimental/chr20_validation/ai_pb_only_chr20.vcf: 69291 records
+[cascade] 69297 records (0 skipped: ref=N or no alt support)
+wrote /home/mark/Documents/Projects/AI_DNA_ANALYZER/.claude/worktrees/opt-chr20/experimental/chr20_validation/ai_cascade_chr20.vcf: 69297 records
+{
+  "routing": {
+    "n_scored": 56242693,
+    "n_routed_pb": 77248,
+    "pb_routed_fraction": 0.001373476195387728
+  },
+  "stage_seconds": {
+    "pb_only": {
+      "record_extraction": 0.396193265914917,
+      "method_c_genotype": 0.04883718490600586,
+      "vcf_write": 0.10357832908630371
+    },
+    "cascade": {
+      "record_extraction": 0.3036327362060547,
+      "method_c_genotype": 0.037764549255371094,
+      "vcf_write": 0.14357352256774902
+    }
+  },
+  "pb_only": {
+    "n_calls": 69291,
+    "n_forced_00_to_01": 16
+  },
+  "cascade": {
+    "n_calls": 69297,
+    "n_forced_00_to_01": 14
+  },
+  "rescue": {
+    "pb_rescuable_loci": 2826,
+    "rescued_by_router": 2817,
+    "rescue_recall": 0.9968152866242038,
+    "false_rescue_rate": 0.0028609154929577466,
+    "unnecessary_pb_rate": 0.9440891673570837
+  },
+  "detection_layer_raw": {
+    "binomial_only_accuracy": 0.999899311364767,
+    "pb_only_accuracy": 0.9999456107124884,
+    "cascade_accuracy": 0.9999454684717889
+  }
+}
+pipeline wall time: 12.9s

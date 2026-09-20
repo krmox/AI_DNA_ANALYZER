@@ -43,6 +43,7 @@ Stated up front so the first real run is not a surprise:
 
 from __future__ import annotations
 
+import bisect
 import gzip
 from abc import ABC, abstractmethod
 from collections import Counter
@@ -446,6 +447,7 @@ class GiabAlignmentProvider(VariantDataProvider):
         self._vcf: "pysam.VariantFile | None" = None
         self._windows: List[GenomicWindow] | None = None
         self._confident_regions: List[Tuple[int, int]] | None = None
+        self._confident_index: Tuple[List[int], List[int]] | None = None
 
         # Per-handle contig spellings, resolved on open().
         self._fasta_contig: str | None = None
@@ -563,10 +565,19 @@ class GiabAlignmentProvider(VariantDataProvider):
         if self._confident_regions is None:
             self._confident_regions = load_bed_regions(self.high_confidence_bed, self.contig)
 
-        return any(
-            region_start <= start and end <= region_end
-            for region_start, region_end in self._confident_regions
-        )
+        # Equivalent to ``any(rs <= start and end <= re for rs, re in regions)`` without the
+        # O(#intervals) scan per window: an interval with rs <= start and re >= end exists
+        # iff the largest end among intervals starting at or before ``start`` reaches ``end``.
+        if self._confident_index is None:
+            ordered = sorted(self._confident_regions)
+            running, prefix_max = -1, []
+            for _, region_end in ordered:
+                running = max(running, region_end)
+                prefix_max.append(running)
+            self._confident_index = ([region_start for region_start, _ in ordered], prefix_max)
+        starts, prefix_max = self._confident_index
+        position = bisect.bisect_right(starts, start) - 1
+        return position >= 0 and prefix_max[position] >= end
 
     def _build_windows(self) -> List[GenomicWindow]:
         """Tile the contig into windows, skipping uncallable regions.

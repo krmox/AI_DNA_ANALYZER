@@ -21,12 +21,13 @@ import subprocess
 import sys
 import time
 
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 
 import numpy as np
 from scipy.stats import binom
 
-REPO = "/home/mark/Documents/Projects/AI_DNA_ANALYZER"
+REPO = _ROOT
 OUT = f"{REPO}/experimental/genotype_layer"
 DATA = f"{REPO}/data/giab_hg002_real_30M"
 TRUTH_VCF = f"{DATA}/hg002_chr21_30M.vcf.gz"

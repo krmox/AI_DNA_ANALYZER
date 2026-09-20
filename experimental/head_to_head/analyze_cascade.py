@@ -9,7 +9,8 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 
 from cascade import FROZEN_BINOMIAL_THRESHOLD, FROZEN_PB_THRESHOLD, FROZEN_ROUTER_CUTOFF
 from config import LABEL_SNP
@@ -17,7 +18,7 @@ from robustness_benchmark import accuracy_block, route_mask
 from residual_metrics import vaf_from_counts
 from evaluate_quality_error import paired_bootstrap
 
-blob = np.load("/tmp/head_to_head_work/cache_h2h/hg002_32_44M_15x.npz", allow_pickle=True)
+blob = np.load(_ROOT + "/cache_h2h/hg002_32_44M_15x.npz", allow_pickle=True)
 print("keys:", list(blob.keys()))
 
 counts = blob["counts"]
@@ -76,14 +77,14 @@ result["rescue"] = {
     "total_routed": int(routed.sum()),
 }
 
-with open("/tmp/head_to_head_work/experimental/head_to_head/ai_cascade_region_result.json", "w") as f:
+with open(_ROOT + "/experimental/head_to_head/ai_cascade_region_result.json", "w") as f:
     json.dump(result, f, indent=2, default=str)
 
 print(json.dumps(result, indent=2, default=str))
 
 # Save per-locus arrays for the disagreement/overlap analysis against external callers
 np.savez(
-    "/tmp/head_to_head_work/experimental/head_to_head/ai_cascade_per_locus.npz",
+    _ROOT + "/experimental/head_to_head/ai_cascade_per_locus.npz",
     counts=counts[frame], labels=labels[frame], binomial_llr=b_llr, pb_llr=p_llr,
     depth=d, binomial_calls=binomial_calls, pb_calls=pb_calls, cascade_calls=cascade_calls,
     routed=routed, snp=snp,

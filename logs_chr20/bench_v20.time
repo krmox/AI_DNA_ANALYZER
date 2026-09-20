@@ -1,0 +1,29 @@
+2026-09-20 11:38:26,058 | INFO | loaded 56266816 loci
+2026-09-20 11:38:28,078 | INFO | integrity gates: {'loci': 56266816, 'reference_index_mismatches': 0, 'positions_strictly_increasing': True, 'positions_in_bed': True, 'positions_min': 81344, 'positions_max': 64285631, 'all_windows_whole': True}
+2026-09-20 11:38:28,078 | INFO | M-1 audit
+2026-09-20 11:38:29,113 | INFO | score_cell (existing framework)
+2026-09-20 11:46:02,118 | INFO | wrote results/bench_v20
+2026-09-20 11:46:02,119 | INFO | verdict=DEGRADED delta_f1=-0.00006 pb_f1=0.97809 cascade_f1=0.97803
+	Command being timed: "python3 bench_v20_chr20.py"
+	User time (seconds): 498.16
+	System time (seconds): 41.87
+	Percent of CPU this job got: 115%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 7:48.42
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 24202848
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 61294
+	Minor (reclaiming a frame) page faults: 3859955
+	Voluntary context switches: 3284
+	Involuntary context switches: 32296
+	Swaps: 0
+	File system inputs: 1232808
+	File system outputs: 504
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

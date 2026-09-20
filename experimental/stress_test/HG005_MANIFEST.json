@@ -1,0 +1,65 @@
+{
+  "git_head": "a3d5761b9ad74a04d0344d94b4ec088c3440aff6",
+  "git_branch": "main",
+  "git_status_short_before_and_after": "clean (only new untracked files under data/giab_hg005_stress/, cache/hg005_stress/, logs_hg005/, experimental/stress_test/, and two stray root-level .bai/.tbi index files)",
+  "frozen_constants": {
+    "FROZEN_BINOMIAL_THRESHOLD": 7.0,
+    "FROZEN_PB_THRESHOLD": 10.5,
+    "FROZEN_ROUTER_CUTOFF": 5.411872376933351,
+    "source_file": "cascade.py",
+    "sha256": "b0ee9f4b24fe06dc4d677ca80fdd9bedaa9885e52038679812f1f550c5286131"
+  },
+  "method_c": {
+    "source_file": "experimental/genotype_layer/method_c_regression.py",
+    "sha256": "b5cea1f1660eb472190267c743f78ef4c330872b6c4fbede9f136f4cca5882d2",
+    "eps": 0.01,
+    "gq_cap": 99.0
+  },
+  "dataset": {
+    "sample": "HG005/NA24631 (Chinese trio son)",
+    "bam_source": "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/ChineseTrio/HG005_NA24631_son/HG005_NA24631_son_HiSeq_300x/NHGRI_Illumina300X_Chinesetrio_novoalign_bams/HG005.GRCh38_full_plus_hs38d1_analysis_set_minus_alts.300x.bam",
+    "bam_total_size_bytes": 668998775517,
+    "truth_vcf": "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/ChineseTrio/HG005_NA24631_son/NISTv4.2.1/GRCh38/HG005_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+    "truth_bed": "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/ChineseTrio/HG005_NA24631_son/NISTv4.2.1/GRCh38/HG005_GRCh38_1_22_v4.2.1_benchmark.bed",
+    "region": "chr1:1000001-25000000 (24Mb attempted extraction); chr1:1000001-4000000 (3Mb clean-serial-verified subset)",
+    "downsample_seed": 42,
+    "downsample_fraction": 0.09,
+    "region_bam_sha256": "e3f2637b2659e10864bd2a43a065f225da29bd8fa612336b8c2752c049e34963",
+    "region_truth_vcf_sha256": "10e886563bdb9b5487a6ef9fac733524aa94e8d58a57c92231edaf009868dfab",
+    "region_highconf_bed_sha256": "a8031902d2c5045c45fc19df647e995217a7f2f353fcb8c5b2443a556f012642"
+  },
+  "environment": {
+    "python": "3.14.3",
+    "pysam": "0.24.0",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "samtools_bcftools": "1.23.1",
+    "gcc": "15.3.1",
+    "cpu": "Intel Core i7-6700 @ 3.40GHz, 4c/8t",
+    "ram_gb": 31,
+    "hap_py_image": "quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0",
+    "hap_py_digest": "sha256:d63b963a6cb01b4830393b22369e7b91d298e4156dde353739e74e4cfa4f96d0"
+  },
+  "critical_finding": {
+    "description": "Reference-base (REF) assignment corrupted for 70-78% of loci in every full-CHUNK_BP (500000bp) extraction window of this HG005 chr1 region, reproduced identically in 8-way-parallel and single-process-serial execution; not present in one small (<CHUNK_BP) ad hoc test region. Root cause not fully isolated (localized to providers.py/load_counts/load_reads upstream of pileup_counts.py, which was verified correct by inspection).",
+    "invalidates": ["hap.py precision/recall/F1", "genotype accuracy", "rescue analysis", "stratification", "error taxonomy", "PB-routed fraction from this run"],
+    "does_not_invalidate": ["frozen threshold values (verified unchanged in source)", "Method C formula (verified unchanged in source)", "disk/compute budget measurements", "hap.py/Docker tooling correctness"]
+  },
+  "disk_budget": {
+    "free_at_start_gb": 12,
+    "free_at_end_gb": 11,
+    "required_safety_margin_gb": 4.5,
+    "bam_mb_per_mb_at_30x": 18.7,
+    "feature_cache_mb_per_mb_at_30x": 15,
+    "disk_feasible_region_mb": 220
+  },
+  "compute_budget": {
+    "extraction_cpu_minutes_per_mb_single_thread": 16,
+    "24mb_wallclock_minutes_8way_parallel": 44,
+    "3mb_wallclock_minutes_serial": 22.4,
+    "disk_feasible_220mb_region_single_thread_hours_estimate": 59
+  },
+  "external_callers": "BLOCKED - not attempted after discovering the reference-base corruption bug, since any comparison would inherit invalid input",
+  "commits_made": 0,
+  "production_files_modified": []
+}

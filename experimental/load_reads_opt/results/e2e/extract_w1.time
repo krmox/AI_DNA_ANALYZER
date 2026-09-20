@@ -1,0 +1,30 @@
+2026-09-20 13:08:26,602 | INFO | 1000000-1500000: 391488 loci (724 SNP) | pool windows 1209 | cumulative 0.8 min
+2026-09-20 13:09:16,217 | INFO | 1500000-2000000: 388224 loci (741 SNP) | pool windows 1205 | cumulative 1.7 min
+2026-09-20 13:10:11,945 | INFO | 2000000-2500000: 429056 loci (623 SNP) | pool windows 1021 | cumulative 2.6 min
+2026-09-20 13:10:51,858 | INFO | 2500000-3000000: 315584 loci (480 SNP) | pool windows 745 | cumulative 3.3 min
+2026-09-20 13:11:47,153 | INFO | 3000000-3500000: 440832 loci (770 SNP) | pool windows 1058 | cumulative 4.2 min
+2026-09-20 13:12:44,841 | INFO | 3500000-4000000: 437824 loci (611 SNP) | pool windows 1108 | cumulative 5.1 min
+2026-09-20 13:12:49,151 | INFO | Wrote cache/e2e_hg005/w1.npz | 2403008 loci | 3949 SNP | counts 5s reads 15s pb 287s feat 0s (stage seconds summed over workers; wall 309s)
+	Command being timed: "python3 extract_bench_v12.py --fasta experimental/stress_test/shared_ref/chr1_chrname.fa --bam data/giab_hg005_stress/chr1_24Mb_30x.bam --vcf data/giab_hg005_stress/chr1_24Mb.vcf.gz --bed data/giab_hg005_stress/chr1_24Mb_highconf.bed --region 1000000 4000000 --contig chr1 --chunk-bp 500000 --features none --workers 1 --out cache/e2e_hg005/w1.npz"
+	User time (seconds): 310.90
+	System time (seconds): 4.23
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:15.73
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1609816
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1132583
+	Voluntary context switches: 166
+	Involuntary context switches: 2616
+	Swaps: 0
+	File system inputs: 78008
+	File system outputs: 77024
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

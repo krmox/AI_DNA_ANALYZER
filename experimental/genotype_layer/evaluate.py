@@ -7,11 +7,12 @@ import csv
 import json
 import sys
 
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 
 import numpy as np
 
-OUT = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/genotype_layer"
+OUT = _ROOT + "/experimental/genotype_layer"
 
 with open(f"{OUT}/cache/build_summary.json") as fh:
     build_summary = json.load(fh)
@@ -90,7 +91,7 @@ for m in ("A", "B", "C"):
 import gzip
 
 truth_alleles = set()
-with gzip.open(f"/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_real_30M/hg002_chr21_30M.vcf.gz", "rt") as fh:
+with gzip.open(f"{_ROOT}/data/giab_hg002_real_30M/hg002_chr21_30M.vcf.gz", "rt") as fh:
     for line in fh:
         if line.startswith("#"):
             continue

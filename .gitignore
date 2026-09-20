@@ -1,2 +1,7 @@
 *.npz
 data/
+
+__pycache__/
+*.pyc
+native/*.so
+.pytest_cache/

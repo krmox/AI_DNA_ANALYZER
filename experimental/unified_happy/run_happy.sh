@@ -3,11 +3,12 @@
 # Mirrors experimental/head_to_head/COMMANDS.md section 6 exactly: same image,
 # same digest, same flag structure (-f BED, -r reference), only query VCF differs.
 set -euo pipefail
-cd /home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/unified_happy
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"  # project root (path-independent)
+cd $ROOT/experimental/unified_happy
 
-TRUTH=/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz
-BED=/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed
-REF=/home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/head_to_head/shared_ref/chr21_chrname.fa
+TRUTH=$ROOT/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz
+BED=$ROOT/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed
+REF=$ROOT/experimental/head_to_head/shared_ref/chr21_chrname.fa
 IMAGE=quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0
 DIGEST=sha256:d63b963a6cb01b4830393b22369e7b91d298e4156dde353739e74e4cfa4f96d0
 

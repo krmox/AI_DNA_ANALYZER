@@ -134,6 +134,9 @@ def parse_args() -> argparse.Namespace:
                         help=("also store the pre-devlog-13 (defective) PB LLR under "
                               "``pb_llr_legacy``, computed on the same reads in the same "
                               "pass, so the depth-clipping fix can be A/B-compared exactly."))
+    parser.add_argument("--workers", type=int, default=1,
+                        help=("process chunks in this many worker processes (chunks are independent "
+                              "and concatenated in order, so output is byte-identical to --workers 1)."))
     parser.add_argument("--out", required=True)
     return parser.parse_args()
 
@@ -161,10 +164,74 @@ def score_windows(features: np.ndarray, llr: np.ndarray) -> dict:
     return out
 
 
+def process_chunk(args: argparse.Namespace, chunk_start: int, chunk_end: int) -> dict | None:
+    """One chunk's evidence. A pure function of its arguments (no shared state), so chunks can run
+    in any order or in separate processes and be concatenated in chunk order with a result
+    identical to the serial loop."""
+    caller = BinomialVariantCaller(error_rate=0.01)
+    blocks: dict[str, np.ndarray] = {}
+    timing = {"counts_seconds": 0.0, "reads_seconds": 0.0, "pb_seconds": 0.0,
+              "feature_seconds": 0.0}
+
+    start = time.perf_counter()
+    counts, labels, positions = load_counts(args.fasta, args.bam, args.vcf, args.bed,
+                                            (chunk_start, chunk_end), contig=args.contig,
+                                            return_positions=True)
+    timing["counts_seconds"] += time.perf_counter() - start
+    if labels.size == 0:
+        return None  # no 64 bp window of this chunk lies in the high-confidence BED
+
+    start = time.perf_counter()
+    reads, read_labels = load_reads(args.fasta, args.bam, args.vcf, args.bed,
+                                    (chunk_start, chunk_end), contig=args.contig)
+    timing["reads_seconds"] += time.perf_counter() - start
+    assert np.array_equal(read_labels, labels), "count/read label mismatch"
+
+    pb_diagnostics = poisson_binomial_diagnostics(reads, counts, legacy=args.legacy_pb)
+    pb = pb_diagnostics["pb_llr"]
+    timing["pb_seconds"] += pb_diagnostics["_seconds_fixed"]
+    for name in ("k_full", "k_retained", "n_counted", "pb_llr_legacy"):
+        if name in pb_diagnostics:
+            blocks[name] = pb_diagnostics[name]
+    binomial = caller.score_counts(counts[:, 0:4], counts[:, 9].astype(int)).llr
+
+    pool = np.abs(pb - FROZEN_PB_THRESHOLD) <= FEATURE_POOL_MARGIN
+    window_touched = pool.reshape(-1, SEQ_LEN).any(axis=1)
+    if window_touched.any() and args.features != "none":
+        selected = np.repeat(window_touched, SEQ_LEN)
+        start = time.perf_counter()
+        chunk_features = build_locus_features(reads[selected], counts[selected])
+        timing["feature_seconds"] += time.perf_counter() - start
+        blocks["pool_window_positions"] = positions[np.nonzero(selected)[0]].astype(np.int64)
+        if args.features == "full":
+            blocks["pool_window_features"] = chunk_features
+        else:
+            for key, value in score_windows(chunk_features, pb[selected]).items():
+                blocks[key] = value
+        del chunk_features
+
+    router_touched = (np.abs(binomial - FROZEN_BINOMIAL_THRESHOLD)
+                      <= FROZEN_ROUTER_CUTOFF).reshape(-1, SEQ_LEN).any(axis=1)
+    if router_touched.any():
+        blocks["router_window_positions"] = positions[
+            np.nonzero(np.repeat(router_touched, SEQ_LEN))[0]].astype(np.int64)
+
+    del reads
+
+    if args.features != "scores":
+        blocks["counts"] = counts.astype(np.float32)
+    blocks["pb_llr"] = pb
+    blocks["binomial_llr"] = binomial
+    blocks["depth_"] = counts[:, 6].astype(np.float32)
+    blocks["labels"] = labels
+    blocks["positions"] = positions
+    return {"blocks": blocks, "timing": timing, "n_loci": int(labels.size),
+            "n_snp": int((labels == 1).sum()), "n_pool_windows": int(window_touched.sum())}
+
+
 def main() -> None:
     args = parse_args()
     region_start, region_end = args.region
-    caller = BinomialVariantCaller(error_rate=0.01)
 
     blocks: dict[str, list[np.ndarray]] = {
         "counts": [], "pb_llr": [], "binomial_llr": [], "labels": [], "positions": [],
@@ -176,65 +243,36 @@ def main() -> None:
               "feature_seconds": 0.0}
     started = time.perf_counter()
 
-    for chunk_start in range(region_start, region_end, args.chunk_bp):
-        chunk_end = min(chunk_start + args.chunk_bp, region_end)
+    chunks = [(c, min(c + args.chunk_bp, region_end))
+              for c in range(region_start, region_end, args.chunk_bp)]
+    if args.workers > 1:
+        assert args.features == "none", "--workers > 1 is only supported with --features none"
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor
+        executor = ProcessPoolExecutor(args.workers, mp_context=mp.get_context("fork"))
+        results = executor.map(process_chunk, [args] * len(chunks),
+                               [c[0] for c in chunks], [c[1] for c in chunks])
+    else:
+        executor = None
+        results = (process_chunk(args, c0, c1) for c0, c1 in chunks)
 
-        start = time.perf_counter()
-        counts, labels = load_counts(args.fasta, args.bam, args.vcf, args.bed,
-                                     (chunk_start, chunk_end), contig=args.contig)
-        timing["counts_seconds"] += time.perf_counter() - start
-
-        start = time.perf_counter()
-        reads, read_labels = load_reads(args.fasta, args.bam, args.vcf, args.bed,
-                                        (chunk_start, chunk_end), contig=args.contig)
-        timing["reads_seconds"] += time.perf_counter() - start
-        assert np.array_equal(read_labels, labels), "count/read label mismatch"
-
-        pb_diagnostics = poisson_binomial_diagnostics(reads, counts, legacy=args.legacy_pb)
-        pb = pb_diagnostics["pb_llr"]
-        timing["pb_seconds"] += pb_diagnostics["_seconds_fixed"]
-        for name in ("k_full", "k_retained", "n_counted", "pb_llr_legacy"):
-            if name in pb_diagnostics:
-                blocks.setdefault(name, []).append(pb_diagnostics[name])
-
-        binomial = caller.score_counts(counts[:, 0:4], counts[:, 9].astype(int)).llr
-
-        pool = np.abs(pb - FROZEN_PB_THRESHOLD) <= FEATURE_POOL_MARGIN
-        window_touched = pool.reshape(-1, SEQ_LEN).any(axis=1)
-        if window_touched.any() and args.features != "none":
-            selected = np.repeat(window_touched, SEQ_LEN)
-            start = time.perf_counter()
-            chunk_features = build_locus_features(reads[selected], counts[selected])
-            timing["feature_seconds"] += time.perf_counter() - start
-            blocks["pool_window_positions"].append(
-                (chunk_start + np.nonzero(selected)[0]).astype(np.int64))
-            if args.features == "full":
-                blocks["pool_window_features"].append(chunk_features)
+    for (chunk_start, chunk_end), result in zip(chunks, results):
+        if result is None:
+            logger.info("%d-%d: no confident windows, skipped", chunk_start, chunk_end)
+            continue
+        for name, value in result["blocks"].items():
+            if name == "depth_":
+                depth_blocks.append(value)
             else:
-                for key, value in score_windows(chunk_features, pb[selected]).items():
-                    blocks.setdefault(key, []).append(value)
-            del chunk_features
-
-        router_touched = (np.abs(binomial - FROZEN_BINOMIAL_THRESHOLD)
-                          <= FROZEN_ROUTER_CUTOFF).reshape(-1, SEQ_LEN).any(axis=1)
-        if router_touched.any():
-            blocks["router_window_positions"].append(
-                (chunk_start + np.nonzero(np.repeat(router_touched, SEQ_LEN))[0]).astype(np.int64))
-
-        del reads
-
-        if args.features != "scores":
-            # The count matrix is only needed by Stage-1 strata (VAF, quality);
-            # in "scores" mode it would dominate the file for no consumer.
-            blocks["counts"].append(counts.astype(np.float32))
-        blocks["pb_llr"].append(pb)
-        blocks["binomial_llr"].append(binomial)
-        depth_blocks.append(counts[:, 6].astype(np.float32))
-        blocks["labels"].append(labels)
-        blocks["positions"].append(chunk_start + np.arange(labels.size, dtype=np.int64))
+                blocks.setdefault(name, []).append(value)
+        for name, value in result["timing"].items():
+            timing[name] += value
         logger.info("%d-%d: %d loci (%d SNP) | pool windows %d | cumulative %.1f min",
-                    chunk_start, chunk_end, labels.size, int((labels == 1).sum()),
-                    int(window_touched.sum()), (time.perf_counter() - started) / 60)
+                    chunk_start, chunk_end, result["n_loci"], result["n_snp"],
+                    result["n_pool_windows"], (time.perf_counter() - started) / 60)
+    if executor is not None:
+        executor.shutdown()
+    wall_seconds = time.perf_counter() - started
 
     payload = {name: np.concatenate(values) for name, values in blocks.items() if values}
     if "counts" in payload:
@@ -254,10 +292,11 @@ def main() -> None:
         timing=np.asarray([timing["counts_seconds"], timing["reads_seconds"],
                            timing["pb_seconds"], timing["feature_seconds"]]),
     )
-    logger.info("Wrote %s | %d loci | %d SNP | counts %.0fs reads %.0fs pb %.0fs feat %.0fs",
+    logger.info("Wrote %s | %d loci | %d SNP | counts %.0fs reads %.0fs pb %.0fs feat %.0fs "
+                "(stage seconds summed over workers; wall %.0fs)",
                 args.out, payload["labels"].size, int((payload["labels"] == 1).sum()),
                 timing["counts_seconds"], timing["reads_seconds"], timing["pb_seconds"],
-                timing["feature_seconds"])
+                timing["feature_seconds"], wall_seconds)
 
 
 if __name__ == "__main__":

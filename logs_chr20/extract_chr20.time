@@ -1,0 +1,153 @@
+2026-09-20 10:52:37,322 | INFO | 0-500000: 400000 loci (638 SNP) | pool windows 2974 | cumulative 2.1 min
+2026-09-20 10:53:01,318 | INFO | 500000-1000000: 479104 loci (870 SNP) | pool windows 3579 | cumulative 2.5 min
+2026-09-20 10:53:01,520 | INFO | 1000000-1500000: 482176 loci (566 SNP) | pool windows 3342 | cumulative 2.5 min
+2026-09-20 10:53:01,520 | INFO | 1500000-2000000: 421120 loci (648 SNP) | pool windows 3048 | cumulative 2.5 min
+2026-09-20 10:53:03,125 | INFO | 2000000-2500000: 482816 loci (748 SNP) | pool windows 3383 | cumulative 2.5 min
+2026-09-20 10:53:03,125 | INFO | 2500000-3000000: 473152 loci (663 SNP) | pool windows 3594 | cumulative 2.5 min
+2026-09-20 10:54:56,499 | INFO | 3000000-3500000: 461888 loci (591 SNP) | pool windows 3678 | cumulative 4.4 min
+2026-09-20 10:55:07,346 | INFO | 3500000-4000000: 473280 loci (496 SNP) | pool windows 3623 | cumulative 4.6 min
+2026-09-20 10:55:23,184 | INFO | 4000000-4500000: 475392 loci (935 SNP) | pool windows 3450 | cumulative 4.9 min
+2026-09-20 10:55:26,648 | INFO | 4500000-5000000: 483968 loci (770 SNP) | pool windows 3371 | cumulative 4.9 min
+2026-09-20 10:55:26,648 | INFO | 5000000-5500000: 479104 loci (391 SNP) | pool windows 3314 | cumulative 4.9 min
+2026-09-20 10:55:26,648 | INFO | 5500000-6000000: 472832 loci (857 SNP) | pool windows 3532 | cumulative 4.9 min
+2026-09-20 10:57:06,186 | INFO | 6000000-6500000: 481280 loci (785 SNP) | pool windows 3234 | cumulative 6.6 min
+2026-09-20 10:57:16,429 | INFO | 6500000-7000000: 488448 loci (676 SNP) | pool windows 3134 | cumulative 6.8 min
+2026-09-20 10:57:33,613 | INFO | 7000000-7500000: 489280 loci (559 SNP) | pool windows 3188 | cumulative 7.0 min
+2026-09-20 10:57:36,731 | INFO | 7500000-8000000: 486592 loci (569 SNP) | pool windows 3239 | cumulative 7.1 min
+2026-09-20 10:57:37,604 | INFO | 8000000-8500000: 488128 loci (545 SNP) | pool windows 3282 | cumulative 7.1 min
+2026-09-20 10:57:37,604 | INFO | 8500000-9000000: 486656 loci (672 SNP) | pool windows 3358 | cumulative 7.1 min
+2026-09-20 10:59:17,420 | INFO | 9000000-9500000: 487808 loci (435 SNP) | pool windows 3374 | cumulative 8.8 min
+2026-09-20 10:59:29,657 | INFO | 9500000-10000000: 486336 loci (833 SNP) | pool windows 3206 | cumulative 9.0 min
+2026-09-20 10:59:49,140 | INFO | 10000000-10500000: 483520 loci (786 SNP) | pool windows 3346 | cumulative 9.3 min
+2026-09-20 10:59:52,863 | INFO | 10500000-11000000: 486272 loci (552 SNP) | pool windows 3324 | cumulative 9.4 min
+2026-09-20 10:59:56,618 | INFO | 11000000-11500000: 493824 loci (595 SNP) | pool windows 3412 | cumulative 9.4 min
+2026-09-20 10:59:56,618 | INFO | 11500000-12000000: 488704 loci (622 SNP) | pool windows 3473 | cumulative 9.4 min
+2026-09-20 11:01:37,590 | INFO | 12000000-12500000: 488896 loci (734 SNP) | pool windows 3353 | cumulative 11.1 min
+2026-09-20 11:01:45,082 | INFO | 12500000-13000000: 489664 loci (713 SNP) | pool windows 3291 | cumulative 11.2 min
+2026-09-20 11:02:05,223 | INFO | 13000000-13500000: 487744 loci (589 SNP) | pool windows 3349 | cumulative 11.6 min
+2026-09-20 11:02:06,770 | INFO | 13500000-14000000: 483200 loci (353 SNP) | pool windows 3518 | cumulative 11.6 min
+2026-09-20 11:02:10,682 | INFO | 14000000-14500000: 486144 loci (509 SNP) | pool windows 3346 | cumulative 11.7 min
+2026-09-20 11:02:10,993 | INFO | 14500000-15000000: 486720 loci (525 SNP) | pool windows 3232 | cumulative 11.7 min
+2026-09-20 11:04:05,866 | INFO | 15000000-15500000: 490240 loci (540 SNP) | pool windows 3362 | cumulative 13.6 min
+2026-09-20 11:04:07,874 | INFO | 15500000-16000000: 488256 loci (687 SNP) | pool windows 3454 | cumulative 13.6 min
+2026-09-20 11:04:25,032 | INFO | 16000000-16500000: 470080 loci (803 SNP) | pool windows 3244 | cumulative 13.9 min
+2026-09-20 11:04:33,593 | INFO | 16500000-17000000: 489152 loci (574 SNP) | pool windows 3462 | cumulative 14.0 min
+2026-09-20 11:04:44,097 | INFO | 17000000-17500000: 486656 loci (824 SNP) | pool windows 3309 | cumulative 14.2 min
+2026-09-20 11:04:44,464 | INFO | 17500000-18000000: 483520 loci (784 SNP) | pool windows 3611 | cumulative 14.2 min
+2026-09-20 11:06:36,249 | INFO | 18000000-18500000: 472064 loci (787 SNP) | pool windows 3466 | cumulative 16.1 min
+2026-09-20 11:06:40,426 | INFO | 18500000-19000000: 482112 loci (812 SNP) | pool windows 3525 | cumulative 16.2 min
+2026-09-20 11:06:58,472 | INFO | 19000000-19500000: 489792 loci (652 SNP) | pool windows 3356 | cumulative 16.5 min
+2026-09-20 11:07:04,340 | INFO | 19500000-20000000: 486208 loci (729 SNP) | pool windows 3497 | cumulative 16.6 min
+2026-09-20 11:07:12,415 | INFO | 20000000-20500000: 479488 loci (651 SNP) | pool windows 3302 | cumulative 16.7 min
+2026-09-20 11:07:17,047 | INFO | 20500000-21000000: 490944 loci (313 SNP) | pool windows 3442 | cumulative 16.8 min
+2026-09-20 11:09:03,188 | INFO | 21000000-21500000: 481728 loci (362 SNP) | pool windows 3398 | cumulative 18.5 min
+2026-09-20 11:09:04,623 | INFO | 21500000-22000000: 489536 loci (456 SNP) | pool windows 3380 | cumulative 18.6 min
+2026-09-20 11:09:23,487 | INFO | 22000000-22500000: 484416 loci (635 SNP) | pool windows 3369 | cumulative 18.9 min
+2026-09-20 11:09:28,771 | INFO | 22500000-23000000: 486848 loci (480 SNP) | pool windows 3409 | cumulative 19.0 min
+2026-09-20 11:09:40,549 | INFO | 23000000-23500000: 488128 loci (551 SNP) | pool windows 3515 | cumulative 19.2 min
+2026-09-20 11:09:40,549 | INFO | 23500000-24000000: 477120 loci (1004 SNP) | pool windows 3452 | cumulative 19.2 min
+2026-09-20 11:11:22,903 | INFO | 24000000-24500000: 488640 loci (595 SNP) | pool windows 3460 | cumulative 20.9 min
+2026-09-20 11:11:22,903 | INFO | 24500000-25000000: 481088 loci (931 SNP) | pool windows 3440 | cumulative 20.9 min
+2026-09-20 11:11:39,007 | INFO | 25000000-25500000: 480384 loci (574 SNP) | pool windows 3600 | cumulative 21.1 min
+2026-09-20 11:11:39,007 | INFO | 25500000-26000000: 337984 loci (615 SNP) | pool windows 2457 | cumulative 21.1 min
+2026-09-20 11:11:39,025 | INFO | 26000000-26500000: 213632 loci (227 SNP) | pool windows 1727 | cumulative 21.1 min
+2026-09-20 11:11:39,025 | INFO | 26500000-27000000: no confident windows, skipped
+2026-09-20 11:11:39,025 | INFO | 27000000-27500000: no confident windows, skipped
+2026-09-20 11:11:39,025 | INFO | 27500000-28000000: no confident windows, skipped
+2026-09-20 11:11:39,025 | INFO | 28000000-28500000: no confident windows, skipped
+2026-09-20 11:11:39,026 | INFO | 28500000-29000000: no confident windows, skipped
+2026-09-20 11:11:39,026 | INFO | 29000000-29500000: no confident windows, skipped
+2026-09-20 11:11:39,026 | INFO | 29500000-30000000: no confident windows, skipped
+2026-09-20 11:11:39,026 | INFO | 30000000-30500000: no confident windows, skipped
+2026-09-20 11:11:39,026 | INFO | 30500000-31000000: no confident windows, skipped
+2026-09-20 11:11:39,026 | INFO | 31000000-31500000: 232256 loci (337 SNP) | pool windows 1673 | cumulative 21.1 min
+2026-09-20 11:12:55,720 | INFO | 31500000-32000000: 471040 loci (314 SNP) | pool windows 3637 | cumulative 22.4 min
+2026-09-20 11:12:59,297 | INFO | 32000000-32500000: 445056 loci (326 SNP) | pool windows 3339 | cumulative 22.5 min
+2026-09-20 11:13:19,077 | INFO | 32500000-33000000: 461184 loci (706 SNP) | pool windows 3566 | cumulative 22.8 min
+2026-09-20 11:13:41,665 | INFO | 33000000-33500000: 475776 loci (407 SNP) | pool windows 3610 | cumulative 23.2 min
+2026-09-20 11:13:43,709 | INFO | 33500000-34000000: 472128 loci (358 SNP) | pool windows 3600 | cumulative 23.2 min
+2026-09-20 11:13:54,420 | INFO | 34000000-34500000: 457472 loci (292 SNP) | pool windows 3424 | cumulative 23.4 min
+2026-09-20 11:15:16,362 | INFO | 34500000-35000000: 477120 loci (418 SNP) | pool windows 3587 | cumulative 24.8 min
+2026-09-20 11:15:19,307 | INFO | 35000000-35500000: 467968 loci (497 SNP) | pool windows 3518 | cumulative 24.8 min
+2026-09-20 11:15:37,714 | INFO | 35500000-36000000: 462016 loci (203 SNP) | pool windows 3544 | cumulative 25.1 min
+2026-09-20 11:15:53,712 | INFO | 36000000-36500000: 448512 loci (181 SNP) | pool windows 3477 | cumulative 25.4 min
+2026-09-20 11:15:58,167 | INFO | 36500000-37000000: 465408 loci (265 SNP) | pool windows 3745 | cumulative 25.4 min
+2026-09-20 11:16:09,344 | INFO | 37000000-37500000: 468992 loci (447 SNP) | pool windows 3480 | cumulative 25.6 min
+2026-09-20 11:17:29,041 | INFO | 37500000-38000000: 487040 loci (718 SNP) | pool windows 3363 | cumulative 27.0 min
+2026-09-20 11:17:30,495 | INFO | 38000000-38500000: 474944 loci (571 SNP) | pool windows 3521 | cumulative 27.0 min
+2026-09-20 11:17:45,992 | INFO | 38500000-39000000: 482560 loci (519 SNP) | pool windows 3482 | cumulative 27.2 min
+2026-09-20 11:18:04,555 | INFO | 39000000-39500000: 489216 loci (563 SNP) | pool windows 3360 | cumulative 27.6 min
+2026-09-20 11:18:08,905 | INFO | 39500000-40000000: 488960 loci (469 SNP) | pool windows 3182 | cumulative 27.6 min
+2026-09-20 11:18:20,847 | INFO | 40000000-40500000: 491264 loci (407 SNP) | pool windows 3310 | cumulative 27.8 min
+2026-09-20 11:19:39,843 | INFO | 40500000-41000000: 489728 loci (639 SNP) | pool windows 3418 | cumulative 29.1 min
+2026-09-20 11:19:39,844 | INFO | 41000000-41500000: 483776 loci (415 SNP) | pool windows 3449 | cumulative 29.1 min
+2026-09-20 11:19:56,150 | INFO | 41500000-42000000: 482688 loci (697 SNP) | pool windows 3283 | cumulative 29.4 min
+2026-09-20 11:20:14,817 | INFO | 42000000-42500000: 490816 loci (325 SNP) | pool windows 3365 | cumulative 29.7 min
+2026-09-20 11:20:14,817 | INFO | 42500000-43000000: 475776 loci (373 SNP) | pool windows 3192 | cumulative 29.7 min
+2026-09-20 11:20:28,036 | INFO | 43000000-43500000: 478912 loci (401 SNP) | pool windows 3412 | cumulative 29.9 min
+2026-09-20 11:21:45,905 | INFO | 43500000-44000000: 476032 loci (449 SNP) | pool windows 3596 | cumulative 31.2 min
+2026-09-20 11:21:46,071 | INFO | 44000000-44500000: 476608 loci (539 SNP) | pool windows 3520 | cumulative 31.2 min
+2026-09-20 11:22:03,465 | INFO | 44500000-45000000: 483776 loci (435 SNP) | pool windows 3538 | cumulative 31.5 min
+2026-09-20 11:22:22,551 | INFO | 45000000-45500000: 487552 loci (406 SNP) | pool windows 3384 | cumulative 31.9 min
+2026-09-20 11:22:22,551 | INFO | 45500000-46000000: 467776 loci (860 SNP) | pool windows 3488 | cumulative 31.9 min
+2026-09-20 11:22:38,696 | INFO | 46000000-46500000: 489664 loci (440 SNP) | pool windows 3480 | cumulative 32.1 min
+2026-09-20 11:23:55,011 | INFO | 46500000-47000000: 483712 loci (668 SNP) | pool windows 3338 | cumulative 33.4 min
+2026-09-20 11:23:55,011 | INFO | 47000000-47500000: 474752 loci (395 SNP) | pool windows 3662 | cumulative 33.4 min
+2026-09-20 11:24:01,436 | INFO | 47500000-48000000: 447424 loci (564 SNP) | pool windows 3223 | cumulative 33.5 min
+2026-09-20 11:24:28,054 | INFO | 48000000-48500000: 481600 loci (648 SNP) | pool windows 3454 | cumulative 33.9 min
+2026-09-20 11:24:28,054 | INFO | 48500000-49000000: 465216 loci (593 SNP) | pool windows 3449 | cumulative 33.9 min
+2026-09-20 11:24:44,551 | INFO | 49000000-49500000: 473984 loci (490 SNP) | pool windows 3541 | cumulative 34.2 min
+2026-09-20 11:25:58,569 | INFO | 49500000-50000000: 466496 loci (611 SNP) | pool windows 3539 | cumulative 35.5 min
+2026-09-20 11:25:58,569 | INFO | 50000000-50500000: 446464 loci (796 SNP) | pool windows 3384 | cumulative 35.5 min
+2026-09-20 11:26:06,286 | INFO | 50500000-51000000: 472000 loci (272 SNP) | pool windows 3496 | cumulative 35.6 min
+2026-09-20 11:26:34,162 | INFO | 51000000-51500000: 484416 loci (641 SNP) | pool windows 3485 | cumulative 36.0 min
+2026-09-20 11:26:34,163 | INFO | 51500000-52000000: 443648 loci (848 SNP) | pool windows 3475 | cumulative 36.0 min
+2026-09-20 11:26:50,632 | INFO | 52000000-52500000: 477248 loci (741 SNP) | pool windows 3357 | cumulative 36.3 min
+2026-09-20 11:28:02,211 | INFO | 52500000-53000000: 476864 loci (591 SNP) | pool windows 3105 | cumulative 37.5 min
+2026-09-20 11:28:05,051 | INFO | 53000000-53500000: 482880 loci (597 SNP) | pool windows 3232 | cumulative 37.6 min
+2026-09-20 11:28:08,741 | INFO | 53500000-54000000: 467456 loci (554 SNP) | pool windows 3495 | cumulative 37.6 min
+2026-09-20 11:28:33,236 | INFO | 54000000-54500000: 486656 loci (412 SNP) | pool windows 3097 | cumulative 38.0 min
+2026-09-20 11:28:43,981 | INFO | 54500000-55000000: 487168 loci (541 SNP) | pool windows 3071 | cumulative 38.2 min
+2026-09-20 11:28:58,197 | INFO | 55000000-55500000: 484864 loci (838 SNP) | pool windows 3284 | cumulative 38.4 min
+2026-09-20 11:30:04,832 | INFO | 55500000-56000000: 469952 loci (706 SNP) | pool windows 3060 | cumulative 39.6 min
+2026-09-20 11:30:12,444 | INFO | 56000000-56500000: 483392 loci (682 SNP) | pool windows 3470 | cumulative 39.7 min
+2026-09-20 11:30:12,522 | INFO | 56500000-57000000: 473728 loci (783 SNP) | pool windows 3726 | cumulative 39.7 min
+2026-09-20 11:30:39,487 | INFO | 57000000-57500000: 481856 loci (562 SNP) | pool windows 3391 | cumulative 40.1 min
+2026-09-20 11:30:50,483 | INFO | 57500000-58000000: 481600 loci (814 SNP) | pool windows 3427 | cumulative 40.3 min
+2026-09-20 11:31:04,956 | INFO | 58000000-58500000: 479488 loci (374 SNP) | pool windows 3412 | cumulative 40.6 min
+2026-09-20 11:32:11,057 | INFO | 58500000-59000000: 480000 loci (513 SNP) | pool windows 3459 | cumulative 41.7 min
+2026-09-20 11:32:18,861 | INFO | 59000000-59500000: 476352 loci (326 SNP) | pool windows 3359 | cumulative 41.8 min
+2026-09-20 11:32:20,425 | INFO | 59500000-60000000: 488448 loci (399 SNP) | pool windows 3509 | cumulative 41.8 min
+2026-09-20 11:32:46,504 | INFO | 60000000-60500000: 485120 loci (573 SNP) | pool windows 3430 | cumulative 42.3 min
+2026-09-20 11:32:57,744 | INFO | 60500000-61000000: 487296 loci (615 SNP) | pool windows 3458 | cumulative 42.4 min
+2026-09-20 11:33:05,252 | INFO | 61000000-61500000: 461056 loci (950 SNP) | pool windows 3317 | cumulative 42.6 min
+2026-09-20 11:34:05,691 | INFO | 61500000-62000000: 430912 loci (901 SNP) | pool windows 3191 | cumulative 43.6 min
+2026-09-20 11:34:16,305 | INFO | 62000000-62500000: 454528 loci (738 SNP) | pool windows 3433 | cumulative 43.7 min
+2026-09-20 11:34:20,568 | INFO | 62500000-63000000: 467328 loci (943 SNP) | pool windows 3395 | cumulative 43.8 min
+2026-09-20 11:34:27,498 | INFO | 63000000-63500000: 434752 loci (965 SNP) | pool windows 3177 | cumulative 43.9 min
+2026-09-20 11:34:31,570 | INFO | 63500000-64000000: 420288 loci (667 SNP) | pool windows 3271 | cumulative 44.0 min
+2026-09-20 11:34:31,570 | INFO | 64000000-64444167: 233792 loci (225 SNP) | pool windows 1707 | cumulative 44.0 min
+2026-09-20 11:36:01,094 | INFO | Wrote cache/chr20_validation/chr20_15x.npz | 56266816 loci | 70324 SNP | counts 194s reads 444s pb 15036s feat 0s (stage seconds summed over workers; wall 2640s)
+	Command being timed: "python3 extract_bench_v12.py --fasta /home/mark/Documents/Projects/AI_DNA_ANALYZER/data/reference/chr20_full.fa --bam /home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr20/chr20_15x.bam --vcf /home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr20/chr20.vcf.gz --bed /home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr20/chr20_highconf.bed --region 0 64444167 --contig chr20 --chunk-bp 500000 --features none --workers 6 --out cache/chr20_validation/chr20_15x.npz"
+	User time (seconds): 14115.87
+	System time (seconds): 227.45
+	Percent of CPU this job got: 524%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 45:33.75
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 10406176
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 26912070
+	Voluntary context switches: 78970
+	Involuntary context switches: 4023687
+	Swaps: 0
+	File system inputs: 416
+	File system outputs: 1442896
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

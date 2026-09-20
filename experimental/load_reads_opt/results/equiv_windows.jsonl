@@ -1,0 +1,4 @@
+{"bed": "chr1_24Mb_highconf.bed", "intervals": 9159, "queries": 94951, "mismatches": 0, "confident": 69297, "t_orig_s": 45.14, "t_bisect_s": 0.049}
+{"bed": "hg002_chr21_32_44M_highconf.bed", "intervals": 2934, "queries": 57604, "mismatches": 0, "confident": 38929, "t_orig_s": 8.43, "t_bisect_s": 0.026}
+{"bed": "chr20_highconf.bed", "intervals": 10192, "queries": 101152, "mismatches": 0, "confident": 75445, "t_orig_s": 52.01, "t_bisect_s": 0.118}
+{"random_interval_sets": 200, "queries": 320000, "mismatches": 0}

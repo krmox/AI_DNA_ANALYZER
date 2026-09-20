@@ -4,17 +4,18 @@ Imports frozen code (providers.py, pileup_counts.py) unmodified. Does not edit
 any production file. Writes findings to SANITY_CHECK.md.
 """
 import sys
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 
 import numpy as np
 import pysam
 
 from pileup_counts import PileupCountsProvider
 
-FASTA = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/reference/chr21_full.fa"
-BAM = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_15x.bam"
-VCF = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz"
-BED = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed"
+FASTA = _ROOT + "/data/reference/chr21_full.fa"
+BAM = _ROOT + "/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_15x.bam"
+VCF = _ROOT + "/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz"
+BED = _ROOT + "/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed"
 
 SUB_START, SUB_END = 32_000_000, 32_100_000  # 100kb sub-region, several 64bp windows
 
@@ -109,7 +110,7 @@ for rec in vcf.fetch("chr21", SUB_START, SUB_END):
     if count >= 5:
         break
 
-with open("/home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/unified_happy/_sanity_raw_output.txt", "w") as f:
+with open(_ROOT + "/experimental/unified_happy/_sanity_raw_output.txt", "w") as f:
     f.write(f"windows kept: {len(windows)} / possible {len(all_possible_starts)}\n")
     f.write(f"dropped starts (first 20): {dropped_starts[:20]}\n")
     f.write(f"naive==true: {np.array_equal(naive_pos, true_pos)}\n")

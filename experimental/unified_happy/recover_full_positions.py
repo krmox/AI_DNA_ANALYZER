@@ -9,16 +9,17 @@ we only need to recover correct positions + REF/ALT to align with them).
 """
 import sys
 import time
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+import pathlib as _pl; _ROOT = str(_pl.Path(__file__).resolve().parents[2])  # project root (path-independent)
+sys.path.insert(0, _ROOT)
 
 import numpy as np
 
 from pileup_counts import PileupCountsProvider
 
-FASTA = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/reference/chr21_full.fa"
-BAM = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_15x.bam"
-VCF = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz"
-BED = "/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed"
+FASTA = _ROOT + "/data/reference/chr21_full.fa"
+BAM = _ROOT + "/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_15x.bam"
+VCF = _ROOT + "/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M.vcf.gz"
+BED = _ROOT + "/data/giab_hg002_chr21_12Mb/hg002_chr21_32_44M_highconf.bed"
 
 REGION_START, REGION_END = 32_000_000, 44_000_000
 CHUNK_BP = 500_000
@@ -55,7 +56,7 @@ assert labels.size == positions.size == counts.shape[0]
 print(f"TOTAL loci: {labels.size}, SNP labels: {int((labels==1).sum())}")
 
 np.savez_compressed(
-    "/home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/unified_happy/recovered_full.npz",
+    _ROOT + "/experimental/unified_happy/recovered_full.npz",
     counts=counts, labels=labels, positions=positions,
 )
 print("Saved recovered_full.npz")

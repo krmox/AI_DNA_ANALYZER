@@ -4,11 +4,12 @@
 # same flag structure), only the truth/BED/query differ (dev region instead of
 # the held-out 32-44M region).
 set -euo pipefail
-cd /home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/genotype_layer
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/../.." && pwd)"  # project root (path-independent)
+cd $ROOT/experimental/genotype_layer
 
-TRUTH=/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_real_30M/hg002_chr21_30M.vcf.gz
-BED=/home/mark/Documents/Projects/AI_DNA_ANALYZER/data/giab_hg002_real_30M/hg002_chr21_30M_highconf.bed
-REF=/home/mark/Documents/Projects/AI_DNA_ANALYZER/experimental/head_to_head/shared_ref/chr21_chrname.fa
+TRUTH=$ROOT/data/giab_hg002_real_30M/hg002_chr21_30M.vcf.gz
+BED=$ROOT/data/giab_hg002_real_30M/hg002_chr21_30M_highconf.bed
+REF=$ROOT/experimental/head_to_head/shared_ref/chr21_chrname.fa
 IMAGE=quay.io/biocontainers/hap.py:0.3.15--py27hcb73b3d_0
 
 mkdir -p happy/A happy/B happy/C

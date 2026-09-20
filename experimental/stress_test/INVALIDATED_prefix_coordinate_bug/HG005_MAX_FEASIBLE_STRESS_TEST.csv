@@ -1,0 +1,22 @@
+metric,value,valid
+region,chr1:1000001-25000000 (24Mb attempted; 3Mb chr1:1000001-4000000 clean-serial-verified),n/a
+disk_free_start_gb,12,valid
+disk_free_end_gb,11,valid
+disk_safety_margin_required_gb,4.5,valid
+region_bam_mb_per_mb_30x,18.7,valid
+feature_cache_mb_per_mb_30x,15,valid
+disk_feasible_region_mb_peak,220,valid
+disk_feasible_region_mb_staged,430,valid
+extraction_cpu_min_per_mb,16,valid
+24mb_extraction_wallclock_min_parallel8x,44,valid
+3mb_extraction_wallclock_min_serial,22.4,valid
+pb_routed_fraction_24mb_run,0.000414,INVALID_INPUT
+snp_recall_24mb_cascade_c,0.007139,INVALID_INPUT
+snp_precision_24mb_cascade_c,0.010628,INVALID_INPUT
+snp_f1_24mb_cascade_c,0.008541,INVALID_INPUT
+truth_snp_total_24mb,28435,INVALID_INPUT
+query_truth_pos_intersection_fraction,0.009,diagnostic_of_bug
+reference_base_mismatch_rate_parallel_chunks,0.70-0.78,valid_diagnostic
+reference_base_mismatch_rate_serial_chunk,0.7485,valid_diagnostic
+external_callers_run,0,BLOCKED
+old_new_equivalence_rerun_this_session,0,not_attempted_cites_prior_12mb_result

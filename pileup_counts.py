@@ -24,12 +24,30 @@ the caller may use for evaluation only.
 
 from __future__ import annotations
 
+import os
+import sys
+from pathlib import Path
 from typing import Any, Dict, List
 
 import numpy as np
 
 from config import NUCLEOTIDES
 from providers import GenomicWindow, GiabAlignmentProvider
+
+#: Directory holding the optional ``pileup_native`` C/htslib extension (relative to this file).
+_NATIVE_DIR = Path(__file__).resolve().parent / "native"
+if _NATIVE_DIR.is_dir() and str(_NATIVE_DIR) not in sys.path:
+    sys.path.insert(0, str(_NATIVE_DIR))
+
+try:
+    import pileup_native as _pileup_native  # type: ignore[import-not-found]
+except ImportError:
+    _pileup_native = None
+
+#: ``AI_DNA_ANALYZER_DISABLE_NATIVE_PILEUP=1`` forces the pure-Python/pysam path.
+NATIVE_AVAILABLE = _pileup_native is not None and not os.environ.get(
+    "AI_DNA_ANALYZER_DISABLE_NATIVE_PILEUP"
+)
 
 #: Column order of the returned count matrix.
 COUNT_COLUMNS: tuple[str, ...] = (
@@ -157,13 +175,15 @@ class PileupCountsProvider(GiabAlignmentProvider):
         return {
             "counts": self.window_counts(window, reference),
             "labels": np.asarray(self._fetch_labels(window), dtype=np.int64),
+            "positions": np.arange(window.start, window.end, dtype=np.int64),
         }
 
 
 def load_counts(
     fasta: str, bam: str, vcf: str, bed: str | None, region: tuple[int, int],
     seq_len: int = 64, window_slice: slice | None = None, contig: str = "chr21",
-) -> tuple[np.ndarray, np.ndarray]:
+    return_positions: bool = False,
+) -> tuple[np.ndarray, np.ndarray] | tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Materialize a region's raw counts and labels.
 
     Args:
@@ -173,16 +193,15 @@ def load_counts(
         bed: Optional high-confidence BED.
         region: ``(start, end)`` in the FASTA's coordinate system.
         seq_len: Window width.
-        window_slice: Optional slice restricting which tiled windows are
-            materialized -- used to build the validation split without paying
-            the pileup cost of the whole training region.
-        contig: Contig to tile. Defaults to ``"chr21"``, the only contig used
-            before devlog 14, so every existing caller is unaffected.
-            ``PileupCountsProvider`` resolves the ``chr`` prefix per file, so a
-            single spelling works across FASTA, BAM and VCF.
+        window_slice: Optional slice restricting which tiled windows are materialized.
+        contig: Contig to tile.
+        return_positions: Also return each row's true 0-based genomic coordinate.
+            A row index is NOT a coordinate once ``_build_windows`` has dropped any
+            window (BED gap / all-N slice), so ``chunk_start + row_index`` silently
+            desyncs; this returns the coordinate from the surviving windows.
 
     Returns:
-        ``(counts [N, COUNT_DIM], labels [N])`` flattened over loci.
+        ``(counts, labels)`` or, with ``return_positions``, ``(counts, labels, positions)``.
     """
     provider = PileupCountsProvider(
         fasta_path=fasta, bam_path=bam, vcf_path=vcf, contig=contig,
@@ -191,12 +210,58 @@ def load_counts(
     with provider:
         total = len(provider)
         indices = range(total)[window_slice] if window_slice is not None else range(total)
-        counts, labels = [], []
-        for index in indices:
-            window = provider[index]
-            counts.append(window["counts"])
-            labels.append(window["labels"])
-    return np.concatenate(counts), np.concatenate(labels)
+        windows = [provider._windows[i] for i in indices]  # type: ignore[index]
+
+        if NATIVE_AVAILABLE and windows:
+            counts, labels, positions = _native_window_batch(provider, windows)
+        else:
+            counts, labels, positions = [], [], []
+            for window in windows:
+                reference = provider._fetch_reference(window)
+                counts.append(provider.window_counts(window, reference))
+                labels.append(np.asarray(provider._fetch_labels(window), dtype=np.int64))
+                if return_positions:
+                    positions.append(np.arange(window.start, window.end, dtype=np.int64))
+
+    counts_arr = np.concatenate(counts) if counts else np.zeros((0, COUNT_DIM), dtype=np.float64)
+    labels_arr = np.concatenate(labels) if labels else np.zeros(0, dtype=np.int64)
+    if return_positions:
+        positions_arr = np.concatenate(positions) if positions else np.zeros(0, dtype=np.int64)
+        return counts_arr, labels_arr, positions_arr
+    return counts_arr, labels_arr
 
 
-__all__ = ["COUNT_COLUMNS", "COUNT_DIM", "PileupCountsProvider", "load_counts"]
+def _native_window_batch(
+    provider: "PileupCountsProvider", windows: List[GenomicWindow],
+) -> tuple[List[np.ndarray], List[np.ndarray], List[np.ndarray]]:
+    """Fill ``windows`` from ONE ``pileup_native.count_region`` call over the whole span
+    (columns 0-8), attaching the FASTA-derived reference_index column (9)."""
+    assert _pileup_native is not None
+    span_start = min(w.start for w in windows)
+    span_end = max(w.end for w in windows)
+    buf = _pileup_native.count_region(
+        str(provider.bam_path), provider._bam_contig, span_start, span_end,
+        provider.min_mapping_quality, provider.min_base_quality,
+    )
+    block9 = np.frombuffer(buf, dtype=np.float64).reshape(span_end - span_start, 9)
+
+    counts: List[np.ndarray] = []
+    labels: List[np.ndarray] = []
+    positions: List[np.ndarray] = []
+    for window in windows:
+        reference = provider._fetch_reference(window)
+        ref_idx_col = np.fromiter(
+            (
+                _REFERENCE_TOKENS.index(base) if (base := reference[i].upper()) in _REFERENCE_TOKENS else 0
+                for i in range(len(window))
+            ),
+            dtype=np.float64, count=len(window),
+        )
+        rows9 = block9[window.start - span_start: window.end - span_start]
+        counts.append(np.concatenate([rows9, ref_idx_col[:, None]], axis=1))
+        labels.append(np.asarray(provider._fetch_labels(window), dtype=np.int64))
+        positions.append(np.arange(window.start, window.end, dtype=np.int64))
+    return counts, labels, positions
+
+
+__all__ = ["COUNT_COLUMNS", "COUNT_DIM", "PileupCountsProvider", "load_counts", "NATIVE_AVAILABLE"]
