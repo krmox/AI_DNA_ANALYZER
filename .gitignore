@@ -5,3 +5,17 @@ __pycache__/
 *.pyc
 native/*.so
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.log
+*.tmp
+*.swp
+.DS_Store
+# LaTeX build products (research/latex); paper.tex is generated but kept
+research/latex/*.aux
+research/latex/*.out
+research/latex/*.toc
+research/latex/*.fls
+research/latex/*.fdb_latexmk

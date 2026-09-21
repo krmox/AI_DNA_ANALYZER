@@ -20,11 +20,11 @@ Native C/htslib backends made the count and read-tensor stages 21–65× and 26.
 
 A SNP call is a claim about a specific person's genome, so a change to the caller that saves compute has to be shown not to change the claim.
 
-Modelling each read's error probability separately improves discrimination at marginal loci over a single fixed error rate. The price is that the distribution of a sum of independent, non-identical Bernoulli events, a Poisson-binomial [1], must be evaluated at every candidate locus. In this project PB ran at roughly 6–10×10³ loci/s against 2.6–3.1×10⁶ loci/s for the binomial screen (throughput probes; document-level estimates of the ratio range from 240× to 520×).
+Modelling each read's error probability separately improves discrimination at marginal loci over a single fixed error rate. The price is that the distribution of a sum of independent, non-identical Bernoulli events, a Poisson-binomial [1], must be evaluated at every candidate locus. Poisson-binomial modeling is also established in variant calling; LoFreq uses per-base sequencing-error probabilities to model the number of variant-supporting bases under a Poisson-binomial distribution [27]. In this project PB ran at roughly 6–10×10³ loci/s against 2.6–3.1×10⁶ loci/s for the binomial screen (throughput probes; document-level estimates of the ratio range from 240× to 520×).
 
-A cascade defers only hard cases to the costly stage; cascaded classifiers are an established technique in vision [2]. The project sources do not document where the idea for this particular cascade came from, and no literature search on its use in SNP calling was done `[CITATION REQUIRED: prior cascaded or selectively escalated variant calling]`. No claim of novelty or priority is made. The question is empirical: does routing keep the accuracy of PB-everywhere, and where does the compute go?
+A cascade defers only hard cases to the costly stage; cascaded classifiers are an established technique in vision [2]. Tiered designs already exist in variant calling: Clair3 sends most candidates through a fast pileup network and the more complicated ones through a full-alignment network [18]. The project sources do not document where the idea for this particular cascade came from, and only a brief literature search on its use in SNP calling was done. Related variant callers have also used selective processing of candidate loci: Psi-Caller assigns candidates to computational paths of differing cost using locus characteristics, while miniSNV separates high- and low-quality loci and applies binomial genotyping to the former and more expensive phasing and consensus procedures to the latter [25,26]. These approaches differ from the present cascade in that routing here is based on the log-likelihood evidence produced by the initial statistical classifier rather than on predefined locus-complexity or population-knowledge rules. No claim of novelty or priority is made. The question is empirical: does routing keep the accuracy of PB-everywhere, and where does the compute go?
 
-The project started in August 2026 as a neural sequence caller trained on synthetic reads. On real reads, every neural stage was null or negative against the statistical baselines, apart from one weak positive (two of three seeds) on a side branch (Mamba-style models [17]; Supplement). The final method has three stages: binomial log-likelihood ratio (LLR), a symmetric router around the binomial decision boundary, and a PB LLR on routed loci. Evaluation uses GIAB truth [8,9] and hap.py [12].
+The project started in August 2026 as a neural sequence caller trained on synthetic reads. On real reads, every neural stage was null or negative against the statistical baselines, apart from one weak positive (two of three seeds) on a side branch (Mamba-style models [16]; Supplement). The final method has three stages: binomial log-likelihood ratio (LLR), a symmetric router around the binomial decision boundary, and a PB LLR on routed loci. Evaluation uses GIAB truth [7,8] and hap.py [11].
 
 This paper reports what happened when the constants were frozen and the cascade was tested on other regions, samples and one whole chromosome. It also reports the failures: one experiment-level NEGATIVE, one DEGRADED chromosome, ten lost true SNPs, an evaluator artefact that produced F1 0.624, and two native-code designs that failed their equivalence gates. It does not claim superiority over existing callers, genome-scale validity, cross-platform validity, or clinical validity.
 
@@ -67,9 +67,9 @@ An earlier PB implementation clipped the ALT count to the tensor width, which tu
 
 ### 2.2 Datasets and ground truth
 
-HG002 (son), HG003 (father) and HG004 (mother) form the GIAB Ashkenazi trio. They were analysed from the NIST Illumina 2×250 novoalign GRCh38 BAMs (native depth ≈ 47–74× depending on region). HG005 is unrelated to them; it was analysed from the NHGRI 300× HiSeq novoalign BAM (header: novoalign V3.02.07; regional reads ≤ 250 bp) downsampled with `samtools view -s 42.09` to ≈ 30×. A platform-matched 2×250 HG005 product returned HTTP 404 on 2026-09-04 and 2026-09-15, which is why HG004 served as the interim second sample. Lower depths of HG002–4 came from `samtools view -s 42.<fraction>`; depth cells are correlated downsamples of one library. Whether the HG005 library or instrument differs from HG002–4 beyond read length and aligner is not established.
+HG002 (son), HG003 (father) and HG004 (mother) form the GIAB Ashkenazi trio [10]. They were analysed from the NIST Illumina 2×250 novoalign [15] GRCh38 BAMs (native depth ≈ 47–74× depending on region). HG005 is unrelated to them; it was analysed from the NHGRI 300× HiSeq novoalign BAM (header: novoalign V3.02.07; regional reads ≤ 250 bp) downsampled with `samtools view -s 42.09` [13] to ≈ 30×. A platform-matched 2×250 HG005 product returned HTTP 404 on 2026-09-04 and 2026-09-15, which is why HG004 served as the interim second sample. Lower depths of HG002–4 came from `samtools view -s 42.<fraction>`; depth cells are correlated downsamples of one library. Whether the HG005 library or instrument differs from HG002–4 beyond read length and aligner is not established.
 
-Truth: GIAB v4.2.1 GRCh38 benchmark VCFs and high-confidence BEDs; strata: GIAB v3.1 (`lowmap_segdup`, `alldifficult`, `tandemrepeats`) [8–10]. Reference: Ensembl r110 per-chromosome FASTA, with a `chr`-renamed copy for hap.py and the external callers.
+Truth: GIAB v4.2.1 GRCh38 benchmark VCFs and high-confidence BEDs; strata: GIAB v3.1 (`lowmap_segdup`, `alldifficult`, `tandemrepeats`) [7–9]. Reference: Ensembl r110 per-chromosome FASTA, with a `chr`-renamed copy for hap.py and the external callers.
 
 Regions for v14 onward were chosen by scripts from public annotation before any caller ran; per-run independence audits reported `all_ok` (not re-checked in the freeze audit). The v20 region is the whole of chr20; no region was chosen or filtered after seeing results.
 
@@ -92,6 +92,10 @@ Regions for v14 onward were chosen by scripts from public annotation before any 
 
 *Extraction.* The region is tiled into 64-bp windows, processed in 500-kb chunks. A window is dropped whole if any base lies outside the high-confidence BED or more than half its reference bases are N. For each surviving locus the extractor emits nine channels (four base counts, deletion/skip reads, insertion reads, depth, quality sum, mapping-quality sum). Reads are admitted at MAPQ ≥ 20 and excluded if duplicate, QC-fail, unmapped, secondary or supplementary; a read adds to a base count only if its base quality is ≥ 13. The pileup depth cap is 8,000. Two `pysam.pileup()` defaults that the code relies on without stating them, `ignore_orphans=True` and `ignore_overlaps=True`, are part of the contract. For PB, a second extractor builds a per-locus tensor of up to 48 admitted reads, ordered by BLAKE2b digest of the read name. Coordinates are 0-based half-open internally and converted once at VCF output. Labels come from the truth VCF; the scoring frame is restricted to Normal and SNP loci.
 
+![Figure 1](FIGURES/fig1_v2_architecture.png)
+
+**Figure 1.** Cascade architecture and data flow. Aligned reads, reference and confident regions feed window extraction (native C/htslib backend by default, pysam as reference and fallback). The binomial screen ($\varepsilon = 0.01$, threshold 7.0) calls every locus; the router sends loci with $|\mathrm{LLR_{bin}} - 7.0| \le 5.4119$ to the read-tensor extractor (at most 48 reads) and the Poisson-binomial model (threshold 10.5). Loci outside the band keep the binomial call. The genotype layer (Method C) assigns GT/GQ to the allele calls without changing them. The dashed branch is the benchmark's PB-only control, which evaluates PB at every locus and is paired with the cascade for $\Delta F_1$. The routed range 0.04–0.16 % is pooled per experiment (Table 3, Figure 4).
+
 **Table 2. Frozen parameters.**
 
 | Parameter | Value | Source |
@@ -111,9 +115,9 @@ Two qualifications. The main-branch devlog 11 describes the cutoff as an F-beta 
 
 ### 2.4 Statistical evaluation
 
-*Evaluators.* The **internal evaluator** compares boolean call and truth masks at matching array indices, ignores REF, ALT and genotype, and applies the BED at window granularity. **hap.py 0.3.15** [12] (xcmp, left-shift and confident-region preprocessing on, window 50; one image digest for all runs) is allele- and genotype-aware and applies the BED per record. The two are not interchangeable and every table states which one it uses. Locus-level metrics are conditional on retained windows (Section 3.3).
+*Evaluators.* The **internal evaluator** compares boolean call and truth masks at matching array indices, ignores REF, ALT and genotype, and applies the BED at window granularity. **hap.py 0.3.15** [11] (xcmp, left-shift and confident-region preprocessing on, window 50; one image digest for all runs) is allele- and genotype-aware and applies the BED per record. The two are not interchangeable and every table states which one it uses. Locus-level metrics are conditional on retained windows (Section 3.3).
 
-*Paired comparison.* $\Delta F_1$ carries a 95 % percentile interval from a paired multinomial bootstrap over loci (10,000 resamples; seed 20260812 or the module default) [4,5]. This treats adjacent loci as independent. From v19 a 50-kb block bootstrap (v19: 537 blocks; v20: 1,185 blocks; 2,000 resamples) and an exact McNemar test on discordant loci were added `[CITATION REQUIRED: McNemar test; block bootstrap for dependent data]`. In v19 the block interval was 2.3× wider than the locus interval. No interval exists for any hap.py result or for stratum enrichments.
+*Paired comparison.* $\Delta F_1$ carries a 95 % percentile interval from a paired multinomial bootstrap over loci (10,000 resamples; seed 20260812 or the module default) [4,5]. This treats adjacent loci as independent. From v19 a 50-kb block bootstrap [24] (v19: 537 blocks; v20: 1,185 blocks; 2,000 resamples) and an exact McNemar test [23] on discordant loci were added. In v19 the block interval was 2.3× wider than the locus interval. No interval exists for any hap.py result or for stratum enrichments.
 
 *Decision rule.* Defined in the project devlog (devlog 13 §3.4) and implemented in `bench_v14_crosschrom.classify`; there is no external registry, and whether it preceded the v13 analysis is not established. Per cell with ≥ 100 SNPs, and pooled:
 
@@ -122,7 +126,7 @@ Two qualifications. The main-branch devlog 11 describes the cutoff as an F-beta 
 - DEGRADED: interval excludes 0 with $\Delta F_1 < 0$, or $|\Delta F_1| \ge 0.001$. As written the second clause also fires for positive differences; the defect was disclosed at the time and the implementation tests it after PRESERVED and IMPROVED.
 - UNDERPOWERED: fewer than 100 SNPs or interval half-width > 0.01. No cell fell here.
 
-The protocol originally called the overall result CONFIRMED only if every powered cell and pooled result was PRESERVED. Five pooled results are IMPROVED (one of them, v14, belongs to an experiment whose verdict is NEGATIVE) and one experiment is DEGRADED, so that condition cannot be met, and **no global verdict is asserted**. There is no equivalence test, no multiplicity correction, and the 0.001 margin is about 1.5 false calls at 765 SNPs.
+The protocol originally called the overall result CONFIRMED only if every powered cell and pooled result was PRESERVED. Five pooled results are IMPROVED (one of them, v14, belongs to an experiment whose verdict is NEGATIVE) and one experiment is DEGRADED, so that condition cannot be met, and **no global verdict is asserted**. There is no equivalence test, no multiplicity correction, and the 0.001 margin is about 1.5 false calls at 765 SNPs. The origin of the margin is not documented in the project record.
 
 *Failure taxonomy.* For loci where cascade and PB disagree: `router_avoids_fp` (cascade correct, PB false positive), `router_fp` (cascade false positive that PB avoided), `router_fn` (cascade lost a true SNP that PB found; the locus was not routed), `router_recovers_fn`. Events are counted per validation cell; a locus scored at two depths counts twice.
 
@@ -142,7 +146,7 @@ A vectorised implementation replaced the reference scipy loop; it matched on the
 
 ### 2.7 Computational implementation and optimisation
 
-*Native counts backend.* The reference path calls `pysam.pileup()` once per 64-bp window and runs a Python per-read loop. `native/pileup_native.c` (≈ 220 lines, raw htslib [13]) instead makes one `bam_mplp` streaming pass over the whole requested span, applies read admission in a callback, enables mate-overlap adjustment, and returns a `(span, 9)` buffer. It is the default when built; `AI_DNA_ANALYZER_DISABLE_NATIVE_PILEUP=1` restores pysam.
+*Native counts backend.* The reference path calls `pysam.pileup()` [14] once per 64-bp window and runs a Python per-read loop. `native/pileup_native.c` (≈ 220 lines, raw htslib [12]) instead makes one `bam_mplp` streaming pass over the whole requested span, applies read admission in a callback, enables mate-overlap adjustment, and returns a `(span, 9)` buffer. It is the default when built; `AI_DNA_ANALYZER_DISABLE_NATIVE_PILEUP=1` restores pysam.
 
 *Native read-tensor backend.* `native/reads_native.c` builds the PB tensor in C with one fresh pileup pass per 64-nt window (BAM and index opened once) and the same BLAKE2b ordering. The O(#intervals) confidence scan in `providers._is_confident` became a bisect lookup. Inputs it cannot reproduce (missing SEQ, non-integer `NM`) fall back to Python.
 
@@ -191,7 +195,7 @@ Two results carry a negative verdict and both are reported at full size.
 
 **v20.** Section 3.3.
 
-**Reading the positive verdicts.** The IMPROVED experiments are driven by loci in segmental duplication where PB produces false positives from low-VAF paralogous reads and the binomial screen rejects them: 26 of 41 v14 departures, 36 of 38 in v17, 83 of 87 in v19. The authors of those experiments describe this as PB miscalibration on paralogous pileups, not a property of the cascade. That reading is an interpretation; no read-level phasing was done. On chr20 this class contributes 1 departure of 10, and the sign of ΔF1 reverses. The sign depends on local composition, so the pre-specified claim is only that accuracy is not lost, and the data say it was lost, by a very small amount, on one chromosome.
+**Reading the positive verdicts.** The IMPROVED experiments are driven by loci in segmental duplication [6] where PB produces false positives from low-VAF paralogous reads and the binomial screen rejects them: 26 of 41 v14 departures, 36 of 38 in v17, 83 of 87 in v19. The authors of those experiments describe this as PB miscalibration on paralogous pileups, not a property of the cascade. That reading is an interpretation; no read-level phasing was done. On chr20 this class contributes 1 departure of 10, and the sign of ΔF1 reverses. The sign depends on local composition, so the pre-specified claim is only that accuracy is not lost, and the data say it was lost, by a very small amount, on one chromosome.
 
 ### 3.2 Cross-sample validation
 
@@ -250,6 +254,10 @@ The claim "the cascade never lost a true SNP that PB found" was made on 24.6 M c
 
 The three classes do not exhaust the departures. In v14, 41 departures split into 26 `router_avoids_fp`, 8 `router_fp`, 5 `router_fn` and 2 `router_recovers_fn` (raw `disagreements.json`; the sources name this class but do not restate its definition, and by its name it is the cascade recovering a PB false negative). The 80 v15 departures (cascade right 69, wrong 5, indeterminate 6) are not decomposed by class. The pre-chr20 row for `router_fp` includes 2 HG005 events (RO).
 
+![Figure 3](FIGURES/fig3_v2_failure_analysis.png)
+
+**Figure 3.** Cascade-specific failure analysis. (a) Every disagreement between cascade and PB-only that has a stored record in `results/bench_v14`, `v16`, `v17`, `v18`, `v19` and `v20` (`disagreements.json`; `chr20_disagreements.json`), placed by binomial LLR and variant allele fraction against the router band [1.588, 12.412]: 154 PB false positives avoided, 21 cascade-introduced false positives and 9 lost true SNPs (the 8 with records in v14, v17, v19, plus the chr20 event). v20 events carry a black ring. The v15 lost SNP has no stored covariates, and the 2 record-only HG005 false positives are not plotted. (b) Composition of classified departures before chr20 (v14–v19: 15 cascade-introduced FP including 2 record-only HG005 events, 153 avoided PB FP, 9 lost true SNPs including the v15 event; n = 177) and on chr20 (8, 1, 1; n = 10). v14's 2 `router_recovers_fn` events and the 80 v15 departures are not classified in this panel. The counts in (a) were checked against Table 5 when the figure was generated.
+
 The lost SNPs sit at VAF ≈ 0.12 with high base quality, where a fixed-ε binomial LLR is near zero and the locus looks confidently negative. The router sees that as "uncertain", not "wrong", but the locus is outside the band by 0.02–6.9 LLR units, so it is never routed. That is an interpretation supported by an ε-shift analysis; it was not tested at read level. The rate is about 1 per 10⁷ loci at VAF < 0.15, BQ ≥ 35, depth ≥ 30× in segdup (devlog 15); on chr20 it is 1 per 5.6×10⁷ scored loci. The cascade-introduced false positives have the opposite profile: high VAF, low BQ, low depth. Mapping quality does not separate failures (novoalign emits MAPQ 60–70 at 99.98 % of loci in v16). All 13 unfavourable v14 departures lay outside the band (margins 5.5–20.0 against the cutoff 5.412). In a diagnostic sweep on the v14 chr1 segdup cell, cutoffs 5.0–6.0 produced bit-identical calls, and raising the cutoff to 7.0 routed 8.7 % of loci while reducing departures only from 19 to 16.
 
 #### 3.4.2 What the router captures
@@ -265,9 +273,9 @@ The lost SNPs sit at VAF ≈ 0.12 with high base quality, where a fixed-ε binom
 | HG004 chr2/3/5, 9 cells (surviving caches) | 504 | 500 | 0.9921 | not split | 90.5 % |
 | HG005 chr1:1–4 Mb, ≈30× (RO) | 142 | 140 | 0.9859 | 13 (all routed) / 129 (127 routed, 2 missed) | 88.1 % |
 
-![Figure 3](FIGURES/fig3_v2_router_behavior.png)
+![Figure 4](FIGURES/fig4_v2_router_behavior.png)
 
-**Figure 3.** Router behaviour. (a) Fraction of scored loci routed to PB, pooled per experiment (bars); dots show the individual v14 (12) and v19 (9) depth cells (full, 30×, 15×). The hatched bar is HG005, record-only. Routed fractions: v13 0.1084 %, v14 0.0704 %, v15 0.0581 %, v16 0.0392 %, v17 0.0582 %, v18 0.0409 %, v19 0.0409 %, v20 0.137 % (77,248 loci), U-H2 0.155 %, HG005 0.0666 % (record-only). (b) Fraction of PB-rescuable loci that the router sent to PB, for two populations: chr20 true-SNP rescuable 1,327/1,328 and FP-avoidance 1,490/1,498; HG005 (open markers, record-only) 13/13 and 127/129. Capture is relative to PB's correctness, not recall against truth, and the axis starts at 0.975. The mixed HG005 figure of 140/142 is deliberately not plotted. Source values: `TABLES_FINAL.md` Tables 2, S1, S2; `results/bench_v20/chr20_results.json` (`rescue_composition`); HG005 from the project record.
+**Figure 4.** Router behaviour. (a) Fraction of scored loci routed to PB, pooled per experiment (bars); dots show the individual v14 (12) and v19 (9) depth cells (full, 30×, 15×). The hatched bar is HG005, record-only. Routed fractions: v13 0.1084 %, v14 0.0704 %, v15 0.0581 %, v16 0.0392 %, v17 0.0582 %, v18 0.0409 %, v19 0.0409 %, v20 0.137 % (77,248 loci), U-H2 0.155 %, HG005 0.0666 % (record-only). (b) Fraction of PB-rescuable loci that the router sent to PB, for two populations: chr20 true-SNP rescuable 1,327/1,328 and FP-avoidance 1,490/1,498; HG005 (open markers, record-only) 13/13 and 127/129. Capture is relative to PB's correctness, not recall against truth, and the axis starts at 0.975. The mixed HG005 figure of 140/142 is deliberately not plotted. Source values: `TABLES_FINAL.md` Tables 2, S1, S2; `results/bench_v20/chr20_results.json` (`rescue_composition`); HG005 from the project record.
 
 The HG005 capture of 0.986 mixes two functions and is not a true-SNP statistic; only 13 of its 142 rescuable loci are true-SNP rescues. That composition does not carry over: chr20 has 1,328 true-SNP opportunities (47 % of rescuable). On chr20, PB is worse than the binomial at 222 loci, 221 of them routed, so the cascade inherits PB's errors there. Roughly nine in ten routed loci did not need PB. Whether the fixed cutoff is well calibrated outside the tested depths and samples is not established; the routed fraction rises as depth falls (≈ 0.003–0.004 % at native depth, 0.013–0.015 % at 30×, 0.10–0.16 % at 15×).
 
@@ -312,6 +320,10 @@ On the final unified call sets (16,094 PB-only; 16,097 cascade sites) the same l
 | Measured BAM→calls | cascade (PB restricted to routed loci) vs PB-only | HG004 chr2:210.0–210.5 Mb | 284.66 s (sd 1.5) vs 469.96 s (sd 64.5), 1.65× | n = 3; both arms extract everything |
 | Projection | caller-stage speedup | v13–v19 | 171–396× | per-locus throughput × routed counts; excludes I/O; **not a result** |
 
+![Figure 5](FIGURES/fig5_v2_performance.png)
+
+**Figure 5.** Where the time goes. (a) Speedups against the pure-Python or pysam reference on a log axis, grouped by level: function level (`load_counts`, `load_reads`), pipeline level (native serial, native with four processes against pure-Python serial, native one against four workers) and the one measured BAM-to-calls comparison (cascade against PB-only, HG004 0.5 Mb, n = 3). Hatched = historical counts-only configuration, record-only. Projected caller-stage speedups (171–396×) and whole-genome estimates are projections and are not plotted. (b) Share of summed stage time: pure-Python and counts-only native pipelines on HG005 3 Mb (record-only), native one worker on HG005 3 Mb (287 of 307 stage-seconds in PB), and native six workers on whole chr20 (15,036 of 15,674 s; contention-inflated; the binomial stage was not timed separately). Values are in Table 8.
+
 Ratios are medians of unrounded times; recomputing from the rounded seconds printed here can differ in the last digit.
 
 **Bottleneck.** In the counts-only configuration (RO), `load_counts` fell from 344 to 15 s and the pipeline gained 1.22×; Amdahl's bound for removing the 24.7 % counts share was 1.33× [3]. Removing the counts stage moved the bottleneck to `load_reads` and PB (98.7 % of that run's wall time). Native `load_reads` moved it again: the 26.9–35.1× function-level factors became 2.72× at pipeline level against a ceiling of 3.06× for eliminating `load_reads` entirely ($p = 183/272$; observed 89 % of ceiling). PB is now 287/309 s = 93 % of the HG005 3-Mb pipeline. On chr20, PB was 15,036 s of 15,674 s (95.9 %; the sum of the three timed stages, summed over workers; `load_counts` 194 s, `load_reads` 444 s; the binomial stage was not timed separately), with 6 workers on 4 physical cores, which inflates PB time. Removing PB alone would bound the speedup near 14×. The older 3-Mb times were not re-measured under current machine load, so the same-day comparison is the 800-kb matrix.
@@ -329,7 +341,7 @@ A whole-genome time has not been measured; any genome-scale figure in the projec
 
 ### 3.7 External caller comparison
 
-On HG002 chr21:32–44 Mb at 15× (`hg002_chr21_32_44M_15x.bam`, 670,928 chr21 reads, novoalign), all callers used the same truth, BED, reference and hap.py invocation: DeepVariant 1.6.1 [18] (CPU, WGS model), Clair3 v1.0.10 [19] (`ilmn` model, full pipeline; the `:latest` tag silently ran pileup-only and was rejected) and GATK 4.5.0.0 HaplotypeCaller [20,21] (no BQSR: no known-sites resource for a subset). Strelka2 [22] was blocked (its bundled htslib asserts in `bgzf_hopen` against this host's zlib) and FreeBayes [23] was not run.
+On HG002 chr21:32–44 Mb at 15× (`hg002_chr21_32_44M_15x.bam`, 670,928 chr21 reads, novoalign), all callers used the same truth, BED, reference and hap.py invocation: DeepVariant 1.6.1 [17] (CPU, WGS model), Clair3 v1.0.10 [18] (`ilmn` model, full pipeline; the `:latest` tag silently ran pileup-only and was rejected) and GATK 4.5.0.0 HaplotypeCaller [19,20] (no BQSR: no known-sites resource for a subset). Strelka2 [21] was blocked (its bundled htslib asserts in `bgzf_hopen` against this host's zlib) and FreeBayes [22] was not run.
 
 **Table 9. hap.py 0.3.15, SNP, PASS, `TRUTH.TOTAL` = 16,898 for every row.**
 
@@ -340,6 +352,10 @@ On HG002 chr21:32–44 Mb at 15× (`hg002_chr21_32_44M_15x.bam`, 670,928 chr21 r
 | DeepVariant 1.6.1 | 0.9340 | 0.9654 | 0.9494 | 16,313 | 1,153 | 585 | 819 s, 8 threads |
 | Clair3 1.0.10 | 0.8965 | 0.9638 | 0.9290 | 16,287 | 1,880 | 611 | 1,342 s, 4 threads |
 | GATK HC 4.5.0.0 (no BQSR) | 0.9877 | 0.9493 | 0.9682 | 16,042 | 199 | 856 | 287 s |
+
+![Figure 6](FIGURES/fig6_v2_external_callers.png)
+
+**Figure 6.** External caller comparison, hap.py 0.3.15, HG002 chr21:32–44 Mb at 15×, SNP, PASS, `TRUTH.TOTAL` = 16,898 for every row. (a) Precision against recall with F1 isolines; the two AI markers overlap (PB-only F1 0.9547, cascade 0.9546). The dotted line marks the AI recall ceiling of 0.982 imposed by the window filter (Section 3.3). (b) False positives and false negatives per caller (Table 9). The region contains the chr21:32–40 Mb span used to select the AI constants, GATK ran without BQSR, all results are single runs, and no runtime is compared. The figure implies no ranking.
 
 AI precision and recall were recomputed from the raw `happy.summary.csv` files. A pair of ≈ 0.989/0.923 that circulated in briefings for these arms appears in no hap.py output; ≈ 0.989/0.959 is the internal evaluator's result on a 16,597-locus denominator and is not comparable.
 
@@ -400,25 +416,25 @@ Within the evaluated setting (GIAB HG002–5, Illumina short reads, GRCh38, SNP-
 
 ## Data and Code Availability
 
-Code, devlogs and results are in the repository `AI_DNA_ANALYZER`. Commit `79155df` on local `main` (2026-09-20) tracks the native backends (`native/`), the `load_reads` optimisation, the chr20 validation (`experimental/chr20_validation/`, `results/bench_v20/`, `bench_v20_chr20.py`), the tests and `research/`. **At the time of writing this commit is not pushed:** `origin/main` (github.com/Kramkost/AI_DNA_ANALYZER) is at `16b221e`. Whether that remote is public is not established `[AUTHOR TO CONFIRM: repository visibility and archival DOI]`.
+Code, devlogs and results are in the repository `AI_DNA_ANALYZER` (https://github.com/Kramkost/AI_DNA_ANALYZER). The repository is currently private `[AUTHOR TO CONFIRM: make it public before submission, and archive a release with a DOI]`. The state described here is local commit `0ee6d16` on `main`, which tracks the native backends (`native/`), the `load_reads` optimisation, the chr20 validation (`experimental/chr20_validation/`, `results/bench_v20/`, `bench_v20_chr20.py`), the tests and `research/`. That commit is not on the remote: local history was rewritten after the analyses and has diverged from `origin/main`, which was at `48dbedf` when checked, so it has to be reconciled before pushing. Because of the rewrite, commit ids recorded in the freeze manifests (for example base commit `a3d5761`) do not resolve in the current history; the SHA-256 hashes of the frozen files (`cascade.py` `b0ee9f4b24fe06dc…`, unchanged) are the stable identifiers. Input data are public GIAB files; paths and SHA-256 checksums are in `experimental/stress_test/HG005_MANIFEST.json`, `research/REPRODUCIBILITY.md` and `experimental/chr20_validation/FROZEN_MANIFEST.json`. Regional BAMs are not redistributed. The HG005 post-fix raw artefacts and the original native-validation reports were lost with a wiped `/tmp` worktree on 2026-09-20 and are not independently reproducible. The chr20 run reproduced its own lost first run exactly. In `CLAIM_EVIDENCE_MAP.csv`, five HG005 rows earlier labelled `VERIFIED_RAW` (rows 43, 45, 46, 48, 63) are now `RECORD_ONLY_RAW_UNAVAILABLE`; their values are unchanged.
 
-Input data are public GIAB files; paths and SHA-256 checksums are in `experimental/stress_test/HG005_MANIFEST.json`, `research/REPRODUCIBILITY.md` and `experimental/chr20_validation/FROZEN_MANIFEST.json`. Regional BAMs are not redistributed. The HG005 post-fix raw artefacts and the original native-validation reports were lost with a wiped `/tmp` worktree on 2026-09-20 and are not independently reproducible. The chr20 run reproduced its own lost first run exactly. In `CLAIM_EVIDENCE_MAP.csv`, five HG005 rows earlier labelled `VERIFIED_RAW` (rows 43, 45, 46, 48, 63) are now `RECORD_ONLY_RAW_UNAVAILABLE`; their values are unchanged.
-
-Environment: Python 3.14.3, pysam 0.24.0 (htslib 1.23.1), numpy 2.4.4, scipy 1.17.1, samtools/bcftools 1.23.1, gcc 15.3.1, Docker 29.4.1, Fedora 43, Intel i7-6700, 31 GiB. No lockfile exists. Image digests: hap.py 0.3.15 `sha256:d63b963a6cb01b4830393b22369e7b91d298e4156dde353739e74e4cfa4f96d0`; DeepVariant 1.6.1 `sha256:ccab95548e6c3ec28c75232987f31209ff1392027d67732435ce1ba3d0b55c68`; Clair3 v1.0.10 `sha256:57cf5d20f2ee39c1b91493ad1fb5c1b9fa838691efce818c3139caa5e6c6b974`. The extension needs `native/build.sh` (Python headers and pysam's bundled htslib headers).
+Environment: Python 3.14.3, pysam 0.24.0 (htslib 1.23.1), numpy 2.4.4, scipy 1.17.1, samtools/bcftools 1.23.1 [13], gcc 15.3.1, Docker 29.4.1, Fedora 43, Intel i7-6700, 31 GiB. No lockfile exists. Image digests: hap.py 0.3.15 `sha256:d63b963a6cb01b4830393b22369e7b91d298e4156dde353739e74e4cfa4f96d0`; DeepVariant 1.6.1 `sha256:ccab95548e6c3ec28c75232987f31209ff1392027d67732435ce1ba3d0b55c68`; Clair3 v1.0.10 `sha256:57cf5d20f2ee39c1b91493ad1fb5c1b9fa838691efce818c3139caa5e6c6b974`. The extension needs `native/build.sh` (Python headers and pysam's bundled htslib headers).
 
 ## Author Contributions
 
-`[AUTHOR TO COMPLETE]`
+The author conceived the study, designed the cascade architecture and validation protocol, proposed the ideas and tests, directed the analysis, investigated discrepancies and failure cases, and reviewed and approved all results, interpretations and final text. Claude (Anthropic) was used to write code, to investigate the causes of discrepancies, to collect and summarise information, and to draft and edit the manuscript text.
 
-Recorded facts, from `research/AI_ASSISTANCE_DISCLOSURE.md` and the project record: the research question, the constraints (frozen constants, no retuning on test data, no removal of inconvenient results, integrity gates before accepting a number), the choice of samples and comparisons, the rejection of the HG005 F1 = 0.0085 result and the redirection of an audit that wrongly found no native code were human decisions. Substantial AI assistance (Claude, Anthropic) was used for code, analysis, reports and prose. The disclosure covers the HG005-fix session only, so the record is incomplete; the identity of a "third-party review" in the August 7 devlog is not recorded, and no repository document names an AI system other than Claude. This rewrite was itself drafted by an AI system from the project record, at the author's direction, and must be checked by the responsible author before use.
+## AI assistance disclosure
+
+Claude (Anthropic) was used throughout the project, as described above. The project's own record (`research/AI_ASSISTANCE_DISCLOSURE.md`) documents this in detail for the HG005-fix session only: Claude wrote the coordinate fix and regression tests, ran extraction, cascade, Method C and hap.py, computed the stratification, rescue and error statistics, integrated the native backend and drafted the reports in `research/`. The human decisions recorded there are the research question, the constraints (frozen constants, no retuning on test data, no removal of inconvenient results, integrity gates before accepting a number), the choice of samples and comparisons, the rejection of the HG005 F1 = 0.0085 result, and the redirection of an audit that wrongly found no native code. The rewrite of this manuscript from the project record was drafted by an AI system.
 
 ## Conflict of Interest
 
-`[AUTHOR TO COMPLETE: no statement exists in the project record]`
+The author declares no competing interests.
 
 ## References
 
-*Carried from the project bibliography; entries marked ‡ were not re-verified in this rewrite.*
+*References 5, 9, 10, 14, 15, 20 and 23–27 were checked against publisher, indexing or repository records on 2026-09-21; the others are carried from the project bibliography.*
 
 **Background**
 
@@ -426,38 +442,44 @@ Recorded facts, from `research/AI_ASSISTANCE_DISCLOSURE.md` and the project reco
 2. Viola P, Jones M. Rapid object detection using a boosted cascade of simple features. *Proc IEEE CVPR* I-511–I-518 (2001). doi:10.1109/cvpr.2001.990517
 3. Amdahl GM. Validity of the single processor approach to achieving large scale computing capabilities. *Proc AFIPS '67 Spring Joint Computer Conference*, 483 (1967). doi:10.1145/1465482.1465560
 4. Efron B. Bootstrap methods: another look at the jackknife. *Ann Stat* 7(1) (1979). doi:10.1214/aos/1176344552
-5. Efron B, Tibshirani RJ. *An Introduction to the Bootstrap*. Springer (1993). doi:10.1007/978-1-4899-4541-9 ‡ (co-author metadata)
-6. Li H. Toward better understanding of artifacts in variant calling from high-coverage samples. *Bioinformatics* 30(20):2843–2851 (2014). doi:10.1093/bioinformatics/btu356
-7. Bailey JA, et al. Recent segmental duplications in the human genome. *Science* 297(5583):1003–1007 (2002). doi:10.1126/science.1072047
+5. Efron B, Tibshirani RJ. *An Introduction to the Bootstrap*. Monographs on Statistics and Applied Probability 57. Chapman & Hall, New York (1993). ISBN 978-0-412-04231-7.
+6. Bailey JA, et al. Recent segmental duplications in the human genome. *Science* 297(5583):1003–1007 (2002). doi:10.1126/science.1072047
 
 **Datasets and truth sets**
 
-8. Zook JM, et al. An open resource for accurately benchmarking small variant and reference calls. *Nat Biotechnol* 37(5):561–566 (2019). doi:10.1038/s41587-019-0074-6
-9. Wagner J, et al. Benchmarking challenging small variants with linked and long reads. *Cell Genomics* 2(5):100128 (2022). doi:10.1016/j.xgen.2022.100128
-10. Dwarshuis N, et al. The GIAB genomic stratifications resource for human reference genomes. *Nat Commun* 15 (2024). doi:10.1038/s41467-024-53260-y ‡ (article number)
-11. Zook JM, et al. Extensive sequencing of seven human genomes to characterize benchmark reference materials. bioRxiv doi:10.1101/026468 ‡ (preprint; journal record not verified)
+7. Zook JM, et al. An open resource for accurately benchmarking small variant and reference calls. *Nat Biotechnol* 37(5):561–566 (2019). doi:10.1038/s41587-019-0074-6
+8. Wagner J, et al. Benchmarking challenging small variants with linked and long reads. *Cell Genomics* 2(5):100128 (2022). doi:10.1016/j.xgen.2022.100128
+9. Dwarshuis N, et al. The GIAB genomic stratifications resource for human reference genomes. *Nat Commun* 15:9029 (2024). doi:10.1038/s41467-024-53260-y
+10. Zook JM, et al. Extensive sequencing of seven human genomes to characterize benchmark reference materials. *Sci Data* 3:160025 (2016). doi:10.1038/sdata.2016.25
 
 **Methods and software**
 
-12. Krusche P, et al. Best practices for benchmarking germline small-variant calls in human genomes. *Nat Biotechnol* 37(5):555–560 (2019). doi:10.1038/s41587-019-0054-x. hap.py: https://github.com/Illumina/hap.py
-13. Bonfield JK, et al. HTSlib: C library for reading/writing high-throughput sequencing data. *GigaScience* 10(2) (2021). doi:10.1093/gigascience/giab007
-14. Danecek P, et al. Twelve years of SAMtools and BCFtools. *GigaScience* 10(2) (2021). doi:10.1093/gigascience/giab008
-15. pysam: https://github.com/pysam-developers/pysam `[REFERENCE NEEDED: formal citation]`
-16. Novoalign, Novocraft Technologies, RRID:SCR_014818 `[REFERENCE NEEDED: primary paper]`
-17. Gu A, Dao T. Mamba: linear-time sequence modeling with selective state spaces. arXiv:2312.00752 (2023).
+11. Krusche P, et al. Best practices for benchmarking germline small-variant calls in human genomes. *Nat Biotechnol* 37(5):555–560 (2019). doi:10.1038/s41587-019-0054-x. hap.py: https://github.com/Illumina/hap.py
+12. Bonfield JK, et al. HTSlib: C library for reading/writing high-throughput sequencing data. *GigaScience* 10(2) (2021). doi:10.1093/gigascience/giab007
+13. Danecek P, et al. Twelve years of SAMtools and BCFtools. *GigaScience* 10(2) (2021). doi:10.1093/gigascience/giab008
+14. pysam developers. pysam, version 0.24.0 (bundles htslib 1.23.1) [software]. https://github.com/pysam-developers/pysam (accessed 2026-09-21). No journal citation is designated by the project.
+15. Novocraft Technologies. Novoalign, version 3.02.07 as recorded in the HG005 BAM header [software]. RRID:SCR_014818. No peer-reviewed primary paper is designated by the vendor.
+16. Gu A, Dao T. Mamba: linear-time sequence modeling with selective state spaces. arXiv:2312.00752 (2023).
 
 **External callers**
 
-18. Poplin R, et al. A universal SNP and small-indel variant caller using deep neural networks. *Nat Biotechnol* 36(10):983–987 (2018). doi:10.1038/nbt.4235
-19. Zheng Z, et al. Symphonizing pileup and full-alignment for deep learning-based long-read variant calling. *Nat Comput Sci* 2(12):797–803 (2022). doi:10.1038/s43588-022-00387-x
-20. McKenna A, et al. The Genome Analysis Toolkit. *Genome Res* 20(9):1297–1303 (2010). doi:10.1101/gr.107524.110
-21. Poplin R, et al. Scaling accurate genetic variant discovery to tens of thousands of samples. bioRxiv doi:10.1101/201178 ‡ (preprint; journal version not verified)
-22. Kim S, et al. Strelka2: fast and accurate calling of germline and somatic variants. *Nat Methods* 15(8):591–594 (2018). doi:10.1038/s41592-018-0051-x
-23. Garrison E, Marth G. Haplotype-based variant detection from short-read sequencing. arXiv:1207.3907 (2012).
+17. Poplin R, et al. A universal SNP and small-indel variant caller using deep neural networks. *Nat Biotechnol* 36(10):983–987 (2018). doi:10.1038/nbt.4235
+18. Zheng Z, et al. Symphonizing pileup and full-alignment for deep learning-based long-read variant calling. *Nat Comput Sci* 2(12):797–803 (2022). doi:10.1038/s43588-022-00387-x
+19. McKenna A, et al. The Genome Analysis Toolkit. *Genome Res* 20(9):1297–1303 (2010). doi:10.1101/gr.107524.110
+20. Poplin R, et al. Scaling accurate genetic variant discovery to tens of thousands of samples. bioRxiv doi:10.1101/201178 (preprint; no journal version found)
+21. Kim S, et al. Strelka2: fast and accurate calling of germline and somatic variants. *Nat Methods* 15(8):591–594 (2018). doi:10.1038/s41592-018-0051-x
+22. Garrison E, Marth G. Haplotype-based variant detection from short-read sequencing. arXiv:1207.3907 (2012).
 
-**Still needed**
+**Statistical methods**
 
-`[CITATION REQUIRED: prior cascaded or selectively escalated variant calling]` · `[CITATION REQUIRED: McNemar test]` · `[CITATION REQUIRED: block bootstrap for dependent data]`
+23. McNemar Q. Note on the sampling error of the difference between correlated proportions or percentages. *Psychometrika* 12(2):153–157 (1947). doi:10.1007/BF02295996
+24. Künsch HR. The jackknife and the bootstrap for general stationary observations. *Ann Stat* 17(3):1217–1241 (1989). doi:10.1214/aos/1176347265
+
+**Related variant callers**
+
+25. Liu Y, Jiang T, Gao Y, Liu B, Zang T, Wang Y. Psi-Caller: a lightweight short read-based variant caller with high speed and accuracy. *Front Cell Dev Biol* 9:731424 (2021). doi:10.3389/fcell.2021.731424
+26. Cui M, Liu Y, Yu X, et al. miniSNV: accurate and fast single nucleotide variant calling from nanopore sequencing data. *Brief Bioinform* 25(6):bbae473 (2024). doi:10.1093/bib/bbae473
+27. Wilm A, et al. LoFreq: a sequence-quality aware, ultra-sensitive variant caller for uncovering cell-population heterogeneity from high-throughput sequencing datasets. *Nucleic Acids Res* 40(22):11189–11201 (2012). doi:10.1093/nar/gks918
 
 ---
 
@@ -465,4 +487,4 @@ Recorded facts, from `research/AI_ASSISTANCE_DISCLOSURE.md` and the project reco
 
 S1 v14 per-cell results, S2 v19 per-cell results, S3 genotype methods including the development region, S4 rescue analysis, S5 router-cutoff sweep (chr1 segdup cell), S6 correction ledger (coordinate bug C1, hap.py scope error C3, evaluator ambiguity C2, native-code provenance incident C4, empty-region crash C5, depth clipping, D1–D5 documentation errors, C7–C9): `research/TABLES_FINAL.md`. Neural-phase history and failed approaches F1–F11: `research/RESEARCH_TIMELINE.md`, manuscript §3.9 of `PAPER_MANUSCRIPT.md`. Claim-to-source map: `research/CLAIM_EVIDENCE_MAP.csv`.
 
-Figures 1 (architecture), 4 (failure analysis), 5 (external comparison) and 6 (performance) are specified in `research/REWRITE_01_RESEARCH_MAP_AND_CLAIM_AUDIT.md` and are not yet generated. Figures 2 and 3 are generated by `research/FIGURES/make_v2_figures.py`.
+Figures 1, 3, 5 and 6 are generated by `research/FIGURES/make_v2_figures_more.py` and Figures 2 and 4 by `research/FIGURES/make_v2_figures.py`. Figure 3 is drawn from the frozen `disagreements.json` files; all other plotted values are copied from the tables cited in the captions.

@@ -1,0 +1,66 @@
+% Generated wrapper for paper.tex. Body and title are inserted by md2tex.py.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.2cm,headheight=14pt]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{xltabular}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{url}
+\usepackage[colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent]{hyperref}
+
+\definecolor{accent}{HTML}{0072B2}
+\definecolor{rowgrey}{HTML}{F3F4F6}
+\definecolor{phbg}{HTML}{FFF3B0}
+\definecolor{ink}{HTML}{1F2937}
+
+\newcommand{\placeholder}[1]{\colorbox{phbg}{\footnotesize\sffamily #1}}
+\newcommand{\refitem}[2]{\par\noindent\hangindent=2.2em\hangafter=1\makebox[2.2em][l]{[#1]}#2\par\vspace{2pt}}
+
+\urlstyle{same}
+\setstretch{1.08}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\emergencystretch=3em
+\renewcommand{\arraystretch}{1.18}
+\setcounter{secnumdepth}{3}
+
+\titleformat{\section}{\Large\bfseries\sffamily\color{accent}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily\color{ink}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\sffamily\color{ink}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.5em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.4em}
+\titlespacing*{\subsubsection}{0pt}{1em}{0.3em}
+
+\captionsetup{font=small,labelfont={bf,sf,color=accent},labelsep=period,justification=raggedright,singlelinecheck=false,skip=5pt}
+\setlength{\LTpre}{6pt}\setlength{\LTpost}{8pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\color{gray} Draft manuscript --- not peer reviewed}
+\fancyhead[R]{\footnotesize\sffamily\color{gray} Binomial screen with confidence routing to a Poisson-binomial SNP caller}
+\fancyfoot[C]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\title{\sffamily\bfseries\Large\color{ink} %%TITLE%%}
+\author{\normalsize Mark Kostogryzov\\[2pt]\small\textit{Independent researcher}\\[2pt]\small m.2researcher141941241@proton.me}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+%%NOTE%%
+
+%%BODY%%
+
+\end{document}

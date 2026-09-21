@@ -154,3 +154,6 @@ Labels: **S** supported · **SQ** supported with qualification · **RO** record-
 | 6 | Where the time goes | (a) configuration; (b) stage | (a) speedup, four labelled levels; (b) share of wall time | (a) function 26.9/35.1; pipeline 2.72 serial, 7.11 = 2.72 × 2.6; historical 1.22; (b) PB 287/309 s | `LOAD_READS_OPTIMIZATION_REPORT.md`; `PERFORMANCE_RESULTS.csv` | as listed; medians of 3 with n noted | main. Projections not plotted |
 
 Not proposed: forest of hap.py CIs (none computed); cost-vs-genome-size (no measurements beyond 3 Mb pipeline / 64 Mb chr20 extraction); runtime comparison with callers (none matched); genotype confusion matrices (table suffices).
+
+
+Note (figure numbering, final): in `PAPER_MANUSCRIPT_V2.md` the failure-analysis figure is Figure 3 and the router-behaviour figure is Figure 4, so that figures are numbered in order of appearance.

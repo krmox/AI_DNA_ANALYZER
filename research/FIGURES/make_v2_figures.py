@@ -1,10 +1,10 @@
-"""Figures 2 and 3 of PAPER_MANUSCRIPT_V2.md.
+"""Figures 2 and 4 of PAPER_MANUSCRIPT_V2.md.
 
 Every plotted number is copied from research/TABLES_FINAL.md (Tables 2, S1, S2, 3c),
 research/CHR20_RESULTS.csv / results/bench_v20/chr20_results.json, or the hap.py
 summaries named below. Nothing is recomputed, simulated or fitted.
 Run from anywhere:  python3 make_v2_figures.py   (needs matplotlib)
-Outputs: fig2_v2_accuracy_delta_f1.png, fig3_v2_router_behavior.png
+Outputs: fig2_v2_accuracy_delta_f1.png, fig4_v2_router_behavior.png
 """
 import os
 import matplotlib
@@ -195,12 +195,12 @@ def fig3():
     for s in ("top", "right"): b.spines[s].set_visible(False)
     fig.text(0.55, 0.045, "PB-rescuable = PB-only correct, binomial-only wrong. Capture is relative to PB, not truth recall.\n"
              "The mixed HG005 figure (140/142) is not shown as a true-SNP statistic.", fontsize=7, color=MUTED, va="bottom")
-    fig.suptitle("Figure 3. Router behaviour", x=0.01, ha="left", fontsize=10.5, fontweight="bold")
+    fig.suptitle("Figure 4. Router behaviour", x=0.01, ha="left", fontsize=10.5, fontweight="bold")
     fig.tight_layout(rect=(0, 0.09, 1, 0.95))
-    fig.savefig(os.path.join(OUT, "fig3_v2_router_behavior.png"), dpi=200)
+    fig.savefig(os.path.join(OUT, "fig4_v2_router_behavior.png"), dpi=200)
     plt.close(fig)
 
 
 if __name__ == "__main__":
     fig2(); fig3()
-    print("wrote fig2_v2_accuracy_delta_f1.png, fig3_v2_router_behavior.png")
+    print("wrote fig2_v2_accuracy_delta_f1.png, fig4_v2_router_behavior.png")
