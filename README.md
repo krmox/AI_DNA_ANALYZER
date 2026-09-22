@@ -2,7 +2,7 @@
 
 ### Adaptive statistical SNP variant calling with confidence-aware compute routing
 
-![status](https://img.shields.io/badge/scope-SNP--only-blue) ![lang](https://img.shields.io/badge/Python%20%2B%20C%2Fhtslib-3776ab) ![platform](https://img.shields.io/badge/platform-Linux-lightgrey) ![research](https://img.shields.io/badge/status-research%20freeze-informational)
+![status](https://img.shields.io/badge/scope-SNP--only-blue) ![lang](https://img.shields.io/badge/Python%20%2B%20C%2Fhtslib-3776ab) ![platform](https://img.shields.io/badge/platform-Linux-lightgrey) ![research](https://img.shields.io/badge/status-research%20freeze-informational) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22895746.svg)](https://doi.org/10.5281/zenodo.22895746)
 
 > A cheap binomial screen calls every locus; a fixed router sends only the few loci near its decision boundary to a slower per-read Poisson-binomial model. The project measures whether that saves compute without changing the SNP calls.
 
@@ -217,7 +217,7 @@ Research status
 
 ## Publication
 
-No DOI exists yet. The manuscript and supporting materials are included in `research/`:
+Archived release (v1.0.0): [10.5281/zenodo.22895746](https://doi.org/10.5281/zenodo.22895746). The manuscript and supporting materials are included in `research/`:
 
 - Manuscript: [`research/PAPER_MANUSCRIPT_V2.md`](research/PAPER_MANUSCRIPT_V2.md) (HTML: [`research/PAPER_MANUSCRIPT_V2.html`](research/PAPER_MANUSCRIPT_V2.html))
 - Final tables: [`research/TABLES_FINAL.md`](research/TABLES_FINAL.md)
