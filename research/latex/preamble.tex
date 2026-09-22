@@ -13,6 +13,14 @@
 \usepackage{array}
 \usepackage{enumitem}
 \usepackage{caption}
+\usepackage{placeins}
+% Full-width figures next to xltabular tables need more headroom than LaTeX's
+% defaults give a bottom-of-page float, or they get pushed to the next page
+% wholesale and leave a mostly-empty page behind them.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage{setspace}

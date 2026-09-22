@@ -13,6 +13,14 @@
 \usepackage{array}
 \usepackage{enumitem}
 \usepackage{caption}
+\usepackage{placeins}
+% Full-width figures next to xltabular tables need more headroom than LaTeX's
+% defaults give a bottom-of-page float, or they get pushed to the next page
+% wholesale and leave a mostly-empty page behind them.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage{setspace}
@@ -126,7 +134,7 @@ Regions for v14 onward were chosen by scripts from public annotation before any 
 {\scriptsize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{ll>{\raggedright\arraybackslash}Xl>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xl>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{ll>{\hsize=1.251\hsize\raggedright\arraybackslash}Xl>{\hsize=0.800\hsize\raggedright\arraybackslash}X>{\hsize=0.890\hsize\raggedright\arraybackslash}X>{\hsize=0.650\hsize\raggedright\arraybackslash}X>{\hsize=1.409\hsize\raggedright\arraybackslash}X}
 \caption{Experiments and their relation to the constant-selection data.}\\
 \toprule
 \textbf{ID} & \textbf{Sample} & \textbf{Region} & \textbf{Depth} & \textbf{Loci scored} & \textbf{Truth SNPs} & \textbf{Evaluator} & \textbf{Relation to selection data (HG002 chr21:32--40 Mb, $\approx$15$\times$)} \\
@@ -155,15 +163,16 @@ U-H5 & HG005 & chr1:1,000,001--4,000,000 & $\approx$30$\times$ & 2,402,190 & 4,0
 \emph{Extraction.} The region is tiled into 64-bp windows, processed in 500-kb chunks. A window is dropped whole if any base lies outside the high-confidence BED or more than half its reference bases are N. For each surviving locus the extractor emits nine channels (four base counts, deletion/skip reads, insertion reads, depth, quality sum, mapping-quality sum). Reads are admitted at MAPQ $\ge$ 20 and excluded if duplicate, QC-fail, unmapped, secondary or supplementary; a read adds to a base count only if its base quality is $\ge$ 13. The pileup depth cap is 8,000. Two \texttt{pysam.\allowbreak{}pileup()} defaults that the code relies on without stating them, \texttt{ignore\_\allowbreak{}orphans=True} and \texttt{ignore\_\allowbreak{}overlaps=True}, are part of the contract. For PB, a second extractor builds a per-locus tensor of up to 48 admitted reads, ordered by BLAKE2b digest of the read name. Coordinates are 0-based half-open internally and converted once at VCF output. Labels come from the truth VCF; the scoring frame is restricted to Normal and SNP loci.
 
 \setcounter{figure}{0}
-\begin{figure}[!htbp]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{../FIGURES/fig1_v2_architecture.png}
 \caption{Cascade architecture and data flow. Aligned reads, reference and confident regions feed window extraction (native C/htslib backend by default, pysam as reference and fallback). The binomial screen ($\varepsilon = 0.01$, threshold 7.0) calls every locus; the router sends loci with $|\mathrm{LLR_{bin}} - 7.0| \le 5.4119$ to the read-tensor extractor (at most 48 reads) and the Poisson-binomial model (threshold 10.5). Loci outside the band keep the binomial call. The genotype layer (Method C) assigns GT/GQ to the allele calls without changing them. The dashed branch is the benchmark's PB-only control, which evaluates PB at every locus and is paired with the cascade for $\Delta F_1$. The routed range 0.04--0.16\,\% is pooled per experiment (Table 3, Figure 4).}
 \end{figure}
+\FloatBarrier
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{>{\raggedright\arraybackslash}Xl>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{>{\hsize=1.025\hsize\raggedright\arraybackslash}X>{\hsize=0.811\hsize\raggedright\arraybackslash}X>{\hsize=1.164\hsize\raggedright\arraybackslash}X}
 \caption{Frozen parameters.}\\
 \toprule
 \textbf{Parameter} & \textbf{Value} & \textbf{Source} \\
@@ -180,22 +189,22 @@ Router cutoff $\delta$ & 5.411872376933351 & 0.1\,\% validation quantile of $-|\
 $\varepsilon$ (binomial, Method C) & 0.01 & fixed, not fitted \\
 PB read cap & 48 & design \\
 MAPQ / BQ minimum & 20 / 13 & design \\
-\texttt{cascade.\allowbreak{}py} sha256 & \texttt{b0ee9f4b24fe06dc\ldots{}} & unchanged through v16--v20 (recomputed in audit) \\
-\texttt{method\_\allowbreak{}c\_\allowbreak{}regression.\allowbreak{}py} sha256 & \texttt{b5cea1f1660eb472\ldots{}} & same \\
+\texttt{cascade.\allowbreak{}py} sha256 & \texttt{b0ee9f4b\allowbreak{}24fe06dc\ldots{}} & unchanged through v16--v20 (recomputed in audit) \\
+\texttt{method\_\allowbreak{}c\_\allowbreak{}regression.\allowbreak{}py} sha256 & \texttt{b5cea1f1\allowbreak{}660eb472\ldots{}} & same \\
 \bottomrule
 \end{xltabular}
 }
 
 \emph{Provenance.} The 8 Mb of HG002 chr21:32--40 Mb at $\approx$ 15$\times$ (subsample 0.203, seed 20260811) were split into 1-Mb blocks by index mod 4: train 0 and 4 (1.89 Mb, 2,544 SNPs), validation 1 and 5 (1.91 Mb, 2,410 SNPs), test 2, 3, 6 and 7 (3.81 Mb, 5,704 SNPs). The thresholds maximised validation F1. The cutoff is the smallest coverage whose validation F1 lay within 0.0005 of PB-everywhere; every coverage $\ge$ 0.1\,\% tied at 0.9784. The test blocks were scored once after freezing. A learned logistic router lost to this rule.
 
-Two qualifications. The main-branch devlog 11 describes the cutoff as an F-beta optimum on a training split; that contradicts the router-freeze worktree record, which we follow. And the constants are depth-specific: at 30$\times$ the validation optimum in a separate benchmark was 11.5/14.0 (binomial/PB), so the frozen pair runs off-optimum at other depths.
+Two qualifications. One internal project record describes the cutoff as an F-beta optimum on a training split; that contradicts the record kept at the time the router was frozen, which we follow. And the constants are depth-specific: at 30$\times$ the validation optimum in a separate benchmark was 11.5/14.0 (binomial/PB), so the frozen pair runs off-optimum at other depths.
 
 \subsection{Statistical evaluation}
 \emph{Evaluators.} The \textbf{internal evaluator} compares boolean call and truth masks at matching array indices, ignores REF, ALT and genotype, and applies the BED at window granularity. \textbf{hap.py 0.3.15} [11] (xcmp, left-shift and confident-region preprocessing on, window 50; one image digest for all runs) is allele- and genotype-aware and applies the BED per record. The two are not interchangeable and every table states which one it uses. Locus-level metrics are conditional on retained windows (Section 3.3).
 
 \emph{Paired comparison.} $\Delta F_1$ carries a 95\,\% percentile interval from a paired multinomial bootstrap over loci (10,000 resamples; seed 20260812 or the module default) [4,5]. This treats adjacent loci as independent. From v19 a 50-kb block bootstrap [24] (v19: 537 blocks; v20: 1,185 blocks; 2,000 resamples) and an exact McNemar test [23] on discordant loci were added. In v19 the block interval was 2.3$\times$ wider than the locus interval. No interval exists for any hap.py result or for stratum enrichments.
 
-\emph{Decision rule.} Defined in the project devlog (devlog 13 \S{}3.4) and implemented in \texttt{bench\_\allowbreak{}v14\_\allowbreak{}crosschrom.\allowbreak{}classify}; there is no external registry, and whether it preceded the v13 analysis is not established. Per cell with $\ge$ 100 SNPs, and pooled:
+\emph{Decision rule.} Defined in the project's internal development record and implemented in the benchmark classification code; there is no external registry, and whether it preceded the v13 analysis is not established. Per cell with $\ge$ 100 SNPs, and pooled:
 
 \begin{itemize}[leftmargin=1.6em,itemsep=2pt,topsep=3pt]
 \item PRESERVED: interval contains 0 and $|\Delta F_1| < 0.001$.
@@ -236,7 +245,7 @@ The router sent 0.039--0.108\,\% of loci to PB in the seven regional experiments
 {\scriptsize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{llll>{\raggedright\arraybackslash}Xlll>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{l>{\hsize=0.776\hsize\raggedright\arraybackslash}Xll>{\hsize=1.767\hsize\raggedright\arraybackslash}Xl>{\hsize=0.691\hsize\raggedright\arraybackslash}X>{\hsize=0.650\hsize\raggedright\arraybackslash}X>{\hsize=1.116\hsize\raggedright\arraybackslash}X}
 \caption{Cascade versus PB-only (internal evaluator, depths pooled).}\\
 \toprule
 \textbf{Exp.} & \textbf{Sample / region} & \textbf{PB-only F1} & \textbf{Cascade F1} & \textbf{$\Delta$F1 [95\,\% CI]} & \textbf{Routed} & \textbf{Discordant loci} & \textbf{True SNPs lost} & \textbf{Verdict} \\
@@ -266,7 +275,7 @@ v19 & HG004 chr2/3/5 & 0.986405 & 0.987419 & +0.001014 [+0.000787, +0.001254]; b
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{>{\raggedright\arraybackslash}Xllll}
+\begin{xltabular}{\linewidth}{>{\hsize=1.048\hsize\raggedright\arraybackslash}Xlll>{\hsize=0.952\hsize\raggedright\arraybackslash}X}
 \toprule
 \textbf{Evaluation} & \textbf{PB-only F1} & \textbf{Cascade F1} & \textbf{$\Delta$F1} & \textbf{Discordant loci} \\
 \midrule
@@ -279,11 +288,12 @@ HG002 chr20 & 0.962851 & 0.962796 & $-$0.000055 & 10 \\
 }
 
 \setcounter{figure}{1}
-\begin{figure}[!htbp]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{../FIGURES/fig2_v2_accuracy_delta_f1.png}
 \caption{$\Delta$F1 = cascade $-$ PB-only. (a) One row per experiment, depths pooled, internal evaluator; bars are the 95\,\% paired locus-bootstrap interval, the thinner lower bar is the 50-kb block-bootstrap interval where one exists (v19, v20); the v13 lower bound is the printed 0.0000. Filled triangles are hap.py points (HG002 chr21:32--44 Mb $-$0.000087; HG002 chr20 $-$0.000055) with no interval; the open triangle is HG005 ($-$0.000236), record-only. The U-H2 row is the internal evaluator on the same region as the hap.py chr21 point. (b) Individual v14 and v19 cells by region and depth, 95\,\% locus-bootstrap intervals; the DEGRADED v14 chr20:33--34 Mb cell at full depth ($\Delta$F1 $-$0.001262, interval [$-$0.003849, +0.001228]) is shown. Marker and colour give the pooled or cell verdict under the pre-specified rule; grey band = |$\Delta$F1| < 0.001. The figure carries no global verdict: v14 is NEGATIVE at experiment level and v20 is DEGRADED. Source values: Table 3, \texttt{TABLES\_\allowbreak{}FINAL.\allowbreak{}md} Tables 2, S1, S2; hap.py summaries. Cells of v15--v18 are not plotted because their per-cell values are not in the final tables.}
 \end{figure}
+\FloatBarrier
 Two results carry a negative verdict and both are reported at full size.
 
 \textbf{v14.} One cell, HG002 chr20:33--34 Mb at full depth (765 SNPs), gave PB 26 FP and cascade 28 FP: $\Delta$F1 $-$0.001262, interval [$-$0.003849, +0.001228]. The interval contains zero. The cell was DEGRADED through the $|\Delta F_1| \ge 0.001$ clause, which the two extra false positives were enough to trip, and that made the experiment NEGATIVE although the pooled result was IMPROVED. This 1-Mb cell is not the v20 run; it is contained in it.
@@ -298,14 +308,14 @@ HG003 (v18) and HG004 (v19) reproduce the regional pattern (Table 3). HG002--4 a
 HG005 is the only unrelated sample. On chr1:1--4 Mb the hap.py F1 was 0.9519 (cascade) and 0.9521 (PB-only), two discordant loci, both cascade false positives (RO: the post-fix hap.py output and cache are not in the repository; a pre-fix run left under the same names, F1 0.0085, is invalid and was quarantined). One region of one unrelated sample supports neither a generalisation claim nor a population claim, and the HG005 F1 is not comparable with the HG002 values (different region, depth, truth scope; the HG002 region contains the selection span).
 
 \subsection{Chromosome-scale validation}
-\emph{Design.} All of HG002 chr20 (0--64,444,167) at 15$\times$ (\texttt{samtools view -s 42.\allowbreak{}2114} of the 71$\times$ native BAM; 14.87$\times$ mean over scored loci) in 500-kb chunks. The constants were asserted equal to the frozen values at run time. The analysis scripts were hashed before results were opened (\texttt{ANALYSIS\_\allowbreak{}FREEZE.\allowbreak{}json}). Nine chunks in the centromere (26.5--31.0 Mb) contain no whole confident window. The lost first run of this analysis was reproduced exactly by a full re-run (56,266,816 loci, 70,324 SNPs, 69,291/69,297 calls, 2,826 rescuable loci).
+\emph{Design.} All of HG002 chr20 (0--64,444,167) at 15$\times$ (\texttt{samtools view -s 42.\allowbreak{}2114} of the 71$\times$ native BAM; 14.87$\times$ mean over scored loci) in 500-kb chunks. The constants were asserted equal to the frozen values at run time. The analysis scripts were hashed and the hashes recorded before results were opened. Nine chunks in the centromere (26.5--31.0 Mb) contain no whole confident window. The lost first run of this analysis was reproduced exactly by a full re-run (56,266,816 loci, 70,324 SNPs, 69,291/69,297 calls, 2,826 rescuable loci).
 
 \emph{Result.} 56,266,816 loci were extracted and 56,242,693 scored.
 
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{>{\raggedright\arraybackslash}Xrrrrrr}
+\begin{xltabular}{\linewidth}{>{\hsize=1.000\hsize\raggedright\arraybackslash}Xrrrrrr}
 \toprule
 \textbf{Arm (locus evaluator)} & \textbf{TP} & \textbf{FP} & \textbf{FN} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
 \midrule
@@ -321,14 +331,14 @@ The cascade routed 77,248 loci (0.137\,\%). $\Delta$F1 = $-$5.64$\times$10$^{-5}
 
 hap.py, same image and settings, Method C genotypes: PB-only TP 67,700, FP 1,591, FN 3,633, F1 0.96285; cascade TP 67,699, FP 1,598, FN 3,634, F1 0.96280. $\Delta$F1 = $-$5.5$\times$10$^{-5}$. The two evaluators agree in direction and size. hap.py F1 is lower than the locus F1 because its denominator includes window-dropped SNPs and because it scores genotypes.
 
-\emph{Verdict.} DEGRADED under the unchanged rule: clause 1 fires (interval wholly below zero), and the block bootstrap and the exclusion sensitivity agree. The magnitude is 0.0056 F1 percentage points, 18$\times$ smaller than the 0.001 margin, from 10 discordant loci in 56.2 M. The cell is DEGRADED because 70,324 SNPs give it the power to detect an effect that small (interval half-width $\approx$ 5$\times$10$^{-5}$). It is not a large loss, and it is not "no significant degradation". Whether such a difference matters depends on the use, and this paper takes no position.
+\emph{Verdict.} DEGRADED under the unchanged rule: clause 1 fires (interval wholly below zero), and the block bootstrap and the exclusion sensitivity agree. The magnitude is 0.0056 F1 percentage points, 18$\times$ smaller than the 0.001 margin, from 10 discordant loci in 56.2 M. The cell is DEGRADED because 70,324 SNPs give it the power to detect an effect that small (interval half-width $\approx$ 5$\times$10$^{-5}$). It is not a large loss, and it is not ``no significant degradation''. Whether such a difference matters depends on the use, and this paper takes no position.
 
 \emph{Independence.} chr20 is a different chromosome from the selection region. It is the same sample, library and depth. 1 Mb of it was scored in v14. Only 15$\times$ was run. Chromosome-level separation is all this run provides.
 
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{>{\raggedright\arraybackslash}Xrrr}
+\begin{xltabular}{\linewidth}{>{\hsize=1.840\hsize\raggedright\arraybackslash}X>{\hsize=0.650\hsize\raggedright\arraybackslash}X>{\hsize=0.787\hsize\raggedright\arraybackslash}X>{\hsize=0.723\hsize\raggedright\arraybackslash}X}
 \caption{Truth-SNP denominators. Locus-level metrics are conditional on the retained windows; hap.py denominators include window-dropped SNPs.}\\
 \toprule
 \textbf{Quantity} & \textbf{HG002 chr20} & \textbf{HG002 chr21:32--44 Mb} & \textbf{HG005 chr1:1--4 Mb (RO)} \\
@@ -349,18 +359,18 @@ hap.py \texttt{TRUTH.\allowbreak{}TOTAL} (SNP) & 71,333 & 16,898 & 4,090 \\
 \end{xltabular}
 }
 
-The chr20 checks: 71,387 $-$ 1,030 = 70,357; 70,357 $-$ 33 = 70,324. hap.py's 71,333 differs from the BED count by 54 records through allele normalisation, not further decomposed. On chr20, 1,026 windows were partly outside the BED and 4 were chunk-end remainders. Whole-window dropping (\texttt{\_\allowbreak{}build\_\allowbreak{}windows}) is stricter than hap.py's per-record BED test and is not fixed. It depresses AI recall by a region-dependent amount and does not touch the external callers. hap.py recall is bounded above by 0.986 on chr20 and 0.982 on chr21:32--44 Mb by construction. For HG005 the record gives recall 0.9403 as reported, 0.9742 restricted to retained-window truth (3,846/3,948), and at most 0.9751 if every dropped SNP were called; dropped windows are enriched in difficult sequence, so that bound is not an estimate of achievable gain. A statement in an older HG005 report that 142 SNPs were "\textasciitilde{}35\,\%" of truth is an arithmetic error (142/4,090 = 3.5\,\%).
+The chr20 checks: 71,387 $-$ 1,030 = 70,357; 70,357 $-$ 33 = 70,324. hap.py's 71,333 differs from the BED count by 54 records through allele normalisation, not further decomposed. On chr20, 1,026 windows were partly outside the BED and 4 were chunk-end remainders. Whole-window dropping (\texttt{\_\allowbreak{}build\_\allowbreak{}windows}) is stricter than hap.py's per-record BED test and is not fixed. It depresses AI recall by a region-dependent amount and does not touch the external callers. hap.py recall is bounded above by 0.986 on chr20 and 0.982 on chr21:32--44 Mb by construction. For HG005 the record gives recall 0.9403 as reported, 0.9742 restricted to retained-window truth (3,846/3,948), and at most 0.9751 if every dropped SNP were called; dropped windows are enriched in difficult sequence, so that bound is not an estimate of achievable gain. A statement in an older HG005 report that 142 SNPs were ``\textasciitilde{}35\,\%'' of truth is an arithmetic error (142/4,090 = 3.5\,\%).
 
 \subsection{Failure analysis}
 \subsubsection{Taxonomy}
-The claim "the cascade never lost a true SNP that PB found" was made on 24.6 M chr21 loci (v13) and was refuted the next day.
+The claim ``the cascade never lost a true SNP that PB found'' was made on 24.6 M chr21 loci (v13) and was refuted the next day.
 
-\emph{Definition.} A cascade-specific true-SNP loss is a truth SNP that PB-only calls, the cascade does not, and the router did not route. The \textbf{historical consolidated count is 9} (v14: 5 events at 4 distinct loci; v15: 1; v17: 2; v19: 1). Raw \texttt{disagreements.\allowbreak{}json} records exist for 8 of these; the v15 event is in devlog 15 \S{}12.3 without covariates. Whole chr20 adds one, so the \textbf{expanded count is 10}. v13, v16, v18 and HG005 have none. Whether any events coincide across depth cells beyond v14's own is not established.
+\emph{Definition.} A cascade-specific true-SNP loss is a truth SNP that PB-only calls, the cascade does not, and the router did not route. The \textbf{historical consolidated count is 9} (v14: 5 events at 4 distinct loci; v15: 1; v17: 2; v19: 1). Raw \texttt{disagreements.\allowbreak{}json} records exist for 8 of these; the v15 event is recorded in the project's internal development log without covariates. Whole chr20 adds one, so the \textbf{expanded count is 10}. v13, v16, v18 and HG005 have none. Whether any events coincide across depth cells beyond v14's own is not established.
 
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}Xr>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{>{\hsize=0.894\hsize\raggedright\arraybackslash}X>{\hsize=0.854\hsize\raggedright\arraybackslash}X>{\hsize=1.220\hsize\raggedright\arraybackslash}Xr>{\hsize=1.220\hsize\raggedright\arraybackslash}X>{\hsize=0.813\hsize\raggedright\arraybackslash}X}
 \caption{Failure taxonomy (events per validation cell).}\\
 \toprule
 \textbf{Class} & \textbf{Pre-chr20 events} & \textbf{v20} & \textbf{Total} & \textbf{Signature} & \textbf{Status} \\
@@ -381,12 +391,13 @@ PB FP avoided (\texttt{router\_\allowbreak{}avoids\_\allowbreak{}fp}) & 153 (v14
 The three classes do not exhaust the departures. In v14, 41 departures split into 26 \texttt{router\_\allowbreak{}avoids\_\allowbreak{}fp}, 8 \texttt{router\_\allowbreak{}fp}, 5 \texttt{router\_\allowbreak{}fn} and 2 \texttt{router\_\allowbreak{}recovers\_\allowbreak{}fn} (raw \texttt{disagreements.\allowbreak{}json}; the sources name this class but do not restate its definition, and by its name it is the cascade recovering a PB false negative). The 80 v15 departures (cascade right 69, wrong 5, indeterminate 6) are not decomposed by class. The pre-chr20 row for \texttt{router\_\allowbreak{}fp} includes 2 HG005 events (RO).
 
 \setcounter{figure}{2}
-\begin{figure}[!htbp]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{../FIGURES/fig3_v2_failure_analysis.png}
 \caption{Cascade-specific failure analysis. (a) Every disagreement between cascade and PB-only that has a stored record in \texttt{results/\allowbreak{}bench\_\allowbreak{}v14}, \texttt{v16}, \texttt{v17}, \texttt{v18}, \texttt{v19} and \texttt{v20} (\texttt{disagreements.\allowbreak{}json}; \texttt{chr20\_\allowbreak{}disagreements.\allowbreak{}json}), placed by binomial LLR and variant allele fraction against the router band [1.588, 12.412]: 154 PB false positives avoided, 21 cascade-introduced false positives and 9 lost true SNPs (the 8 with records in v14, v17, v19, plus the chr20 event). v20 events carry a black ring. The v15 lost SNP has no stored covariates, and the 2 record-only HG005 false positives are not plotted. (b) Composition of classified departures before chr20 (v14--v19: 15 cascade-introduced FP including 2 record-only HG005 events, 153 avoided PB FP, 9 lost true SNPs including the v15 event; n = 177) and on chr20 (8, 1, 1; n = 10). v14's 2 \texttt{router\_\allowbreak{}recovers\_\allowbreak{}fn} events and the 80 v15 departures are not classified in this panel. The counts in (a) were checked against Table 5 when the figure was generated.}
 \end{figure}
-The lost SNPs sit at VAF $\approx$ 0.12 with high base quality, where a fixed-$\varepsilon$ binomial LLR is near zero and the locus looks confidently negative. The router sees that as "uncertain", not "wrong", but the locus is outside the band by 0.02--6.9 LLR units, so it is never routed. That is an interpretation supported by an $\varepsilon$-shift analysis; it was not tested at read level. The rate is about 1 per 10$^{7}$ loci at VAF < 0.15, BQ $\ge$ 35, depth $\ge$ 30$\times$ in segdup (devlog 15); on chr20 it is 1 per 5.6$\times$10$^{7}$ scored loci. The cascade-introduced false positives have the opposite profile: high VAF, low BQ, low depth. Mapping quality does not separate failures (novoalign emits MAPQ 60--70 at 99.98\,\% of loci in v16). All 13 unfavourable v14 departures lay outside the band (margins 5.5--20.0 against the cutoff 5.412). In a diagnostic sweep on the v14 chr1 segdup cell, cutoffs 5.0--6.0 produced bit-identical calls, and raising the cutoff to 7.0 routed 8.7\,\% of loci while reducing departures only from 19 to 16.
+\FloatBarrier
+The lost SNPs sit at VAF $\approx$ 0.12 with high base quality, where a fixed-$\varepsilon$ binomial LLR is near zero and the locus looks confidently negative. The router sees that as ``uncertain'', not ``wrong'', but the locus is outside the band by 0.02--6.9 LLR units, so it is never routed. That is an interpretation supported by an $\varepsilon$-shift analysis; it was not tested at read level. The rate is about 1 per 10$^{7}$ loci at VAF < 0.15, BQ $\ge$ 35, depth $\ge$ 30$\times$ in segdup (internal project record); on chr20 it is 1 per 5.6$\times$10$^{7}$ scored loci. The cascade-introduced false positives have the opposite profile: high VAF, low BQ, low depth. Mapping quality does not separate failures (novoalign emits MAPQ 60--70 at 99.98\,\% of loci in v16). All 13 unfavourable v14 departures lay outside the band (margins 5.5--20.0 against the cutoff 5.412). In a diagnostic sweep on the v14 chr1 segdup cell, cutoffs 5.0--6.0 produced bit-identical calls, and raising the cutoff to 7.0 routed 8.7\,\% of loci while reducing departures only from 19 to 16.
 
 \subsubsection{What the router captures}
 \emph{Definitions.} PB-rescuable: PB-only correct, binomial-only wrong. Router capture: fraction of PB-rescuable loci that were routed. These are relative to PB's correctness and not to truth recall. Two populations are kept apart: true-SNP rescuable (PB calls a real SNP the binomial misses) and FP-avoidance (the binomial calls a non-variant that PB rejects).
@@ -394,7 +405,7 @@ The lost SNPs sit at VAF $\approx$ 0.12 with high base quality, where a fixed-$\
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{>{\raggedright\arraybackslash}Xrrr>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{>{\hsize=0.869\hsize\raggedright\arraybackslash}Xrrr>{\hsize=1.221\hsize\raggedright\arraybackslash}X>{\hsize=0.910\hsize\raggedright\arraybackslash}X}
 \caption{PB-rescuable loci and router capture.}\\
 \toprule
 \textbf{Dataset} & \textbf{Rescuable} & \textbf{Routed} & \textbf{Capture} & \textbf{True-SNP / FP-avoidance} & \textbf{Routed loci where binomial was already right} \\
@@ -414,11 +425,12 @@ HG005 chr1:1--4 Mb, $\approx$30$\times$ (RO) & 142 & 140 & 0.9859 & 13 (all rout
 }
 
 \setcounter{figure}{3}
-\begin{figure}[!htbp]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{../FIGURES/fig4_v2_router_behavior.png}
 \caption{Router behaviour. (a) Fraction of scored loci routed to PB, pooled per experiment (bars); dots show the individual v14 (12) and v19 (9) depth cells (full, 30$\times$, 15$\times$). The hatched bar is HG005, record-only. Routed fractions: v13 0.1084\,\%, v14 0.0704\,\%, v15 0.0581\,\%, v16 0.0392\,\%, v17 0.0582\,\%, v18 0.0409\,\%, v19 0.0409\,\%, v20 0.137\,\% (77,248 loci), U-H2 0.155\,\%, HG005 0.0666\,\% (record-only). (b) Fraction of PB-rescuable loci that the router sent to PB, for two populations: chr20 true-SNP rescuable 1,327/1,328 and FP-avoidance 1,490/1,498; HG005 (open markers, record-only) 13/13 and 127/129. Capture is relative to PB's correctness, not recall against truth, and the axis starts at 0.975. The mixed HG005 figure of 140/142 is deliberately not plotted. Source values: \texttt{TABLES\_\allowbreak{}FINAL.\allowbreak{}md} Tables 2, S1, S2; \texttt{results/\allowbreak{}bench\_\allowbreak{}v20/\allowbreak{}chr20\_\allowbreak{}results.\allowbreak{}json} (\texttt{rescue\_\allowbreak{}composition}); HG005 from the project record.}
 \end{figure}
+\FloatBarrier
 The HG005 capture of 0.986 mixes two functions and is not a true-SNP statistic; only 13 of its 142 rescuable loci are true-SNP rescues. That composition does not carry over: chr20 has 1,328 true-SNP opportunities (47\,\% of rescuable). On chr20, PB is worse than the binomial at 222 loci, 221 of them routed, so the cascade inherits PB's errors there. Roughly nine in ten routed loci did not need PB. Whether the fixed cutoff is well calibrated outside the tested depths and samples is not established; the routed fraction rises as depth falls ($\approx$ 0.003--0.004\,\% at native depth, 0.013--0.015\,\% at 30$\times$, 0.10--0.16\,\% at 15$\times$).
 
 \subsubsection{A rejected repair}
@@ -430,7 +442,7 @@ hap.py first scored the PB-only calls on chr21:32--44 Mb at F1 0.6238 (P 0.6394,
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{ll>{\raggedright\arraybackslash}Xl}
+\begin{xltabular}{\linewidth}{>{\hsize=1.006\hsize\raggedright\arraybackslash}Xl>{\hsize=0.997\hsize\raggedright\arraybackslash}X>{\hsize=0.997\hsize\raggedright\arraybackslash}X}
 \caption{Genotype methods, hold-out chr21:32--44 Mb (16,124 cascade calls; identical allele sets, symmetric difference 0).}\\
 \toprule
 \textbf{Method} & \textbf{GT accuracy} & \textbf{hap.py P / R / F1} & \textbf{het$\to$hom / hom$\to$het errors} \\
@@ -456,7 +468,7 @@ On the final unified call sets (16,094 PB-only; 16,097 cascade sites) the same l
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{>{\hsize=0.650\hsize\raggedright\arraybackslash}X>{\hsize=1.062\hsize\raggedright\arraybackslash}X>{\hsize=0.802\hsize\raggedright\arraybackslash}X>{\hsize=1.243\hsize\raggedright\arraybackslash}X>{\hsize=1.243\hsize\raggedright\arraybackslash}X}
 \caption{Speedups by level. Only the first three levels are results.}\\
 \toprule
 \textbf{Level} & \textbf{What} & \textbf{Data} & \textbf{Result} & \textbf{Conditions} \\
@@ -486,34 +498,35 @@ Projection & caller-stage speedup & v13--v19 & 171--396$\times$ & per-locus thro
 }
 
 \setcounter{figure}{4}
-\begin{figure}[!htbp]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{../FIGURES/fig5_v2_performance.png}
 \caption{Where the time goes. (a) Speedups against the pure-Python or pysam reference on a log axis, grouped by level: function level (\texttt{load\_\allowbreak{}counts}, \texttt{load\_\allowbreak{}reads}), pipeline level (native serial, native with four processes against pure-Python serial, native one against four workers) and the one measured BAM-to-calls comparison (cascade against PB-only, HG004 0.5 Mb, n = 3). Hatched = historical counts-only configuration, record-only. Projected caller-stage speedups (171--396$\times$) and whole-genome estimates are projections and are not plotted. (b) Share of summed stage time: pure-Python and counts-only native pipelines on HG005 3 Mb (record-only), native one worker on HG005 3 Mb (287 of 307 stage-seconds in PB), and native six workers on whole chr20 (15,036 of 15,674 s; contention-inflated; the binomial stage was not timed separately). Values are in Table 8.}
 \end{figure}
+\FloatBarrier
 Ratios are medians of unrounded times; recomputing from the rounded seconds printed here can differ in the last digit.
 
 \textbf{Bottleneck.} In the counts-only configuration (RO), \texttt{load\_\allowbreak{}counts} fell from 344 to 15 s and the pipeline gained 1.22$\times$; Amdahl's bound for removing the 24.7\,\% counts share was 1.33$\times$ [3]. Removing the counts stage moved the bottleneck to \texttt{load\_\allowbreak{}reads} and PB (98.7\,\% of that run's wall time). Native \texttt{load\_\allowbreak{}reads} moved it again: the 26.9--35.1$\times$ function-level factors became 2.72$\times$ at pipeline level against a ceiling of 3.06$\times$ for eliminating \texttt{load\_\allowbreak{}reads} entirely ($p = 183/272$; observed 89\,\% of ceiling). PB is now 287/309 s = 93\,\% of the HG005 3-Mb pipeline. On chr20, PB was 15,036 s of 15,674 s (95.9\,\%; the sum of the three timed stages, summed over workers; \texttt{load\_\allowbreak{}counts} 194 s, \texttt{load\_\allowbreak{}reads} 444 s; the binomial stage was not timed separately), with 6 workers on 4 physical cores, which inflates PB time. Removing PB alone would bound the speedup near 14$\times$. The older 3-Mb times were not re-measured under current machine load, so the same-day comparison is the 800-kb matrix.
 
-\textbf{Routing is not a CPU saving here.} The benchmark extractor computes PB at every locus, because the PB-only control needs it. The only measured BAM-to-calls gain from restricting PB to routed loci is the 1.65$\times$ above. Router-gated extraction (reading reads only for routed loci) has not been implemented or timed. Two statements from the earlier native-backend report are withdrawn: that 65.1$\times$ was end-to-end, and that the pipeline was "17--80$\times$ faster" than GATK, DeepVariant and Clair3. Both used frozen PB masks and excluded \texttt{load\_\allowbreak{}reads} and PB. htslib BGZF threading gave no speedup (\texttt{load\_\allowbreak{}counts}, 300 kb, 1/2/4/8 threads: 15.25/16.23/15.74/16.00 s, n = 3), consistent with decompression being $\approx$ 0.06\,\% of runtime.
+\textbf{Routing is not a CPU saving here.} The benchmark extractor computes PB at every locus, because the PB-only control needs it. The only measured BAM-to-calls gain from restricting PB to routed loci is the 1.65$\times$ above. Router-gated extraction (reading reads only for routed loci) has not been implemented or timed. Two statements from the earlier native-backend report are withdrawn: that 65.1$\times$ was end-to-end, and that the pipeline was ``17--80$\times$ faster'' than GATK, DeepVariant and Clair3. Both used frozen PB masks and excluded \texttt{load\_\allowbreak{}reads} and PB. htslib BGZF threading gave no speedup (\texttt{load\_\allowbreak{}counts}, 300 kb, 1/2/4/8 threads: 15.25/16.23/15.74/16.00 s, n = 3), consistent with decompression being $\approx$ 0.06\,\% of runtime.
 
 \textbf{Equivalence gates and their failures.}
 
 \begin{itemize}[leftmargin=1.6em,itemsep=2pt,topsep=3pt]
-\item \emph{Counts backend, first attempt.} Differed from pysam in up to 282,335 of 1,684,800 cells on a 200-kb check; the cause was pysam's implicit \texttt{ignore\_\allowbreak{}orphans} and \texttt{ignore\_\allowbreak{}overlaps}. After the fix, the record reports 0 of 109,813,120 cells on 12 Mb of HG002 and 0/0/0 through the production entry on 187,200 HG002 and 75,072 HG005 loci (RO: those reports were lost with \texttt{/\allowbreak{}tmp}). Recorded in the repository (\texttt{experimental/\allowbreak{}chr20\_\allowbreak{}validation/\allowbreak{}gate/\allowbreak{}}, \texttt{all\_\allowbreak{}bytewise\_\allowbreak{}equal: true}): two full chr20 chunks (chr20:40.0--40.5 and 46.0--46.5 Mb; 980,928 loci) recomputed with all native code disabled, all nine arrays byte-identical to the production cache. \textbf{Scope:} native/reference equivalence on chr20 was established on these two chunks only (980,928 of 56,266,816 loci, 1.7\,\%). It was not established for every chr20 locus, and the gate was not extended. PB-only and cascade share the same extraction, so the paired $\Delta$F1 is less exposed to an extraction difference than absolute or hap.py F1, but that argument does not cover a difference that changes which loci are routed.
-\item \emph{Counts backend, known limitation.} The native pass covers the whole span at once; the reference makes one pass per 64-bp window. On synthetic BAMs with unique pair names and consistent mate fields, native equals pysam (20 of 20). On adversarial synthetic BAMs (a 12-name pool reused across hundreds of reads, mate fields matching no real mate) the two differ in thousands of cells per BAM (20 of 20 adversarial cases fail as expected in \texttt{test\_\allowbreak{}counts\_\allowbreak{}backend\_\allowbreak{}fuzz.\allowbreak{}py}; in \texttt{test\_\allowbreak{}native\_\allowbreak{}pileup\_\allowbreak{}equivalence.\allowbreak{}py} 1 of 6 repeated-name cases diverged and 5 passed, so divergence is not universal on such inputs). No divergence was seen on any validated real region. "Bit-exact" is not claimed for this backend. The code was not changed, because the frozen chr20 run used it; a per-window pass, as in the read-tensor backend, would remove the difference.
+\item \emph{Counts backend, first attempt.} Differed from pysam in up to 282,335 of 1,684,800 cells on a 200-kb check; the cause was pysam's implicit \texttt{ignore\_\allowbreak{}orphans} and \texttt{ignore\_\allowbreak{}overlaps}. After the fix, the record reports 0 of 109,813,120 cells on 12 Mb of HG002 and 0/0/0 through the production entry on 187,200 HG002 and 75,072 HG005 loci (RO: those reports were lost when a working copy of the repository was wiped). Recorded in the repository's equivalence-gate output: two full chr20 chunks (chr20:40.0--40.5 and 46.0--46.5 Mb; 980,928 loci) recomputed with all native code disabled, all nine arrays byte-identical to the production cache. \textbf{Scope:} native/reference equivalence on chr20 was established on these two chunks only (980,928 of 56,266,816 loci, 1.7\,\%). It was not established for every chr20 locus, and the gate was not extended. PB-only and cascade share the same extraction, so the paired $\Delta$F1 is less exposed to an extraction difference than absolute or hap.py F1, but that argument does not cover a difference that changes which loci are routed.
+\item \emph{Counts backend, known limitation.} The native pass covers the whole span at once; the reference makes one pass per 64-bp window. On synthetic BAMs with unique pair names and consistent mate fields, native equals pysam (20 of 20). On adversarial synthetic BAMs (a 12-name pool reused across hundreds of reads, mate fields matching no real mate) the two differ in thousands of cells per BAM (20 of 20 adversarial cases fail as expected in the fuzz-test suite; in the separate repeated-name regression suite 1 of 6 cases diverged and 5 passed, so divergence is not universal on such inputs). No divergence was seen on any validated real region. ``Bit-exact'' is not claimed for this backend. The code was not changed, because the frozen chr20 run used it; a per-window pass, as in the read-tensor backend, would remove the difference.
 \item \emph{\texttt{load\_\allowbreak{}reads}, first design.} One pass over a run of windows differed in 30 cells on a randomised BAM with repeated read names, because htslib's mate-overlap adjustment pairs reads by name among those alive in the pileup and a longer pass pairs them differently. The design was replaced by one fresh pass per 64-nt window. The final design showed 0 mismatches in more than 6.7$\times$10$^{8}$ tensor cells over five real chunks, 8 fuzz BAMs, $\approx$ 574 k bisect-lookup queries against the original scan, and the two chr20 chunks above. A stronger whole-region gate from the first session was lost and not re-run.
-\item \emph{Tests.} Original tests (a 12-category suite, 11 coordinate tests, "102/102") were lost; three replacements were written from scratch and are not the originals. Full suite as recorded in the freeze report (2026-09-20; not re-run for this draft): 490 passed, 0 failed, 1 skipped, 21 expected failures (the adversarial cases), 5 unexpected passes in the same category, 2 collection errors (\texttt{test\_\allowbreak{}bimamba.\allowbreak{}py}, \texttt{test\_\allowbreak{}providers.\allowbreak{}py}, missing \texttt{bimamba\_\allowbreak{}variant\_\allowbreak{}caller}, pre-existing).
+\item \emph{Tests.} Original tests (a 12-category suite, 11 coordinate tests, ``102/102'') were lost; three replacements were written from scratch and are not the originals. Full suite as recorded in the freeze report (2026-09-20; not re-run for this draft): 490 passed, 0 failed, 1 skipped, 21 expected failures (the adversarial cases), 5 unexpected passes in the same category, 2 collection errors (two unrelated test modules failing to collect because of a pre-existing missing symbol).
 \end{itemize}
 A whole-genome time has not been measured; any genome-scale figure in the project documents is a linear extrapolation.
 
 \subsection{External caller comparison}
-On HG002 chr21:32--44 Mb at 15$\times$ (\texttt{hg002\_\allowbreak{}chr21\_\allowbreak{}32\_\allowbreak{}44M\_\allowbreak{}15x.\allowbreak{}bam}, 670,928 chr21 reads, novoalign), all callers used the same truth, BED, reference and hap.py invocation: DeepVariant 1.6.1 [17] (CPU, WGS model), Clair3 v1.0.10 [18] (\texttt{ilmn} model, full pipeline; the \texttt{:latest} tag silently ran pileup-only and was rejected) and GATK 4.5.0.0 HaplotypeCaller [19,20] (no BQSR: no known-sites resource for a subset). Strelka2 [21] was blocked (its bundled htslib asserts in \texttt{bgzf\_\allowbreak{}hopen} against this host's zlib) and FreeBayes [22] was not run.
+On HG002 chr21:32--44 Mb at 15$\times$ (670,928 chr21 reads, novoalign), all callers used the same truth, BED, reference and hap.py invocation: DeepVariant 1.6.1 [17] (CPU, WGS model), Clair3 v1.0.10 [18] (\texttt{ilmn} model, full pipeline; the \texttt{:latest} tag silently ran pileup-only and was rejected) and GATK 4.5.0.0 HaplotypeCaller [19,20] (no BQSR: no known-sites resource for a subset). Strelka2 [21] was blocked (its bundled htslib asserts in \texttt{bgzf\_\allowbreak{}hopen} against this host's zlib) and FreeBayes [22] was not run.
 
 {\scriptsize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{lllllll>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{>{\hsize=0.933\hsize\raggedright\arraybackslash}Xllllll>{\hsize=1.067\hsize\raggedright\arraybackslash}X}
 \caption{hap.py 0.3.15, SNP, PASS, \texttt{TRUTH.\allowbreak{}TOTAL} = 16,898 for every row.}\\
 \toprule
 \textbf{Caller} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{TP} & \textbf{FP} & \textbf{FN} & \textbf{Calling-stage runtime} \\
@@ -534,17 +547,18 @@ GATK HC 4.5.0.0 (no BQSR) & 0.9877 & 0.9493 & 0.9682 & 16,042 & 199 & 856 & 287 
 }
 
 \setcounter{figure}{5}
-\begin{figure}[!htbp]
+\begin{figure}[tbp]
 \centering
 \includegraphics[width=\linewidth]{../FIGURES/fig6_v2_external_callers.png}
 \caption{External caller comparison, hap.py 0.3.15, HG002 chr21:32--44 Mb at 15$\times$, SNP, PASS, \texttt{TRUTH.\allowbreak{}TOTAL} = 16,898 for every row. (a) Precision against recall with F1 isolines; the two AI markers overlap (PB-only F1 0.9547, cascade 0.9546). The dotted line marks the AI recall ceiling of 0.982 imposed by the window filter (Section 3.3). (b) False positives and false negatives per caller (Table 9). The region contains the chr21:32--40 Mb span used to select the AI constants, GATK ran without BQSR, all results are single runs, and no runtime is compared. The figure implies no ranking.}
 \end{figure}
+\FloatBarrier
 AI precision and recall were recomputed from the raw \texttt{happy.\allowbreak{}summary.\allowbreak{}csv} files. A pair of $\approx$ 0.989/0.923 that circulated in briefings for these arms appears in no hap.py output; $\approx$ 0.989/0.959 is the internal evaluator's result on a 16,597-locus denominator and is not comparable.
 
 Against DeepVariant the AI arms have higher precision (0.9785 vs 0.9340) and lower recall (0.9319 vs 0.9654); GATK is higher than the AI arms on precision, recall and F1. The AI recall is also depressed by the window filter (bounded above by 0.982; Section 3.3), which does not touch the external callers. This is one region, one sample, one depth, SNP-only, novoalign alignments, GATK without BQSR, single runs with unnormalised thread counts, and \textbf{a region that contains the 8-Mb span from which the AI constants were selected.} The comparison shows the shape of each caller's errors. It does not rank them.
 
 \section{Discussion}
-The cascade tracked PB-only closely in every experiment: pooled $\Delta$F1 between $-$5.6$\times$10$^{-5}$ and +2.7$\times$10$^{-3}$ on the internal evaluator, $-$2.4$\times$10$^{-4}$ to $-$5.5$\times$10$^{-5}$ on hap.py. The defensible summary is "preserved to within small margins in the evaluated GIAB/GRCh38 SNP-only setting". It is not "preserved". One 1-Mb cell and one whole chromosome were DEGRADED under the rule the project wrote for itself, and the larger of the two carries the more informative number: ten discordant loci in 56 M, 18$\times$ inside the margin.
+The cascade tracked PB-only closely in every experiment: pooled $\Delta$F1 between $-$5.6$\times$10$^{-5}$ and +2.7$\times$10$^{-3}$ on the internal evaluator, $-$2.4$\times$10$^{-4}$ to $-$5.5$\times$10$^{-5}$ on hap.py. The defensible summary is ``preserved to within small margins in the evaluated GIAB/GRCh38 SNP-only setting''. It is not ``preserved''. One 1-Mb cell and one whole chromosome were DEGRADED under the rule the project wrote for itself, and the larger of the two carries the more informative number: ten discordant loci in 56 M, 18$\times$ inside the margin.
 
 The sign of $\Delta$F1 is set by composition. Where PB emits false positives from paralogous reads, the cascade gains, and those gains produce the five IMPROVED verdicts. Where that class is nearly absent (chr20: 1 event), the cascade has little to gain and its 8 low-quality false positives and one lost SNP are not offset. So the IMPROVED verdicts are evidence about PB, not about the cascade, and the chr20 result is the cleaner test of the accuracy-not-lost claim. It failed by a very small amount.
 
@@ -562,7 +576,7 @@ The main transferable finding is methodological. An evaluator artefact (F1 0.624
 {\footnotesize
 \setlength{\tabcolsep}{3.2pt}
 \rowcolors{2}{rowgrey}{white}
-\begin{xltabular}{\linewidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\begin{xltabular}{\linewidth}{>{\hsize=1.000\hsize\raggedright\arraybackslash}X>{\hsize=1.000\hsize\raggedright\arraybackslash}X}
 \caption{Limitations and what they restrict.}\\
 \toprule
 \textbf{Limitation} & \textbf{Restricts} \\
@@ -585,7 +599,7 @@ v20 DEGRADED verdict rests on 10 discordant loci; taxonomy classes have single-d
 True-SNP losses counted per validation cell; distinct-locus count not established & loss-rate statements \\
 Window-level BED filtering (M-1) unresolved: 1.44\,\% (chr20), 1.8\,\% (chr21), 3.5\,\% (HG005, RO) of truth SNPs cannot be called & AI recall is depressed; locus F1 is conditional on retained windows \\
 Native counts backend equal to pysam on validated real regions and realistic synthetic BAMs, not on adversarial repeated-name BAMs; on chr20 the bytewise gate covers 2 chunks (1.7\,\% of loci) & any use on data with repeated read names or damaged mate fields; the chr20 extraction is validated on the tested chunks, not universally \\
-Original tests lost; replacements are reconstructions; \texttt{test\_\allowbreak{}providers.\allowbreak{}py}, \texttt{test\_\allowbreak{}bimamba.\allowbreak{}py} do not collect & test-based support for the native backends \\
+Original tests lost; replacements are reconstructions; two unrelated test modules do not collect & test-based support for the native backends \\
 One machine with a desktop load; mostly single runs or n $\le$ 3; chr20 PB time inflated by 6 workers on 4 cores; function-level $\ne$ pipeline speedups & all timing claims \\
 External comparison: one region, sample and depth; GATK without BQSR; Strelka2 not run; FreeBayes not run; no matched runtime for the AI pipeline & any ranking \\
 Router-gated extraction not implemented; PB read cap of 48 unresolved & compute-saving claims \\
@@ -600,9 +614,9 @@ Within the evaluated setting (GIAB HG002--5, Illumina short reads, GRCh38, SNP-o
 
 \section*{Data and Code Availability}
 \addcontentsline{toc}{section}{Data and Code Availability}
-Code, devlogs and results are in the repository \texttt{AI\_\allowbreak{}DNA\_\allowbreak{}ANALYZER} (\url{https://github.com/Kramkost/AI_DNA_ANALYZER}). The repository is currently private \placeholder{[AUTHOR TO CONFIRM: make it public before submission, and archive a release with a DOI]}. The state described here is local commit \texttt{0ee6d16} on \texttt{main}, which tracks the native backends (\texttt{native/\allowbreak{}}), the \texttt{load\_\allowbreak{}reads} optimisation, the chr20 validation (\texttt{experimental/\allowbreak{}chr20\_\allowbreak{}validation/\allowbreak{}}, \texttt{results/\allowbreak{}bench\_\allowbreak{}v20/\allowbreak{}}, \texttt{bench\_\allowbreak{}v20\_\allowbreak{}chr20.\allowbreak{}py}), the tests and \texttt{research/\allowbreak{}}. That commit is not on the remote: local history was rewritten after the analyses and has diverged from \texttt{origin/\allowbreak{}main}, which was at \texttt{48dbedf} when checked, so it has to be reconciled before pushing. Because of the rewrite, commit ids recorded in the freeze manifests (for example base commit \texttt{a3d5761}) do not resolve in the current history; the SHA-256 hashes of the frozen files (\texttt{cascade.\allowbreak{}py} \texttt{b0ee9f4b24fe06dc\ldots{}}, unchanged) are the stable identifiers. Input data are public GIAB files; paths and SHA-256 checksums are in \texttt{experimental/\allowbreak{}stress\_\allowbreak{}test/\allowbreak{}HG005\_\allowbreak{}MANIFEST.\allowbreak{}json}, \texttt{research/\allowbreak{}REPRODUCIBILITY.\allowbreak{}md} and \texttt{experimental/\allowbreak{}chr20\_\allowbreak{}validation/\allowbreak{}FROZEN\_\allowbreak{}MANIFEST.\allowbreak{}json}. Regional BAMs are not redistributed. The HG005 post-fix raw artefacts and the original native-validation reports were lost with a wiped \texttt{/\allowbreak{}tmp} worktree on 2026-09-20 and are not independently reproducible. The chr20 run reproduced its own lost first run exactly. In \texttt{CLAIM\_\allowbreak{}EVIDENCE\_\allowbreak{}MAP.\allowbreak{}csv}, five HG005 rows earlier labelled \texttt{VERIFIED\_\allowbreak{}RAW} (rows 43, 45, 46, 48, 63) are now \texttt{RECORD\_\allowbreak{}ONLY\_\allowbreak{}RAW\_\allowbreak{}UNAVAILABLE}; their values are unchanged.
+Code, devlogs and results are in the repository \texttt{AI\_\allowbreak{}DNA\_\allowbreak{}ANALYZER} (\url{https://github.com/Kramkost/AI_DNA_ANALYZER}). The repository is currently private \placeholder{[AUTHOR} \placeholder{TO} \placeholder{CONFIRM:} \placeholder{make} \placeholder{it} \placeholder{public} \placeholder{before} \placeholder{submission,} \placeholder{and} \placeholder{archive} \placeholder{a} \placeholder{release} \placeholder{with} \placeholder{a} \placeholder{DOI]}. The state described here is local commit \texttt{0ee6d16} on \texttt{main}, which tracks the native backends (\texttt{native/\allowbreak{}}), the \texttt{load\_\allowbreak{}reads} optimisation, the chr20 validation (\texttt{experimental/\allowbreak{}chr20\_\allowbreak{}validation/\allowbreak{}}, \texttt{results/\allowbreak{}bench\_\allowbreak{}v20/\allowbreak{}}, \texttt{bench\_\allowbreak{}v20\_\allowbreak{}chr20.\allowbreak{}py}), the tests and \texttt{research/\allowbreak{}}. Local history has since been rewritten, so some commit ids recorded in the project's freeze manifests no longer resolve against the current history; the SHA-256 hashes of the frozen files (\texttt{cascade.\allowbreak{}py} \texttt{b0ee9f4b\allowbreak{}24fe06dc\ldots{}}, unchanged) are therefore the stable identifiers, not the commit ids. Input data are public GIAB files; paths and SHA-256 checksums are in \texttt{experimental/\allowbreak{}stress\_\allowbreak{}test/\allowbreak{}HG005\_\allowbreak{}MANIFEST.\allowbreak{}json}, \texttt{research/\allowbreak{}REPRODUCIBILITY.\allowbreak{}md} and \texttt{experimental/\allowbreak{}chr20\_\allowbreak{}validation/\allowbreak{}FROZEN\_\allowbreak{}MANIFEST.\allowbreak{}json}. Regional BAMs are not redistributed. The HG005 post-fix raw artefacts and the original native-validation reports were lost when a working copy of the repository was wiped on 2026-09-20 and are not independently reproducible. The chr20 run reproduced its own lost first run exactly. Five HG005 evidence-map rows that were originally validated directly against raw hap.py output can no longer be checked against that raw output, because it was lost in the same incident; their recorded values are unchanged, and they are now treated as record-only rather than independently reproducible.
 
-Environment: Python 3.14.3, pysam 0.24.0 (htslib 1.23.1), numpy 2.4.4, scipy 1.17.1, samtools/bcftools 1.23.1 [13], gcc 15.3.1, Docker 29.4.1, Fedora 43, Intel i7-6700, 31 GiB. No lockfile exists. Image digests: hap.py 0.3.15 \texttt{sha256:d63b963a6cb01b4830393b22369e7b91d298e4156dde353739e74e4cfa4f96d0}; DeepVariant 1.6.1 \texttt{sha256:ccab95548e6c3ec28c75232987f31209ff1392027d67732435ce1ba3d0b55c68}; Clair3 v1.0.10 \texttt{sha256:57cf5d20f2ee39c1b91493ad1fb5c1b9fa838691efce818c3139caa5e6c6b974}. The extension needs \texttt{native/\allowbreak{}build.\allowbreak{}sh} (Python headers and pysam's bundled htslib headers).
+Environment: Python 3.14.3, pysam 0.24.0 (htslib 1.23.1), numpy 2.4.4, scipy 1.17.1, samtools/bcftools 1.23.1 [13], gcc 15.3.1, Docker 29.4.1, Fedora 43, Intel i7-6700, 31 GiB. No lockfile exists. Image digests: hap.py 0.3.15 \texttt{sha256:d63b963a\allowbreak{}6cb01b48\allowbreak{}30393b22\allowbreak{}369e7b91\allowbreak{}d298e415\allowbreak{}6dde3537\allowbreak{}39e74e4c\allowbreak{}fa4f96d0}; DeepVariant 1.6.1 \texttt{sha256:ccab9554\allowbreak{}8e6c3ec2\allowbreak{}8c752329\allowbreak{}87f31209\allowbreak{}ff139202\allowbreak{}7d677324\allowbreak{}35ce1ba3\allowbreak{}d0b55c68}; Clair3 v1.0.10 \texttt{sha256:57cf5d20\allowbreak{}f2ee39c1\allowbreak{}b91493ad\allowbreak{}1fb5c1b9\allowbreak{}fa838691\allowbreak{}efce818c\allowbreak{}3139caa5\allowbreak{}e6c6b974}. The extension needs \texttt{native/\allowbreak{}build.\allowbreak{}sh} (Python headers and pysam's bundled htslib headers).
 
 \section*{Author Contributions}
 \addcontentsline{toc}{section}{Author Contributions}

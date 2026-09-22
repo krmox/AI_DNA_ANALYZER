@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "AI_DNA_ANALYZER: adaptive statistical SNP variant calling with confidence-aware compute routing"
+type: software
+authors:
+  - given-names: Mark
+    family-names: Kostogryzov
+repository-code: "https://github.com/Kramkost/AI_DNA_ANALYZER"
+license: GPL-3.0-only
+keywords:
+  - bioinformatics
+  - genomics
+  - variant calling
+  - SNP
+  - Poisson-binomial
+  - confidence routing
+  - Genome in a Bottle
+  - hap.py
+  - htslib
+  - statistical genetics
+abstract: >-
+  A cheap binomial screen calls every locus; a fixed router sends only the
+  loci near its decision boundary to a slower per-read Poisson-binomial
+  model. The project measures, with frozen thresholds and a pre-registered
+  verdict rule, whether that saves compute without changing the SNP calls
+  it makes, validated against GIAB benchmark samples.

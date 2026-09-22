@@ -68,7 +68,9 @@ def esc_text_keep_math(t):
 
 
 def allow_breaks(s):
-    return s.replace("/", "/\\allowbreak{}").replace("\\_", "\\_\\allowbreak{}").replace(".", ".\\allowbreak{}")
+    s = s.replace("/", "/\\allowbreak{}").replace("\\_", "\\_\\allowbreak{}").replace(".", ".\\allowbreak{}")
+    # long hex runs (SHA-256 digests) have no break points and overrun the margin
+    return re.sub(r"[0-9a-fA-F]{16,}", lambda m: "\\allowbreak{}".join(m.group(0)[i:i + 8] for i in range(0, len(m.group(0)), 8)), s)
 
 
 def inline(t):
@@ -82,7 +84,8 @@ def inline(t):
     def code(m):
         body = m.group(1)
         if PH.match(body):
-            return keep("\\placeholder{" + esc_text_keep_math(body) + "}")
+            # one box per word so a long placeholder can wrap instead of overrunning the margin
+            return keep(" ".join("\\placeholder{" + esc_text_keep_math(w) + "}" for w in body.split(" ")))
         return keep("\\texttt{" + allow_breaks(esc_text_keep_math(body)) + "}")
 
     t = re.sub(r"`([^`]+)`", code, t)
@@ -94,6 +97,11 @@ def inline(t):
         return keep("\\url{" + u + "}") + tail
     t = re.sub(r"https?://[^\s`]+", url, t)
     t = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", t)
+    # straight ASCII quotes render as vertical ticks in print; pair them into typographic quotes
+    # (code/math/urls are already protected above, so this only touches prose)
+    if t.count('"') % 2 == 0:
+        parts = t.split('"')
+        t = parts[0] + "".join(("``" if i % 2 else "''") + p for i, p in enumerate(parts[1:], 1))
     t = esc_text_keep_math(t)
     t = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", t)
     t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"\\emph{\1}", t)
@@ -128,18 +136,41 @@ def table(lines, caption):
     head, align, body = rows[0], rows[1], rows[2:]
     n = len(head)
     body = [r + [""] * (n - len(r)) if len(r) < n else r[:n] for r in body]
+    # Columns are either fixed-width (short content) or flexible X columns. X columns get widths
+    # proportional to their content length (tabularx \hsize weights that sum to the number of X columns),
+    # so a wide cell such as "+0.000103 [+0.000025, +0.000180]" is not squeezed by equal-share columns.
+    lens = [max([len(head[j])] + [len(r[j]) for r in body]) for j in range(n)]
+    flex = [j for j in range(n) if lens[j] > 12]
+    if not flex:
+        flex = [max(range(n), key=lambda j: lens[j])]
+    def longest_word(j):
+        return max(len(w) for c in [head[j]] + [r[j] for r in body] for w in (c.split() or [""]))
+    wt = {j: min(max(lens[j], 12, 2.2 * longest_word(j)), 60) for j in flex}
+    scale = len(flex) / float(sum(wt.values()))
+    fw = {j: wt[j] * scale for j in flex}
+    # A column scaled well below the group average can end up narrower than its own header
+    # word (e.g. "Evaluator"), which then overflows/clips instead of wrapping. Floor every
+    # flex column at 65% of the average share and take the difference from the columns that
+    # have room to spare, proportional to their surplus over that floor.
+    min_share = 0.65
+    deficit = sum(max(0.0, min_share - fw[j]) for j in flex)
+    if deficit > 0:
+        donors = [j for j in flex if fw[j] > min_share]
+        surplus_total = sum(fw[j] - min_share for j in donors)
+        for j in flex:
+            if fw[j] < min_share:
+                fw[j] = min_share
+            elif surplus_total > 0:
+                fw[j] -= deficit * (fw[j] - min_share) / surplus_total
     spec = []
     for j in range(n):
-        longest = max([len(head[j])] + [len(r[j]) for r in body])
         a = align[j].strip()
-        if longest > 26:
-            spec.append(">{\\raggedright\\arraybackslash}X")
+        if j in flex:
+            spec.append(">{\\hsize=%.3f\\hsize\\raggedright\\arraybackslash}X" % fw[j])
         elif a.endswith(":") and not a.startswith(":"):
             spec.append("r")
         else:
             spec.append("l")
-    if "X" not in "".join(spec):
-        spec[max(range(n), key=lambda j: max(len(r[j]) for r in body + [head]))] = ">{\\raggedright\\arraybackslash}X"
     size = "\\scriptsize" if n >= 8 else "\\footnotesize"
     out = ["{" + size, "\\setlength{\\tabcolsep}{3.2pt}", "\\rowcolors{2}{rowgrey}{white}",
            "\\begin{xltabular}{\\linewidth}{" + "".join(spec) + "}"]
@@ -236,7 +267,7 @@ def convert():
             no = int(mf.group(1)); assert no > last_fig_no
             last_fig_no = no
             out.append("\\setcounter{figure}{%d}" % (no - 1))
-            out.append("\\begin{figure}[!htbp]\n\\centering\n\\includegraphics[width=\\linewidth]{%s}\n\\caption{%s}\n\\end{figure}"
+            out.append("\\begin{figure}[tbp]\n\\centering\n\\includegraphics[width=\\linewidth]{%s}\n\\caption{%s}\n\\end{figure}\n\\FloatBarrier"
                        % (pending_fig, inline(mf.group(2))))
             pending_fig = None; i += 1; continue
         if s.startswith("**Keywords:**"):
