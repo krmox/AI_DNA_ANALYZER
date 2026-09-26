@@ -1,0 +1,7 @@
+model,split,TP,FN_total,FN_not_a_candidate_k_lt_3_or_out_of_frame,FN_candidate_not_called,FN_called_but_wrong_GT,FP_in_candidates
+V2_CONTROL,dev,36588,715,628,57,30,1326
+V2_CONTROL,holdout,33424,606,558,16,32,1322
+A+C,dev,36576,727,628,83,16,49
+A+C,holdout,33410,620,558,38,24,121
+A+B+C+D,dev,36588,715,628,69,18,62
+A+B+C+D,holdout,33419,611,558,29,24,138

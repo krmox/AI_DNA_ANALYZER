@@ -62,6 +62,14 @@ protocol and timestamp.
 
 ## Exact commands (HG005 post-fix)
 
+**Steps 2 and 3 are not currently runnable.** `run_hg005_pipeline_postfix.py` and
+`run_happy_postfix_regionscoped.sh` were lost in the same 2026-09-20 `/tmp`-worktree wipe that took the
+raw post-fix HG005 artefacts (see `FINAL_SCIENTIFIC_AUDIT.md` Finding 5, and
+`LIMITATIONS_AND_OPEN_QUESTIONS.md` item A.13). Step 1 (extraction) and step 4 (regression tests) still
+run against the current codebase. The HG005 numbers this pipeline once produced are preserved as a
+record in `research/PAPER_MANUSCRIPT_V2.md` and flagged `RECORD_ONLY_RAW_UNAVAILABLE` in
+`CLAIM_EVIDENCE_MAP.csv`; they cannot be independently regenerated from this repository.
+
 ```bash
 # 1. Extraction (fixed extractor)
 python3 extract_bench_v12.py \

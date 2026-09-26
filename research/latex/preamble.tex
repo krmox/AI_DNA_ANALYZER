@@ -14,6 +14,10 @@
 \usepackage{enumitem}
 \usepackage{caption}
 \usepackage{placeins}
+\usepackage{float}
+\makeatletter
+\newcommand{\needspace}[1]{\par\ifdim\pagegoal=\maxdimen\else\dimen@=\pagegoal\advance\dimen@-\pagetotal\ifdim\dimen@<#1\relax\newpage\fi\fi}
+\makeatother
 % Full-width figures next to xltabular tables need more headroom than LaTeX's
 % defaults give a bottom-of-page float, or they get pushed to the next page
 % wholesale and leave a mostly-empty page behind them.
@@ -27,6 +31,7 @@
 \usepackage{url}
 \usepackage[colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent]{hyperref}
 
+\hypersetup{pdftitle={%%PLAINTITLE%%},pdfauthor={Mark Kostogryzov},pdfsubject={Germline SNP calling: frozen-protocol validation, native engine, and holdout and independent evaluation on GIAB data},pdfkeywords={variant calling; SNP; Poisson-binomial; cascade; Genome in a Bottle; hap.py},pdfcreator={pdfLaTeX}}
 \definecolor{accent}{HTML}{0072B2}
 \definecolor{rowgrey}{HTML}{F3F4F6}
 \definecolor{phbg}{HTML}{FFF3B0}
@@ -55,8 +60,8 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\footnotesize\sffamily\color{gray} Draft manuscript --- not peer reviewed}
-\fancyhead[R]{\footnotesize\sffamily\color{gray} Binomial screen with confidence routing to a Poisson-binomial SNP caller}
+\fancyhead[L]{\footnotesize\sffamily\color{gray} Preprint draft --- not peer reviewed}
+\fancyhead[R]{\footnotesize\sffamily\color{gray} AI\_DNA\_ANALYZER: cascaded statistical SNP caller}
 \fancyfoot[C]{\footnotesize\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 

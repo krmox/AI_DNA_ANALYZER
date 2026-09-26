@@ -25,17 +25,18 @@ Writes:
   experimental/unified_happy/ai_cascade_C.vcf(.gz/.tbi)
 """
 import json
+import os
 import subprocess
 import sys
 import time
 
-sys.path.insert(0, "/home/mark/Documents/Projects/AI_DNA_ANALYZER")
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, REPO)
 
 import numpy as np
 from scipy.stats import binom
 from scipy.special import gammaln
 
-REPO = "/home/mark/Documents/Projects/AI_DNA_ANALYZER"
 UNIFIED = f"{REPO}/experimental/unified_happy"
 GTL = f"{REPO}/experimental/genotype_layer"
 

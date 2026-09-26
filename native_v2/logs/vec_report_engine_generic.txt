@@ -1,0 +1,74 @@
+/usr/include/c++/15/bits/move.h:236:11: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/move.h:236:11: optimized: basic block part vectorized using 16 byte vectors
+include/dnav2/methodc.hpp:31:17: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:147:87: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:224:30: optimized: loop vectorized using 16 byte vectors
+src/engine.cpp:126:13: optimized: basic block part vectorized using 8 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:405:25: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:162:81: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:219:52: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:172:80: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:172:80: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:175:17: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/std_function.h:454:19: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/std_function.h:454:19: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/std_function.h:163:10: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:212:68: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:245:87: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_construct.h:110:9: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_construct.h:110:9: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:245:87: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_construct.h:110:9: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_construct.h:110:9: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_ios.h:477:2: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/sstream:817:53: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:429:23: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:106:4: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:106:4: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:43:8: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:43:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_string.h:234:26: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_string.h:234:26: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:121:13: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:121:13: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:121:13: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:121:13: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:106:4: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:43:8: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:43:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:121:13: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:121:13: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:106:4: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:52:8: optimized: basic block part vectorized using 16 byte vectors
+include/dnav2/engine.hpp:31:8: optimized: basic block part vectorized using 16 byte vectors
+include/dnav2/engine.hpp:31:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_string.h:234:26: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_string.h:234:26: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_string.h:234:26: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_string.h:234:26: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_ios.h:477:2: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:384:15: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:106:4: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:43:8: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:43:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:106:4: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/std_thread.h:251:44: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/std_thread.h:251:44: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:450:78: optimized: basic block part vectorized using 16 byte vectors
+src/engine.cpp:459:20: optimized: basic block part vectorized using 16 byte vectors
+include/dnav2/pb.hpp:115:27: optimized: loop vectorized using 16 byte vectors
+include/dnav2/pb.hpp:110:23: optimized: loop vectorized using 16 byte vectors
+include/dnav2/pb.hpp:110:23: optimized: loop vectorized using 8 byte vectors
+src/engine.cpp:106:23: optimized: loop vectorized using 16 byte vectors
+src/engine.cpp:106:23: optimized: loop vectorized using 8 byte vectors
+include/dnav2/pb.hpp:95:56: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_vector.h:106:4: optimized: basic block part vectorized using 16 byte vectors

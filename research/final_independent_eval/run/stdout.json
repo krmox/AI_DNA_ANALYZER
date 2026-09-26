@@ -1,0 +1,9 @@
+{
+  "tag": "chr8_300x", "mode": "cascade", "threads": 8, "decomp_threads": 0, "task_windows": 2048,
+  "n_windows": 2093550, "n_loci": 133987200, "n_frame_scored": 133935319, "n_routed_pb": 1018,
+  "n_pb_evaluated": 102, "n_candidates": 338184, "n_pb_model_evals": 0, "n_model_calls": 183334, "n_model_changed_vs_v2": 3551, "model": "/mnt/archive/AI_DNA_ANALYZER_v2x/repo/native_v2x/models/A_C.model",
+  "cascade": {"n_calls": 183350, "n_forced_00_to_01": 219},
+  "pb_only": {"n_calls": 0, "n_forced_00_to_01": 0},
+  "cpu_seconds_by_stage": {"count_pass": 3268.746, "ref_fetch": 3.142, "binomial_router": 0.000, "window_pass_and_pb": 0.000, "genotype_vcf_text": 1.060},
+  "wall_seconds": 412.485, "cpu_user_seconds": 1903.599, "cpu_sys_seconds": 26.569, "peak_rss_kb": 333900
+}

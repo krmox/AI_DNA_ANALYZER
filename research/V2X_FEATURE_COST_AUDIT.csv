@@ -1,0 +1,49 @@
+feature,group,source,extra_bam_traversal,compute_cost,cost_class,extra_memory,auc_TPvsFP_among_V2_calls_dev,auc_true_vs_false_all_candidates_dev,auc_V2FN_vs_found_among_true_dev
+depth,base(existing),pileup(existing count),no,0 (already computed),none,0 (scalar accumulators),0.7096,0.5591,0.0507
+n,base(existing),pileup(existing count),no,0 (already computed),none,0 (scalar accumulators),0.8516,0.7411,0.0353
+k,base(existing),pileup(existing count),no,0 (already computed),none,0 (scalar accumulators),0.9825,0.9991,0.0002
+nref,base(existing),pileup(existing count),no,0 (already computed),none,0 (scalar accumulators),0.3343,0.0823,0.6433
+k2,base(existing),pileup(existing count),no,0 (already computed),none,0 (scalar accumulators),0.4882,0.4787,0.5067
+vaf,base(existing),pileup(existing count),no,0 (already computed),none,0 (scalar accumulators),0.9805,0.9992,0.0
+bllr,base(existing),pileup(existing count),no,0 (already computed),none,0 (scalar accumulators),0.9872,0.9995,0.0
+alt_bq_mean,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.9173,0.9778,0.3786
+ref_bq_mean,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.5487,0.5852,0.7399
+bq_diff,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.0592,0.0164,0.7946
+alt_bq_hi_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.9133,0.953,0.5447
+alt_lowbq,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.1201,0.1844,0.1018
+alt_mq_mean,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.5663,0.5155,0.0336
+ref_mq_mean,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.3829,0.3617,0.3545
+mq_diff,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.3148,0.3457,0.9365
+alt_mq_lt40_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.4395,0.4909,0.9568
+alt_fwd_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.4981,0.4928,0.4799
+ref_fwd_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.348,0.3471,0.7124
+strand_diff,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.1008,0.0975,0.6873
+alt_min_strand,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.9856,0.9989,0.0009
+alt_end_mean,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.2878,0.501,0.3626
+ref_end_mean,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.3921,0.5228,0.6533
+alt_near_end_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.7613,0.7359,0.5548
+alt_nm_mean,A,"same pileup column, candidate loci only",no,bam_aux_get('NM') per ALT read (tag scan ~1e2 ns),high(rel.),0 (scalar accumulators),0.0238,0.0277,0.778
+ref_nm_mean,A,"same pileup column, candidate loci only",no,bam_aux_get('NM') on <=32 REF reads,high(rel.),0 (scalar accumulators),0.2297,0.2137,0.6365
+alt_clip_frac,A,"same pileup column, candidate loci only",no,"cigar first/last op, ALT reads",low,0 (scalar accumulators),0.0242,0.1318,0.5365
+ref_clip_frac,A,"same pileup column, candidate loci only",no,"cigar first/last op, <=32 REF reads",low,0 (scalar accumulators),0.2877,0.2939,0.5528
+alt_uniq_frac,A,"same pileup column, candidate loci only",no,"sort of ALT (start,strand) keys",low,0 (scalar accumulators),0.3684,0.1062,0.9519
+gap_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.498,0.494,0.4918
+ins_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.4762,0.4941,0.4985
+del_next_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.4892,0.4883,0.4987
+lowmq_frac,A,"same pileup column, candidate loci only",no,integer accumulate over the column's reads,low,0 (scalar accumulators),0.4392,0.4814,0.8943
+nc2,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.4839,0.504,0.5552
+nc5,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.3131,0.4711,0.5945
+nc10,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.2246,0.4432,0.6102
+nc25,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.1497,0.4079,0.7089
+nearest,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.8297,0.5863,0.2917
+lmr25,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.147,0.208,0.7149
+lgap10,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.4212,0.4611,0.5075
+depth_ratio25,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.3613,0.1696,0.7292
+neigh_max_vaf25,D-context,neighbour arrays,no,O(1..50) array reads,low,0 (task-local arrays that already exist),0.2301,0.4319,0.666
+hp_len,D-refctx,reference bases,no,O(1..50) array reads,low,0 (scalar accumulators),0.5581,0.6031,0.5034
+left_is_alt,D-refctx,reference bases,no,O(1..50) array reads,low,0 (scalar accumulators),0.2781,0.269,0.4391
+right_is_alt,D-refctx,reference bases,no,O(1..50) array reads,low,0 (scalar accumulators),0.2862,0.2729,0.4668
+dinuc10,D-refctx,reference bases,no,O(1..50) array reads,low,0 (scalar accumulators),0.3312,0.4405,0.4545
+is_ts,D-refctx,reference bases,no,O(1..50) array reads,low,0 (scalar accumulators),0.6819,0.6681,0.4934
+ref_cg,D-refctx,reference bases,no,O(1..50) array reads,low,0 (scalar accumulators),0.6739,0.6395,0.5127
+cpg,D-refctx,reference bases,no,O(1..50) array reads,low,0 (scalar accumulators),0.5551,0.5634,0.5313

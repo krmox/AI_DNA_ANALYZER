@@ -1,0 +1,17 @@
+features,model,thr,dev_oof_F1,dev_FP,dev_FN,hold_F1,hold_TP,hold_FP,hold_FN
+C (Binomial/router outputs),logreg(C=0.1),0.64,0.9879,92,802,0.98847,33392,141,638
+C (Binomial/router outputs),tree depth3,0.73,0.98706,82,873,0.98842,33346,97,684
+C (Binomial/router outputs),tree depth5,0.62,0.98744,101,827,0.98824,33357,121,673
+C (Binomial/router outputs),GBT depth4 (ceiling only),0.46,0.98857,89,756,0.98881,33397,123,633
+A+C,logreg(C=0.1),0.62,0.98899,84,730,0.98902,33410,122,620
+A+C,tree depth3,0.62,0.98833,62,800,0.9892,33401,100,629
+A+C,tree depth5,0.63,0.98828,78,788,0.9892,33401,100,629
+A+C,GBT depth4 (ceiling only),0.39,0.98942,89,694,0.98914,33421,125,609
+C+D,logreg(C=0.1),0.53,0.98841,105,752,0.98834,33407,165,623
+C+D,tree depth3,0.81,0.98717,70,877,0.98812,33322,93,708
+C+D,tree depth5,0.7,0.98724,74,868,0.98862,33366,104,664
+C+D,GBT depth4 (ceiling only),0.26,0.98911,92,714,0.98899,33422,136,608
+A+C+D,logreg(C=0.1),0.5,0.98897,96,720,0.9889,33419,139,611
+A+C+D,tree depth3,0.62,0.98833,62,800,0.9892,33401,100,629
+A+C+D,tree depth5,0.63,0.98828,78,788,0.9892,33401,100,629
+A+C+D,GBT depth4 (ceiling only),0.69,0.98951,63,713,0.98963,33416,86,614

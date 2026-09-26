@@ -1,0 +1,5 @@
+name B_D
+kind stump
+kmin 3
+routed_variant 7
+veto nc25 ge 3.0

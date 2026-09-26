@@ -1,4 +1,10 @@
-> **SUPERSEDED IN PART (2026-09-20).** Index note: `PAPER_MANUSCRIPT.md` is the current manuscript; `FINAL_FORENSIC_AUDIT.md` and `FINAL_FREEZE_REPORT.md` describe the 2026-09-20 audit and freeze; other files may contain superseded statements (see `LIMITATIONS_AND_OPEN_QUESTIONS.md` section D).
+> **SUPERSEDED IN PART, index corrected by `FINAL_SCIENTIFIC_AUDIT.md`.** The current manuscript is
+> [`PAPER_MANUSCRIPT_V2.md`](PAPER_MANUSCRIPT_V2.md) (this is what `research/latex/paper.tex`/`paper.pdf`
+> are built from, and what `README.md` §Publication links). `PAPER_MANUSCRIPT.md`, referenced below and
+> by several other files in this directory as "the current manuscript," is an earlier draft superseded
+> by V2 — see the banner at the top of that file. `FINAL_FORENSIC_AUDIT.md` and `FINAL_FREEZE_REPORT.md`
+> describe the 2026-09-20 audit and freeze that preceded the V2 rewrite; other files may contain
+> superseded statements (see `LIMITATIONS_AND_OPEN_QUESTIONS.md` section D).
 
 # AI_DNA_ANALYZER — Research Dossier
 
@@ -11,8 +17,9 @@ or tuning.
 
 ## How to read this dossier
 
-Start with `RESEARCH_SUMMARY_1PAGE.md` for the shortest honest overview.
-Then:
+Start with [`PAPER_MANUSCRIPT_V2.md`](PAPER_MANUSCRIPT_V2.md) — the current, canonical manuscript.
+`RESEARCH_SUMMARY_1PAGE.md` is an older, shorter overview kept for context; treat it and everything
+below as background material, not a substitute for V2. Then:
 
 - `METHODS.md` — architecture, evaluation methodology, statistical protocol.
 - `RESULTS.md` — consolidated findings, cross-referencing the CSVs below.

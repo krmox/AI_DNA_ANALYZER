@@ -150,8 +150,8 @@ def fig4():
 
 # ------------------------------------------------------------------ Figure 5
 CALL = [  # name, precision, recall, F1, TP, FP, FN, colour, marker  (Table 9; hap.py 0.3.15)
-    ("AI PB-only + Method C", 0.9785, 0.9319, 0.9547, 15748, 346, 1150, BLUE, "o"),
-    ("AI cascade + Method C", 0.9783, 0.9319, 0.9546, 15748, 349, 1150, SKY, "o"),
+    ("V1 PB-only + Method C", 0.9785, 0.9319, 0.9547, 15748, 346, 1150, BLUE, "o"),
+    ("V1 cascade + Method C", 0.9783, 0.9319, 0.9546, 15748, 349, 1150, SKY, "o"),
     ("DeepVariant 1.6.1", 0.9340, 0.9654, 0.9494, 16313, 1153, 585, GREEN, "s"),
     ("Clair3 1.0.10", 0.8965, 0.9638, 0.9290, 16287, 1880, 611, YEL, "s"),
     ("GATK HC 4.5.0.0 (no BQSR)", 0.9877, 0.9493, 0.9682, 16042, 199, 856, PINK, "s"),
@@ -167,16 +167,16 @@ def fig5():
         idx = np.argmin(abs(r - 0.975)); a.text(0.9775, p[idx], f"F1 {f1}", fontsize=7, color=MUTED, va="bottom")
     for n, p, rc, f1, tp, fp, fn, c, m in CALL:
         a.scatter(rc, p, s=90, c=c, marker=m, edgecolors="white", linewidths=1, zorder=3)
-    lab = {"AI PB-only + Method C": (-0.0015, 0.0055, "right"), "AI cascade + Method C": (0.0, -0.0075, "center"),
+    lab = {"V1 PB-only + Method C": (-0.0015, 0.0055, "right"), "V1 cascade + Method C": (0.0, -0.0075, "center"),
            "DeepVariant 1.6.1": (0.002, -0.004, "left"), "Clair3 1.0.10": (0.002, -0.004, "left"), "GATK HC 4.5.0.0 (no BQSR)": (0.002, 0.003, "left")}
     for n, p, rc, f1, *_ in CALL:
-        if n.startswith("AI"):
+        if n.startswith("V1"):
             continue
         dx, dy, ha = lab[n]
         a.text(rc + dx, p + dy, f"{n}\nF1 {f1:.4f}", fontsize=7.6, ha=ha, va="center")
-    a.text(0.9345, 0.9745, "AI + Method C\nPB-only F1 0.9547\ncascade F1 0.9546\n(the two markers overlap)", fontsize=7.6, ha="left", va="top")
+    a.text(0.9345, 0.9745, "V1 + Method C\nPB-only F1 0.9547\ncascade F1 0.9546\n(the two markers overlap)", fontsize=7.6, ha="left", va="top")
     a.axvline(0.982, color=BLUE, lw=.9, ls=":", zorder=1)
-    a.text(0.9825, 0.8925, "AI recall\nceiling 0.982\n(window filter)", fontsize=7, color=BLUE, va="bottom")
+    a.text(0.9825, 0.8925, "V1 recall\nceiling 0.982\n(window filter)", fontsize=7, color=BLUE, va="bottom")
     a.set_xlim(0.925, 0.995); a.set_ylim(0.885, 1.0)
     a.set_xlabel("recall"); a.set_ylabel("precision")
     a.set_title("a  hap.py, HG002 chr21:32-44 Mb, 15x, SNP, PASS", loc="left", fontsize=9.5, fontweight="bold")
@@ -195,9 +195,9 @@ def fig5():
     b.set_title("b  Shape of the errors", loc="left", fontsize=9.5, fontweight="bold")
     b.legend(frameon=False, fontsize=8, loc="lower right")
     for s in ("top", "right"): b.spines[s].set_visible(False)
-    fig.text(0.01, 0.015, "One region, one sample, one depth. The region contains the chr21:32-40 Mb span used to select the AI constants (not held out). "
+    fig.text(0.01, 0.015, "One region, one sample, one depth. The region contains the chr21:32-40 Mb span used to select the V1 constants (not held out). "
              "GATK ran without BQSR. Single runs. No ranking is implied and no runtime is compared.", fontsize=7.4, color=MUTED)
-    fig.suptitle("Figure 6. External caller comparison", x=0.01, ha="left", fontsize=10.5, fontweight="bold")
+    fig.suptitle("Figure 7. External caller comparison", x=0.01, ha="left", fontsize=10.5, fontweight="bold")
     fig.tight_layout(rect=(0, 0.04, 1, 0.95))
     fig.savefig(os.path.join(OUT, "fig6_v2_external_callers.png"), dpi=200)
     plt.close(fig)

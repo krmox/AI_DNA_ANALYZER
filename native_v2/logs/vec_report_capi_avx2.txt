@@ -1,0 +1,15 @@
+include/dnav2/binomial.hpp:36:71: optimized: basic block part vectorized using 32 byte vectors
+include/dnav2/pb.hpp:55:23: optimized: loop vectorized using 32 byte vectors
+include/dnav2/pb.hpp:55:23: optimized: loop vectorized using 32 byte vectors
+include/dnav2/pb.hpp:55:23: optimized: loop vectorized using 32 byte vectors
+include/dnav2/pb.hpp:82:23: optimized: loop vectorized using 32 byte vectors
+src/capi.cpp:28:31: optimized: loop vectorized using 32 byte vectors
+src/capi.cpp:28:31: optimized: loop vectorized using 8 byte vectors
+include/dnav2/pb.hpp:115:27: optimized: loop vectorized using 32 byte vectors
+include/dnav2/pb.hpp:110:23: optimized: loop vectorized using 32 byte vectors
+include/dnav2/pb.hpp:110:23: optimized: loop vectorized using 16 byte vectors
+include/dnav2/pb.hpp:110:23: optimized: loop vectorized using 8 byte vectors
+include/dnav2/pb.hpp:95:56: optimized: basic block part vectorized using 16 byte vectors
+src/capi.cpp:28:47: optimized: basic block part vectorized using 16 byte vectors
+src/capi.cpp:28:47: optimized: basic block part vectorized using 8 byte vectors
+include/dnav2/methodc.hpp:31:17: optimized: basic block part vectorized using 16 byte vectors

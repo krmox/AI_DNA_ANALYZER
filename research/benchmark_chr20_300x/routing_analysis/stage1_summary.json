@@ -1,0 +1,23 @@
+{
+  "pb_recompute_check": {
+    "n": 3491,
+    "bit_identical_alt_index_variant": true,
+    "bit_identical_min_k_n_variant": false,
+    "max_abs_diff_alt_index_variant": 0.0,
+    "max_abs_diff_min_k_n_variant": 453.1411485654537,
+    "n_mismatch_alt_index_variant": 0,
+    "n_mismatch_min_k_n_variant": 2400
+  },
+  "populations": {
+    "random1000": 1000,
+    "routed": 707,
+    "rescuable": 892,
+    "rescued": 191,
+    "truth_snp_loss": 226,
+    "pb_binom_disagree": 1906,
+    "cascade_pbonly_disagree": 1593
+  },
+  "frame_in_confident_bed": 56242697,
+  "frame_total": 56242697,
+  "rows_written": 3491
+}

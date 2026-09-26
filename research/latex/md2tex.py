@@ -12,6 +12,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 SRC = HERE.parent / "PAPER_MANUSCRIPT_V2.md"
 DST = HERE / "paper.tex"
+KEEP_TABLES_TOGETHER = False
 
 # (text-mode, math-mode) replacements for non-ASCII characters
 UNI = {
@@ -111,6 +112,21 @@ def inline(t):
     return re.sub("\x00(\\d+)\x00", lambda m: store[int(m.group(1))], t)
 
 
+PLAIN = {"–": "-", "—": "-", "−": "-", "×": "x", "≈": "~", "≤": "<=", "≥": ">=", "Δ": "Delta", "ε": "eps", "δ": "delta",
+         "τ": "tau", "θ": "theta", "±": "+/-", "→": "->", "…": "...", "’": "'", "‘": "'", "“": '"', "”": '"', "·": ".",
+         "‑": "-", "\u00a0": " ", "é": "e", "ö": "o", "ü": "u", "ä": "a", "§": "S", "⁻": "-"}
+
+
+def plain(t):
+    """Markdown/LaTeX-free ASCII text for PDF bookmarks and metadata."""
+    t = re.sub(r"`([^`]*)`", r"\1", t)
+    t = re.sub(r"\$([^$]*)\$", r"\1", t)
+    t = t.replace("**", "").replace("*", "")
+    t = "".join(PLAIN.get(c, c) if ord(c) >= 128 else c for c in t)
+    t = re.sub(r"[\\{}$^]", "", t)
+    return t.strip()
+
+
 def split_row(line):
     line = line.strip()
     if line.startswith("|"):
@@ -172,7 +188,14 @@ def table(lines, caption):
         else:
             spec.append("l")
     size = "\\scriptsize" if n >= 8 else "\\footnotesize"
-    out = ["{" + size, "\\setlength{\\tabcolsep}{3.2pt}", "\\rowcolors{2}{rowgrey}{white}",
+    # estimated height in lines (rows cannot split, so a short table is kept on one page)
+    tot = float(sum(lens)) or 1.0
+    cpl = 150 if n >= 8 else 125
+    est = 4.0
+    for r in [head] + body:
+        est += 1.15 * max(-(-len(re.sub(r"[`*$]", "", r[j])) // max(8, int(cpl * lens[j] / tot))) for j in range(n))
+    need = ["\\needspace{%d\\baselineskip}" % min(int(est) + 1, 40)] if (KEEP_TABLES_TOGETHER and len(body) <= 14) else []
+    out = need + ["{" + size, "\\setlength{\\tabcolsep}{3.2pt}", "\\rowcolors{2}{rowgrey}{white}",
            "\\begin{xltabular}{\\linewidth}{" + "".join(spec) + "}"]
     hdr = " & ".join("\\textbf{" + inline(h) + "}" if h else "" for h in head) + " \\\\"
     if caption:
@@ -224,7 +247,10 @@ def convert():
                 if keywords:
                     out.append("\\noindent\\textbf{Keywords:} " + keywords + "\\par\\bigskip")
                 abstract_open = False
-            out.append("\\%s%s{%s}" % (cmd, star, inline(body)))
+            if cmd == "section":
+                out.append("\\FloatBarrier")
+            out.append("\\needspace{%d\\baselineskip}" % {"section": 10, "subsection": 6, "subsubsection": 5}[cmd])
+            out.append("\\%s%s{\\texorpdfstring{%s}{%s}}" % (cmd, star, inline(body), plain(body)))
             if star and cmd == "section":
                 out.append("\\addcontentsline{toc}{section}{%s}" % inline(body))
             i += 1; continue
@@ -267,7 +293,7 @@ def convert():
             no = int(mf.group(1)); assert no > last_fig_no
             last_fig_no = no
             out.append("\\setcounter{figure}{%d}" % (no - 1))
-            out.append("\\begin{figure}[tbp]\n\\centering\n\\includegraphics[width=\\linewidth]{%s}\n\\caption{%s}\n\\end{figure}\n\\FloatBarrier"
+            out.append("\\begin{figure}[H]\n\\centering\n\\includegraphics[width=\\linewidth]{%s}\n\\caption{%s}\n\\end{figure}\n"
                        % (pending_fig, inline(mf.group(2))))
             pending_fig = None; i += 1; continue
         if s.startswith("**Keywords:**"):
@@ -294,7 +320,7 @@ def main():
     note = ""
     if front:
         note = "\\begin{quote}\\small " + " ".join(inline(f) for f in front) + "\\end{quote}"
-    doc = pre.replace("%%TITLE%%", inline(title)).replace("%%NOTE%%", note)
+    doc = pre.replace("%%TITLE%%", inline(title)).replace("%%PLAINTITLE%%", plain(title).replace("_", "\\textunderscore ")).replace("%%NOTE%%", note)
     doc = doc.replace("%%BODY%%", "\n".join(body))
     DST.write_text(doc, encoding="utf-8")
     bad = re.findall(r"<<UNMAPPED U\+[0-9A-F]+>>", doc)

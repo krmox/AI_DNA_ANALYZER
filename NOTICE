@@ -1,0 +1,17 @@
+AI_DNA_ANALYZER
+Copyright (C) 2026 Mark Kostogryzov
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License, version 3 only
+(GPL-3.0-only), as published by the Free Software Foundation. See LICENSE.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+for more details.
+
+To cite this software, see CITATION.cff (DOI: 10.5281/zenodo.22895746).
+
+Benchmark data (GIAB HG002-HG005 reads and truth sets, GRCh38) are public
+resources of the Genome in a Bottle Consortium / NIST and are not covered
+by this copyright.

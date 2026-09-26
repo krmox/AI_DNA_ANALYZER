@@ -19,3 +19,14 @@ research/latex/*.out
 research/latex/*.toc
 research/latex/*.fls
 research/latex/*.fdb_latexmk
+
+# Local tool settings / worktrees
+.claude/
+
+# Native build artefacts and scratch
+native_v2*/build/
+*.o
+*.a
+*.bak
+*~
+**/tmp/

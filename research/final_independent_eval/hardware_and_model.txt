@@ -1,0 +1,12 @@
+date: 2026-09-26T10:10:50+05:00
+host: fedora
+cpu: Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz  cpus=8 (4 cores/8 threads)
+mem: 32007 MB
+kernel: 6.19.12-200.fc43.x86_64
+data disk: HGST HTS545050A7E680 (5400 rpm HDD, /mnt/archive)
+compiler: g++ (GCC) 15.3.1 20260722 (Red Hat 15.3.1-1)
+samtools: samtools 1.23.1
+engine sha256: adb2f4a00f60a476fca1ec43c5af2d8c6b86e5876e8c95207c297f943fbb7bdb
+model sha256: e9942a22e6fee7980b3881750316291bb0d62b4c8be000377f72a2280c5d51ce
+native_v2x source digest (sha256 of sorted file-hash list src include models/A_C.model Makefile): 66b3f7bb175729916b9e9fe8bd96903083586f11f1ffcbbee65ace60056bc391
+git base commit: ca60e12e19b1c135fd12ee790ebee9b6628e47ba (branch native_v2x); native_v2x/ uncommitted

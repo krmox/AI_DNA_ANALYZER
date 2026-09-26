@@ -1,0 +1,26 @@
+/usr/include/c++/15/bits/move.h:236:11: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/move.h:236:11: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+src/frame.cpp:100:15: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_algobase.h:735:22: optimized: loop vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_algobase.h:735:22: optimized: loop vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_ios.h:477:2: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/basic_ios.h:477:2: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/streambuf:475:29: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:464:4: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:464:4: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors
+/usr/include/c++/15/bits/stl_pair.h:626:8: optimized: basic block part vectorized using 16 byte vectors

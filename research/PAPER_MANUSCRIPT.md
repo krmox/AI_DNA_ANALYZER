@@ -1,5 +1,11 @@
 # Selective Escalation from a Binomial Screen to a Poisson-Binomial Caller for Short-Read SNP Calling: Frozen-Protocol Validation on GIAB Samples, Failure Modes, and Where the Compute Actually Goes
 
+> **SUPERSEDED (2026-09-2x, added by `FINAL_SCIENTIFIC_AUDIT.md`).** This file is an intermediate
+> draft. The current manuscript — the one the LaTeX/PDF build and `README.md` §Publication actually
+> use — is [`PAPER_MANUSCRIPT_V2.md`](PAPER_MANUSCRIPT_V2.md). Documents elsewhere in `research/`
+> that point here as "authoritative" should be read as pointing to V2 instead; this file is kept for
+> the historical record and is not edited further.
+
 *Working manuscript reconstructed from the project's logs, benchmark reports, audits and raw result files; revised 2026-09-20 after a forensic audit (`FINAL_FORENSIC_AUDIT.md`) to include the whole-chromosome chr20 validation and the `load_reads` optimisation, and to correct outdated statements (`FINAL_FREEZE_REPORT.md`). Not peer reviewed. Every numerical claim is mapped to a source in `research/CLAIM_EVIDENCE_MAP.csv`; where the raw artefact behind a historical number is no longer in the repository, the map says so (status `RECORD_ONLY_RAW_UNAVAILABLE`). Items marked `[UNRESOLVED]`, `[DATA VERIFICATION NEEDED]` or `[REFERENCE NEEDED]` could not be settled from the evidence available and are left open deliberately.*
 
 ---

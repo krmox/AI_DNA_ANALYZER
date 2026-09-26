@@ -1,0 +1,59 @@
+# routing probability vs depth (population: frame loci, n=56242697)
+bin_lo	bin_hi	n_loci	n_routed	p_routed	n_rescue	n_harmful	n_neutral_correct	n_neutral_wrong	power
+0	50	50519	51	1.010e-03	5	4	33	9	ok
+50	100	31860	31	9.730e-04	6	3	16	6	ok
+100	150	141239	77	5.452e-04	16	12	35	14	ok
+150	200	1790728	176	9.828e-05	55	24	63	34	ok
+200	250	12154250	214	1.761e-05	67	41	77	29	ok
+250	300	21894785	120	5.481e-06	31	28	41	20	ok
+300	350	14799770	31	2.095e-06	10	6	11	4	ok
+350	400	4762488	6	1.260e-06	0	4	1	1	UNDERPOWERED
+400	500	616448	1	1.622e-06	1	0	0	0	UNDERPOWERED
+500	1000000000.0	610	0	0.000e+00	0	0	0	0	UNDERPOWERED
+# routing probability vs VAF (k/n, full pileup) (population: frame loci, n=56242697)
+bin_lo	bin_hi	n_loci	n_routed	p_routed	n_rescue	n_harmful	n_neutral_correct	n_neutral_wrong	power
+0	0.01	56032396	0	0.000e+00	0	0	0	0	UNDERPOWERED
+0.01	0.02	67910	0	0.000e+00	0	0	0	0	UNDERPOWERED
+0.02	0.05	36902	0	0.000e+00	0	0	0	0	UNDERPOWERED
+0.05	0.1	11513	0	0.000e+00	0	0	0	0	UNDERPOWERED
+0.1	0.15	2946	648	2.200e-01	180	120	246	102	ok
+0.15	0.2	1028	28	2.724e-02	6	2	11	9	UNDERPOWERED
+0.2	0.25	473	8	1.691e-02	2	0	5	1	UNDERPOWERED
+0.25	0.35	418	7	1.675e-02	1	0	5	1	UNDERPOWERED
+0.35	0.65	44099	8	1.814e-04	1	0	6	1	UNDERPOWERED
+0.65	0.9	66	1	1.515e-02	1	0	0	0	UNDERPOWERED
+0.9	1.01	25790	7	2.714e-04	0	0	4	3	UNDERPOWERED
+# routing probability vs mean BQ (counted bases) (population: frame loci, n=56242697)
+bin_lo	bin_hi	n_loci	n_routed	p_routed	n_rescue	n_harmful	n_neutral_correct	n_neutral_wrong	power
+0	20	112	6	5.357e-02	2	0	4	0	UNDERPOWERED
+20	25	1328	41	3.087e-02	10	1	24	6	ok
+25	30	66552	147	2.209e-03	49	16	62	20	ok
+30	32	415457	185	4.453e-04	51	33	73	28	ok
+32	34	2607208	237	9.090e-05	57	53	85	42	ok
+34	36	20922492	50	2.390e-06	15	8	14	13	ok
+36	38	32074533	34	1.060e-06	7	11	10	6	ok
+38	40	135283	1	7.392e-06	0	0	1	0	UNDERPOWERED
+40	99	576	6	1.042e-02	0	0	4	2	UNDERPOWERED
+# routing probability vs mean MAPQ (depth reads) (population: frame loci, n=56242697)
+bin_lo	bin_hi	n_loci	n_routed	p_routed	n_rescue	n_harmful	n_neutral_correct	n_neutral_wrong	power
+0	20	0	0	nan	0	0	0	0	UNDERPOWERED
+20	30	9128	13	1.424e-03	1	1	8	3	UNDERPOWERED
+30	40	33783	20	5.920e-04	1	3	13	3	UNDERPOWERED
+40	50	34523	6	1.738e-04	1	0	4	1	UNDERPOWERED
+50	55	27508	3	1.091e-04	1	0	2	0	UNDERPOWERED
+55	58	22696	4	1.762e-04	0	0	2	2	UNDERPOWERED
+58	60	20705	3	1.449e-04	1	1	1	0	UNDERPOWERED
+60	61	12787	2	1.564e-04	0	1	0	1	UNDERPOWERED
+61	256	56062580	656	1.170e-05	186	116	247	107	ok
+# routing probability vs stratum alldifficult (0=outside,1=inside) (population: frame loci, n=56242697)
+bin_lo	bin_hi	n_loci	n_routed	p_routed	n_rescue	n_harmful	n_neutral_correct	n_neutral_wrong	power
+0	0.5	49079967	369	7.518e-06	102	67	143	57	ok
+0.5	1.5	7162730	338	4.719e-05	89	55	134	60	ok
+# routing probability vs stratum lowmap_segdup (0=outside,1=inside) (population: frame loci, n=56242697)
+bin_lo	bin_hi	n_loci	n_routed	p_routed	n_rescue	n_harmful	n_neutral_correct	n_neutral_wrong	power
+0	0.5	54389277	593	1.090e-05	167	98	233	95	ok
+0.5	1.5	1853420	114	6.151e-05	24	24	44	22	ok
+# routing probability vs stratum tandemrepeats (0=outside,1=inside) (population: frame loci, n=56242697)
+bin_lo	bin_hi	n_loci	n_routed	p_routed	n_rescue	n_harmful	n_neutral_correct	n_neutral_wrong	power
+0	0.5	53503668	552	1.032e-05	153	100	206	93	ok
+0.5	1.5	2739029	155	5.659e-05	38	22	71	24	ok

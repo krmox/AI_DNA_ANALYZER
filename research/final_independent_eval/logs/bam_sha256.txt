@@ -1,0 +1,2 @@
+248bb9aad482a342ed5bcbb9ced9de45eb828edefadf3ee90ffa1548489e4626  HG003.GRCh38.300x_chr8.bam
+941f55196c8124130f0cfad27f74afa7bf5bebaffb3d658b547be01f63138f14  HG003.GRCh38.300x_chr8.bam.bai

@@ -1,0 +1,72 @@
+{
+ "happy_summary_SNP": {
+  "ALL": {
+   "Type": "SNP",
+   "Filter": "ALL",
+   "TRUTH.TOTAL": "186522",
+   "TRUTH.TP": "182904",
+   "TRUTH.FN": "3618",
+   "QUERY.TOTAL": "183350",
+   "QUERY.FP": "446",
+   "QUERY.UNK": "0",
+   "FP.gt": "91",
+   "FP.al": "65",
+   "METRIC.Recall": "0.9806030000000001",
+   "METRIC.Precision": "0.997567",
+   "METRIC.Frac_NA": "0.0",
+   "METRIC.F1_Score": "0.9890120000000001",
+   "TRUTH.TOTAL.TiTv_ratio": "1.9302226968621414",
+   "QUERY.TOTAL.TiTv_ratio": "1.9321925475771629",
+   "TRUTH.TOTAL.het_hom_ratio": "1.6968149733857902",
+   "QUERY.TOTAL.het_hom_ratio": "1.700811642877134"
+  },
+  "PASS": {
+   "Type": "SNP",
+   "Filter": "PASS",
+   "TRUTH.TOTAL": "186522",
+   "TRUTH.TP": "182904",
+   "TRUTH.FN": "3618",
+   "QUERY.TOTAL": "183350",
+   "QUERY.FP": "446",
+   "QUERY.UNK": "0",
+   "FP.gt": "91",
+   "FP.al": "65",
+   "METRIC.Recall": "0.9806030000000001",
+   "METRIC.Precision": "0.997567",
+   "METRIC.Frac_NA": "0.0",
+   "METRIC.F1_Score": "0.9890120000000001",
+   "TRUTH.TOTAL.TiTv_ratio": "1.9302226968621414",
+   "QUERY.TOTAL.TiTv_ratio": "1.9321925475771629",
+   "TRUTH.TOTAL.het_hom_ratio": "1.6968149733857902",
+   "QUERY.TOTAL.het_hom_ratio": "1.700811642877134"
+  }
+ },
+ "n_vcf_records": 221158,
+ "n_blocks": 73,
+ "block_size": 2000000,
+ "n_boot": 4000,
+ "seed": 20260926,
+ "recomputed_from_vcf": {
+  "precision": 0.9975674938641942,
+  "recall": 0.9806028243317142,
+  "f1": 0.9890124151057663,
+  "TP_truth": 182904,
+  "TP_query": 182904,
+  "FP": 446,
+  "FN": 3618
+ },
+ "block_bootstrap_95ci": {
+  "precision": [
+   0.9965485225109071,
+   0.998282319518912
+  ],
+  "recall": [
+   0.9777005208745627,
+   0.9829947220775558
+  ],
+  "f1": [
+   0.9871275035253081,
+   0.9904769525644225
+  ]
+ }
+}

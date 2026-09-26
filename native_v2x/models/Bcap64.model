@@ -1,0 +1,4 @@
+name Bcap64
+kind stump
+kmin 3
+routed_variant 2

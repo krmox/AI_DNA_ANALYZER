@@ -1,0 +1,4 @@
+name Bcap128
+kind stump
+kmin 3
+routed_variant 4

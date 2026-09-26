@@ -1,0 +1,13 @@
+{
+ "reconstruction_matches_engine_window_count": true,
+ "n_windows_reconstructed": 2093550,
+ "n_windows_engine": 2093550,
+ "n_loci_engine": 133987200,
+ "truth_snp_total_happy": 186522,
+ "truth_snp_outside_retained_windows": 2873,
+ "fraction_outside": 0.015403008760360708,
+ "fn_total": 3618,
+ "fn_outside_retained_windows": 2873,
+ "fraction_of_fn_outside": 0.7940851299060254,
+ "recall_upper_bound_from_window_filter": 0.9845969912396393
+}

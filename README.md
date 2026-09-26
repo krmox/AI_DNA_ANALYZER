@@ -1,6 +1,6 @@
 # AI_DNA_ANALYZER
 
-### Adaptive statistical SNP variant calling with confidence-aware compute routing
+### Frozen-constant statistical SNP variant calling with confidence routing
 
 ![status](https://img.shields.io/badge/scope-SNP--only-blue) ![lang](https://img.shields.io/badge/Python%20%2B%20C%2Fhtslib-3776ab) ![platform](https://img.shields.io/badge/platform-Linux-lightgrey) ![research](https://img.shields.io/badge/status-research%20freeze-informational) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22895746.svg)](https://doi.org/10.5281/zenodo.22895746)
 

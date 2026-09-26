@@ -89,3 +89,7 @@ Any paper, application, or portfolio piece built from this dossier should
 state plainly that code and documentation were produced with substantial
 AI assistance (Claude) under human research direction, consistent with this
 file, rather than presenting the artifact as unassisted individual work.
+
+## Addendum (2026-09-26): V2, V2.x, final evaluation and manuscript rewrite
+
+Claude (Anthropic) implemented the V2 C++ engine and its correctness tests, the V2.x feature/classifier code and analysis scripts, ran the V2.x benchmarks and the final HG003 chr8 evaluation, wrote the analysis scripts, and rewrote `PAPER_MANUSCRIPT_V2.md` and the LaTeX build. The human author set the constraints (frozen constants, pre-registered split, single final run without tuning, no commits, no invented numbers), chose the task scope, and reviews and takes responsibility for the results. The sample and chromosome of the final evaluation were chosen by the assistant before the run, under those constraints, and recorded in `research/final_independent_eval/PREREGISTRATION.md`.
