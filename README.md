@@ -56,7 +56,7 @@ There is no `requirements.txt`, `pyproject.toml` or Dockerfile; install the pack
 ### Install and build
 
 ```bash
-git clone git@github.com:Kramkost/AI_DNA_ANALYZER.git
+git clone git@github.com:krmox/AI_DNA_ANALYZER.git
 cd AI_DNA_ANALYZER
 python3 -m venv .venv && source .venv/bin/activate
 pip install numpy scipy pysam pytest

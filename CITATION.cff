@@ -5,7 +5,7 @@ type: software
 authors:
   - given-names: Mark
     family-names: Kostogryzov
-repository-code: "https://github.com/Kramkost/AI_DNA_ANALYZER"
+repository-code: "https://github.com/krmox/AI_DNA_ANALYZER"
 doi: 10.5281/zenodo.22978775
 version: 2.0.0
 date-released: "2026-09-26"
