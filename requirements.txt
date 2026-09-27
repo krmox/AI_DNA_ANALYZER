@@ -1,0 +1,12 @@
+# Versions the published results were produced with (research/REPRODUCIBILITY.md).
+# pysam 0.24.0 bundles htslib 1.23.1; the native code compiles against these headers and links
+# the system libhts.so.3, so the system htslib must also be 1.23.x (verify.sh checks this).
+# torch is imported by the V1 data layer (providers.py); the CPU build is enough.
+--extra-index-url https://download.pytorch.org/whl/cpu
+numpy==2.4.4
+scipy==1.17.1
+pysam==0.24.0
+pytest
+torch==2.12.1
+tqdm==4.67.3
+scikit-learn==1.8.0
