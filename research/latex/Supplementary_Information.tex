@@ -1,0 +1,185 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{url}
+\usepackage[table]{xcolor}
+\usepackage[colorlinks=true,linkcolor=accent,urlcolor=accent]{hyperref}
+\definecolor{accent}{HTML}{0072B2}
+\definecolor{ink}{HTML}{1F2937}
+\hypersetup{pdftitle={AI_DNA_ANALYZER Supplementary Information},pdfauthor={Mark Kostogryzov}}
+\urlstyle{same}
+\setstretch{1.08}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\emergencystretch=3em
+\titleformat{\section}{\Large\bfseries\sffamily\color{accent}}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries\sffamily\color{ink}}{}{0em}{}
+\newcommand{\src}[1]{{\small\texttt{#1}}}
+
+\begin{document}
+
+{\LARGE\bfseries\sffamily\color{accent} Supplementary Information}\par\vspace{0.4em}
+{\large\sffamily AI\_DNA\_ANALYZER: exploratory neural sequence-caller branch}\par\vspace{0.3em}
+{\sffamily Mark Kostogryzov}\par\vspace{1em}
+
+This Supplementary Information documents the exploratory neural branch referred to in the
+Introduction of the main manuscript (``\ldots\ apart from one weak positive (two of three seeds)
+on a side branch (Mamba-style models [16]; Supplementary Information)''). No part of this branch
+is used by V1, V2 or V2.x, and nothing here changes any result of the main manuscript. Every
+number below is copied from a project record named next to it; paths are relative to the
+repository root. \emph{Devlog $n$} means \src{History/$n$\_DEVLOG.md}. Reference numbers refer to
+the main manuscript's reference list.
+
+\section{S1. Origin: a neural caller on synthetic reads (August 4--10, 2026)}
+
+The project began as a per-base token classifier (\src{model.py}) predicting
+Normal/SNP/Insertion/Deletion from a read sequence, the aligned reference, base quality and
+depth. The source describes it as a reference-guided bidirectional ``Mamba'' variant caller, but
+its own docstring states that the block ``is \textbf{not} a selective state-space model'': it is
+a causal gated convolutional approximation in stock PyTorch, with a receptive field bounded by
+the convolution kernel. ``Mamba-style'' in the main text refers to this architecture and its
+later variants, not to the selective state-space model of [16].
+
+Training and evaluation data were synthetic reads (\src{generate\_mock\_bam.py}) carrying
+variants from \src{generate\_mock\_vcf.py}, placed on a slice of the real chr21 reference. Real
+HG002 reads were not used in this phase, so it produced no measurement of real-data accuracy.
+The records of this phase (devlogs 3--5, \src{History/DEVLOG\_2026-08-08.md}) mainly document
+data and evaluation defects:
+\begin{itemize}[leftmargin=1.4em,itemsep=1pt]
+\item The mock BAM spliced only SNPs, so the indel classes could not be learned, and the
+  vocabulary lacked a gap token (devlog 3).
+\item A fixed 0.5 decision threshold made one checkpoint score macro-F1 0.0884; the same
+  checkpoint scored 0.9095 at threshold 0.9 (\src{History/DEVLOG\_2026-08-08.md}). The apparent
+  ``collapse'' was a consequence of the evaluation rule.
+\item The mock-VCF generator drew the REF allele at random, so 81 of 374 SNP labels had no read
+  evidence, which capped recall at 0.7834 (devlogs 3--4). After the fix the devlog declared all
+  earlier metrics non-comparable.
+\end{itemize}
+Per-seed numerical records for the synthetic-read runs (devlogs 3 and 5 mention two seeds) are
+not retained in a form that can be tabulated here, and none are reported.
+
+\section{S2. Neural stages on real reads (August 11--12, 2026)}
+
+From devlog 6 onward, all experiments used real GIAB HG002 reads on chr21 (GRCh38, NIST v4.2.1
+truth) at about 15$\times$. The first test region was chr21:30.0--30.47 Mb (455,371 test loci,
+549 SNPs; devlogs 9--10). Each neural variant was compared with a statistical baseline that used
+the same data:
+
+\begin{center}\small
+\begin{tabular}{>{\raggedright}p{4.3cm}>{\raggedright}p{6.2cm}p{4.6cm}}
+\toprule
+Neural variant & Result (test split) & Source \\
+\midrule
+Residual Mamba initialised at the binomial LLR &
+\textbf{NULL}. The validation-selected model is identical to the binomial caller (521 TP, 1 FP,
+28 FN; F1 0.9729). A forced-training arm gave +0.0038 F1, but it did not replicate across seeds
+and was matched by moving the binomial threshold from 10.5 to 9.5 (F1 0.9778). & devlog 6 \S5 \\
+\addlinespace
+Read-level Mamba (per-read attributes) &
+\textbf{NEGATIVE}. 499 TP / 65 FP relative to the binomial caller. Decoupling each read's
+attributes from its base \emph{improved} F1 by 0.0427. & devlog 7 \S\S11--12 \\
+\addlinespace
+Neural residual above the Poisson-binomial (PB) caller &
+\textbf{NULL}. Calls identical to PB for every checkpoint (539 TP, 0 FP, 10 FN; F1 0.9908;
+$\Delta$F1 = 0.0000). & devlog 9 \S6 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The positive result of this period was statistical rather than neural: the quality-aware
+Poisson-binomial LLR (devlog 8) is the PB stage used in V1.
+
+\section{S3. The Mamba-style side branch: PB-residual on a powered benchmark}
+
+Devlog 9 found that its test region was too small to show a difference (10 PB errors in total).
+The PB-residual model was therefore re-evaluated on a larger split, on side branch
+\src{worktree-30x-pb-residual} (commit \src{6c31876}, 2026-08-12). The data were HG002
+chr21:32--40 Mb at about 15$\times$, divided into 1-Mb blocks: train blocks 0 and 4 (1.89 Mb,
+2,544 SNPs), validation blocks 1 and 5 (1.91 Mb, 2,410 SNPs) and test blocks 2, 3, 6 and 7
+(3.81 Mb, 5,704 SNPs). This is the same split described under ``Provenance of the constants'' in
+the main manuscript. Each arm's decision threshold was chosen on validation, and the test blocks
+were scored once. Three training seeds were used: A = 20260811, B = 424242 and C = 13371337. The
+paired bootstrap against PB used 10,000 resamples with seed 20260812.
+
+\begin{center}\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Method (test, 3.81 Mb) & Precision & Recall & F1 & TP & FP & FN \\
+\midrule
+Binomial & 0.9747 & 0.9385 & 0.9562 & 5,353 & 139 & 351 \\
+Poisson-binomial (PB) & 0.9899 & 0.9623 & 0.9759 & 5,489 & 56 & 215 \\
+PB-residual, seed A & 0.9921 & 0.9627 & 0.9771 & 5,491 & 44 & 213 \\
+PB-residual, seed B & 0.9933 & 0.9628 & 0.9778 & 5,492 & 37 & 212 \\
+PB-residual, seed C & 0.9906 & 0.9623 & 0.9763 & 5,489 & 52 & 215 \\
+Control: shuffled PB prior & 0.5518 & 0.9862 & 0.7077 & 5,625 & 4,568 & 79 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.6em}
+\begin{tabular}{lrcrr}
+\toprule
+Paired vs PB & $\Delta$F1 & 95\,\% CI & $\Delta$FP & $\Delta$FN \\
+\midrule
+Seed A & +0.0012 & [+0.0001, +0.0024] & $-$12 & $-$2 \\
+Seed B & +0.0019 & [+0.0009, +0.0030] & $-$19 & $-$3 \\
+Seed C & +0.0003 & [$-$0.0007, +0.0015] & $-$4 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\small Source: \src{results/big15x/test\_results\_3seed.json} on branch
+\src{worktree-30x-pb-residual}; narrative in devlog 10.}
+
+Two of the three seeds have intervals that exclude zero. The third was run as an unconditional
+replication check after A and B had been scored, and its interval includes zero. The branch
+record therefore gives the verdict \textbf{WEAK POSITIVE}. Two controls from the same record
+are relevant. The best additive constant on the PB score, fitted on validation, was 0.0, so the
+gain is not a threshold shift. With the PB prior shuffled between loci, the model fell to
+F1 0.7077. In seed B, PB had 56 false positives. The model removed 19 of them and added none.
+
+\section{S4. The side branch inside the cascade}
+
+The trained side-branch checkpoints were then tested as a third stage (PB $\rightarrow$ Mamba)
+on chr21:31--32 Mb, a region held out from their training (devlog 12). The pre-registered
+verdicts were as follows. \textbf{Stage 2 (PB $\rightarrow$ Mamba): NEGATIVE.} Two of the
+three checkpoints were significantly harmful ($\Delta$F1 $-$0.018 to $-$0.073), and the third was
+null. \textbf{Stage 3 (full cascade):} the best case was $\Delta$F1 +0.0002 with an interval
+straddling zero, at a window amplification of 31.7--61.0$\times$. The two-stage
+binomial $\rightarrow$ router $\rightarrow$ PB cascade was the Pareto-optimal arm. The same
+devlog reports the PB depth-clipping defect above 48$\times$ that was fixed in devlog 13. This Supplement does not
+re-examine whether that defect affected the Stage-2/3 numbers. They are reported as recorded.
+
+\section{S5. Why the neural branch is not part of V1, V2 or V2.x}
+
+\begin{enumerate}[leftmargin=1.6em,itemsep=1pt]
+\item On real reads, every neural stage apart from the side branch was null or negative against
+  a statistical baseline (S2).
+\item The side-branch gain was small (+0.0003 to +0.0019 F1), replicated in two of three seeds
+  only, and did not survive integration into the cascade on held-out data (S3, S4).
+\item The side branch depends on the PB prior (the shuffled-prior control fell to F1 0.7077), so
+  it could only be added on top of the statistical caller, not replace it.
+\end{enumerate}
+V1 was therefore built from the statistical stages alone. \src{cascade.py} still contains a
+dormant Mamba stage, but it is not used by any reported result. The supervised component of
+V2.x is a logistic regression and is unrelated to this branch (main manuscript).
+
+\section{S6. Records used and records not available}
+
+\textbf{Used:} \src{model.py}; \src{History/3\_DEVLOG.md}--\src{12\_DEVLOG.md};
+\src{History/DEVLOG\_2026-08-08.md}; \src{research/RESEARCH\_TIMELINE.md} (E1--E11);
+\src{research/CLAIM\_EVIDENCE\_MAP.csv}; branch \src{worktree-30x-pb-residual} (commit
+\src{6c31876} and its \src{results/big15x/*.json}).
+
+\textbf{Not available:} Detailed numerical records for the synthetic-read phase (per-seed,
+per-epoch metrics) are not retained in the current repository in tabulable form. No run with
+more than three seeds and no evaluation region larger than 3.81 Mb was carried out for the side
+branch. The follow-ups recommended in devlog 10 (30--50 Mb, 5--10 seeds) were not run.
+
+\end{document}
