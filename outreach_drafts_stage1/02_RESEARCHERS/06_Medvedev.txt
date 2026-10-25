@@ -1,0 +1,12 @@
+To: Paul Medvedev <pzm11@psu.edu>
+Subject: Related work on cascaded variant calling? Short question
+
+Email:
+Dear Professor Medvedev,
+
+Your group works on algorithmic bioinformatics, so I hope this question is in scope. I am a 16-year-old independent researcher in Kazakhstan. AI_DNA_ANALYZER is a SNP-only germline caller for Illumina reads, benchmarked on GIAB HG002/HG003 with hap.py (https://github.com/krmox/AI_DNA_ANALYZER). It is a research project, not clinical software. Claude (Anthropic) wrote most of the code and ran the benchmarks I specified; I set the question and constraints and interpreted the results.
+
+Its core idea is a cascade: a cheap binomial screen calls every locus, and a fixed router sends only uncertain loci (under 0.2%) to a slower per-read model. I am unsure whether I have missed prior work on this design. Could you name one paper or method I should compare against or cite?
+
+Thank you,
+Mark

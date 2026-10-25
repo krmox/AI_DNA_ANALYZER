@@ -1,0 +1,35 @@
+VERIFICATION NOTES (2026-10-17)
+
+WHAT I CHECKED (project)
+- Read README.md, CITATION.cff, research/AI_ASSISTANCE_DISCLOSURE.md, the manuscript abstract/introduction, FINAL_SCIENTIFIC_AUDIT.md (header). I did NOT re-run any code or re-verify any number. All figures in the letters (F1 0.989 on HG003 chr8; DeepVariant above it on chr20; routed fraction under 0.2%; 1.4-3.5% of truth SNPs lost to the 64-bp frame; recall cap about 0.985) are quoted from README.md.
+- The README says: SNP-only, GRCh38, Illumina, "not a production or clinical caller", no neural network in any version (name "AI" is historical).
+- Authorship name used in letters: "Mark Kostogryzov" (from CITATION.cff). Confirm you want it.
+
+CONTACTS: VERIFIED on official pages
+ Kairov, Schatz, Langmead, Heng Li (hli@jimmy.harvard.edu), Medvedev, Zook, Köster, Sedlazeck, Convergence email, IJHSB contact form.
+
+CONTACTS: NOT confirmed (addresses came from you; I did not guess any)
+ submissions@princeton-jpcr.org, managingeditor@stemfellowship.org, asset.daniyarov@nu.edu.kz, hapilina@biocenter.kz, me@liheng.org (replaced by the verified HMS address). Check each on the journal/university site, or use another official channel, before sending.
+ Corrections: "Peter Medvedev" is Paul Medvedev. Heng Li's official address differs from the one you gave.
+
+JOURNAL POLICIES (what I found)
+ - PJPCR: AI allowed as a tool incl. code/analysis help if verified; declaration needed for substantial use; no eligibility/fee text found.
+ - STEM Fellowship Journal: "high school and undergraduate"; $400 CAD fee on acceptance; waivers via proof of discounts; no AI policy found.
+ - Convergence: AI limited to "minor editing support" (conflicts with your process; letter asks openly); under 18 expected; USD 500 post-review fee, need-blind aid; scope leans interdisciplinary.
+ - IJHSB: first author must be high-school/undergraduate; affiliation line required; EUR 50/USD 60 screening-passed fee with waivers; no AI policy; scope is biology (bioinformatics allowed if the biological question is central). Their review of a pure software paper is uncertain.
+ Journal policies change; re-read before submission. I could not open the PJPCR and STEM Fellowship submission forms (Airtable/OJS pages gave no further detail).
+
+FACTS FOR YOU TO CONFIRM BEFORE SENDING
+ 1. AI wording. Your brief said Claude was used for programming/debugging and ran some experiments. The repository's own research/AI_ASSISTANCE_DISCLOSURE.md says more: Claude implemented the V2 C++ engine, V2.x code, analysis scripts, ran the benchmarks and the final HG003 chr8 evaluation, and wrote/rewrote the manuscript; the sample and chromosome of the final evaluation were chosen by the assistant (under your constraints, in PREREGISTRATION.md). The letters therefore say "Claude wrote much/most of the code and ran experiments I specified; I set the question and constraints and interpreted results". Do not weaken this: it must match the disclosure in the repo. If you want different wording, change the repo disclosure first.
+ 2. Your age (16) and Kazakhstan residence, and that you have no mentor (IJHSB letter says "no mentor").
+ 3. That nobody outside the project has run verify.sh (Langmead letter says you know of no one). The README reports only your own testing.
+ 4. The letters say nothing is clinically validated or externally reproduced; do not add such claims.
+ 5. HG005 raw artefacts were lost (manuscript); not mentioned in the letters because they are not used.
+ 6. The earlier research/OUTREACH_PACKAGE.md is SUPERSEDED (its numbers, e.g. "+0.33 F1", "21-65x", are outdated). I did not reuse it.
+
+NOT DONE / LIMITS
+ - Fewer than 8 extra groups: only 3 additional contacts had a verifiable email; others are listed in the index without drafts.
+ - Researchers' personal interests were checked only against official or profile pages; Sedlazeck's and Medvedev's letters are intentionally generic for that reason.
+ - No Kazakh journal or university contact beyond NU and NCB was verified.
+ - Ethical note: sending the same project to many JHU/Harvard people simultaneously can look like mass mailing; follow the suggested staggered order in the index.
+ - Nothing was sent; no project files, commits or pushes were made. Only the folder outreach_drafts_stage1/ was added.

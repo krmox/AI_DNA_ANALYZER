@@ -30,3 +30,6 @@ native_v2*/build/
 *.bak
 *~
 **/tmp/
+
+# Local draft manuscript (not yet published)
+research/bioadv_draft/

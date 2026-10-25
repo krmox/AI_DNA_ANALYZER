@@ -1,0 +1,12 @@
+To: Asset Daniyarov <asset.daniyarov@nu.edu.kz>
+Subject: Question on validating an open SNP caller
+
+Email:
+Dear Mr. Daniyarov,
+
+I found your work on genome analysis at the Laboratory of Bioinformatics and Systems Biology. I am a 16-year-old independent researcher in Kazakhstan. AI_DNA_ANALYZER is a SNP-only germline caller for Illumina reads, benchmarked on GIAB HG002/HG003 with hap.py (https://github.com/krmox/AI_DNA_ANALYZER). It is a research project, not clinical software. Claude (Anthropic) wrote most of the code and ran the benchmarks I specified; I set the question and constraints and interpreted the results.
+
+It handles human data only, and I do not know which validation steps genomics labs consider routine for variant calls. Could you glance at the README and name one benchmark, control or published comparison I should add before anyone relies on the results? A short pointer is all I am asking for.
+
+Thank you,
+Mark

@@ -1,0 +1,12 @@
+To: Johannes Köster <johannes.koester@uni-due.de>
+Subject: Statistical baseline question for a small SNP caller
+
+Email:
+Dear Professor Köster,
+
+Your group develops Varlociraptor, an uncertainty-aware variant caller with false discovery rate control, and Snakemake. I’m 16 and an independent researcher in Kazakhstan. AI_DNA_ANALYZER is a SNP-only germline caller for Illumina reads, benchmarked on GIAB HG002/HG003 with hap.py (https://github.com/krmox/AI_DNA_ANALYZER). It is a research project, not clinical software. Claude (Anthropic) wrote most of the code and ran the benchmarks I specified; I set the question and constraints and interpreted the results.
+
+The caller uses a binomial likelihood ratio with a fixed error rate and a per-read Poisson-binomial model. Which statistical weakness would you examine first, and is there a baseline from your field I should compare it with? One concrete suggestion would be enough.
+
+Thank you,
+Mark

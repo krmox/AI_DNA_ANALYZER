@@ -1,0 +1,96 @@
+CONTACTS INDEX  (checked 2026-10-17; nothing has been sent)
+Legend: VERIFIED = address seen on an official page by me. USER-SUPPLIED = address came from you, I could not find it on an official page.
+File format: "To:" = recipient, "Subject:", "Email:" = the body text of the message.
+
+=================== A. JOURNALS ===================
+
+01_PJPCR.txt  (priority 1)
+ Princeton Journal of Pre-Collegiate Research (princeton-jpcr.org)
+ Contact: submissions@princeton-jpcr.org - USER-SUPPLIED, NOT FOUND on any official page I could open (also not found by web search).
+ Source: https://princeton-jpcr.org ; AI policy https://princeton-jpcr.org/ai-policy
+ Why: publishes high-school research; AI policy explicitly permits assistance with code/analysis if the author verifies it, requires an AI-use declaration, forbids AI as author and "largely unverified AI content".
+ Doubts: eligibility, fees, and email not found. The site's submission form is on Airtable (link on homepage); use it if the email bounces.
+ Note: a web search found no page tying this domain to the Princeton-named journal; confirm on the site before sending.
+
+02_STEM_Fellowship_Journal.txt  (priority 2)
+ STEM Fellowship Journal (hosted at UBC Library OJS)
+ Contact: managingeditor@stemfellowship.org - USER-SUPPLIED, NOT CONFIRMED. The official contact page shows only "Managing Editor" and "STEM Support", no addresses. A search suggests info@stemfellowship.org is the general address (not verified).
+ Source: https://ojs.library.ubc.ca/index.php/sfj/about ; /about/submissions ; /about/contact
+ Why: "dedicated to high school and undergraduate students' research", "any field". Fee stated on submissions page: $400 CAD on acceptance unless discount/waiver proof is attached.
+ Doubts: no AI policy and no age rules found. Email unverified.
+
+03_Convergence_Journal.txt  (priority 3, may be a poor fit)
+ Convergence: A Journal for Young Researchers (Indigo Research / New York Academy of Sciences)
+ Contact: convergencejournal@indigoresearch.org - VERIFIED
+ Source: https://www.nyas.org/ideas-insights/publications/young-investigators-journal/ ; https://theconvergencejournal.org/for-authors/
+ Why: under-18 authors welcome, no school affiliation required, no submission fee, need-blind aid for the USD 500 post-review fee.
+ Doubts: AI policy says "limit usage to minor editing support" - this CONFLICTS with your process. The letter says so openly. Scope leans to interdisciplinary STEM+humanities and existential-risk themes, so a pure genomics paper may be out of scope.
+
+04_IJHSB.txt  (priority 2)
+ International Journal of High School Biology
+ Contact: web contact form https://ijhsb.org/contact/ (name, email, message; "reply within a week") - VERIFIED. No public email address.
+ Sources: https://ijhsb.org/contact/ ; /submission/ ; /guidelines-for-authors/ ; /frequently-asked-questions-faqs/
+ Why: biology scope, bioinformatics considered when the biological question is central; code sharing encouraged; fee EUR 50 / USD 60 only after screening, waivers possible; no publication fee up to 5 authors.
+ Doubts: first author must be a high-school or undergraduate student (you qualify); title page requires school/affiliation (you have none) - asked in the letter. No AI policy published; FAQ says check with editors. The draft is meant to be pasted into the form.
+
+=================== B. RESEARCHERS ===================
+
+--- Nazarbayev University, Laboratory of Bioinformatics and Systems Biology (Kazakhstan, priority group) ---
+WRITE FIRST TO: Ulykbek Kairov (head). Do not send to Daniyarov until Kairov has replied or ~3 weeks have passed.
+
+01_Kairov.txt  (priority 1)
+ Ulykbek Kairov, Head of Laboratory, NU Center for Life Sciences / National Laboratory Astana
+ Email: ulykbek.kairov@nu.edu.kz - VERIFIED
+ Source: https://nla.nu.edu.kz/ru/laboratory_bsb ; https://nla.nu.edu.kz/page28696285.html
+ Why: lab analyses NGS data and variants of Kazakh individuals and builds a national reference database. Only Kazakhstan group with confirmed relevance.
+ Doubts: lab page does not mention variant calling by name.
+
+02_Daniyarov.txt  (priority 3, hold)
+ Asset Daniyarov, Junior Researcher, same lab
+ Email: asset.daniyarov@nu.edu.kz - USER-SUPPLIED, NOT on the lab pages (they list no email for him).
+ Source: same lab pages; co-author of "Whole-genome sequencing data of Kazakh individuals" (BMC Res Notes 2021).
+ Doubts: his listed areas are bacterial genome analysis, plant genomics, proteomics - weak match; junior; same lab as Kairov.
+ Also in this lab: Askhat Molkenov (lists "mathematical approaches to NGS data analysis"; best topical match after Kairov) - no email found, no draft.
+
+07_Khapilina.txt  (priority 4, optional - I suggest NOT sending)
+ Oksana (Oxana) Khapilina, plant genomics, National Center for Biotechnology, Astana
+ Email: hapilina@biocenter.kz - USER-SUPPLIED, NOT FOUND (biocenter.kz footer shows only info@biocenter.kz; she is not on the project page I opened).
+ Source: Google Scholar profile (scholar.google.com/citations?user=9oIeSa8AAAAJ) and papers; her work is plant genetic diversity (retrotransposon markers, Rhodiola, Amaranthaceae etc.).
+ Doubts: field is far from human short-read variant calling; I found no SNP-calling work by her. Draft asks only a generic wet-lab validation question.
+
+--- Johns Hopkins ---
+03_Schatz.txt  (priority 2)  Michael Schatz, Computer Science / Biology, JHU
+ Email: mschatz@jhu.edu - VERIFIED  Source: https://www.cs.jhu.edu/faculty/michael-schatz/
+ Why: genomics, DNA sequencing and analysis. Doubts: extremely senior, inbox likely overloaded; low reply probability.
+04_Langmead.txt  (priority 2)  Ben Langmead, Computer Science, JHU (Langmead Lab)
+ Email: blangme2@jhu.edu - VERIFIED  Source: https://www.cs.jhu.edu/faculty/ben-langmead/ (also his page lists variant calling, reproducibility, benchmarking among interests: https://www.cs.jhu.edu/~langmea/)
+ Why: open tools for sequencing data, reproducibility. Which of the two JHU people first: Langmead (reproducibility ask is very concrete).
+
+--- Others ---
+05_Heng_Li.txt  (priority 2)  Heng Li, Dana-Farber / Harvard Medical School
+ Email used: hli@jimmy.harvard.edu - VERIFIED on https://dbmi.hms.harvard.edu/people/heng-li
+ me@liheng.org (from you) was NOT confirmed on any page I could open; the HMS address is the one I verified. Lab: https://hlilab.github.io/ (no email listed there).
+ Why: BWA/samtools/minimap2, variant calling. Doubts: receives huge volumes of mail.
+06_Medvedev.txt  (priority 3)  Paul Medvedev, Penn State (CSE / Biochemistry & Molecular Biology; Director, Center for Computational Biology and Bioinformatics)
+ Email: pzm11@psu.edu - VERIFIED  Source: https://www.huck.psu.edu/directory/paul-medvedev
+ CORRECTION: his name is Paul, not Peter. Group: https://medvedevgroup.com/ ("algorithmic bioinformatics"). I did not find a page stating a variant-calling focus, so the letter stays generic about his interests.
+
+--- Additional groups I found (max 8 allowed; only 3 have a verified email) ---
+08_Zook.txt  (priority 1)  Justin Zook, NIST, Genome in a Bottle
+ Email: justin.zook@nist.gov - VERIFIED (decoded from https://www.nist.gov/programs-projects/genome-bottle, which says to contact him for GIAB collaborations).
+ Why: maintains the truth sets the project uses; best person to judge the evaluation frame.
+09_Koster.txt  (priority 2)  Johannes Köster, Univ. Duisburg-Essen (Varlociraptor, Snakemake)
+ Email: johannes.koester@uni-due.de - VERIFIED  Source: https://koesterlab.github.io
+ Why: statistical variant calling with FDR control, reproducible workflows.
+10_Sedlazeck.txt  (priority 3)  Fritz Sedlazeck, Baylor College of Medicine HGSC
+ Email: sedlazec@bcm.edu - VERIFIED  Source: https://www.bcm.edu/people-search/fritz-sedlazeck-30398
+ Doubts: the page states no research focus, so the letter is generic. His work is largely SV/long-read, a partial match for a SNP-only short-read tool.
+
+Candidates found but NO draft (no official email verified):
+ - Ainur Akilzhanova, head of NU Laboratory of Genomic and Personalized Medicine / Director of Center for Life Sciences (https://nla.nu.edu.kz/kz/laboratory_gpm) - Kazakhstan, NGS and bioinformatics; no email on pages. Could be approached via Kairov's lab or the NU CLS main channels.
+ - Erik Garrison (freebayes, pangenomes) - current affiliation/email not verified.
+ - Brad Chapman (bcbio, variant-calling validation, Harvard Chan Bioinformatics Core) - no direct email found.
+
+EXCLUDED on purpose: Tobias Rausch (already contacted).
+
+Suggested order: Zook, Kairov, Langmead, Köster, Heng Li, Schatz; then Medvedev, Sedlazeck. Send one or two per day, not all at once.

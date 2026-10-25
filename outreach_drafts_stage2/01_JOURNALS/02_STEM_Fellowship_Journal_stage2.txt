@@ -1,0 +1,12 @@
+To: STEM Fellowship Journal, Managing Editor <managingeditor@stemfellowship.org>
+Subject: Pre-submission question: independent author from Kazakhstan, AI-assisted code
+
+Email:
+Dear Managing Editor,
+
+I’m 16 and an independent researcher in Kazakhstan, with no institutional affiliation. I’m considering submitting a computational genomics paper on a short-read SNP caller, evaluated on public GIAB data (https://github.com/krmox/AI_DNA_ANALYZER; https://doi.org/10.5281/zenodo.22978775).
+
+Claude (Anthropic) wrote much of the code and ran experiments under conditions I set; I chose the question and interpreted the results. I couldn’t find an AI policy on the journal’s pages. Would this process be acceptable, and what disclosure or checks would you require? Can an independent author submit, and what are the publication fee and waiver conditions?
+
+Thank you,
+Mark

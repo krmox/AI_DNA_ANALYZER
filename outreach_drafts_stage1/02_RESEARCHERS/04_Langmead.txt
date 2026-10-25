@@ -1,0 +1,12 @@
+To: Ben Langmead <blangme2@jhu.edu>
+Subject: Reproducibility check of a small open SNP caller
+
+Email:
+Dear Professor Langmead,
+
+I follow your work on open, reproducible tools for sequencing data. I am a 16-year-old independent researcher in Kazakhstan. AI_DNA_ANALYZER is a SNP-only germline caller for Illumina reads, benchmarked on GIAB HG002/HG003 with hap.py (https://github.com/krmox/AI_DNA_ANALYZER). It is a research project, not clinical software. Claude (Anthropic) wrote most of the code and ran the benchmarks I specified; I set the question and constraints and interpreted the results.
+
+The repository has a one-command verify.sh, but I do not know of anyone outside the project who has run it, so reproducibility is not independently confirmed. Could you skim the README and tell me the most likely reason a stranger could fail to reproduce the results, or the first thing you would test? One observation would help a lot.
+
+Thank you,
+Mark

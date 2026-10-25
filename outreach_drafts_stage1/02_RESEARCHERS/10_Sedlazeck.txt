@@ -1,0 +1,12 @@
+To: Fritz Sedlazeck <sedlazec@bcm.edu>
+Subject: Short question on benchmarking a small SNP caller
+
+Email:
+Dear Dr. Sedlazeck,
+
+I am writing to you as someone who works on sequencing-analysis methods and their evaluation. I am a 16-year-old independent researcher in Kazakhstan. AI_DNA_ANALYZER is a SNP-only germline caller for Illumina reads, benchmarked on GIAB HG002/HG003 with hap.py (https://github.com/krmox/AI_DNA_ANALYZER). It is a research project, not clinical software. Claude (Anthropic) wrote most of the code and ran the benchmarks I specified; I set the question and constraints and interpreted the results.
+
+A known weakness is that it loses a few true low-allele-fraction SNPs in segmental duplications. What orthogonal data or analysis would best test whether that error is real and not an artefact of my evaluation? A brief suggestion is enough.
+
+Thank you,
+Mark
