@@ -14,7 +14,8 @@ const char* const FEAT_NAMES[NFEAT] = {
     "alt_nm_mean", "ref_nm_mean", "alt_clip_frac", "ref_clip_frac", "alt_uniq_frac", "gap_frac", "ins_frac", "del_next_frac",
     "nc2", "nc5", "nc10", "nc25", "nearest", "lmr25", "lgap10", "depth_ratio25", "neigh_max_vaf25",
     "hp_len", "left_is_alt", "right_is_alt", "dinuc10", "is_ts", "ref_cg", "cpg",
-    "bq_diff", "mq_diff", "lowmq_frac"};
+    "bq_diff", "mq_diff", "lowmq_frac",
+    "bllr_pr", "kcap", "lowbq_frac"};
 
 namespace {
 inline int base_code(const bam1_t* bb, int qpos) {
@@ -202,6 +203,9 @@ void derive_features(const ReadStats& s, int depth, int n, int k, int nref, int 
     f[42] = c.is_ts; f[43] = c.ref_cg; f[44] = c.cpg;
     f[45] = f[8] - f[7]; f[46] = f[12] - f[11];
     f[47] = div(s.n_plp - s.n_admitted, s.n_plp);
+    f[48] = n > 0 ? bllr / n : 0.0;                 // per-read LLR: not proportional to depth
+    f[49] = std::min(k, 10);                          // saturating ALT count
+    f[50] = div(s.alt_lowbq, s.alt_lowbq + ka);
 }
 
 }  // namespace dnav2

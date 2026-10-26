@@ -1,0 +1,12 @@
+To: Oksana Khapilina <hapilina@biocenter.kz>
+Subject: Question about validating computational SNP calls
+
+Email:
+Dear Dr. Khapilina,
+
+Your laboratory at the National Center for Biotechnology works on plant genomics and genotyping. I’m 16 and an independent researcher in Kazakhstan. AI_DNA_ANALYZER is a SNP-only germline caller for Illumina reads, benchmarked on GIAB HG002/HG003 with hap.py (https://github.com/krmox/AI_DNA_ANALYZER). It is a research project, not clinical software. Claude (Anthropic) wrote most of the code and ran the benchmarks I specified; I set the question and constraints and interpreted the results.
+
+The tool works on human data only, and I have no wet-lab validation. From your experience, what kind of independent confirmation of computational SNP calls would a genotyping lab find convincing? A short answer is enough; I’m not asking you to run anything.
+
+Thank you,
+Mark

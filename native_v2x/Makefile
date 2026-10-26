@@ -41,3 +41,10 @@ tools: $(BUILD)/bamscan
 test: kernels
 	V2_KERNEL_LIB=$(abspath $(BUILD))/libdnav2_kernels.so python3 tests/test_kernels.py
 	python3 tests/test_blake2b.py
+
+$(BUILD)/test_frame: tests/test_frame.cpp src/frame.cpp include/dnav2/frame.hpp
+	@mkdir -p $(BUILD)
+	$(CXX) $(CXXFLAGS) -isystem $(HTS_INC) -o $@ tests/test_frame.cpp src/frame.cpp $(HTS_LIB) -Wl,-rpath,/usr/lib64
+.PHONY: test-frame
+test-frame: $(BUILD)/test_frame
+	$(BUILD)/test_frame

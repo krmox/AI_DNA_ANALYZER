@@ -30,6 +30,12 @@ struct Config {
     bool exact_windows = false;      // V1-literal path: separate counts pass + FRESH pileup per 64-bp window
     bool setup_only = false;         // build windows + labels, dump them, stop (frame equivalence test)
     bool quiet = false;
+    int pb_variant = 0;              // 0 = V2/V1 count-PB (control), 1 = alt-aware per-read LR (D1)
+    double pb_threshold = 10.5;      // PB call threshold; 10.5 = frozen V1 value (only meaningful with the control PB)
+    bool methodc_p0_third = false;   // D5: Method C class 0/0 uses eps/3
+    bool edge_windows = true;        // R1.1 default (Stage 2 / H1): scan windows partially overlapping the BED; score BED positions only
+    bool truth_free = true;          // R1.1 default (Stage 2 / H2): never read the truth VCF; eligibility = BED only
+                                     // --strict-windows / --truth-mask restore the R1 behaviour byte-for-byte (VCF body)
 };
 
 struct Summary {

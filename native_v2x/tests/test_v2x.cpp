@@ -1,5 +1,6 @@
 // V2.x unit tests: (1) pb_llr_n == pb_native_v2 == pb_reference (bit-exact) on random reads; (2) PB variants (caps, block
 // consensus) on hand-checkable inputs; (3) model file parse + logit/veto decisions against hard-coded Python values.
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -7,6 +8,7 @@
 #include <random>
 #include "dnav2/features.hpp"
 #include "dnav2/model.hpp"
+#include "dnav2/methodc.hpp"
 #include "dnav2/pb.hpp"
 using namespace dnav2;
 static int fails = 0;
@@ -62,6 +64,44 @@ int main() {
     CHECK(!s.decide(fv, false, 20.0, nullptr, dp, &ev), "veto vaf<=0.4 must veto vaf 0.35");
     fv[5] = 0.5; CHECK(s.decide(fv, false, 20.0, nullptr, dp, &ev), "no veto at vaf 0.5 and Binomial>=7");
     CHECK(!s.decide(fv, false, 6.9, nullptr, dp, &ev), "Binomial<7 not called");
+    // ---- D1: alt-aware PB.  (a) counterexample: the count-PB cannot tell WHICH read is ALT
+    {
+        uint8_t c1[2] = {1, 0}, c2[2] = {0, 1}, q[2] = {40, 10};     // alt=1: ALT is the Q40 read vs the Q10 read
+        CHECK(bits(pb_native_v2(c1, q, 2, 1)) == bits(pb_native_v2(c2, q, 2, 1)), "count-PB must be blind to ALT identity (documents D1)");
+        const double hi = pb_alt_aware(c1, q, 2, 1), lo = pb_alt_aware(c2, q, 2, 1);
+        CHECK(hi > lo, "alt-aware PB: a Q40 ALT read must score higher than a Q10 ALT read");
+        std::printf("D1 counterexample: count-PB %.6f == %.6f ; alt-aware Q40-ALT %.6f > Q10-ALT %.6f\n",
+                    pb_native_v2(c1, q, 2, 1), pb_native_v2(c2, q, 2, 1), hi, lo);
+    }
+    // (b) alt-aware PB vs an independent naive implementation (std::log, long double) on random loci
+    {
+        int bad = 0; double maxd = 0;
+        for (int it = 0; it < 20000; it++) {
+            int n = 1 + rng() % 48; uint8_t code[48], bq[48]; int alt = rng() % 4;
+            for (int i = 0; i < n; i++) { code[i] = (rng() % 3 == 0) ? alt : (alt + 1) % 4; bq[i] = 13 + rng() % 30; }
+            long double h[3] = {0, 0, 0};
+            for (int i = 0; i < n; i++) {
+                long double p = std::pow(10.0L, -(long double)bq[i] / 10.0L); if (p < 1e-4L) p = 1e-4L; if (p > 0.25L) p = 0.25L;
+                long double q3[3] = {p / 3, 0.5L * (1 - p) + 0.5L * (p / 3), 1 - p + p / 3};
+                for (int j = 0; j < 3; j++) h[j] += code[i] == alt ? std::log(q3[j]) : std::log1p(-q3[j]);
+            }
+            long double ref = (h[1] > h[2] ? h[1] : h[2]) - h[0];
+            double got = pb_alt_aware(code, bq, n, alt);
+            double d = std::fabs((double)ref - got); if (d > maxd) maxd = d; if (d > 1e-9) bad++;
+        }
+        CHECK(bad == 0, "alt-aware PB != long-double reference");
+        std::printf("alt-aware PB vs long-double reference: 20000 loci, max |diff| = %.3g\n", maxd);
+    }
+    // ---- D5: default Method C unchanged; eps/3 variant differs only in class-0/0 handling
+    {
+        int diff_gt = 0, diff_gq = 0, forced_old = 0, forced_new = 0;
+        for (double n = 1; n <= 60; n++) for (double k = 0; k <= n; k++) {
+            MethodCResult a = method_c(k, n), a2 = method_c(k, n, false), b = method_c(k, n, true);
+            CHECK(a.gt == a2.gt && a.gq == a2.gq && a.forced == a2.forced, "default method_c must equal p0_third=false");
+            diff_gt += a.gt != b.gt; diff_gq += a.gq != b.gq; forced_old += a.forced; forced_new += b.forced;
+        }
+        std::printf("D5 over (k<=n<=60): GT differs %d, GQ differs %d, forced-0/0 old=%d new=%d\n", diff_gt, diff_gq, forced_old, forced_new);
+    }
     std::printf("logit=%.15g expected=%.15g\n", z, expect);
     std::printf(fails ? "V2X UNIT TESTS FAILED (%d)\n" : "V2X UNIT TESTS PASSED\n", fails);
     return fails ? 1 : 0;

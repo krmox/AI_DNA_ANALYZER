@@ -56,6 +56,7 @@ struct Shared {
     const Config* cfg;
     const std::vector<Window>* windows;
     const std::vector<uint8_t>* labels;
+    const std::vector<std::pair<int64_t, int64_t>>* bed_clip = nullptr;   // set only with edge_windows
     std::vector<Task> tasks;
     std::vector<TaskResult> results;
     std::atomic<size_t> next{0};
@@ -75,7 +76,7 @@ struct RecordAcc { double k, n; int64_t pos0, depth; char ref, alt; };
 
 void genotype_lines(const std::vector<RecordAcc>& recs, const Config& cfg, std::string& out, int64_t& forced) {
     for (const auto& r : recs) {
-        MethodCResult m = method_c(r.k, r.n);
+        MethodCResult m = method_c(r.k, r.n, cfg.methodc_p0_third);
         if (m.forced) forced++;
         char line[256];
         std::snprintf(line, sizeof line, "%s\t%lld\t.\t%c\t%c\t.\tPASS\tDP=%lld\tGT:GQ\t%s:%d\n", cfg.contig.c_str(),
@@ -96,6 +97,7 @@ struct PbCtx {
     const std::vector<int64_t>* loci;
     bool keep_rows;
     int64_t n_eval = 0;
+    int pb_variant = PB_COUNT_V2;
 };
 
 void pb_emit(void* vctx, int64_t pos, const RowEntry* kept, int n_kept, int) {
@@ -108,7 +110,7 @@ void pb_emit(void* vctx, int64_t pos, const RowEntry* kept, int n_kept, int) {
     const int alt = (*c->alt)[li];
     int k = 0;
     for (int i = 0; i < m; i++) k += (code[i] == alt);
-    (*c->pb)[li] = pb_native_v2(code, bq, m, alt);
+    (*c->pb)[li] = c->pb_variant == PB_ALT_AWARE ? pb_alt_aware(code, bq, m, alt) : pb_native_v2(code, bq, m, alt);
     (*c->n_counted)[li] = m;
     (*c->k_tensor)[li] = k;
     (*c->evaluated)[li] = 1;
@@ -201,7 +203,8 @@ std::string process_task(Shared& S, const Task& t, BamHandle& bam, Fai* fai, std
         double c4[4] = {double(c.v[0]), double(c.v[1]), double(c.v[2]), double(c.v[3])};
         BinomialScore s = binomial_score(c4, refidx[i]);
         bllr[i] = s.llr; alt[i] = static_cast<uint8_t>(s.alt_index); kk[i] = s.k; nn[i] = s.n;
-        frame[i] = (*S.labels)[static_cast<size_t>(ts + i)] <= LABEL_SNP;
+        frame[i] = (cfg.truth_free || (*S.labels)[static_cast<size_t>(ts + i)] <= LABEL_SNP) &&
+                   (!S.bed_clip || in_intervals(*S.bed_clip, ts + i));
         routed[i] = frame[i] && is_routed(s.llr);
         scored[i] = 1;
     };
@@ -214,6 +217,7 @@ std::string process_task(Shared& S, const Task& t, BamHandle& bam, Fai* fai, std
     auto is_forced = [&](int64_t i) { return (force[i / SEQ_LEN] >> (i % SEQ_LEN)) & 1ULL; };
 
     PbCtx ctx{ts, &alt, &pb, &ncnt, &ktens, &evaluated, &rows_keep, S.loci, dump};
+    ctx.pb_variant = cfg.pb_variant;
 
     if (!cfg.exact_windows) {
         // ---- FUSED: one streaming pileup; counts, Binomial, router and (where needed) PB per column ----
@@ -363,7 +367,7 @@ std::string process_task(Shared& S, const Task& t, BamHandle& bam, Fai* fai, std
     for (int64_t i = 0; i < n; i++) {
         if (!frame[i]) continue;
         bool bcall = bllr[i] >= FROZEN_BINOMIAL_THRESHOLD;
-        bool pc = evaluated[i] ? (pb[i] >= FROZEN_PB_THRESHOLD) : false;
+        bool pc = evaluated[i] ? (pb[i] >= cfg.pb_threshold) : false;
         if (cfg.mode == Mode::PB_ALL) pcall[i] = pc;
         ccall[i] = routed[i] ? pc : bcall;
         if (xdec[i]) ccall[i] = xcall[i];
@@ -372,7 +376,7 @@ std::string process_task(Shared& S, const Task& t, BamHandle& bam, Fai* fai, std
     }
     if (S.model) {
         R.n_pb_eval += R.n_pb_model;
-        for (int64_t i = 0; i < n; i++) if (xdec[i]) { R.n_model_calls += xcall[i]; R.n_model_changed += (xcall[i] != (routed[i] ? (evaluated[i] && pb[i] >= FROZEN_PB_THRESHOLD) : (bllr[i] >= FROZEN_BINOMIAL_THRESHOLD))); }
+        for (int64_t i = 0; i < n; i++) if (xdec[i]) { R.n_model_calls += xcall[i]; R.n_model_changed += (xcall[i] != (routed[i] ? (evaluated[i] && pb[i] >= cfg.pb_threshold) : (bllr[i] >= FROZEN_BINOMIAL_THRESHOLD))); }
     }
     genotype_lines(rc, cfg, R.vcf_cascade, R.n_casc_forced);
     R.n_casc = static_cast<int64_t>(rc.size());
@@ -389,7 +393,7 @@ std::string process_task(Shared& S, const Task& t, BamHandle& bam, Fai* fai, std
         const CountRow& c = counts[i];
         std::snprintf(line, sizeof line, "%lld\t%d\t%u\t%u\t%u\t%u\t%u\t%s\t%s\t%d\t%d\t%d\n", (long long)(ts + i),
                       refidx[i], c.v[0], c.v[1], c.v[2], c.v[3], c.v[6], hexf(bllr[i]).c_str(), hexf(pb[i]).c_str(),
-                      int(bllr[i] >= FROZEN_BINOMIAL_THRESHOLD), int(pb[i] >= FROZEN_PB_THRESHOLD), int(ccall[i]));
+                      int(bllr[i] >= FROZEN_BINOMIAL_THRESHOLD), int(pb[i] >= cfg.pb_threshold), int(ccall[i]));
         R.routed_tsv += line;
     }
     if (dump) {
@@ -402,7 +406,7 @@ std::string process_task(Shared& S, const Task& t, BamHandle& bam, Fai* fai, std
             o << '\t' << hexf(bllr[i]) << '\t' << int(alt[i]) << '\t' << static_cast<long long>(kk[i]) << '\t'
               << static_cast<long long>(nn[i]) << '\t' << int((*S.labels)[*lo]) << '\t' << int(frame[i]) << '\t'
               << int(routed[i]) << '\t' << int(bllr[i] >= FROZEN_BINOMIAL_THRESHOLD) << '\t' << int(evaluated[i]) << '\t'
-              << hexf(pb[i]) << '\t' << ncnt[i] << '\t' << ktens[i] << '\t' << int(pb[i] >= FROZEN_PB_THRESHOLD) << '\t'
+              << hexf(pb[i]) << '\t' << ncnt[i] << '\t' << ktens[i] << '\t' << int(pb[i] >= cfg.pb_threshold) << '\t'
               << int(ccall[i]) << '\t';
             auto it = rows_keep.find(*lo);
             if (it == rows_keep.end()) o << '-';
@@ -442,6 +446,7 @@ void flush_ready(Shared& S) {   // caller holds S.mu
 const char* HEADER_TMPL =
     "##fileformat=VCFv4.2\n"
     "##source=ai_dna_analyzer_%s_%s_C\n"
+    "##varion_mode=edge_windows=%d,truth_free=%d\n"
     "##contig=<ID=%s,length=%lld>\n"
     "##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth (passing-filter reads)\">\n"
     "##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype (frozen Method C: binomial genotype posterior argmax over {0/0,0/1,1/1}, eps=0.01 fixed)\">\n"
@@ -457,8 +462,19 @@ std::string run(const Config& cfg, Summary& out) {
     std::vector<Window> windows;
     std::vector<uint8_t> labels;
     std::string e;
-    if (!(e = build_windows(cfg.fasta, cfg.bed, cfg.contig, cfg.contig_len, windows)).empty()) return e;
-    if (!(e = load_labels(cfg.truth, cfg.contig, cfg.contig_len, labels)).empty()) return e;
+    if (!(e = build_windows(cfg.fasta, cfg.bed, cfg.contig, cfg.contig_len, windows, cfg.edge_windows)).empty()) return e;
+    // Truth is read only when it can matter: for the R1 call mask, or to fill the label column of the
+    // dumps (training/diagnostics). With truth_free it never reaches a call.
+    const bool labels_for_dumps = !cfg.truth.empty() &&
+        (!cfg.dump_features.empty() || !cfg.dump_loci.empty() || cfg.setup_only);
+    if (!cfg.truth_free || labels_for_dumps) {
+        if (!(e = load_labels(cfg.truth, cfg.contig, cfg.contig_len, labels)).empty()) return e;
+    } else labels.assign(static_cast<size_t>(cfg.contig_len), LABEL_NORMAL);
+    std::vector<std::pair<int64_t, int64_t>> bed_intervals;
+    if (cfg.edge_windows) {
+        bed_intervals = load_bed(cfg.bed, cfg.contig);
+        S.bed_clip = &bed_intervals;
+    }
 
     if (cfg.skip_windows > 0 || cfg.limit_windows >= 0) {
         size_t a = std::min<size_t>(windows.size(), static_cast<size_t>(cfg.skip_windows));
@@ -520,10 +536,10 @@ std::string run(const Config& cfg, Summary& out) {
     };
     if (cfg.write_vcf) {
         if (!open_out("ai_cascade_" + cfg.tag + ".vcf", S.f_casc)) return "cannot write cascade VCF";
-        std::fprintf(S.f_casc, HEADER_TMPL, cfg.tag.c_str(), "cascade", cfg.contig.c_str(), (long long)cfg.contig_len, cfg.sample.c_str());
+        std::fprintf(S.f_casc, HEADER_TMPL, cfg.tag.c_str(), "cascade", int(cfg.edge_windows), int(cfg.truth_free), cfg.contig.c_str(), (long long)cfg.contig_len, cfg.sample.c_str());
         if (cfg.mode == Mode::PB_ALL) {
             if (!open_out("ai_pb_only_" + cfg.tag + ".vcf", S.f_pbo)) return "cannot write pb-only VCF";
-            std::fprintf(S.f_pbo, HEADER_TMPL, cfg.tag.c_str(), "pb_only", cfg.contig.c_str(), (long long)cfg.contig_len, cfg.sample.c_str());
+            std::fprintf(S.f_pbo, HEADER_TMPL, cfg.tag.c_str(), "pb_only", int(cfg.edge_windows), int(cfg.truth_free), cfg.contig.c_str(), (long long)cfg.contig_len, cfg.sample.c_str());
         }
     }
     if (!open_out("routed_loci_" + cfg.tag + ".tsv", S.f_routed)) return "cannot write routed table";

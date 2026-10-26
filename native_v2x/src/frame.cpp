@@ -1,5 +1,7 @@
 #include "dnav2/frame.hpp"
 #include <algorithm>
+#include <climits>
+#include <iterator>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
@@ -58,19 +60,28 @@ std::vector<std::pair<int64_t, int64_t>> load_bed(const std::string& path, const
     return merged;
 }
 
+bool in_intervals(const std::vector<std::pair<int64_t, int64_t>>& intervals, int64_t pos) {
+    auto it = std::upper_bound(intervals.begin(), intervals.end(), std::make_pair(pos, INT64_MAX));
+    return it != intervals.begin() && pos < std::prev(it)->second;
+}
+
 std::string build_windows(const std::string& fasta, const std::string& bed, const std::string& contig,
-                          int64_t contig_len, std::vector<Window>& out) {
+                          int64_t contig_len, std::vector<Window>& out, bool include_partial) {
     auto iv = load_bed(bed, contig);
     if (iv.empty()) return "no BED intervals for contig";
     Fai* fai = fai_open(fasta);
     if (!fai) return "cannot open FASTA (.fai required): " + fasta;
     std::vector<uint8_t> buf(SEQ_LEN);
-    size_t k = 0;   // merged intervals are disjoint & sorted: containment == in the interval that
+    size_t k = 0, overlap = 0;   // merged intervals are disjoint & sorted: containment == in the interval that
                     // starts at or before the window (V1's prefix-max test)
     for (int64_t start = 0; start <= contig_len - SEQ_LEN; start += SEQ_LEN) {
         int64_t end = start + SEQ_LEN;
         while (k + 1 < iv.size() && iv[k + 1].first <= start) k++;
-        if (!(iv[k].first <= start && iv[k].second >= end)) continue;
+        if (include_partial) {
+            while (overlap < iv.size() && iv[overlap].second <= start) overlap++;
+            if (overlap == iv.size()) break;
+            if (iv[overlap].first >= end) continue;
+        } else if (!(iv[k].first <= start && iv[k].second >= end)) continue;
         int nn = 0;
         std::string e = fetch_ref_idx(fai, contig, start, end, buf.data(), &nn);
         if (!e.empty()) { fai_close(fai); return e; }

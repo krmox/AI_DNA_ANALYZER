@@ -17,13 +17,17 @@ struct MethodCResult {
 };
 inline const char* gt_string(int gt) { return gt == 2 ? "1/1" : "0/1"; }
 
-inline MethodCResult method_c(double k, double n) {
+// p0_third = false: frozen V1 semantics (class 0/0 alt-probability = eps).  true (D5 fix): eps/3, the same error model
+// the Binomial and PB hypotheses use for H0.
+inline MethodCResult method_c(double k, double n, bool p0_third = false) {
     static const double EPS = FROZEN_EPSILON;
-    static const double p[3] = {clip(0.0 * (1 - EPS) + 1.0 * EPS, 1e-12, 1 - 1e-12),
+    static const double p[4] = {clip(0.0 * (1 - EPS) + 1.0 * EPS, 1e-12, 1 - 1e-12),
                                 clip(0.5 * (1 - EPS) + 0.5 * EPS, 1e-12, 1 - 1e-12),
-                                clip(1.0 * (1 - EPS) + 0.0 * EPS, 1e-12, 1 - 1e-12)};
-    static const double lp[3] = {std::log(p[0]), std::log(p[1]), std::log(p[2])};
-    static const double l1p[3] = {std::log(1 - p[0]), std::log(1 - p[1]), std::log(1 - p[2])};
+                                clip(1.0 * (1 - EPS) + 0.0 * EPS, 1e-12, 1 - 1e-12),
+                                clip(EPS / 3.0, 1e-12, 1 - 1e-12)};
+    static const double lp[4] = {std::log(p[0]), std::log(p[1]), std::log(p[2]), std::log(p[3])};
+    static const double l1p[4] = {std::log(1 - p[0]), std::log(1 - p[1]), std::log(1 - p[2]), std::log(1 - p[3])};
+    const int idx[3] = {p0_third ? 3 : 0, 1, 2};
     static const double LN10 = std::log(10.0);
 
     double logp[3];
@@ -31,7 +35,7 @@ inline MethodCResult method_c(double k, double n) {
         logp[0] = logp[1] = logp[2] = 0.0;
     } else {
         double coeff = (gammaln(n + 1) - gammaln(k + 1)) - gammaln(n - k + 1);
-        for (int c = 0; c < 3; c++) logp[c] = (coeff + k * lp[c]) + (n - k) * l1p[c];
+        for (int c = 0; c < 3; c++) logp[c] = (coeff + k * lp[idx[c]]) + (n - k) * l1p[idx[c]];
     }
     // argsort(-logp): stable for 3 elements (numpy insertion sort); first two entries
     int best = 0;

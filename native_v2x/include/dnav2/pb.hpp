@@ -126,4 +126,23 @@ inline double pb_native_v2(const uint8_t* code, const uint8_t* bq, int n_counted
     return pb_llr_from(res[0], res[1], res[2], n_counted);
 }
 
+// Alt-aware per-read likelihood ratio (D1 fix).  pb_native_v2 evaluates the Poisson-binomial pmf of the ALT COUNT k,
+// which is blind to WHICH reads are ALT (swap an ALT read of Q40 with a ref read of Q10: identical LLR).  The likelihood
+// of the observed read configuration under hypothesis h is  prod_{s in ALT} q_h(s) * prod_{s not ALT} (1 - q_h(s)).
+// Same per-hypothesis success probabilities and the same max(het, hom) - h0 contrast as V1; O(n), no DP.
+inline double pb_alt_aware(const uint8_t* code, const uint8_t* bq, int n_counted, int alt_index,
+                           const PbTables& T = pb_tables()) {
+    double res[3];
+    for (int h = 0; h < 3; h++) {
+        const double* lq = T.lq[h];
+        const double* lnq = T.lnq[h];
+        double sum = 0.0;
+        for (int i = 0; i < n_counted; i++) sum += (code[i] == alt_index) ? lq[bq[i]] : lnq[bq[i]];
+        res[h] = sum;
+    }
+    return pb_llr_from(res[0], res[1], res[2], n_counted);
+}
+
+enum PbLlrKind { PB_COUNT_V2 = 0, PB_ALT_AWARE = 1 };
+
 }  // namespace dnav2

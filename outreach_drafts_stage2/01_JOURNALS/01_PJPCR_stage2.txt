@@ -1,0 +1,12 @@
+To: Princeton Journal of Pre-Collegiate Research <submissions@princeton-jpcr.org>
+Subject: Pre-submission question: independent author, AI-assisted code
+
+Email:
+Dear Editors,
+
+I’m 16 and an independent researcher in Kazakhstan, with no school or university affiliation. I’m considering submitting a paper on a short-read SNP caller, benchmarked on public GIAB data (https://github.com/krmox/AI_DNA_ANALYZER; https://doi.org/10.5281/zenodo.22978775).
+
+Claude (Anthropic) wrote much of the code and ran computational experiments that I specified. I defined the question and constraints and interpreted the results. Your AI policy appears to allow coding assistance with verification and disclosure. Could you confirm whether this level of AI use is acceptable, what declaration you expect, whether unaffiliated authors may submit, and whether any fees or waivers apply?
+
+Thank you for your time.
+Mark

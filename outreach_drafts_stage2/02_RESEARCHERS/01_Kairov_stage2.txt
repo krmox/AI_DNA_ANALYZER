@@ -1,0 +1,12 @@
+To: Ulykbek Kairov <ulykbek.kairov@nu.edu.kz>
+Subject: Short technical feedback request: open SNP caller benchmarked on GIAB
+
+Email:
+Dear Dr. Kairov,
+
+Your laboratory analyzes Kazakh whole genomes and builds a national variant reference, so reliable SNP calling is relevant to your work. I’m 16 and an independent researcher in Kazakhstan. AI_DNA_ANALYZER is a SNP-only germline caller for Illumina reads, benchmarked on GIAB HG002/HG003 with hap.py (https://github.com/krmox/AI_DNA_ANALYZER). It is a research project, not clinical software. Claude (Anthropic) wrote most of the code and ran the benchmarks I specified; I set the question and constraints and interpreted the results.
+
+Its F1 on one held-out chromosome (HG003 chr8) is 0.989, below DeepVariant on chr20, and it has been tested on only one platform. Could you look at the README and identify the single check you would require before trusting a caller like this on local sequencing data? A one-line reply would be enough.
+
+Thank you,
+Mark

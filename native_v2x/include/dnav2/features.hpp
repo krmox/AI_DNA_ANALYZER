@@ -9,7 +9,7 @@
 
 namespace dnav2 {
 
-constexpr int NFEAT = 48;
+constexpr int NFEAT = 51;   // 48 original + 3 scale-free derived (Stage 1, depth_robust)
 extern const char* const FEAT_NAMES[NFEAT];
 
 // Raw per-read accumulators of one candidate column (integers only: deterministic, order independent).

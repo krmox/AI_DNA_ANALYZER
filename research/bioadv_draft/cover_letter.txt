@@ -1,0 +1,32 @@
+Dear Editors,
+
+Please consider the enclosed manuscript, "AI_DNA_ANALYZER: a cascaded statistical SNP caller with a native engine and a read-evidence classifier layer", for publication as an Original Article in Bioinformatics Advances.
+
+Germline SNP calling with a per-read Poisson-binomial (PB) model is more discriminating than a fixed-error binomial test but is expensive to run at every locus. We evaluate three versions of one caller: V1 routes only low-confidence loci from a binomial screen to PB; V2 re-implements V1 as a multi-threaded C++ engine with byte-identical output; V2.x adds a logistic classifier on read-level evidence. On HG002 chr20 (GIAB v4.2.1, GRCh38, SNPs only), V2.x raised hap.py F1 from 0.97195 to 0.98902 on held-out blocks, mostly through a single base-quality rule, and a single pre-registered run on HG003 chr8 gave F1 0.98901.
+
+We report the unfavourable results in full. One chromosome showed a very small loss in accuracy for the V1 cascade (delta F1 -5.6e-5), one experiment-level verdict was negative, ten true SNPs were lost, no control was run for the final HG003 run, and DeepVariant and GATK achieved higher F1 than V2.x on the same data. The manuscript makes no claim of superiority over established callers, of validity beyond the tested setting, or of clinical validity.
+
+Code, models and final-evaluation artefacts are openly available (GitHub release v2.0.0, doi:10.5281/zenodo.22978775; frozen V1 protocol, doi:10.5281/zenodo.22895746).
+
+Use of AI. In line with the journal's policy, we disclose that Claude (Anthropic) was used as an assistant under the author's direction. It produced draft code and draft text, executed experiments and analyses specified by the author, and made minor corrections and edits. The author conceived the study, designed the models, architecture and experiments, directed the analysis, completed and finalised the text, verified all results and takes full responsibility for the content. The same statement appears in the manuscript. Claude is not listed as an author.
+
+Related work and preprints: none. The manuscript has not been posted as a preprint and is not under consideration elsewhere. The author declares no competing interests and received no external funding.
+
+Supplementary material includes a detailed record of AI assistance (research/AI_ASSISTANCE_DISCLOSURE.md) and the Supplementary Information.
+
+Sincerely,
+
+Mark Kostogryzov
+Independent researcher, Kazakhstan
+m.2researcher141941241@proton.me
+ORCID: 0009-0006-4698-3163
+
+
+----------------------------------------------------------------
+ALT TEXT FOR FIGURES (for the submission form; also embedded in the DOCX)
+
+Figure 1. Flow diagram of the method, left to right: input, extraction, binomial screen, router, Poisson-binomial (PB) model, allele calls, and a dashed-outline V2.x classifier. Brackets mark V1 as the frozen protocol, V2 as the same logic in a C++ engine with byte-identical output, and V2.x as a later stage that changes calls.
+
+Figure 2. Two dot-and-interval plots of change in F1. Panel a: eight V1 experiments, cascade minus PB-only; estimates range from -0.06 to +2.7 (x10^-3) and only the whole-chr20 experiment (v20) is negative. Panel b: V2.x components against the V2 control on holdout blocks; the base-quality veto (A), the classifier (C) and A+C each gain about 16 to 17 (x10^-3), while B and D gain 2 to 4.
+
+Figure 3. Two charts. Panel a: precision against recall on HG002 chr20. The V1/V2 control has precision about 0.964; V2.x points lie near precision 0.997 and recall 0.981; DeepVariant is highest (about 0.999, 0.996) and GATK is at about 0.987, 0.996. Panel b: bar chart of false positives and false negatives; V2.x cuts chr20 holdout false positives from 1,323 to 122 while false negatives stay near 600.

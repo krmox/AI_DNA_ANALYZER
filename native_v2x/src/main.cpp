@@ -11,6 +11,8 @@ static void usage() {
         "dnav2 run --bam B --ref FASTA --truth TRUTH.vcf.gz --bed BED --out-dir D [options]\n"
         "  --contig chr20 --contig-len 64444167 --sample HG002 --tag chr20_300x\n"
         "  --mode cascade|pb_all   (cascade: PB only on routed loci; pb_all: PB everywhere + PB-only VCF)\n"
+        "  --edge-windows (default) / --strict-windows   (keep windows partially overlapping the BED and call only BED positions / R1: whole 64-bp windows inside the BED only)\n"
+        "  --truth-free (default) / --truth-mask   (do not read --truth, no truth-derived call mask / R1: mask positions where --truth has an indel; --truth required)\n"
         "  --threads N  --decomp-threads N  --task-windows N\n"
         "  --loci-file F --dump-loci OUT.tsv   (gate: restrict to windows of these 0-based loci, dump per-locus fields)\n"
         "  --exact-windows   (V1-literal: counts pass + fresh pileup per window; default is one fused streaming pileup)\n  --skip-windows M --limit-windows N   (benchmark slice of the window list)\n  --dump-llr-prefix P   (write P.binom.f64 / P.pb.f64 for every scored locus)\n");
@@ -31,6 +33,13 @@ int main(int argc, char** argv) {
         else if (a == "--decomp-threads") c.decomp_threads = std::atoi(val().c_str());
         else if (a == "--task-windows") c.task_windows = std::atoi(val().c_str());
         else if (a == "--mode") { std::string m = val(); c.mode = m == "pb_all" ? dnav2::Mode::PB_ALL : dnav2::Mode::CASCADE; }
+        else if (a == "--pb-variant") c.pb_variant = std::atoi(val().c_str());
+        else if (a == "--pb-threshold") c.pb_threshold = std::atof(val().c_str());
+        else if (a == "--methodc-p0-third") c.methodc_p0_third = true;
+        else if (a == "--edge-windows") c.edge_windows = true;
+        else if (a == "--strict-windows") c.edge_windows = false;
+        else if (a == "--truth-free") c.truth_free = true;
+        else if (a == "--truth-mask") c.truth_free = false;
         else if (a == "--loci-file") c.loci_file = val(); else if (a == "--dump-loci") c.dump_loci = val();
         else if (a == "--dump-llr-prefix") c.dump_llr_prefix = val();
         else if (a == "--model") c.model_file = val();
@@ -44,7 +53,7 @@ int main(int argc, char** argv) {
         else if (a == "--limit-windows") c.limit_windows = std::atoll(val().c_str());
         else { usage(); return 2; }
     }
-    if (c.bam.empty() || c.fasta.empty() || c.truth.empty() || c.bed.empty() || c.out_dir.empty()) { usage(); return 2; }
+    if (c.bam.empty() || c.fasta.empty() || (c.truth.empty() && !c.truth_free) || c.bed.empty() || c.out_dir.empty()) { usage(); return 2; }
     dnav2::Summary s;
     std::string err = dnav2::run(c, s);
     if (!err.empty()) { std::fprintf(stderr, "ERROR: %s\n", err.c_str()); return 1; }

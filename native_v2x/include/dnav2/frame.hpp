@@ -25,10 +25,15 @@ struct Frame {
 // Load BED intervals for `contig` (merged like providers.load_bed_regions).
 std::vector<std::pair<int64_t, int64_t>> load_bed(const std::string& path, const std::string& contig);
 
-// Build the window list exactly as V1 (region (0, contig_len), stride 64).
+// Build the window list exactly as V1 (region (0, contig_len), stride 64).  Default: only windows fully
+// inside one merged BED interval.  include_partial (Stage 2 / H1): also keep windows that merely overlap a
+// BED interval; the caller must then restrict scoring to in_intervals() positions.
 // Errors are returned as a non-empty string.
 std::string build_windows(const std::string& fasta, const std::string& bed, const std::string& contig,
-                          int64_t contig_len, std::vector<Window>& out);
+                          int64_t contig_len, std::vector<Window>& out, bool include_partial = false);
+
+// True if pos lies in one of the sorted, disjoint, half-open intervals.
+bool in_intervals(const std::vector<std::pair<int64_t, int64_t>>& intervals, int64_t pos);
 
 // Truth-derived per-position label array (LABEL_*), V1 _fetch_labels semantics applied globally.
 std::string load_labels(const std::string& truth_vcf, const std::string& contig, int64_t contig_len,
