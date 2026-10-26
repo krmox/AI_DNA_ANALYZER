@@ -1,0 +1,5 @@
+name A_D
+kind stump
+kmin 3
+routed_variant 1
+veto alt_bq_mean le 25.333333333333332
