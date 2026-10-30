@@ -33,3 +33,4 @@ native_v2*/build/
 
 # nindels-test worktree + data (data lives on HDD)
 .worktrees/
+nindels/build/
