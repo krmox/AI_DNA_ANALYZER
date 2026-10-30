@@ -1,0 +1,9 @@
+date: 2026-10-30T14:30:17+05:00
+git_commit: 749cfa7589050f33514731ab02ff25da03b9fdc8
+binary_sha256: 92f98bf5f8461c5d5ea75e974800d85df790a24cdafabbf6c96bc71668a12346
+input: /mnt/hdd/nindels/data/HG004_chr20_30x.bam size=1215903014
+input: /mnt/hdd/AI_DNA_ANALYZER_stage2/bam/HG004_chr20_full.bam size=2657588870
+input: /mnt/hdd/nindels/data/ref_chr20.fa size=65364805
+input: /mnt/hdd/AI_DNA_ANALYZER_stage2/truth/HG004_GRCh38_1_22_v4.2.1_benchmark.vcf.gz size=148948118
+input: /mnt/hdd/nindels/data/conf_chr20.bed size=270429
+hap.py: Hap.py  engine=xcmp
