@@ -13,6 +13,8 @@
 
 namespace nindels {
 
+class StrErrorModel;
+
 struct PairHmmParams {
     int gap_open_q = 45;  // GATK default, not re-fitted
     int gap_ext_q = 10;   // GATK default, not re-fitted
@@ -24,7 +26,8 @@ struct PairHmmParams {
 // hap column i + diag" are computed (falls back to the full matrix if the band
 // leaves the haplotype).
 double pairhmm_loglik(std::string_view read, const uint8_t* quals, std::string_view hap,
-                      const PairHmmParams& p = {}, int64_t diag = 0, int64_t band = -1);
+                      const PairHmmParams& p = {}, int64_t diag = 0, int64_t band = -1,
+                      const double* gap_open = nullptr);  // per hap position; null = constant
 
 // A read prepared for likelihood computation: aligned part only (soft clips
 // removed), with its reference span and the allele its CIGAR implies.
@@ -61,6 +64,7 @@ struct LikelihoodParams {
     int max_reads = 250;   // ARBITRARY cost cap; reads chosen by smallest name hash
     int hap_pad = 20;      // ARBITRARY: haplotype bases beyond each read end
     int band = 20;         // ARBITRARY: DP band half-width is band + indel length (-1 = full DP)
+    const StrErrorModel* str = nullptr;  // Experiment B: repeat-aware gap-open (null = constant Q45)
 };
 
 // P(R|H_ref) and P(R|H_alt) for up to max_reads reads.

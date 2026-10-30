@@ -75,15 +75,23 @@ gap-open probability δ = 10^(−4.5) at every haplotype position.
 everywhere.
 
 **Why it fails:** polymerase slippage in an STR of n units occurs in roughly 10⁻³–10⁻¹ of
-reads, and it rises steeply with n. Under H_0 a slipped read costs ln δ ≈ −10.4 nats. Under
-H_0/a it costs ln ½ ≈ −0.7. Every reference read costs ln ½ under 0/a. So GL(0/a) > GL(0/0)
-whenever the slipped fraction s satisfies
+reads, and it rises steeply with n. On HG004 the estimate is 1.6% at a 10-bp homopolymer and
+5.7% at 20 bp (Experiment B estimation).
 
-  s · (10.4 − 0.7) > (1 − s) · 0.7  ⇒  s > 6.7%,
+Under H_0 the HMM explains a one-base slip in a 10-bp homopolymer by opening a gap at any of
+the run's positions: ≈ 10 δ ≈ 3×10⁻⁴, i.e. **−8.1 nats per slipped read**. Under 0/a the same
+read costs ln ½ = −0.7, and every reference read also costs −0.7. The 0/a prior adds a fixed
+ln θ = −9.2. So, with N reads of which a fraction s slipped:
 
-**regardless of depth**. Any STR whose true slippage rate is above 6.7% becomes a het call. And
-because QUAL grows linearly with the number of reads, those calls pass QUAL ≥ 20 more often at
-67× than at 30×. That is the measured precision drop (0.833 → 0.768) and the 1,225 HP ≥ 7 FPs.
+  GL(0/a) − GL(0/0) + ln θ ≈ N [ s · 7.4 − (1 − s) · 0.7 ] − 9.2.
+
+- The per-read term is positive whenever s > 8.6%.
+- It is **multiplied by N**, while the prior is fixed. The higher the depth, the more easily
+  an STR with s just above that break-even point beats the prior and passes QUAL ≥ 20.
+- Precision therefore falls with depth (0.833 → 0.768) instead of rising. The constant gap
+  model also produces the 1,225 HP ≥ 7 FPs.
+- Unit test `test_locus`: 6 of 30 slipped reads → called with constant Q45, not called with the
+  estimated ε.
 
 **Correction (Experiment B): data-estimated STR slippage, as position-specific gap-open.**
 1. *Estimate ε(p, u)* — the per-read probability of a whole-unit slippage in an STR of period

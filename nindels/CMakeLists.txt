@@ -20,7 +20,9 @@ add_library(nindels_core STATIC
   src/model.cpp
   src/engine.cpp
   src/table_io.cpp
-  src/vcf_out.cpp)
+  src/vcf_out.cpp
+  src/str_model.cpp
+  src/locus.cpp)
 target_include_directories(nindels_core PUBLIC include)
 
 enable_testing()

@@ -5,6 +5,8 @@
 #include <string>
 
 #include "nindels/engine.hpp"
+#include "nindels/locus.hpp"
+#include "nindels/str_model.hpp"
 #include "nindels/table_io.hpp"
 
 using namespace nindels;
@@ -275,6 +277,105 @@ static void test_engine() {
     CHECK(*r0.features[0].value == *r.features[0].value);
 }
 
+static void test_str_model() {
+    //                      0123456789012345678901234
+    auto runs = find_str_runs("GCTAAAAAAGTCACACACATGG");
+    CHECK(runs.size() == 2);
+    CHECK(runs[0].period == 1 && runs[0].start == 3 && runs[0].end == 9);
+    CHECK(runs[1].period == 2 && runs[1].start == 11 && runs[1].units() == 4);  // CACACACA
+    CHECK(find_str_runs("GCTAAAGC").empty());  // homopolymer of 3: below minimum
+
+    // EM recovers eps from a mixture of hom-ref (eps = 0.05), het and hom-alt loci.
+    std::vector<StrLocusCount> c;
+    uint64_t s = 3;
+    for (int k = 0; k < 2000; ++k) {
+        s = mix64(s);
+        int z = (s % 100) < 85 ? 0 : ((s % 100) < 95 ? 1 : 2);
+        double pr = z == 0 ? 0.05 : (z == 1 ? 0.5 : 0.95);
+        int n = 30, x = 0;
+        for (int r = 0; r < n; ++r) { s = mix64(s); x += (static_cast<double>(s % 1000000) / 1e6) < pr; }
+        c.push_back({1, 10, n, x});
+    }
+    StrErrorModel m;
+    m.fit(c);
+    NEAR(m.eps(1, 10), 0.05, 0.005);
+    CHECK(m.eps(1, 11) == m.eps(1, 10));  // sparse stratum inherits from u-1
+    m.calibrate(PairHmmParams{});
+    CHECK(m.gop(1, 10) > 1e-3);
+    // calibrated ratio: P(1-unit deletion read) / P(clean read) ~= eps / (2 (1 - eps))
+    std::string hap = "GATCCTAGGCATTGACCGTA" + std::string(10, 'A') + "TGCAGGTCATGCATTGCAGC";
+    std::string slip = "GATCCTAGGCATTGACCGTA" + std::string(9, 'A') + "TGCAGGTCATGCATTGCAGC";
+    auto prof = m.gap_open_profile(hap, std::pow(10.0, -4.5));
+    std::vector<uint8_t> q(hap.size(), 30);
+    double R = std::exp(pairhmm_loglik(slip, q.data(), hap, {}, 0, -1, prof.data()) -
+                        pairhmm_loglik(hap, q.data(), hap, {}, 0, -1, prof.data()));
+    NEAR(R, 0.05 / (2 * 0.95), 0.05 / (2 * 0.95) * 0.05);
+    m.save("/tmp/nindels_test_str.tsv");
+    NEAR(StrErrorModel::load("/tmp/nindels_test_str.tsv").gop(1, 10), m.gop(1, 10), 1e-9);
+}
+
+static void test_locus() {
+    std::string left = "GATCCTAGGCATTGACCGTATGCAGGTCAG", right = "CTGCATTGCAGCTTACGATCAGGCTAACG";
+    std::string refs = left + std::string(10, 'A') + right;
+    RefSeq ref{refs, 0};
+    const int64_t hp = static_cast<int64_t>(left.size());
+    Indel d1{0, hp, IndelType::Deletion, "A"}, d2{0, hp, IndelType::Deletion, "AA"};
+    std::string h1 = left + std::string(9, 'A') + right, h2 = left + std::string(8, 'A') + right;
+    auto mk = [&](const std::string& hs, ReadAllele a, uint64_t id) {
+        return read_from(hs, 2, static_cast<int64_t>(refs.size()) - 2, 2, hs.size() - 4, a, id);
+    };
+    // 1/2: half the reads -A, half -AA, no reference reads.
+    CandidateInput c1, c2;
+    c1.indel = d1;
+    c2.indel = d2;
+    for (int i = 0; i < 10; ++i) {
+        c1.reads.push_back(mk(h1, ReadAllele::Alt, 100 + i));
+        c1.obs.push_back({ReadAllele::Alt, false, 60, 0.3f, 0, 30, 0, false});
+        c2.reads.push_back(mk(h2, ReadAllele::Alt, 200 + i));
+        c2.obs.push_back({ReadAllele::Alt, false, 60, 0.3f, 0, 30, 0, false});
+    }
+    LocusCall c = genotype_locus(ref, {&c1, &c2}, LikelihoodParams{}, LocusParams{});
+    CHECK(c.pass);
+    CHECK(c.g1 != 0 && c.g2 != 0 && c.g1 != c.g2);  // 1/2, not two homozygous calls
+    CHECK(c.ad[0] == 0 && c.ad[1] == 10 && c.ad[2] == 10);
+    // the biallelic model (baseline) calls -A as 1/1 on the same reads
+    std::vector<HmmRead> all = c1.reads;
+    for (auto r : c2.reads) { r.cigar_allele = ReadAllele::Other; all.push_back(r); }
+    auto lk = read_likelihoods(ref, d1, all, LikelihoodParams{});
+    CHECK(diploid_gl(lk, true, GenotypePriors{}).gt == 2);
+
+    // 0/1 with reference reads
+    CandidateInput h;
+    h.indel = d1;
+    for (int i = 0; i < 10; ++i) {
+        h.reads.push_back(mk(refs, ReadAllele::Ref, 300 + i));
+        h.reads.push_back(mk(h1, ReadAllele::Alt, 400 + i));
+    }
+    LocusCall ch = genotype_locus(ref, {&h}, LikelihoodParams{}, LocusParams{});
+    CHECK(ch.pass && ch.g1 == 0 && ch.g2 == 1);
+    // 6 slipped reads out of 30 in a 10-bp homopolymer. Constant Q45: each
+    // slipped read is worth ~+7.4 nats for 0/1, which beats the prior; with the
+    // estimated eps ~ 2% it is worth ~+3.8 and the locus stays hom-ref.
+    CandidateInput n;
+    n.indel = d1;
+    for (int i = 0; i < 24; ++i) n.reads.push_back(mk(refs, ReadAllele::Ref, 500 + i));
+    for (int i = 0; i < 6; ++i) n.reads.push_back(mk(h1, ReadAllele::Alt, 600 + i));
+    std::vector<StrLocusCount> cnt;
+    for (int k = 0; k < 100; ++k) cnt.push_back({1, 10, 50, k % 10 == 0 ? 2 : 1});
+    StrErrorModel sm;
+    sm.fit(cnt);
+    sm.calibrate(PairHmmParams{});
+    LikelihoodParams with_str;
+    with_str.str = &sm;
+    LocusCall cn0 = genotype_locus(ref, {&n}, LikelihoodParams{}, LocusParams{});
+    LocusCall cn1 = genotype_locus(ref, {&n}, with_str, LocusParams{});
+    CHECK(cn0.pass);   // constant Q45 gap-open: called 0/1 (the baseline failure)
+    CHECK(!cn1.pass);  // data-estimated slippage: not called
+    CHECK(cn1.qual < cn0.qual);
+    std::printf("  locus test: 6/30 slipped reads QUAL constant-Q45 %.1f vs STR model %.1f (eps %.4f)\n", cn0.qual,
+                cn1.qual, sm.eps(1, 10));
+}
+
 static void test_table_io() {
     std::string line = "1\tNA\t-2.5";
     auto v = split_tab(line);
@@ -337,6 +438,8 @@ int main(int argc, char** argv) {
     test_logistic();
     test_engine();
     test_table_io();
+    test_str_model();
+    test_locus();
     std::printf("%d passed, %d failed\n", g_pass, g_fail);
     return g_fail ? 1 : 0;
 }

@@ -44,6 +44,7 @@ struct AlnRead {
     bool rev = false, split = false;
     int clip_l = 0, clip_r = 0, qlen = 0;
     uint64_t name_hash = 0;
+    uint64_t dup_key = 0;
     std::string seq;
     std::vector<uint8_t> qual;
     std::vector<uint32_t> cigar;
@@ -108,6 +109,10 @@ void load_read(const bam1_t* b, const RefSeq& ref, int32_t tid, AlnRead& r) {
     r.split = bam_aux_get(b, "SA") != nullptr;
     r.qlen = b->core.l_qseq;
     r.name_hash = hash_string(bam_get_qname(b));
+    r.dup_key = mix64(mix64(mix64(static_cast<uint64_t>(b->core.pos) * 2 + (bam_is_rev(b) ? 1 : 0)) ^
+                            static_cast<uint64_t>(b->core.mpos + 1)) ^
+                      (static_cast<uint64_t>(b->core.isize) * 4 + ((b->core.flag & BAM_FREAD1) ? 1 : 0) +
+                       ((b->core.flag & BAM_FREAD2) ? 2 : 0)));
     const uint8_t* s = bam_get_seq(b);
     const uint8_t* q = bam_get_qual(b);
     r.seq.resize(static_cast<size_t>(r.qlen));
@@ -190,6 +195,39 @@ std::string BamScanner::sample_name() const {
     return out;
 }
 
+StrLocusCount BamScanner::count_str_locus(const StrRun& run, int32_t tid, int min_mapq) {
+    StrLocusCount c;
+    c.period = run.period;
+    c.units = run.units();
+    const int64_t a = run.start - 3, e = run.end + 3;
+    hts_itr_t* itr = sam_itr_queryi(impl_->idx, tid, a, e);
+    if (!itr) return c;
+    bam1_t* b = bam_init1();
+    std::unordered_map<uint64_t, bool> frag;  // name hash -> slipped (first mate seen wins)
+    while (sam_itr_next(impl_->fp, itr, b) >= 0) {
+        if (b->core.flag & (BAM_FUNMAP | BAM_FSECONDARY | BAM_FQCFAIL | BAM_FDUP | BAM_FSUPPLEMENTARY)) continue;
+        if (b->core.qual < min_mapq || b->core.pos > a || bam_endpos(b) < e) continue;
+        const uint64_t h = hash_string(bam_get_qname(b));
+        if (frag.count(h)) continue;
+        bool slipped = false;
+        int64_t rpos = b->core.pos;
+        const uint32_t* cig = bam_get_cigar(b);
+        for (uint32_t k = 0; k < b->core.n_cigar; ++k) {
+            const int op = bam_cigar_op(cig[k]), len = static_cast<int>(bam_cigar_oplen(cig[k]));
+            if ((op == BAM_CINS || op == BAM_CDEL) && rpos >= run.start - 1 && rpos <= run.end + 1 &&
+                len % run.period == 0)
+                slipped = true;
+            if (bam_cigar_type(op) & 2) rpos += len;
+        }
+        frag.emplace(h, slipped);
+    }
+    bam_destroy1(b);
+    hts_itr_destroy(itr);
+    c.n = static_cast<int>(frag.size());
+    for (auto& [h, sl] : frag) c.s += sl;
+    return c;
+}
+
 std::vector<CandidateInput> BamScanner::scan(const RefSeq& ref, int32_t tid, int64_t start, int64_t end,
                                              const ScanParams& p, const std::vector<Indel>* external,
                                              int window_half) {
@@ -208,6 +246,22 @@ std::vector<CandidateInput> BamScanner::scan(const RefSeq& ref, int32_t tid, int
     }
     bam_destroy1(b);
     hts_itr_destroy(itr);
+
+    if (p.fragments) {
+        // Unmarked duplicates: among reads with the same duplicate key keep the
+        // smallest name hash. Both mates of a duplicate pair make the same
+        // choice, so whole fragments are kept or dropped together.
+        std::unordered_map<uint64_t, uint64_t> best;
+        for (const AlnRead& r : reads) {
+            auto [it, fresh] = best.emplace(r.dup_key, r.name_hash);
+            if (!fresh) it->second = std::min(it->second, r.name_hash);
+        }
+        std::vector<AlnRead> kept;
+        kept.reserve(reads.size());
+        for (AlnRead& r : reads)
+            if (best[r.dup_key] == r.name_hash) kept.push_back(std::move(r));
+        reads.swap(kept);
+    }
 
     // 2. Candidate alleles: normalized events with >= min_alt supporting reads.
     std::vector<Indel> cands;
@@ -294,6 +348,30 @@ std::vector<CandidateInput> BamScanner::scan(const RefSeq& ref, int32_t tid, int
         // Evidence was collected newest-first; restore read order for determinism.
         std::reverse(ci.obs.begin(), ci.obs.end());
         std::reverse(ci.reads.begin(), ci.reads.end());
+
+        if (p.fragments) {
+            // One observation per fragment: overlapping mates share the
+            // molecule (and its PCR errors). Keep the mate with the higher
+            // flanking base quality; ties keep the first in read order.
+            std::unordered_map<uint64_t, size_t> first;
+            std::vector<char> drop(ci.obs.size(), 0);
+            for (size_t k2 = 0; k2 < ci.obs.size(); ++k2) {
+                auto [it, fresh] = first.emplace(ci.reads[k2].name_hash, k2);
+                if (fresh) continue;
+                size_t j = it->second;
+                if (ci.obs[k2].flank_bq > ci.obs[j].flank_bq) { drop[j] = 1; it->second = k2; }
+                else drop[k2] = 1;
+            }
+            size_t w = 0;
+            for (size_t k2 = 0; k2 < ci.obs.size(); ++k2)
+                if (!drop[k2]) {
+                    ci.obs[w] = ci.obs[k2];
+                    ci.reads[w] = std::move(ci.reads[k2]);
+                    ++w;
+                }
+            ci.obs.resize(w);
+            ci.reads.resize(w);
+        }
 
         if (!external) {
             int n_alt = 0, n_ref = 0;

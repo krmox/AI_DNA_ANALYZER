@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "nindels/engine.hpp"
+#include "nindels/locus.hpp"
 #include "nindels/table_io.hpp"
 #include "nindels/vcf_out.hpp"
 
@@ -242,6 +243,58 @@ Region parse_region(const std::string& s) {
     return r;
 }
 
+// Experiment B: estimate eps(period, units) from the BAM (no truth labels).
+int cmd_estimate_str(const Args& a) {
+    const std::string bam = a.need("bam"), fasta = a.need("ref");
+    Region reg = parse_region(a.need("region"));
+    const int threads = std::max(1, static_cast<int>(a.num("threads", 1)));
+    const int per_stratum = static_cast<int>(a.num("max-loci", 300));  // ARBITRARY sample size
+    BamScanner probe(bam, fasta);
+    const int32_t tid = probe.tid(reg.chrom);
+    if (tid < 0) throw std::runtime_error("contig not in BAM: " + reg.chrom);
+    int64_t contig_len = 0;
+    for (auto& [n, l] : probe.contigs())
+        if (n == reg.chrom) contig_len = l;
+    if (reg.end < 0 || reg.end > contig_len) reg.end = contig_len;
+    RefSeq ref = load_reference(fasta, reg.chrom, reg.start, reg.end);
+
+    // Deterministic sample: per stratum keep the loci with the smallest position hash.
+    std::map<std::pair<int, int>, std::vector<std::pair<uint64_t, StrRun>>> strata;
+    for (StrRun r : find_str_runs(ref.seq)) {
+        r.start += ref.offset;
+        r.end += ref.offset;
+        auto& v = strata[{r.period, std::min(r.units(), StrErrorModel::kMaxUnits)}];
+        v.emplace_back(mix64(static_cast<uint64_t>(r.start)), r);
+    }
+    std::vector<StrRun> chosen;
+    for (auto& [key, v] : strata) {
+        std::sort(v.begin(), v.end(), [](auto& x, auto& y) { return x.first < y.first; });
+        for (size_t i = 0; i < v.size() && static_cast<int>(i) < per_stratum; ++i) chosen.push_back(v[i].second);
+    }
+    std::vector<StrLocusCount> counts(chosen.size());
+    std::atomic<size_t> next{0};
+    std::vector<std::thread> pool;
+    for (int t = 0; t < threads; ++t)
+        pool.emplace_back([&] {
+            BamScanner sc(bam, fasta);
+            for (size_t k; (k = next.fetch_add(1)) < chosen.size();) counts[k] = sc.count_str_locus(chosen[k], tid);
+        });
+    for (auto& th : pool) th.join();
+
+    StrErrorModel m;
+    m.fit(counts);
+    PairHmmParams hmm;
+    m.calibrate(hmm);
+    m.save(a.need("out"));
+    std::fprintf(stderr, "estimate-str: %zu loci sampled from %zu strata\n", chosen.size(), strata.size());
+    for (int p = 1; p <= 3; ++p)
+        for (int u : {4, 6, 8, 10, 12, 15, 20})
+            if (u >= str_min_units(p))
+                std::fprintf(stderr, "  period %d units %2d: loci %3d eps %.4f gap_open %.2e\n", p, u, m.loci(p, u),
+                             m.eps(p, u), m.gop(p, u));
+    return 0;
+}
+
 int cmd_call(const Args& a, const std::string& cmdline) {
     const std::string bam = a.need("bam"), fasta = a.need("ref");
     Region reg = parse_region(a.need("region"));
@@ -261,6 +314,7 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     sp.min_alt = static_cast<int>(a.num("min-alt", sp.min_alt));
     sp.min_alt_frac = a.num("min-alt-frac", sp.min_alt_frac);
     sp.chunk = static_cast<int64_t>(a.num("chunk", static_cast<double>(sp.chunk)));
+    sp.fragments = a.flags.count("fragments") > 0;
     const std::string parity = a.get("parity", "all");
     const int64_t block = static_cast<int64_t>(a.num("block", 2e6));
 
@@ -269,6 +323,11 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     if (a.has("memory")) memory = std::make_unique<PatternMemory>(PatternMemory::load(a.get("memory")));
     if (a.has("base-model")) base_model = std::make_unique<LogisticModel>(LogisticModel::load(a.get("base-model")));
     if (a.has("model")) final_model = std::make_unique<LogisticModel>(LogisticModel::load(a.get("model")));
+    std::unique_ptr<StrErrorModel> str_model;
+    if (a.has("str-model")) {
+        str_model = std::make_unique<StrErrorModel>(StrErrorModel::load(a.get("str-model")));
+        cfg.likelihood.str = str_model.get();
+    }
 
     BamScanner probe(bam, fasta);
     const int32_t tid = probe.tid(reg.chrom);
@@ -312,7 +371,13 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     std::vector<std::pair<int64_t, int64_t>> chunks;
     for (int64_t s = reg.start; s < reg.end; s += sp.chunk) chunks.emplace_back(s, std::min(reg.end, s + sp.chunk));
 
-    size_t n_cand = 0, n_pass = 0, n_reassessed = 0;
+    size_t n_cand = 0, n_pass = 0, n_reassessed = 0, n_loci = 0;
+    const std::string genotyper = a.get("genotyper", "biallelic");
+    if (genotyper != "biallelic" && genotyper != "multi") throw std::invalid_argument("--genotyper biallelic|multi");
+    const bool multi = genotyper == "multi";
+    LocusParams locus_params;
+    locus_params.min_qual = cfg.rule_min_qual;
+    if (multi && a.has("out-table")) throw std::invalid_argument("--out-table is not supported with --genotyper multi");
     std::atomic<long long> t_scan_us{0}, t_engine_us{0};
     auto now = [] { return std::chrono::steady_clock::now(); };
     auto us = [](auto d) { return std::chrono::duration_cast<std::chrono::microseconds>(d).count(); };
@@ -348,6 +413,37 @@ int cmd_call(const Args& a, const std::string& cmdline) {
         for (auto& v : scanned)
             for (auto& in : v)
                 if (parity == "all" || parity_of(in.indel.pos, block) == parity) todo.push_back(&in);
+        if (multi) {
+            // Experiment A: joint genotyping per locus.
+            auto groups = cluster_candidates(ref, todo);
+            std::vector<LocusCall> calls(groups.size());
+            std::atomic<size_t> nextg{0};
+            std::vector<std::thread> pool;
+            for (int t = 0; t < threads; ++t)
+                pool.emplace_back([&, t] {
+                    try {
+                        auto t0 = now();
+                        for (size_t k; (k = nextg.fetch_add(1)) < groups.size();) {
+                            std::vector<const CandidateInput*> g;
+                            for (size_t i : groups[k]) g.push_back(todo[i]);
+                            calls[k] = genotype_locus(ref, g, cfg.likelihood, locus_params);
+                        }
+                        t_engine_us += us(now() - t0);
+                    } catch (const std::exception& e) {
+                        errors[static_cast<size_t>(t)] = e.what();
+                    }
+                });
+            for (auto& th : pool) th.join();
+            for (const auto& e : errors)
+                if (!e.empty()) throw std::runtime_error(e);
+            n_cand += todo.size();
+            for (const auto& c : calls) {
+                ++n_loci;
+                n_pass += c.pass;
+                if (vcf.is_open()) write_locus_vcf(vcf, reg.chrom, ref, c);
+            }
+            continue;
+        }
         std::vector<CandidateResult> results(todo.size());
         std::atomic<size_t> next{0};
         {
@@ -377,8 +473,9 @@ int cmd_call(const Args& a, const std::string& cmdline) {
                 write_table_row(table, reg.chrom, ref, r, truth ? truth_label(*truth, bed.get(), r.indel) : -1);
         }
     }
-    std::fprintf(stderr, "call: %s:%lld-%lld candidates=%zu reassessed=%zu PASS=%zu\n", reg.chrom.c_str(),
-                 static_cast<long long>(reg.start + 1), static_cast<long long>(reg.end), n_cand, n_reassessed, n_pass);
+    std::fprintf(stderr, "call: %s:%lld-%lld candidates=%zu loci=%zu reassessed=%zu PASS=%zu genotyper=%s\n",
+                 reg.chrom.c_str(), static_cast<long long>(reg.start + 1), static_cast<long long>(reg.end), n_cand,
+                 n_loci, n_reassessed, n_pass, genotyper.c_str());
     std::fprintf(stderr, "thread-seconds: scan+evidence %.1f, engine (pattern+HMM+decision) %.1f\n",
                  t_scan_us.load() / 1e6, t_engine_us.load() / 1e6);
     if (truth)
@@ -396,6 +493,8 @@ void usage() {
                  "                [--out-vcf V] [--out-table T] [--truth VCF --bed BED] [--threads N]\n"
                  "                [--candidates-vcf V (shadow mode)] [--force-reassess] [--parity even|odd]\n"
                  "                [--min-alt 2] [--min-alt-frac 0.03] [--max-hmm-reads 250]\n"
+                 "                [--fragments] [--str-model S] [--genotyper biallelic|multi]\n"
+                 "  estimate-str  --bam B --ref FA --region chr --out S [--threads N] [--max-loci 300]\n"
                  "  build-memory  --table T [--table T2 ...] --out M [--parity even|odd|all] [--theta 0.15] [--top-k 32]\n"
                  "  fit           --table T [--table ...] --out F (--preset P | --features a,b,c) [--lambda 0.01]\n"
                  "                [--mask-reassess 0.5]   presets: full full-neff-loci no-memory dl-orig stage1\n"
@@ -411,12 +510,13 @@ int main(int argc, char** argv) {
     std::string cmdline;
     for (int i = 0; i < argc; ++i) cmdline += (i ? " " : "") + std::string(argv[i]);
     try {
-        Args a = Args::parse(argc, argv, 2, {"force-reassess"});
+        Args a = Args::parse(argc, argv, 2, {"force-reassess", "fragments"});
         if (cmd == "build-memory") return cmd_build_memory(a);
         if (cmd == "fit") return cmd_fit(a);
         if (cmd == "select-tau") return cmd_select_tau(a);
 #ifdef NINDELS_HAVE_HTSLIB
         if (cmd == "call") return cmd_call(a, cmdline);
+        if (cmd == "estimate-str") return cmd_estimate_str(a);
 #else
         if (cmd == "call") { std::fprintf(stderr, "built without htslib: 'call' unavailable\n"); return 2; }
 #endif

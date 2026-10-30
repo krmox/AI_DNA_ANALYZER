@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "nindels/engine.hpp"
+#include "nindels/str_model.hpp"
 
 namespace nindels {
 
@@ -18,6 +19,10 @@ struct ScanParams {
     int span_pad = 3;             // ARBITRARY: a Ref read must cover the event (and its repeat) +-3 bp
     int mismatch_flank = 20;      // ARBITRARY: window for the alt-read mismatch rate
     int bq_flank = 5;             // ARBITRARY: window for the flanking base quality
+    // Experiment C: fragment-level evidence. Collapse unmarked duplicates
+    // (same start, strand, mate start, insert size, read1/2) and keep one mate
+    // per fragment at each candidate (the one with higher flanking BQ).
+    bool fragments = false;
 };
 
 // Loads reference [start, end) of a contig with faidx.
@@ -39,6 +44,10 @@ public:
     std::vector<CandidateInput> scan(const RefSeq& ref, int32_t tid, int64_t start, int64_t end,
                                      const ScanParams& p, const std::vector<Indel>* external = nullptr,
                                      int window_half = 10);
+
+    // Experiment B estimation: fragments spanning run +-3 bp (MAPQ >= min_mapq,
+    // one read per fragment) and how many carry a whole-unit indel inside the run.
+    StrLocusCount count_str_locus(const StrRun& run, int32_t tid, int min_mapq = 20);
 
 private:
     struct Impl;
