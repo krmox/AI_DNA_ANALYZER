@@ -1,6 +1,7 @@
 // Unit tests for the core formulas on synthetic inputs (no data needed).
 #include <cmath>
 #include <cstdio>
+#include <fstream>
 #include <string>
 
 #include "nindels/engine.hpp"
@@ -142,6 +143,7 @@ static HmmRead read_from(const std::string& hapseq, int64_t ref_start, int64_t r
     r.mapq = 60;
     r.cigar_allele = a;
     r.name_hash = h;
+    r.window_bq.assign(21, 30);
     return r;
 }
 
@@ -274,7 +276,48 @@ static void test_table_io() {
     CHECK(format_opt(std::nullopt) == "NA");
 }
 
-int main() {
+// Synthetic labelled feature table for the CLI smoke test: true heterozygous
+// deletions with balanced, clean evidence vs. errors in a long homopolymer
+// with low, strand-biased support.
+static void write_synthetic_table(const std::string& path) {
+    std::string left = "GATCCTAGGCATTGACCGTATGCAGGTCA", right = "TGCATTGCAGCTTACGATCAGGCTAAC";
+    std::ofstream o(path);
+    std::vector<std::pair<CandidateResult, int>> rows;
+    uint64_t s = 11;
+    for (int i = 0; i < 400; ++i) {
+        const bool truth = i % 2 == 0;
+        std::string mid = truth ? "CTG" : "AAAAAAAAAAAA";
+        std::string refs = left + mid + right;
+        RefSeq ref{refs, 100000LL * i};
+        Indel x{0, ref.offset + static_cast<int64_t>(left.size()), IndelType::Deletion, truth ? "CTG" : "A"};
+        Haplotypes H = build_haplotypes(ref, x, ref.offset, ref.end());
+        CandidateInput in;
+        in.indel = x;
+        s = mix64(s);
+        const int n_alt = truth ? 10 + static_cast<int>(s % 6) : 2 + static_cast<int>(s % 3);
+        const int n_ref = truth ? 10 + static_cast<int>((s >> 8) % 6) : 25;
+        for (int k = 0; k < n_alt + n_ref; ++k) {
+            bool alt = k < n_alt;
+            bool rev = truth ? k % 2 : (alt ? true : k % 2);
+            in.obs.push_back({alt ? ReadAllele::Alt : ReadAllele::Ref, rev, 60, alt && !truth ? 0.05f : 0.3f, 0,
+                              truth ? 35.0f : 22.0f, truth ? 0.0f : 0.03f, false});
+            const std::string& hs = alt ? H.alt : H.ref;
+            in.reads.push_back(read_from(hs, ref.offset + 3, ref.end() - 3, 3, hs.size() - 6,
+                                         alt ? ReadAllele::Alt : ReadAllele::Ref, static_cast<uint64_t>(k)));
+        }
+        EngineConfig cfg;
+        cfg.force_reassess = true;
+        rows.emplace_back(process_indel(in, ref, nullptr, nullptr, nullptr, cfg), truth ? 1 : 0);
+        if (i == 0) write_table_header(o, {"truth_indels_in_bed=" + std::to_string(200)});
+        write_table_row(o, "chrS", ref, rows.back().first, rows.back().second);
+    }
+}
+
+int main(int argc, char** argv) {
+    if (argc == 3 && std::string(argv[1]) == "--write-table") {
+        write_synthetic_table(argv[2]);
+        return 0;
+    }
     test_normalize();
     test_pattern();
     test_similarity();

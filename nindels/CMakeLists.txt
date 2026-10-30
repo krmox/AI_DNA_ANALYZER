@@ -19,7 +19,8 @@ add_library(nindels_core STATIC
   src/reassess.cpp
   src/model.cpp
   src/engine.cpp
-  src/table_io.cpp)
+  src/table_io.cpp
+  src/vcf_out.cpp)
 target_include_directories(nindels_core PUBLIC include)
 
 enable_testing()
@@ -45,7 +46,7 @@ find_package(Threads REQUIRED)
 set(CLI_SOURCES src/main.cpp)
 if(HTSLIB_INCLUDE_DIR AND HTSLIB_LIBRARY)
   message(STATUS "htslib: ${HTSLIB_LIBRARY}")
-  list(APPEND CLI_SOURCES src/bam_scan.cpp src/truth.cpp src/vcf_out.cpp)
+  list(APPEND CLI_SOURCES src/bam_scan.cpp src/truth.cpp)
   add_executable(nindels-call ${CLI_SOURCES})
   target_compile_definitions(nindels-call PRIVATE NINDELS_HAVE_HTSLIB=1)
   target_include_directories(nindels-call PRIVATE ${HTSLIB_INCLUDE_DIR})
