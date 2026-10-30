@@ -125,6 +125,7 @@ def taxonomy(d, truth_vcf, conf, chrom, lines):
     pure_fp_feats = defaultdict(list)
     tp_feats = defaultdict(list)
     long_truth = Counter()
+    fp_gt = Counter()
     for r in vcf_records(f"{d}/happy.vcf.gz"):
         fmt = r[8].split(":")
         T = dict(zip(fmt, r[9].split(":")))
@@ -143,23 +144,28 @@ def taxonomy(d, truth_vcf, conf, chrom, lines):
                 long_truth[T["BD"]] += 1
         if is_indel_t and T.get("BD") == "FN":
             near = near_calls(pos)
-            if Q.get("BD") == "FP" and Q.get("BK") == "am":
+            if Q.get("BD") == "FP" and Q.get("BK") == "am" and q_pass:
                 k = "genotype wrong (allele found, GT differs)"
-            elif Q.get("BD") == "FP" and Q.get("BK") == "lm":
+            elif Q.get("BD") == "FP" and Q.get("BK") == "lm" and q_pass:
                 k = "allele/representation differs (nearby PASS call)"
             elif not near:
                 k = "never a candidate (discovery miss)"
-            elif any(c[6] != "PASS" for c in near):
-                k = "candidate filtered (LowProb/UNCERTAIN)"
+            elif not any(c[6] == "PASS" for c in near):
+                k = "candidate found but filtered (LowProb/UNCERTAIN)"
+            elif T.get("BLT") == "hetalt":
+                k = "multi-allelic site (truth 1/2), alleles genotyped separately"
             else:
-                k = "other"
+                k = "different allele/representation called nearby"
             if maxlen > 50:
                 k += " [>50bp]"
             fn_cls[k] += 1
             if len(fn_ex[k]) < 4:
                 ndesc = "; ".join(f"{c[3]}>{c[4]} {c[6]} {c[7][:70]}" for c in near[:2]) or "no candidate"
                 fn_ex[k].append(f"{chrom}:{pos} {r[3]}>{r[4]} truth GT {T.get('GT')} [{ctx}] -> {ndesc}")
-        if is_indel_q and Q.get("BD") == "FP":
+        q_pass = r[6] in (".", "PASS")  # hap.py copies the query FILTER; only PASS records are calls
+        if "CONF" not in regions:
+            continue
+        if is_indel_q and Q.get("BD") == "FP" and q_pass:
             if Q.get("BK") == "am":
                 k = "genotype error (allele right, GT wrong)"
             elif Q.get("BK") == "lm":
@@ -170,6 +176,7 @@ def taxonomy(d, truth_vcf, conf, chrom, lines):
             fp_cls[k2] += 1
             c = matching_pass(pos, r[3], alts)
             inf = info_dict(c[0][7]) if c else {}
+            fp_gt[(k.split(" (")[0], Q.get("GT"))] += 1
             if k.startswith("no truth"):
                 for key in ("NALT", "NREF", "F", "HQ", "QMIN"):
                     if key in inf:
@@ -177,7 +184,7 @@ def taxonomy(d, truth_vcf, conf, chrom, lines):
             if len(fp_ex[k2]) < 3:
                 fp_ex[k2].append(f"{chrom}:{pos} {r[3]}>{r[4]} called {Q.get('GT')} truth {T.get('GT')} "
                                  f"NALT={inf.get('NALT')} NREF={inf.get('NREF')} F={inf.get('F')} HQ={inf.get('HQ')}")
-        if is_indel_q and Q.get("BD") == "TP":
+        if is_indel_q and Q.get("BD") == "TP" and q_pass:
             c = matching_pass(pos, r[3], alts)
             if c:
                 inf = info_dict(c[0][7])
@@ -191,6 +198,9 @@ def taxonomy(d, truth_vcf, conf, chrom, lines):
     lines.append("\n**False positives by cause and repeat context**\n\n| Cause \\| context | Count |\n|---|---|")
     for k, v in fp_cls.most_common():
         lines.append(f"| {k.replace('|', '\\|')} | {v} |")
+    lines.append("\n**FP called genotype**\n")
+    for (k, g), v in sorted(fp_gt.items(), key=lambda x: -x[1]):
+        lines.append(f"- {k}, called {g}: {v}")
     lines.append("\n**Recall: clustered (another truth variant within 10 bp) vs isolated**\n")
     for c in (False, True):
         tp, fn = clus[(c, "TP")], clus[(c, "FN")]
