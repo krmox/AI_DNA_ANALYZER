@@ -1,0 +1,3 @@
+test-tail rc=0 40186 checks, 0 failures
+test-frame rc=0 FRAME TESTS PASSED
+make test (python kernels): BLOCKED, needs torch (legacy v1 stack)

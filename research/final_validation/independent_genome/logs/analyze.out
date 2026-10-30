@@ -1,0 +1,28 @@
+# PREREG_R2 endpoints on HG001 (point estimates + preregistered block-bootstrap CIs)
+
+Thresholds are the preregistered ones, unchanged. Depths 15x and 50x of P2/P4 were NOT run here (matrix is 10/20/30x), so P2/P4 are evaluated on the tested depths only.
+'inconclusive' is a reporting convention added here (point estimate below threshold but CI upper bound reaches it); it is not preregistered.
+
+* **P1** (30x: mean ΔF1 R2−R1.1 ≥ +0.003 and CI lower bound > 0; mean over 2 contig(s) × seeds, n=6 cells): ΔF1 = +0.00109, 95% block-bootstrap CI [+0.00042, +0.00207] → **NOT MET**
+
+* **P2** (paired ΔF1 R2−bcftools, lower 95% bound ≥ −0.0005, per depth tested):
+  * 10x: ΔF1 = +0.03496, CI [+0.03306, +0.03675] → **MET**
+  * 20x: ΔF1 = +0.00584, CI [+0.00494, +0.00720] → **MET**
+  * 30x: ΔF1 = +0.00229, CI [+0.00113, +0.00403] → **MET**
+
+* **P4** (F1(R2) ≥ F1(R1.1) − 0.002 at 10x; 15x not run), per contig and seed mean:
+  * chr17: ΔF1 (R2−R1.1) = +0.00095 → **MET**
+  * chr19: ΔF1 (R2−R1.1) = +0.00047 → **MET**
+
+* **P3** (F1(R2) ≥ 0.990 at ≥30x; claimed only where bcftools also reaches it, else 'data-limited'), mean over seeds:
+  * chr17 30x: R2 0.99217, bcftools 0.98886 → R2 reaches 0.990; bcftools does not reach it (target not claimable as a data ceiling)
+  * chr19 30x: R2 0.99325, bcftools 0.99198 → R2 reaches 0.990; bcftools also reaches it (ceiling claim allowed)
+
+* **Guardrails vs R1.1** (wall ≤ +10 % or ≤ +2 s, CPU ≤ +10 %, RSS ≤ +15 %). Preregistered design was 5 interleaved reps; here runs are sequential single runs per seed, so this is indicative:
+  * chr17 10x: wall -1.0% (-0.1s), CPU -0.8%, RSS -0.8% → within guardrail
+  * chr17 20x: wall +16.6% (+2.2s), CPU -0.8%, RSS +0.1% → OUTSIDE guardrail
+  * chr17 30x: wall +2.3% (+0.4s), CPU +1.5%, RSS -0.5% → within guardrail
+  * chr19 10x: wall +3.0% (+0.2s), CPU +0.2%, RSS +0.2% → within guardrail
+  * chr19 20x: wall +2.7% (+0.3s), CPU +0.3%, RSS +1.4% → within guardrail
+  * chr19 30x: wall +0.2% (+0.0s), CPU +0.5%, RSS +0.7% → within guardrail
+inconsistencies: 0 failures: 0 ok runs: 54

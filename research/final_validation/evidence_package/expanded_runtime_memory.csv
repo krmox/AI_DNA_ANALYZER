@@ -1,0 +1,165 @@
+provenance,sample,contig,depth,seed,caller,wall_s,cpu_s,peak_rss_mb,loadavg_before,timing_note
+EXISTING,HG001,chr17,10,101,bcftools 1.21,48.58,355.40,128,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,101,R1.1,8.51,61.92,242,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,101,R2,8.65,61.06,239,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,102,bcftools 1.21,47.90,355.25,129,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,102,R1.1,8.70,61.16,238,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,102,R2,8.71,60.53,237,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,103,bcftools 1.21,72.70,353.94,129,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,103,R1.1,10.62,60.50,240,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,10,103,R2,10.19,60.61,238,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,101,bcftools 1.21,79.77,514.09,132,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,101,R1.1,13.45,87.30,235,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,101,R2,14.50,87.85,239,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,102,bcftools 1.21,79.38,513.63,132,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,102,R1.1,13.59,87.23,235,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,102,R2,14.15,87.95,237,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,103,bcftools 1.21,81.23,513.20,133,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,103,R1.1,13.72,87.45,240,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,20,103,R2,18.86,84.10,236,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,101,bcftools 1.21,103.84,686.27,133,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,101,R1.1,18.05,115.02,238,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,101,R2,18.51,115.99,236,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,102,bcftools 1.21,92.72,679.96,133,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,102,R1.1,17.80,115.18,239,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,102,R2,18.10,115.99,234,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,103,bcftools 1.21,102.92,684.25,134,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,103,R1.1,15.36,114.96,235,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr17,30,103,R2,15.79,118.30,238,,EXISTING: no loadavg recorded
+EXISTING,HG001,chr19,10,101,bcftools 1.21,44.00,256.72,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,101,R1.1,7.54,43.83,200,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,101,R2,7.65,43.96,200,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,102,bcftools 1.21,43.15,260.05,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,102,R1.1,7.28,44.20,198,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,102,R2,7.40,44.35,199,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,103,bcftools 1.21,40.91,258.84,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,103,R1.1,6.82,44.58,200,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,10,103,R2,7.24,44.52,200,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,101,bcftools 1.21,59.69,374.78,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,101,R1.1,9.72,64.46,194,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,101,R2,9.84,64.82,199,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,102,bcftools 1.21,56.80,373.15,103,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,102,R1.1,10.04,64.54,197,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,102,R2,10.27,64.58,199,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,103,bcftools 1.21,57.17,374.29,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,103,R1.1,9.95,64.44,197,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,20,103,R2,10.41,64.55,198,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,101,bcftools 1.21,68.18,494.11,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,101,R1.1,11.92,85.59,198,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,101,R2,11.85,85.70,199,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,102,bcftools 1.21,68.62,494.16,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,102,R1.1,11.84,85.63,197,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,102,R2,11.85,85.99,199,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,103,bcftools 1.21,67.01,490.92,102,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,103,R1.1,11.45,85.55,197,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG001,chr19,30,103,R2,11.59,86.35,199,,EXISTING: no loadavg recorded; HG001 chr19 overlapped a download
+EXISTING,HG007,chr17,10,101,bcftools 1.21,54.54,355.06,129,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,101,R1.1,10.07,61.96,235,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,101,R2,9.98,61.81,236,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,102,bcftools 1.21,55.54,353.19,129,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,102,R1.1,10.38,61.32,234,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,102,R2,10.07,61.89,237,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,103,bcftools 1.21,55.86,353.13,129,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,103,R1.1,10.36,63.03,234,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,10,103,R2,9.93,61.87,234,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,101,bcftools 1.21,86.27,514.23,133,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,101,R1.1,14.77,88.04,233,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,101,R2,14.46,88.74,234,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,102,bcftools 1.21,81.09,512.22,133,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,102,R1.1,14.02,88.15,232,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,102,R2,14.37,88.84,230,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,103,bcftools 1.21,79.30,513.56,133,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,103,R1.1,14.13,88.06,231,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,20,103,R2,14.15,88.99,232,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,101,bcftools 1.21,91.84,675.39,134,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,101,R1.1,18.59,116.52,229,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,101,R2,18.50,117.37,231,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,102,bcftools 1.21,91.35,674.73,134,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,102,R1.1,16.05,117.72,234,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,102,R2,16.06,118.59,233,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,103,bcftools 1.21,91.14,673.75,134,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,103,R1.1,15.94,117.49,232,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,30,103,R2,16.08,118.26,232,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,native,,bcftools 1.21,301.86,2225.06,134,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,native,,R1.1,47.34,356.49,235,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr17,native,,R2,47.88,359.35,232,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,101,bcftools 1.21,40.78,257.42,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,101,R1.1,7.60,44.56,199,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,101,R2,7.78,44.64,199,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,102,bcftools 1.21,39.31,257.55,102,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,102,R1.1,7.16,44.86,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,102,R2,7.12,45.04,200,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,103,bcftools 1.21,42.41,257.80,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,103,R1.1,7.20,44.52,200,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,10,103,R2,7.52,44.68,199,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,101,bcftools 1.21,58.64,371.97,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,101,R1.1,10.28,65.01,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,101,R2,10.36,65.06,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,102,bcftools 1.21,58.38,372.89,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,102,R1.1,10.36,65.59,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,102,R2,10.96,65.01,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,103,bcftools 1.21,58.69,373.19,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,103,R1.1,10.46,64.87,196,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,20,103,R2,10.45,65.17,196,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,101,bcftools 1.21,79.43,498.93,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,101,R1.1,15.24,85.83,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,101,R2,14.38,86.32,195,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,102,bcftools 1.21,80.67,499.43,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,102,R1.1,13.98,86.10,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,102,R2,14.02,86.21,197,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,103,bcftools 1.21,86.14,502.43,103,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,103,R1.1,14.73,85.81,196,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,30,103,R2,14.60,86.07,195,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,native,,bcftools 1.21,261.70,1589.55,105,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,native,,R1.1,42.97,250.39,194,,EXISTING: no loadavg recorded
+EXISTING,HG007,chr19,native,,R2,41.93,246.48,198,,EXISTING: no loadavg recorded
+NEW,HG001,chr17,15,101,bcftools 1.21,59.57,431.08,131,3.84,
+NEW,HG001,chr17,15,101,R1.1,10.41,74.05,235,3.41,
+NEW,HG001,chr17,15,101,R2,10.50,74.50,237,3.31,
+NEW,HG001,chr17,15,102,bcftools 1.21,58.78,430.09,130,3.69,
+NEW,HG001,chr17,15,102,R1.1,10.65,73.79,239,3.78,
+NEW,HG001,chr17,15,102,R2,10.47,74.38,238,4.06,
+NEW,HG001,chr17,15,103,bcftools 1.21,59.09,430.77,131,3.87,
+NEW,HG001,chr17,15,103,R1.1,10.39,73.91,235,3.94,
+NEW,HG001,chr17,15,103,R2,10.48,74.46,238,3.83,
+NEW,HG001,chr17,50,101,bcftools 1.21,155.23,1051.97,133,3.69,
+NEW,HG001,chr17,50,101,R1.1,23.43,173.21,232,3.77,
+NEW,HG001,chr17,50,101,R2,23.94,174.96,237,2.67,
+NEW,HG001,chr19,15,101,bcftools 1.21,49.06,316.66,102,4.76,
+NEW,HG001,chr19,15,101,R1.1,7.85,54.48,197,4.50,
+NEW,HG001,chr19,15,101,R2,8.68,54.36,200,4.28,
+NEW,HG001,chr19,15,102,bcftools 1.21,51.39,315.85,102,6.05,
+NEW,HG001,chr19,15,102,R1.1,9.36,53.93,198,6.63,
+NEW,HG001,chr19,15,102,R2,7.97,54.66,198,5.77,
+NEW,HG001,chr19,15,103,bcftools 1.21,51.20,314.13,102,5.60,
+NEW,HG001,chr19,15,103,R1.1,8.60,54.24,194,5.07,
+NEW,HG001,chr19,15,103,R2,9.05,54.34,198,5.60,
+NEW,HG001,chr19,30,101,DeepVariant 1.10.0,1688.02,10659.25,9214,5.30,
+NEW,HG001,chr19,50,101,bcftools 1.21,121.64,775.32,102,5.97,
+NEW,HG001,chr19,50,101,R1.1,18.49,129.40,199,6.47,
+NEW,HG001,chr19,50,101,R2,21.85,128.52,196,4.20,
+NEW,HG007,chr17,15,101,bcftools 1.21,79.84,433.85,130,6.12,
+NEW,HG007,chr17,15,101,R1.1,13.59,74.72,231,4.12,
+NEW,HG007,chr17,15,101,R2,13.79,75.36,233,3.32,
+NEW,HG007,chr17,15,102,bcftools 1.21,70.81,438.14,131,5.35,
+NEW,HG007,chr17,15,102,R1.1,12.22,75.08,233,6.32,
+NEW,HG007,chr17,15,102,R2,12.40,75.52,233,4.67,
+NEW,HG007,chr17,15,103,bcftools 1.21,59.45,433.16,131,3.54,
+NEW,HG007,chr17,15,103,R1.1,10.86,75.31,233,3.15,
+NEW,HG007,chr17,15,103,R2,10.75,75.87,234,2.60,
+NEW,HG007,chr17,50,101,bcftools 1.21,143.91,1041.32,133,3.98,
+NEW,HG007,chr17,50,101,R1.1,24.40,177.31,231,3.65,
+NEW,HG007,chr17,50,101,R2,24.62,178.54,232,1.66,
+NEW,HG007,chr19,15,101,bcftools 1.21,43.61,313.22,102,2.69,
+NEW,HG007,chr19,15,101,R1.1,7.87,55.59,197,2.97,
+NEW,HG007,chr19,15,101,R2,7.86,55.46,196,2.07,
+NEW,HG007,chr19,15,102,bcftools 1.21,43.87,316.77,102,3.04,
+NEW,HG007,chr19,15,102,R1.1,7.73,55.21,197,3.49,
+NEW,HG007,chr19,15,102,R2,7.81,55.46,198,3.46,
+NEW,HG007,chr19,15,103,bcftools 1.21,43.72,315.83,102,2.52,
+NEW,HG007,chr19,15,103,R1.1,7.76,55.33,198,3.34,
+NEW,HG007,chr19,15,103,R2,7.72,55.55,195,3.06,
+NEW,HG007,chr19,30,101,DeepVariant 1.10.0,1878.97,10885.24,8935,3.83,
+NEW,HG007,chr19,50,101,bcftools 1.21,106.45,764.12,103,3.95,
+NEW,HG007,chr19,50,101,R1.1,17.93,132.03,197,3.44,
+NEW,HG007,chr19,50,101,R2,17.91,131.54,196,2.02,

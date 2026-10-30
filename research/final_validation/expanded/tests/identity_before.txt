@@ -1,0 +1,7 @@
+OK   HEAD
+OK   sources_ok_of_21
+OK   r2_binary
+OK   r2_model
+OK   tracked_modified
+info r1.1_binary e83d87fd2f810eb7a9d096fb797c6d3451aaef86d14a0071dc2ad9b91a3a39df
+info r1.1_model 63816707c4af7794138c3917ddcc22ddce67f800f724db8a004ad60ee4b711ed

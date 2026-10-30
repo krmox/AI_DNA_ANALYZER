@@ -1,0 +1,9 @@
+{
+  "tag": "HG007_chr17_15x_s101", "mode": "cascade", "threads": 8, "decomp_threads": 0, "task_windows": 2048,
+  "n_windows": 1149763, "n_loci": 73584832, "n_frame_scored": 71992612, "n_routed_pb": 28867,
+  "n_pb_evaluated": 23954, "n_candidates": 80828, "n_pb_model_evals": 0, "n_model_calls": 78349, "n_model_changed_vs_v2": 3800, "model": "/home/kramkost/Projects/Varion_DNA/AI_DNA_ANALYZER/research/stage3/frozen/R1.model",
+  "cascade": {"n_calls": 79938, "n_forced_00_to_01": 9},
+  "pb_only": {"n_calls": 0, "n_forced_00_to_01": 0},
+  "cpu_seconds_by_stage": {"count_pass": 99.626, "ref_fetch": 1.045, "binomial_router": 0.000, "window_pass_and_pb": 0.000, "genotype_vcf_text": 0.790},
+  "wall_seconds": 13.579, "cpu_user_seconds": 73.470, "cpu_sys_seconds": 1.234, "peak_rss_kb": 236636
+}
