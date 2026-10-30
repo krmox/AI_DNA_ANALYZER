@@ -81,6 +81,24 @@ def in_bed(iv, pos0):
     return i >= 0 and iv[i][0] <= pos0 < iv[i][1]
 
 
+def genotype_concordance(d):
+    """TP / (TP + truth indels whose allele was found but genotype differs), confident regions."""
+    tp = gt_err = 0
+    for r in vcf_records(f"{d}/happy.vcf.gz"):
+        if "CONF" not in info_dict(r[7]).get("Regions", ""):
+            continue
+        fmt = r[8].split(":")
+        T = dict(zip(fmt, r[9].split(":")))
+        Q = dict(zip(fmt, r[10].split(":")))
+        if T.get("BVT") != "INDEL":
+            continue
+        if T.get("BD") == "TP":
+            tp += 1
+        elif T.get("BD") == "FN" and Q.get("BK") == "am" and r[6] in (".", "PASS"):
+            gt_err += 1
+    return tp, gt_err
+
+
 def taxonomy(d, truth_vcf, conf, chrom, lines):
     # nindels records (all filters) for FN classification
     calls = defaultdict(list)
@@ -222,13 +240,18 @@ def taxonomy(d, truth_vcf, conf, chrom, lines):
             lines.append(f"  - `{e}`")
 
 
+def gc_str(d):
+    tp, e = genotype_concordance(d)
+    return f"{tp / (tp + e):.4f} ({e} GT err)" if tp + e else "n/a"
+
+
 def main():
     runs, truth, conf, out_md = sys.argv[1:5]
     tags = sys.argv[5:]
     chrom = "chr20"
     lines = ["## Benchmark: HG004 chr20, GIAB v4.2.1 confident regions, hap.py (xcmp)\n",
-             "| Caller | Wall (s) | CPU (s) | Peak RSS (MB) | SNP F1 | INDEL F1 | INDEL Precision | INDEL Recall | INDEL TP | INDEL FP | INDEL FN |",
-             "|---|---|---|---|---|---|---|---|---|---|---|"]
+             "| Caller | Wall (s) | CPU (s) | Peak RSS (MB) | SNP F1 | INDEL F1 | INDEL Precision | INDEL Recall | INDEL TP | INDEL FP | INDEL FN | GT concordance |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for t in tags:
         d = f"{runs}/{t}"
         tm = median_time(d)
@@ -238,7 +261,8 @@ def main():
         wall = f"{tm['wall']:.1f} (n={tm['n']})" if tm else "unknown"
         lines.append(f"| {t} | {wall} | {f(tm['cpu'], 1) if tm else 'unknown'} | {f(tm['rss'], 0) if tm else 'unknown'} | "
                      f"{snp_f1} | {f(ind.get('METRIC.F1_Score'))} | {f(ind.get('METRIC.Precision'))} | "
-                     f"{f(ind.get('METRIC.Recall'))} | {ind.get('TRUTH.TP')} | {ind.get('QUERY.FP')} | {ind.get('TRUTH.FN')} |")
+                     f"{f(ind.get('METRIC.Recall'))} | {ind.get('TRUTH.TP')} | {ind.get('QUERY.FP')} | {ind.get('TRUTH.FN')} | "
+                     f"{gc_str(d)} |")
 
     lines.append("\n## INDEL (PASS) by length class, genotype and repeat context\n")
     lines.append("| Caller | Stratum | Truth | Recall | Precision | F1 |\n|---|---|---|---|---|---|")

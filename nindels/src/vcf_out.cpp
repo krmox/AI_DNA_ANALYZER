@@ -25,6 +25,8 @@ void write_vcf_header(std::ostream& o, const VcfHeaderInfo& h) {
          "##INFO=<ID=NEFFK,Number=1,Type=Float,Description=\"N_effective, spec 7.1 (Kish)\">\n"
          "##INFO=<ID=NEFFL,Number=1,Type=Float,Description=\"N_effective over distinct training loci\">\n"
          "##INFO=<ID=SMAX,Number=1,Type=Float,Description=\"Highest similarity to a stored class\">\n"
+         "##INFO=<ID=K,Number=1,Type=Integer,Description=\"Alleles genotyped jointly at the locus (--genotyper multi)\">\n"
+         "##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Reads used for joint genotyping\">\n"
          "##INFO=<ID=CLS,Number=.,Type=String,Description=\"Closest classes id:S (up to 3)\">\n"
          "##INFO=<ID=CR,Number=1,Type=Float,Description=\"Region complexity C_r\">\n"
          "##INFO=<ID=RPRI,Number=1,Type=Float,Description=\"Reassessment priority R_i\">\n"
