@@ -31,6 +31,7 @@ struct EngineConfig {
     int min_depth = 4;             // ARBITRARY: fewer informative reads -> UNCERTAIN
     int ood_limit = 2;             // ARBITRARY: >= 2 features outside training range -> UNCERTAIN
     double tau_call = 0.5;         // must be replaced by the value chosen on validation data
+    double rule_min_qual = 20;     // ARBITRARY: phred QUAL for the untrained rule (no --model)
 };
 
 // Temporary candidate storage (spec §14): everything needed for one indel.

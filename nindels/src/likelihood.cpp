@@ -30,32 +30,62 @@ Transitions transitions(const PairHmmParams& p) {
     return {1.0 - 2.0 * go, 1.0 - ge, go, ge};
 }
 
+// Base-quality error probabilities, precomputed (pow() in the inner loop was
+// the dominant cost in the first profile).
+struct QualTable {
+    double match[64], mismatch[64];
+    QualTable() {
+        for (int q = 0; q < 64; ++q) {
+            double e = phred_to_p(std::clamp(q, 2, 60));
+            match[q] = 1.0 - e;
+            mismatch[q] = e / 3.0;
+        }
+    }
+};
+const QualTable kQual;
+
 double prior(char r, char h, uint8_t q) {
-    int qq = std::clamp<int>(q, 2, 60);
-    double e = phred_to_p(qq);
-    return (r == h || r == 'N' || h == 'N') ? 1.0 - e : e / 3.0;
+    const int qq = std::min<int>(q, 63);
+    return (r == h || r == 'N' || h == 'N') ? kQual.match[qq] : kQual.mismatch[qq];
 }
 
 // Linear-space recursion with a large initial scale (as GATK does); returns
-// ln P or NaN on underflow.
-double pairhmm_scaled(std::string_view r, const uint8_t* q, std::string_view h, const Transitions& t) {
-    const size_t n = r.size(), m = h.size();
+// ln P or NaN on underflow. With band >= 0 only hap columns within
+// [i + diag - band, i + diag + band] are computed for read base i (1-based).
+double pairhmm_scaled(std::string_view r, const uint8_t* q, std::string_view h, const Transitions& t,
+                      int64_t diag, int64_t band) {
+    const int64_t n = static_cast<int64_t>(r.size()), m = static_cast<int64_t>(h.size());
     const double kScale = std::ldexp(1.0, 1020);
-    std::vector<double> M0(m + 1, 0), I0(m + 1, 0), D0(m + 1, kScale / static_cast<double>(m));
-    std::vector<double> M1(m + 1), I1(m + 1), D1(m + 1);
-    for (size_t i = 1; i <= n; ++i) {
-        M1[0] = I1[0] = D1[0] = 0;
-        for (size_t j = 1; j <= m; ++j) {
-            M1[j] = prior(r[i - 1], h[j - 1], q[i - 1]) * (t.mm * M0[j - 1] + t.gm * (I0[j - 1] + D0[j - 1]));
-            I1[j] = t.mi * M0[j] + t.ii * I0[j];
-            D1[j] = t.mi * M1[j - 1] + t.ii * D1[j - 1];
+    std::vector<double> M0(static_cast<size_t>(m + 2), 0), I0(static_cast<size_t>(m + 2), 0),
+        D0(static_cast<size_t>(m + 2), kScale / static_cast<double>(m));
+    std::vector<double> M1(static_cast<size_t>(m + 2), 0), I1(static_cast<size_t>(m + 2), 0),
+        D1(static_cast<size_t>(m + 2), 0);
+    D0[0] = D0[static_cast<size_t>(m + 1)] = 0;
+    int64_t lo = 1, hi = m;
+    for (int64_t i = 1; i <= n; ++i) {
+        if (band >= 0) {
+            lo = std::max<int64_t>(1, i + diag - band);
+            hi = std::min<int64_t>(m, i + diag + band);
+            if (lo > hi) return std::numeric_limits<double>::quiet_NaN();
         }
+        const double pm = kQual.match[std::min<int>(q[i - 1], 63)], px = kQual.mismatch[std::min<int>(q[i - 1], 63)];
+        const char rb = r[static_cast<size_t>(i - 1)];
+        M1[static_cast<size_t>(lo - 1)] = I1[static_cast<size_t>(lo - 1)] = D1[static_cast<size_t>(lo - 1)] = 0;
+        for (int64_t j = lo; j <= hi; ++j) {
+            const size_t J = static_cast<size_t>(j);
+            const char hb = h[J - 1];
+            const double e = (rb == hb || rb == 'N' || hb == 'N') ? pm : px;
+            M1[J] = e * (t.mm * M0[J - 1] + t.gm * (I0[J - 1] + D0[J - 1]));
+            I1[J] = t.mi * M0[J] + t.ii * I0[J];
+            D1[J] = t.mi * M1[J - 1] + t.ii * D1[J - 1];
+        }
+        if (hi + 1 <= m + 1) M1[static_cast<size_t>(hi + 1)] = I1[static_cast<size_t>(hi + 1)] = D1[static_cast<size_t>(hi + 1)] = 0;
         std::swap(M0, M1);
         std::swap(I0, I1);
         std::swap(D0, D1);
     }
     double s = 0;
-    for (size_t j = 1; j <= m; ++j) s += M0[j] + I0[j];
+    for (int64_t j = lo; j <= hi; ++j) s += M0[static_cast<size_t>(j)] + I0[static_cast<size_t>(j)];
     if (!(s > 0) || !std::isfinite(s)) return std::numeric_limits<double>::quiet_NaN();
     return std::log(s) - std::log(kScale);
 }
@@ -85,11 +115,13 @@ double pairhmm_log(std::string_view r, const uint8_t* q, std::string_view h, con
 
 }  // namespace
 
-double pairhmm_loglik(std::string_view read, const uint8_t* quals, std::string_view hap, const PairHmmParams& p) {
+double pairhmm_loglik(std::string_view read, const uint8_t* quals, std::string_view hap, const PairHmmParams& p,
+                      int64_t diag, int64_t band) {
     if (read.empty()) return 0.0;
     if (hap.empty()) return kNegInf;
     Transitions t = transitions(p);
-    double v = pairhmm_scaled(read, quals, hap, t);
+    double v = pairhmm_scaled(read, quals, hap, t, diag, band);
+    if (std::isnan(v) && band >= 0) v = pairhmm_scaled(read, quals, hap, t, 0, -1);
     if (std::isnan(v)) v = pairhmm_log(read, quals, hap, t);
     return v;
 }
@@ -152,8 +184,13 @@ std::vector<ReadLik> read_likelihoods(const RefSeq& ref, const Indel& x, const s
         std::string_view href(H.ref.data() + a0, static_cast<size_t>(a1 - a0));
         std::string_view halt(H.alt.data() + b0, static_cast<size_t>(b1 - b0));
         ReadLik L;
-        L.lp_ref = pairhmm_loglik(r.bases, r.quals.data(), href, p.hmm);
-        L.lp_alt = pairhmm_loglik(r.bases, r.quals.data(), halt, p.hmm);
+        // Banded around the read's mapped diagonal: read base 1 sits at slice
+        // column (ref_start - slice start) + 1 on H_ref, and likewise on H_alt.
+        const int64_t band = p.band < 0 ? -1 : p.band + x.length();
+        const int64_t diag_ref = (r.ref_start - H.start) - a0;
+        const int64_t diag_alt = std::clamp<int64_t>(H.alt_index(r.ref_start), 0, nalt) - b0;
+        L.lp_ref = pairhmm_loglik(r.bases, r.quals.data(), href, p.hmm, diag_ref, band);
+        L.lp_alt = pairhmm_loglik(r.bases, r.quals.data(), halt, p.hmm, diag_alt, band);
         L.mapq = r.mapq;
         L.cigar_allele = r.cigar_allele;
         out.push_back(L);

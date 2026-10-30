@@ -148,14 +148,19 @@ CandidateResult process_indel(const CandidateInput& in, const RefSeq& ref, const
         r.p_final = final_model->predict(r.features);
         r.ood = final_model->out_of_range(r.features);
     }
+    // Genotype: HMM diploid model when reassessed, else the count model.
+    const GenotypeLik& g = r.hmm_genotype ? *r.hmm_genotype : r.count_genotype;
     if (!r.evidence.f || r.evidence.n_total < cfg.min_depth) r.decision = Decision::Uncertain;
-    else if (!r.p_final) r.decision = Decision::NoModel;
+    else if (!r.p_final) {
+        // No fitted model: untrained genotype rule. PASS if the diploid
+        // genotype is not 0/0 and QUAL (phred-scaled non-ref LR) >= rule_min_qual.
+        const double qual_phred = g.qual * 10.0 / std::log(10.0);
+        r.decision = (g.gt != 0 && qual_phred >= cfg.rule_min_qual) ? Decision::Pass : Decision::LowProb;
+    }
     else if (r.ood >= cfg.ood_limit) r.decision = Decision::Uncertain;
     else r.decision = *r.p_final >= cfg.tau_call ? Decision::Pass : Decision::LowProb;
 
-    // Genotype: HMM diploid model when reassessed, else the count model. A
-    // called variant is never reported as 0/0.
-    const GenotypeLik& g = r.hmm_genotype ? *r.hmm_genotype : r.count_genotype;
+    // A called variant is never reported as 0/0.
     r.gt = g.gt;
     if (r.gt == 0) r.gt = g.posterior[2] > g.posterior[1] ? 2 : 1;
     return r;

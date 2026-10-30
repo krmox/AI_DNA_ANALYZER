@@ -14,6 +14,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <atomic>
+#include <chrono>
 #include <thread>
 #include <vector>
 
@@ -252,6 +254,7 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     cfg.reassess.validate();
     cfg.complexity.validate();
     cfg.tau_call = a.num("tau-call", cfg.tau_call);
+    cfg.rule_min_qual = a.num("min-qual", cfg.rule_min_qual);
     cfg.force_reassess = a.flags.count("force-reassess") > 0;
     cfg.likelihood.max_reads = static_cast<int>(a.num("max-hmm-reads", cfg.likelihood.max_reads));
     ScanParams sp;
@@ -310,46 +313,74 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     for (int64_t s = reg.start; s < reg.end; s += sp.chunk) chunks.emplace_back(s, std::min(reg.end, s + sp.chunk));
 
     size_t n_cand = 0, n_pass = 0, n_reassessed = 0;
+    std::atomic<long long> t_scan_us{0}, t_engine_us{0};
+    auto now = [] { return std::chrono::steady_clock::now(); };
+    auto us = [](auto d) { return std::chrono::duration_cast<std::chrono::microseconds>(d).count(); };
     std::vector<std::unique_ptr<BamScanner>> scanners;
     for (int t = 0; t < threads; ++t) scanners.push_back(std::make_unique<BamScanner>(bam, fasta));
 
-    // Process `threads` chunks at a time; write them in genomic order.
+    // Batches of `threads` chunks: scan them in parallel, then score every
+    // candidate of the batch with a shared work index (per-candidate load
+    // balancing), then write in genomic order.
     for (size_t c0 = 0; c0 < chunks.size(); c0 += static_cast<size_t>(threads)) {
         const size_t c1 = std::min(chunks.size(), c0 + static_cast<size_t>(threads));
-        std::vector<std::vector<CandidateResult>> results(c1 - c0);
-        std::vector<std::string> errors(c1 - c0);
-        std::vector<std::thread> pool;
-        for (size_t c = c0; c < c1; ++c) {
-            pool.emplace_back([&, c] {
-                try {
-                    auto inputs = scanners[c - c0]->scan(ref, tid, chunks[c].first, chunks[c].second, sp,
-                                                         a.has("candidates-vcf") ? &external : nullptr,
-                                                         cfg.nucleotide.half_window);
-                    for (const auto& in : inputs) {
-                        if (parity != "all" && parity_of(in.indel.pos, block) != parity) continue;
-                        results[c - c0].push_back(process_indel(in, ref, memory.get(), base_model.get(),
-                                                                final_model.get(), cfg));
+        std::vector<std::vector<CandidateInput>> scanned(c1 - c0);
+        std::vector<std::string> errors(static_cast<size_t>(threads));
+        {
+            std::vector<std::thread> pool;
+            for (size_t c = c0; c < c1; ++c)
+                pool.emplace_back([&, c] {
+                    try {
+                        auto t0 = now();
+                        scanned[c - c0] = scanners[c - c0]->scan(ref, tid, chunks[c].first, chunks[c].second, sp,
+                                                                 a.has("candidates-vcf") ? &external : nullptr,
+                                                                 cfg.nucleotide.half_window);
+                        t_scan_us += us(now() - t0);
+                    } catch (const std::exception& e) {
+                        errors[c - c0] = e.what();
                     }
-                } catch (const std::exception& e) {
-                    errors[c - c0] = e.what();
-                }
-            });
+                });
+            for (auto& th : pool) th.join();
         }
-        for (auto& th : pool) th.join();
         for (const auto& e : errors)
             if (!e.empty()) throw std::runtime_error(e);
-        for (const auto& rs : results)
-            for (const auto& r : rs) {
-                ++n_cand;
-                n_pass += r.decision == Decision::Pass;
-                n_reassessed += r.reassessed;
-                if (vcf.is_open()) write_vcf_record(vcf, reg.chrom, ref, r);
-                if (table.is_open())
-                    write_table_row(table, reg.chrom, ref, r, truth ? truth_label(*truth, bed.get(), r.indel) : -1);
-            }
+        std::vector<const CandidateInput*> todo;
+        for (auto& v : scanned)
+            for (auto& in : v)
+                if (parity == "all" || parity_of(in.indel.pos, block) == parity) todo.push_back(&in);
+        std::vector<CandidateResult> results(todo.size());
+        std::atomic<size_t> next{0};
+        {
+            std::vector<std::thread> pool;
+            for (int t = 0; t < threads; ++t)
+                pool.emplace_back([&, t] {
+                    try {
+                        auto t0 = now();
+                        for (size_t k; (k = next.fetch_add(1)) < todo.size();)
+                            results[k] = process_indel(*todo[k], ref, memory.get(), base_model.get(),
+                                                       final_model.get(), cfg);
+                        t_engine_us += us(now() - t0);
+                    } catch (const std::exception& e) {
+                        errors[static_cast<size_t>(t)] = e.what();
+                    }
+                });
+            for (auto& th : pool) th.join();
+        }
+        for (const auto& e : errors)
+            if (!e.empty()) throw std::runtime_error(e);
+        for (const auto& r : results) {
+            ++n_cand;
+            n_pass += r.decision == Decision::Pass;
+            n_reassessed += r.reassessed;
+            if (vcf.is_open()) write_vcf_record(vcf, reg.chrom, ref, r);
+            if (table.is_open())
+                write_table_row(table, reg.chrom, ref, r, truth ? truth_label(*truth, bed.get(), r.indel) : -1);
+        }
     }
     std::fprintf(stderr, "call: %s:%lld-%lld candidates=%zu reassessed=%zu PASS=%zu\n", reg.chrom.c_str(),
                  static_cast<long long>(reg.start + 1), static_cast<long long>(reg.end), n_cand, n_reassessed, n_pass);
+    std::fprintf(stderr, "thread-seconds: scan+evidence %.1f, engine (pattern+HMM+decision) %.1f\n",
+                 t_scan_us.load() / 1e6, t_engine_us.load() / 1e6);
     if (truth)
         std::fprintf(stderr, "truth: %d simple indels in BED/region, %d complex alleles skipped\n", truth->n_in_bed,
                      truth->n_complex);
@@ -361,7 +392,7 @@ void usage() {
     std::fprintf(stderr,
                  "nindels-call <command> [options]\n\n"
                  "  call          --bam B --ref FA --region chr[:s-e] [--memory M] [--model F] [--base-model S]\n"
-                 "                [--A 0.5] [--tau-strict 0.6] [--tau-loose 0.2] [--tau-call 0.5]\n"
+                 "                [--A 0.5] [--tau-strict 0.6] [--tau-loose 0.2] [--tau-call 0.5] [--min-qual 20]\n"
                  "                [--out-vcf V] [--out-table T] [--truth VCF --bed BED] [--threads N]\n"
                  "                [--candidates-vcf V (shadow mode)] [--force-reassess] [--parity even|odd]\n"
                  "                [--min-alt 2] [--min-alt-frac 0.03] [--max-hmm-reads 250]\n"

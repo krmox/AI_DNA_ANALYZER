@@ -20,8 +20,11 @@ struct PairHmmParams {
 
 // ln P(read | haplotype). The read must align end to end; it may start
 // anywhere on the haplotype (free start, as in GATK's PairHMM).
+// With band >= 0, only columns within +-band of the diagonal "read base i at
+// hap column i + diag" are computed (falls back to the full matrix if the band
+// leaves the haplotype).
 double pairhmm_loglik(std::string_view read, const uint8_t* quals, std::string_view hap,
-                      const PairHmmParams& p = {});
+                      const PairHmmParams& p = {}, int64_t diag = 0, int64_t band = -1);
 
 // A read prepared for likelihood computation: aligned part only (soft clips
 // removed), with its reference span and the allele its CIGAR implies.
@@ -57,6 +60,7 @@ struct LikelihoodParams {
     PairHmmParams hmm;
     int max_reads = 250;   // ARBITRARY cost cap; reads chosen by smallest name hash
     int hap_pad = 20;      // ARBITRARY: haplotype bases beyond each read end
+    int band = 20;         // ARBITRARY: DP band half-width is band + indel length (-1 = full DP)
 };
 
 // P(R|H_ref) and P(R|H_alt) for up to max_reads reads.

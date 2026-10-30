@@ -176,6 +176,14 @@ static void test_genotypes() {
     CHECK(diploid_gl(lhh, true, pr).gt == 2);
     CHECK(delta_ell_original(lhh) > 20);
     NEAR(*hmm_consistency(lh), 1.0, 1e-12);
+    // Banded DP must agree with the full DP on these reads.
+    LikelihoodParams full = lp;
+    full.band = -1;
+    auto lf = read_likelihoods(ref, del, het, full);
+    for (size_t i = 0; i < lf.size(); ++i) {
+        NEAR(lh[i].lp_ref, lf[i].lp_ref, 1e-6);
+        NEAR(lh[i].lp_alt, lf[i].lp_alt, 1e-6);
+    }
 
     GenotypeLik cg = count_gl(15, 15, 0.01, pr);
     CHECK(cg.gt == 1);
@@ -253,7 +261,7 @@ static void test_engine() {
     cfg.force_reassess = true;
     CandidateResult r = process_indel(in, ref, nullptr, nullptr, nullptr, cfg);
     CHECK(r.reassessed && r.hmm_genotype.has_value());
-    CHECK(r.decision == Decision::NoModel);
+    CHECK(r.decision == Decision::Pass);  // untrained genotype rule
     CHECK(r.gt == 1);
     CHECK(r.features.size() == all_feature_names().size());
     for (size_t i = 0; i < r.features.size(); ++i) CHECK(r.features[i].name == all_feature_names()[i]);
