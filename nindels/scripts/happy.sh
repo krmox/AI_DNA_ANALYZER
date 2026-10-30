@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Scores $RUNS/<tag>/calls.vcf.gz against HG004 v4.2.1 truth on chr20 with
+# Scores $RUNS/<tag>/calls.vcf.gz against the GIAB v4.2.1 truth of $ENV_FILE (default HG004 chr20) with
 # hap.py (xcmp engine; rtg/vcfeval is not installed), stratified by repeat context.
 #   usage: happy.sh <tag>
 set -euo pipefail
-source "$(dirname "$0")/env.sh"
+source "${ENV_FILE:-$(dirname "$0")/env.sh}"
 tag=$1
 out=$RUNS/$tag
 export PATH=$HAPPY_ENV/bin:$PATH

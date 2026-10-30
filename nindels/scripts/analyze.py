@@ -277,7 +277,7 @@ def main():
             lines.append(f"| {t} | {name} | {r['TRUTH.TOTAL']} | {f(r['METRIC.Recall'])} | {f(r['METRIC.Precision'])} | {f(r['METRIC.F1_Score'])} |")
 
     for t in tags:
-        if t.startswith("nindels"):
+        if t.startswith(("nindels", "exp")):
             lines.append(f"\n## Error taxonomy: {t}\n")
             taxonomy(f"{runs}/{t}", truth, conf, chrom, lines)
 

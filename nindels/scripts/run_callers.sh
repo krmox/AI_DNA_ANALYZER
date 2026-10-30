@@ -4,12 +4,12 @@
 # to $RUNS/<tag>/.
 #   usage: run_callers.sh <caller: nindels|bcftools> <depth: 15|30|67> [reps] [extra nindels args...]
 set -euo pipefail
-source "$(dirname "$0")/env.sh"
+source "${ENV_FILE:-$(dirname "$0")/env.sh}"
 caller=$1; depth=$2; reps=${3:-3}; shift 3 || true
 tag=${TAG:-${caller}_${depth}x}
 out=$RUNS/$tag
 mkdir -p "$out"
-bam=$DATA/HG004_${CHROM}_${depth}x.bam
+bam=$DATA/${SAMPLE:-HG004}_${CHROM}_${depth}x.bam
 ref=$DATA/ref_${CHROM}.fa
 timed="python3 -I $(dirname "$0")/timed.py"
 
