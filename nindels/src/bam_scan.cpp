@@ -359,7 +359,11 @@ std::vector<CandidateInput> BamScanner::scan(const RefSeq& ref, int32_t tid, int
                 auto [it, fresh] = first.emplace(ci.reads[k2].name_hash, k2);
                 if (fresh) continue;
                 size_t j = it->second;
-                if (ci.obs[k2].flank_bq > ci.obs[j].flank_bq) { drop[j] = 1; it->second = k2; }
+                const bool better = p.fragment_pick_by_end
+                    ? (ci.obs[k2].rel_pos != ci.obs[j].rel_pos ? ci.obs[k2].rel_pos > ci.obs[j].rel_pos
+                                                               : ci.obs[k2].flank_bq > ci.obs[j].flank_bq)
+                    : ci.obs[k2].flank_bq > ci.obs[j].flank_bq;
+                if (better) { drop[j] = 1; it->second = k2; }
                 else drop[k2] = 1;
             }
             size_t w = 0;

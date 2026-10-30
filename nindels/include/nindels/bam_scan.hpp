@@ -23,6 +23,9 @@ struct ScanParams {
     // (same start, strand, mate start, insert size, read1/2) and keep one mate
     // per fragment at each candidate (the one with higher flanking BQ).
     bool fragments = false;
+    // Which mate represents the fragment: false = higher flanking BQ (C),
+    // true = event farther from the read end, i.e. the more reliable alignment (C2).
+    bool fragment_pick_by_end = false;
 };
 
 // Loads reference [start, end) of a contig with faidx.

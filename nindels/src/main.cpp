@@ -314,7 +314,8 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     sp.min_alt = static_cast<int>(a.num("min-alt", sp.min_alt));
     sp.min_alt_frac = a.num("min-alt-frac", sp.min_alt_frac);
     sp.chunk = static_cast<int64_t>(a.num("chunk", static_cast<double>(sp.chunk)));
-    sp.fragments = a.flags.count("fragments") > 0;
+    sp.fragments = a.flags.count("fragments") > 0 || a.get("fragment-pick", "") == "end";
+    sp.fragment_pick_by_end = a.get("fragment-pick", "bq") == "end";
     const std::string parity = a.get("parity", "all");
     const int64_t block = static_cast<int64_t>(a.num("block", 2e6));
 
@@ -493,7 +494,7 @@ void usage() {
                  "                [--out-vcf V] [--out-table T] [--truth VCF --bed BED] [--threads N]\n"
                  "                [--candidates-vcf V (shadow mode)] [--force-reassess] [--parity even|odd]\n"
                  "                [--min-alt 2] [--min-alt-frac 0.03] [--max-hmm-reads 250]\n"
-                 "                [--fragments] [--str-model S] [--genotyper biallelic|multi]\n"
+                 "                [--fragments] [--fragment-pick bq|end] [--str-model S] [--genotyper biallelic|multi]\n"
                  "  estimate-str  --bam B --ref FA --region chr --out S [--threads N] [--max-loci 300]\n"
                  "  build-memory  --table T [--table T2 ...] --out M [--parity even|odd|all] [--theta 0.15] [--top-k 32]\n"
                  "  fit           --table T [--table ...] --out F (--preset P | --features a,b,c) [--lambda 0.01]\n"
