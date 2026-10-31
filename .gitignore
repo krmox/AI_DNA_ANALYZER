@@ -34,3 +34,6 @@ native_v2*/build/
 # nindels-test worktree + data (data lives on HDD)
 .worktrees/
 nindels/build/
+
+# Private preprint working folder (not for the repository)
+NEW version/

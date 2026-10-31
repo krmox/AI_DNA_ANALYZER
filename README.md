@@ -1,14 +1,14 @@
 # AI_DNA_ANALYZER (Varion)
 
-### A cascaded statistical SNP caller, a native C++ engine, and a self-calibrating accuracy layer (R1.1 → R2), evaluated on GIAB samples
+### A cascaded statistical SNP caller (R1.1 → R2) and an experimental indel caller (`nindels`), evaluated on GIAB samples
 
-![scope](https://img.shields.io/badge/scope-SNP--only-blue) ![lang](https://img.shields.io/badge/Python%20%2B%20C%2B%2B20%2Fhtslib-3776ab) ![platform](https://img.shields.io/badge/platform-Linux%20x86--64-lightgrey) ![release](https://img.shields.io/badge/latest%20tag-v2.0.0-informational) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22978775.svg)](https://doi.org/10.5281/zenodo.22978775)
+![scope](https://img.shields.io/badge/scope-SNP%20%2B%20indel%20(experimental)-blue) ![lang](https://img.shields.io/badge/Python%20%2B%20C%2B%2B20%2Fhtslib-3776ab) ![platform](https://img.shields.io/badge/platform-Linux%20x86--64-lightgrey) ![release](https://img.shields.io/badge/latest%20tag-v2.0.0-informational) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22978775.svg)](https://doi.org/10.5281/zenodo.22978775)
 
-A germline SNP caller for Illumina short reads (GRCh38), built from statistical components and benchmarked against GIAB truth sets. It is a research project with frozen protocols and a manuscript, **not a production or clinical caller**.
+A germline variant caller for Illumina short reads (GRCh38), built from statistical components and benchmarked against GIAB truth sets. It has two separate engines: a **SNP caller** (`dnav2`, V1 → R2) and an **indel caller** (`nindels`, C++20). It is a research project with frozen protocols and a manuscript, **not a production or clinical caller**.
 
 > **On the name.** "AI" is historical: the project began as a neural sequence model. On real reads every neural stage was null or negative against the statistical baselines. No version described here contains a neural network.
 
-> **Status.** `v2.0.0` (tag + Zenodo DOI) covers V1, V2 and V2.x. **R1.1 and R2 are newer than that tag** and are not part of the DOI release. R2 is frozen (commit `3cdfe5a`) and its validation is in `research/final_validation/`.
+> **Status.** `v2.0.0` (tag + Zenodo DOI) covers V1, V2 and V2.x. **R1.1 and R2 are newer than that tag** and are not part of the DOI release. R2 is frozen (commit `3cdfe5a`) and its validation is in `research/final_validation/`. The indel caller `nindels` is on `main` (merged from the `nindels-test` branch) and is **experimental**. **R3.1** (depth-adaptive indel configuration + a `varion` front-end command) lives on the separate branch `r3.1`; it is **not merged into `main`** and its final test run is not complete, so it is described below but not in the results.
 
 ## Versions at a glance
 
@@ -21,6 +21,58 @@ A germline SNP caller for Illumina short reads (GRCh38), built from statistical 
 | **R2** | `native_r2/`: R1.1 plus per-sample self-calibration, an out-of-distribution guard, a pattern tail (59 features instead of 51) and a retrained model (`research/stage4/frozen_R2.model`). Enabled with `--r2`. | Yes | See "R2 results". Without `--r2`, output is byte-identical to R1.1. |
 
 Why R1.1 exists: R1 only scanned 64-bp tiles fully inside one BED interval (68–73 % of false negatives on HG003 chr8 were in dropped edge tiles), and it masked positions where the truth VCF has an indel, which flattered precision. R1.1 fixes both, so numbers from R1.1/R2 are **not directly comparable** with V1/V2.x numbers.
+
+---
+
+## Indel caller: `nindels` (experimental) and R3.1
+
+`nindels/` is an independent indel caller, separate from the SNP engine and with its own VCF. It finds candidates from CIGAR I/D events in the BAM (≥ 2 supporting reads, alt fraction ≥ 0.03) and scores every candidate with a banded PairHMM. It does **not** call SNPs. Build and unit tests: see `nindels/README.md` (`cmake -S nindels -B build && cmake --build build -j`).
+
+| Configuration | What it is | Flags |
+|---|---|---|
+| **Baseline** | Original biallelic genotyper, one indel error rate everywhere. Kept only as the frozen reference; not recommended. | `nindels-call call …` |
+| **A** | Joint multi-allelic genotyping: candidates at one repeat locus are genotyped together, so a read from a third allele no longer counts as reference. | `--genotyper multi` |
+| **B** | Repeat-specific PairHMM gap-open, estimated from the BAM being called (no truth labels). Only valid together with A. | `--str-model <table>` (made by `nindels-call estimate-str`) |
+| **A+B** | A plus B. | both |
+
+Why A and B exist (measured in `nindels/REPORT.md`): the baseline had low precision, falling with depth (3.5× more false positives than bcftools at 30×, 7× at 67× on HG004 chr20). Most errors were multi-allelic sites genotyped one allele at a time, and homopolymers/tandem repeats treated with one error rate. The pattern memory and the learned logistic model from the original spec are implemented but **not used** in any evaluated configuration (they need labelled training data).
+
+Run (R3.1-free, as on `main`):
+
+```bash
+# A  (joint multi-allelic genotyping)
+nindels-call call --bam B --ref R --region chr20 --force-reassess --genotyper multi --out-vcf a.vcf
+
+# A+B  (also estimate the repeat error table from the same BAM)
+nindels-call estimate-str --bam B --ref R --region chr20 --out S.tsv
+nindels-call call --bam B --ref R --region chr20 --force-reassess --genotyper multi --str-model S.tsv --out-vcf ab.vcf
+```
+
+### Indel results (hap.py 0.3.15 xcmp, GIAB v4.2.1, PASS calls, indel F1)
+
+| Data | Baseline | A | A+B | bcftools 1.21 |
+|---|---|---|---|---|
+| HG004 chr20, 30× (development) | 0.8743 | **0.9438** | 0.9397 | 0.9330 |
+| HG004 chr20, 67× (native, development) | 0.8390 | 0.9516 | **0.9548** | 0.9548 |
+| HG001 chr19, 30× (independent check, 1 run) | 0.8918 | 0.9609 | **0.9637** | 0.9552 |
+
+Sources: `nindels/REPORT.md`, `nindels/results/HG004_chr20_regression_tables.md`, `nindels/results_validation_hg001_chr19.md`. The A vs A+B differences are small and **none of these three comparisons has a confidence interval** in the `main` results; do not read them as "A+B is better". bcftools is ahead of or equal to nindels at 67× and is a general-purpose caller that also calls SNPs; nindels is much faster in wall time (about 30 s per contig at 30×, 8 threads) but uses more memory (about 0.5–1 GB vs 0.1 GB).
+
+### R3.1 (branch `r3.1`, not merged, final test incomplete)
+
+R3.1 asks one question: is there a sequencing depth above which A+B is reliably better than A? It adds a depth-adaptive switch and a front-end command:
+
+```bash
+python3 -m varion indel --bam B --ref R --out-dir out/ --region chr20 --mode auto   # or A / A+B
+python3 -m varion snp   --bam B --ref R --bed BED --out-dir out/ --contig chr20 --sample S
+```
+
+- `--mode auto` samples the contig depth and uses A below `global_min_depth`, A+B above it; a per-locus gate applies B only where the locus has enough reads. The choice is logged and written to the VCF header.
+- The protocol was written before any R3.1 run (`docs/R3.1_PROTOCOL.md` on that branch); thresholds are chosen on HG004 chr20/chr21 only, then frozen. Test data: HG001 chr17, HG007 chr17/chr19, HG003 chr8.
+- Development result: A+B is **worse** than A below ~30× (HG004 chr20 ΔF1 −0.049 at 10×, −0.0045 at 30×, 90 % intervals exclude 0) and only about +0.002–0.003 at 40× to native, with intervals touching 0. The frozen global threshold is **67.4×**; no local-depth bin met the rule. So R3.1 mostly means "use A, switch to A+B only at very high depth".
+- Final test: the partial HG007 chr19 report only reaches 10× and 20×. At 20× R3.1 chose A (F1 0.9610), as intended. The remaining test matrix has not been completed and no claim about the test set is made here.
+
+Details and the old-command → new-command table are in `docs/ARCHITECTURE.md` and `docs/COMMAND_MIGRATION.md` on the `r3.1` branch.
 
 ---
 
@@ -207,7 +259,7 @@ About 17.5× on 1 thread and 102× on 8 threads for the same work; 155× for the
 
 ## Limitations
 
-- **SNP-only.** Indels, MNPs and structural variants are neither called nor scored.
+- **The SNP caller (R2) is SNP-only.** MNPs and structural variants are neither called nor scored. Indels are handled by the separate, experimental `nindels` caller, whose evidence is weaker (see its section): 3 comparisons on 2 samples, no confidence intervals on `main`, and no pre-registered independent test yet.
 - **No sample is untouched any more.** HG002/3/4 trained or tuned V2.x/R2, HG005 was used for debugging, HG006 chr16 and now HG001/HG007 have been evaluated. The R2 expanded benchmark is a **replication, not a blind test**; an unseen germline GIAB genome is still needed.
 - Scope of the R2 evidence: two samples × two chromosomes, confident regions only, no whole-genome run, one lab/platform/aligner family (Illumina HiSeq, NovoAlign), GRCh38.
 - Seeds 101–103 are subsamples of one BAM, not replicates. 50× has one seed; DeepVariant has one seed and 2 of 4 cells (chr17 cells unassessed).
@@ -234,6 +286,7 @@ AI_DNA_ANALYZER/
 ├── native_v2/                 V2 engine as frozen at the V2 milestone
 ├── native_v2x/                V2 / V2.x / R1.1 engine (dnav2), models/, tests/, scripts/
 ├── native_r2/                 R2 engine: calibration, OOD guard, pattern tail, tests/
+├── nindels/                   indel caller (C++20): src/, scripts/, REPORT.md, results/
 ├── bench_v13 … bench_v20      V1 validation experiments
 ├── experimental/              genotype layer (Method C), chr20 and HG005 pipelines
 ├── results/                   frozen V1 outputs
