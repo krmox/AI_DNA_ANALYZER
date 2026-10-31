@@ -30,3 +30,7 @@ native_v2*/build/
 *.bak
 *~
 **/tmp/
+
+# nindels-test worktree + data (data lives on HDD)
+.worktrees/
+nindels/build/
