@@ -1,0 +1,29 @@
+# Conda/Mamba environment for building and testing AI_DNA_ANALYZER (Varion).  Status: UNTESTED
+# here (no conda available on the audit machine); package versions were checked to exist on
+# bioconda for linux-64, linux-aarch64, osx-64 and osx-arm64.
+#
+#   conda env create -f environment.yml        (or: mamba env create -f environment.yml)
+#   conda activate varion
+#   pip install -r requirements.txt            # Python packages exactly as pinned for the results
+#   bash verify.sh full
+#
+# This env provides the SYSTEM-level htslib (libhts + headers) that the native C/C++ code links
+# against; the Makefiles, native/build.sh and nindels' CMake pick it up automatically through
+# $CONDA_PREFIX.  The pysam wheel installed by pip bundles its own private htslib 1.23.1 for
+# Python only; it does not provide a libhts for the native binaries.
+name: varion
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.14          # 3.14 is the version the pinned requirements.txt was installed on in the audit
+  - pip
+  - htslib=1.23.1        # same series as pysam 0.24.0's bundled htslib; published results used 1.23.x
+  - samtools=1.23.1      # only needed by `verify.sh --data`
+  - bcftools=1.23.1      # only needed by `verify.sh --data`
+  - c-compiler           # conda-forge gcc/clang; the system compiler also works
+  - cxx-compiler         # C++20 required
+  - make
+  - cmake>=3.16          # nindels
+  - pkg-config
+  - curl

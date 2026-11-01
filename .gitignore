@@ -37,3 +37,9 @@ nindels/build/
 
 # Private preprint working folder (not for the repository)
 NEW version/
+
+# Build outputs / local dependencies (portability work)
+native_r2/build/
+third_party/
+.venv/
+varion-src-*.tar.gz

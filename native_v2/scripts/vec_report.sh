@@ -2,7 +2,7 @@
 # GCC auto-vectorization report for every V2 translation unit, generic x86-64 (SSE2) vs AVX2+FMA.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-HTS_INC=$(python3 -c 'import pysam; print(pysam.get_include()[1])')
+HTS_INC=${HTS_INC:-$(bash "$(dirname "$0")/../../scripts/hts_env.sh" inc)}
 BASE=(g++ -O3 -std=c++20 -ffp-contract=off -fno-fast-math -frounding-math -Iinclude -isystem "$HTS_INC" -fopt-info-vec-optimized -c)
 mkdir -p logs
 for f in extract engine frame capi; do

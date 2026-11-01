@@ -1,0 +1,30 @@
+# Keep the image small: code, tests, models and the few data files the tests read.
+.git
+.worktrees
+.claude
+NEW version
+.venv
+__pycache__
+*.pyc
+checkpoints*
+data/verify_logs
+data/verify_hg003_chr8
+experimental
+results
+docs/history
+*.pdf
+# research/ holds ~700 MB of manuscripts/evidence; keep only what verify.sh reads
+research/*
+!research/stage4
+research/stage4/*
+!research/stage4/frozen_R2.model
+!research/final_independent_eval
+research/final_independent_eval/*
+!research/final_independent_eval/run
+research/final_independent_eval/run/*
+!research/final_independent_eval/run/ai_A_C_chr8_300x.vcf.gz
+!research/final_independent_eval/run/ai_A_C_chr8_300x.vcf.gz.tbi
+# build outputs
+native*/build
+nindels/build
+build

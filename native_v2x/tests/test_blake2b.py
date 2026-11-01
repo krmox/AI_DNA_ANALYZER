@@ -6,7 +6,7 @@ src = textwrap.dedent('''
 #include "dnav2/blake2b.hpp"
 extern "C" unsigned long long key(const char* s, unsigned long n){ return dnav2::blake2b_key64((const uint8_t*)s, n); }
 ''')
-d = tempfile.mkdtemp(dir="/mnt/archive/AI_DNA_ANALYZER_v2/work")
+d = tempfile.mkdtemp(dir=os.environ.get("V2_WORK_DIR"))  # default: system temp dir
 open(f"{d}/b.cpp", "w").write(src)
 inc = os.path.join(os.path.dirname(__file__), "..", "include")
 subprocess.check_call(["g++", "-O2", "-std=c++20", "-shared", "-fPIC", f"-I{inc}", "-o", f"{d}/b.so", f"{d}/b.cpp"])

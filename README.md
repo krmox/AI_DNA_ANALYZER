@@ -48,35 +48,72 @@ The pattern-memory and learned logistic components from the original spec are im
 
 ## Installation and compilation
 
-Prerequisites (Fedora 43 tested; Debian/Ubuntu untested): `gcc gcc-c++ make cmake python3-devel htslib samtools bcftools curl`.
+**Supported platforms** (details and status of each: [`docs/PLATFORM_SUPPORT.md`](docs/PLATFORM_SUPPORT.md)): Linux x86-64 (tested: CachyOS/Arch; Fedora 43 was the original reference). Ubuntu, macOS, Windows via WSL2 and Docker are provided but **untested**. Native Windows is unsupported.
+
+**Three kinds of dependency — do not confuse them**
+
+| What | Provided by | Needed for |
+|---|---|---|
+| Python packages (numpy, scipy, torch-CPU, pytest, scikit-learn, **pysam**) | `pip install -r requirements.txt` | V1 Python code and tests |
+| htslib bundled **inside the pysam wheel** | pysam (private copy, 1.23.1 for pysam 0.24.0) | Python code only; it is *not* a `libhts.so` and cannot be linked by the C/C++ engines |
+| **System htslib** (`libhts` + headers; the published results used the 1.23.x series) | conda env, distro package, or a local build | every native binary: `native/`, `native_v2x/`, `native_r2/`, `nindels-call` |
+
+Headers and library are always taken from the same prefix (order: `HTS_PREFIX` → active conda env → `pkg-config htslib` → legacy Fedora layout), binaries embed an rpath to it, and `bash scripts/hts_env.sh report` shows what will be used.
+
+**1. Get the code**
 
 ```bash
 git clone https://github.com/krmox/AI_DNA_ANALYZER.git && cd AI_DNA_ANALYZER
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt        # CPU torch/scikit-learn only for V1 data layer and tests
 ```
 
-The clone is ≈ 1.4 GB because frozen result files are in the repository.
+The git history is ≈ 0.5 GB to download (≈ 1.3 GB checked out) because frozen evidence and old model checkpoints are in the repository. `bash scripts/make_source_archive.sh` makes a ≈ 2 MB archive of code, tests and models only (no evidence).
 
-**htslib.** The SNP engines compile against the htslib headers bundled with pysam and link the system `libhts.so.3`; versions must match (pysam 0.24.0 bundles htslib 1.23.1, matching Fedora 43). `HTS_INC` is taken from `pysam.get_include()`. `HTS_LIB` is a linker-flag string, default `-L/usr/lib64 -l:libhts.so.3`; override both for another htslib:
+**2. Install dependencies — pick one**
 
 ```bash
-make -C native_r2 engine HTS_INC=/path/to/htslib/include HTS_LIB="-L/path/to/htslib/lib -l:libhts.so.3"
+# (a) Conda/Mamba, recommended — UNTESTED: includes htslib 1.23.1, samtools, bcftools, compilers, cmake
+conda env create -f environment.yml && conda activate varion && pip install -r requirements.txt
+
+# (b) System packages + venv — Fedora 43 was the original environment; other distros UNTESTED
+#     Fedora: sudo dnf install gcc gcc-c++ make cmake python3-devel htslib htslib-devel samtools bcftools curl
+#     Ubuntu: sudo apt install build-essential cmake python3-dev python3-venv libhts-dev samtools bcftools curl
+python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+
+# (c) You already have an htslib install (tested with 1.21): point at its prefix
+python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+export HTS_PREFIX=/path/to/prefix        # contains include/htslib/sam.h and lib/libhts.*
+
+# (d) Build a pinned htslib 1.23.1 into ./third_party (downloads + compiles; opt-in; tested on CachyOS only)
+bash scripts/build_local_htslib.sh && export HTS_PREFIX=$PWD/third_party/htslib
+
+# (e) Docker (UNTESTED): see the header of Dockerfile
 ```
 
-**Build targets**
+**3. Verify** — `verify.sh` is split into groups, prints exact passed/failed/skipped counts, and says `COMPLETE ... PASSED` only for `full`; any other selection ends with `PARTIAL: ... Not run: ...`.
 
 ```bash
-make -C native_r2 engine         # -> native_r2/build/dnav2   (R1.1 and R2)
-make -C native_r2 test-tail      # R2 tail unit tests
-make -C native_r2 test-frame     # call-domain tests
-make -C native_v2x engine        # -> native_v2x/build/dnav2  (V2 / V2.x)
-cmake -S nindels -B nindels/build && cmake --build nindels/build -j   # nindels-call, nindels-tests
-nindels/build/nindels-tests    # unit tests (needs no htslib)
-bash verify.sh [--data]          # V1/V2/V2.x checks; does NOT cover R1.1/R2
+bash verify.sh env              # diagnostics only: OS, compilers, htslib, samtools/bcftools
+bash verify.sh full             # build everything + V1, V2/V2.x, R2 and nindels tests (~1-2 min)
+bash verify.sh full --data      # also the real-data test (needs samtools, bcftools, internet, ~60 MB)
+bash verify.sh r2 nindels       # any subset: python | native | v1 | v2 | r2 | nindels | data
 ```
 
-`nindels-call call` and `estimate-str` need htslib (`-DHTSLIB_ROOT=…` or pkg-config); without it only the core library, tests and the table subcommands build.
+On the audit machine `bash verify.sh full` gave 40,477 passed, 0 failed, 2 skipped (the 2 documented V1 skips); counts, the old baseline and what was **not** tested are in [`docs/BUILD_AND_TEST_REPORT.md`](docs/BUILD_AND_TEST_REPORT.md). The audit of the old build system is in [`docs/PORTABILITY_AUDIT.md`](docs/PORTABILITY_AUDIT.md). If your htslib is not in the 1.23.x series `verify.sh` prints a warning: the equivalence tests must still pass, but published numbers were produced with 1.23.x.
+
+**Build targets** (what `verify.sh` runs; build output goes to `<engine>/build/`)
+
+```bash
+bash native/build.sh                   # V1 C backends (pileup_native, reads_native), honours HTS_PREFIX / HTS_INC / HTS_LIB
+make -C native_v2x engine kernels      # V2 / V2.x   -> native_v2x/build/dnav2
+make -C native_r2 engine               # R1.1 / R2   -> native_r2/build/dnav2
+make -C native_r2 test-tail test-frame # R2 unit tests
+cmake -S nindels -B nindels/build && cmake --build nindels/build -j && nindels/build/nindels-tests
+make -C native_r2 hts-info             # show the htslib that will be used
+```
+
+Explicit overrides: `HTS_PREFIX=<prefix>` or `HTS_INC=<dir containing htslib/>` plus `HTS_LIB="-L<dir> -lhts"` (and `HTS_RPATH`). `NATIVE_ARCH_FLAG=` (empty) builds the V1 C backends without `-march=native`.
+
+**Troubleshooting:** see the table in [`docs/PLATFORM_SUPPORT.md`](docs/PLATFORM_SUPPORT.md#troubleshooting) (missing htslib, `-lhts` not found, `libhts.so.3` not loading, many skipped V1 tests, nindels built without `call`).
 
 ## Usage
 
@@ -185,7 +222,7 @@ The A vs A+B differences are small and **none of these comparisons has a confide
 - V1 constants are specific to ≈ 15× depth; V2.x was fitted on one sample/chromosome/depth/platform. The V1 native counts backend is not exact on adversarial BAMs with repeated read names.
 - HG005 raw artefacts were lost; those numbers are record-only (see `experimental/stress_test/INVALIDATED_prefix_coordinate_bug/`).
 - R3.1 is not merged and its test run is incomplete (see above).
-- Environment: Makefile defaults assume `/usr/lib64`; some scripts hard-code `/mnt/archive`; no lockfile for the native toolchain.
+- Environment: htslib is located by `scripts/hts_env.sh` (no fixed library path any more); some benchmark-campaign scripts still hard-code `/mnt/archive` and `/mnt/hdd`; no lockfile for the native toolchain.
 
 Full lists: `research/LIMITATIONS_AND_OPEN_QUESTIONS.md`, `research/final_validation/evidence_package/limitations.md`, `claims_audit.md`.
 
@@ -195,10 +232,10 @@ Input data are public and not in git: GIAB HG001–HG007 BAMs, NIST v4.2.1 GRCh3
 
 | Level | Command | Expected |
 |---|---|---|
-| Build + unit tests | `bash verify.sh` (~2 min) | `ALL CHECKS PASSED`; V1 tests `115 passed, 2 skipped, 21 xfailed, 5 xpassed` |
-| Re-run V2.x on real data | `bash verify.sh --data` (~3–40 min, ≈ 60 MB download) | calls identical to `research/final_independent_eval/run/ai_A_C_chr8_300x.vcf.gz` (calls, not accuracy) |
-| R2 unit tests | `make -C native_r2 test-tail test-frame` | `40186 checks, 0 failures`; `FRAME TESTS PASSED` |
-| `nindels` unit tests |  `nindels/build/nindels-tests` | `153 passed, 0 failed` |
+| Build + all offline tests | `bash verify.sh full` (~1-2 min) | `COMPLETE OFFLINE VERIFICATION PASSED`; V1 tests `115 passed, 2 skipped, 21 xfailed, 5 xpassed`; R2 `40186 checks, 0 failures`; nindels `153 passed, 0 failed` |
+| Re-run V2.x on real data | `bash verify.sh full --data` (~3–40 min, ≈ 60 MB download) | calls identical to `research/final_independent_eval/run/ai_A_C_chr8_300x.vcf.gz` (calls, not accuracy) |
+| R2 unit tests only | `bash verify.sh r2` | `40186 checks, 0 failures`; `FRAME TESTS PASSED` |
+| `nindels` unit tests only | `bash verify.sh nindels` | `153 passed, 0 failed` |
 
 | Result | Scripts | Recorded outputs |
 |---|---|---|
@@ -218,7 +255,9 @@ Full-run scripts record the author's absolute paths (`/mnt/archive/...`); edit t
 The repository is a frozen research record. The V1 Python modules stay at the root because ~20 frozen scripts under `experimental/` import them from there (`sys.path` = repo root), and result files are cited by path in the reports. Everything that could move safely has been grouped; old → new paths are in `docs/PATH_MAP.md`. **Run all scripts from the repository root.**
 
 ```text
-verify.sh                      one-command check for V1/V2/V2.x (not R1.1/R2)
+verify.sh                      grouped verification: env, python, native, v1, v2, r2, nindels, data, full
+environment.yml Dockerfile     conda env (htslib 1.23.1 etc.) and container recipe — both UNTESTED
+scripts/hts_env.sh mk/htslib.mk   shared htslib resolution used by every build script
 VALIDATION_ROUND_2.md          V1 pre-registration (cited by name in frozen results; kept at root)
 *.py (root)                    V1 pipeline modules, bench_v12…v20, summarize_*, tests (test_*.py)
 checkpoints*/                  abandoned neural-model checkpoints (negative-result evidence)
