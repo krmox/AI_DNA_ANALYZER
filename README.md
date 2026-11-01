@@ -191,7 +191,7 @@ Full lists: `research/LIMITATIONS_AND_OPEN_QUESTIONS.md`, `research/final_valida
 
 ## Reproducibility
 
-Input data are public and not in git: GIAB HG001–HG007 BAMs, NIST v4.2.1 GRCh38 truth VCFs and BEDs, and the `GCA_000001405.15_GRCh38_no_alt_plus_hs38d1_analysis_set.fna` reference (fetch scripts: `fetch_*.sh`, `research/final_validation/fetch_hg007.sh`, `research/final_validation/expanded/fetch_hg001_nvme.sh`). Checksums: `research/final_independent_eval/checksums.txt`, `research/stage4/R2_LOCK.md`, `research/final_validation/evidence_package/`.
+Input data are public and not in git: GIAB HG001–HG007 BAMs, NIST v4.2.1 GRCh38 truth VCFs and BEDs, and the `GCA_000001405.15_GRCh38_no_alt_plus_hs38d1_analysis_set.fna` reference (fetch scripts: `scripts/data/fetch_*.sh`, `research/final_validation/fetch_hg007.sh`, `research/final_validation/expanded/fetch_hg001_nvme.sh`). Checksums: `research/final_independent_eval/checksums.txt`, `research/stage4/R2_LOCK.md`, `research/final_validation/evidence_package/`.
 
 | Level | Command | Expected |
 |---|---|---|
@@ -208,28 +208,30 @@ Input data are public and not in git: GIAB HG001–HG007 BAMs, NIST v4.2.1 GRCh3
 | R2 blind-new (HG006 chr16) | `research/stage4/` | `research/stage4/BLIND_HG006_chr16.md` |
 | V2.x final evaluation (HG003 chr8) | `research/final_independent_eval/scripts/` | `research/final_independent_eval/` |
 | V2.x dev/holdout (HG002 chr20) | `native_v2x/scripts/`, `native_v2x/analysis/` | `research/V2X_*` |
-| V1 regional experiments v13–v20 | `fetch_*.sh`, `prepare_*.sh`, `run_*_extract.sh`, `bench_v13…v20*.py` | `results/bench_v13…v20/`, `logs_*/` |
+| V1 regional experiments v13–v20 | `scripts/data/{fetch,prepare,run}_*.sh`, `bench_v13…v20*.py` (run all from the repo root) | `results/bench_v13…v20/`, `results/logs/` |
 | `nindels` regression / validation | `nindels/scripts/run_regression.sh`, `run_validation.sh` | `nindels/results/`, `nindels/results_*.md` |
 
 Full-run scripts record the author's absolute paths (`/mnt/archive/...`); edit the variables at the top of each script. Development, validation and held-out data are kept apart by directory and by the pre-registrations (`research/stage4/PREREG_R2.md`, `research/final_independent_eval/`).
 
 ## Repository layout
 
-The repository is a frozen research record: Python modules import each other from the root and result files are cited by path in the reports, so the layout is intentionally **not** reorganised.
+The repository is a frozen research record. The V1 Python modules stay at the root because ~20 frozen scripts under `experimental/` import them from there (`sys.path` = repo root), and result files are cited by path in the reports. Everything that could move safely has been grouped; old → new paths are in `docs/PATH_MAP.md`. **Run all scripts from the repository root.**
 
 ```text
-verify.sh                          one-command check for V1/V2/V2.x (not R1.1/R2)
-*.py (root)                        V1 pipeline, benchmarks (bench_v12…v20), tests (test_*.py)
-fetch_*.sh prepare_*.sh run_*.sh   data download / preparation per benchmark round
-native/                            V1 C/htslib backends
-native_v2/ native_v2x/ native_r2/  C++20 engines: V2, V2/V2.x/R1.1, R2 (src/, include/, tests/, scripts/)
-nindels/                           indel caller (src/, include/, tests/, scripts/, results/, REPORT.md)
-experimental/                      genotype layer, chr20/HG005 pipelines, head-to-head (Clair3 etc.)
-results/  logs_*/                  frozen V1 outputs and run logs
-History/                           development logs
-research/                          manuscripts, audits, claim–evidence map, stage4 (R2), final_validation, final_independent_eval, latex
-FINAL_*.md, VALIDATION_ROUND_2.md, METHOD_C_*.md, DEEPMIND_*.md   V1-era reports (cited by research/)
-HG00*_benchmark.vcf.gz.tbi         truth-VCF indices (checksummed in research/final_independent_eval/logs/truth_sha256.txt)
+verify.sh                      one-command check for V1/V2/V2.x (not R1.1/R2)
+VALIDATION_ROUND_2.md          V1 pre-registration (cited by name in frozen results; kept at root)
+*.py (root)                    V1 pipeline modules, bench_v12…v20, summarize_*, tests (test_*.py)
+checkpoints*/                  abandoned neural-model checkpoints (negative-result evidence)
+native/                        V1 C/htslib backends
+native_v2/ native_v2x/ native_r2/   C++20 engines: V2, V2/V2.x/R1.1, R2
+nindels/                       indel caller (src/, include/, tests/, scripts/, results/, REPORT.md)
+scripts/data/                  data download / preparation / extraction scripts for V1 rounds v13–v19
+docs/reports/                  V1-era reports and audits (cited by research/)
+docs/history/                  development logs
+datasets/giab_truth_index/     .tbi indices of the GIAB truth VCFs (checksummed in research/final_independent_eval/logs/truth_sha256.txt)
+experimental/                  genotype layer, chr20/HG005 pipelines, head-to-head (Clair3 etc.)
+results/                       frozen V1 outputs; results/logs/ run logs
+research/                      manuscripts, audits, claim–evidence map, stage4 (R2), final_validation, final_independent_eval, latex
 ```
 
 ## Citation
