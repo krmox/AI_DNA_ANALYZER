@@ -7,6 +7,7 @@ NEW version
 __pycache__
 *.pyc
 checkpoints*
+deprecated/checkpoints
 data/verify_logs
 data/verify_hg003_chr8
 experimental

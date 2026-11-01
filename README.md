@@ -245,22 +245,26 @@ Input data are public and not in git: GIAB HG001–HG007 BAMs, NIST v4.2.1 GRCh3
 | R2 blind-new (HG006 chr16) | `research/stage4/` | `research/stage4/BLIND_HG006_chr16.md` |
 | V2.x final evaluation (HG003 chr8) | `research/final_independent_eval/scripts/` | `research/final_independent_eval/` |
 | V2.x dev/holdout (HG002 chr20) | `native_v2x/scripts/`, `native_v2x/analysis/` | `research/V2X_*` |
-| V1 regional experiments v13–v20 | `scripts/data/{fetch,prepare,run}_*.sh`, `bench_v13…v20*.py` (run all from the repo root) | `results/bench_v13…v20/`, `results/logs/` |
+| V1 regional experiments v13–v20 | `scripts/data/{fetch,prepare,run}_*.sh`, `bench_v13_robustness.py`, `bench_v14_crosschrom.py`, `bench_v19_unseen.py` (root), `benchmarks/bench_v15…v20*.py` (run all from the repo root) | `results/bench_v13…v20/`, `results/logs/` |
 | `nindels` regression / validation | `nindels/scripts/run_regression.sh`, `run_validation.sh` | `nindels/results/`, `nindels/results_*.md` |
 
 Full-run scripts record the author's absolute paths (`/mnt/archive/...`); edit the variables at the top of each script. Development, validation and held-out data are kept apart by directory and by the pre-registrations (`research/stage4/PREREG_R2.md`, `research/final_independent_eval/`).
 
 ## Repository layout
 
-The repository is a frozen research record. The V1 Python modules stay at the root because ~20 frozen scripts under `experimental/` import them from there (`sys.path` = repo root), and result files are cited by path in the reports. Everything that could move safely has been grouped; old → new paths are in `docs/PATH_MAP.md`. **Run all scripts from the repository root.**
+The repository is a frozen research record. The V1 Python modules stay at the root because ~20 frozen scripts under `experimental/` import them from there (`sys.path` = repo root), and result files are cited by path in the reports. Everything that could move safely has been grouped; old → new paths are in `docs/PATH_MAP.md`. Documentation map: [`docs/INDEX.md`](docs/INDEX.md); contributing: [`CONTRIBUTING.md`](CONTRIBUTING.md). **Run all scripts from the repository root.**
 
 ```text
 verify.sh                      grouped verification: env, python, native, v1, v2, r2, nindels, data, full
 environment.yml Dockerfile     conda env (htslib 1.23.1 etc.) and container recipe — both UNTESTED
 scripts/hts_env.sh mk/htslib.mk   shared htslib resolution used by every build script
 VALIDATION_ROUND_2.md          V1 pre-registration (cited by name in frozen results; kept at root)
-*.py (root)                    V1 pipeline modules, bench_v12…v20, summarize_*, tests (test_*.py)
-checkpoints*/                  abandoned neural-model checkpoints (negative-result evidence)
+*.py (root)                    V1 pipeline modules, bench_v12/13/14/19, and the 8 test files run by verify.sh
+tests/                         other V1 unit tests (python3 -m pytest tests)
+benchmarks/                    V1 benchmark rounds v15–v20: drivers, region selectors, summaries, tests
+deprecated/neural/             abandoned neural-model scripts and tests (unused by every caller)
+deprecated/checkpoints/        moved neural checkpoints (negative-result evidence)
+checkpoints/ checkpoints_rawpileup/ checkpoints_pb_residual/   neural checkpoints still referenced by root code (see deprecated/README.md)
 native/                        V1 C/htslib backends
 native_v2/ native_v2x/ native_r2/   C++20 engines: V2, V2/V2.x/R1.1, R2
 nindels/                       indel caller (src/, include/, tests/, scripts/, results/, REPORT.md)

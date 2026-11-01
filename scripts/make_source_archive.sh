@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Build a lightweight source archive: code, tests, models, build scripts, docs and the few files
-# verify.sh reads -- WITHOUT research/, checkpoints*/, experimental/, results/, data/, datasets/
+# verify.sh reads -- WITHOUT research/, checkpoints*/, deprecated/checkpoints/, experimental/, results/, data/, datasets/
 # and docs/history.  The full repository (with all evidence) stays on GitHub.
 #
 #   bash scripts/make_source_archive.sh [OUT.tar.gz]              committed tree (git archive HEAD)
@@ -10,7 +10,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 MODE=head; [ "${1:-}" = "--worktree" ] && { MODE=worktree; shift; }
 OUT=${1:-varion-src-$(git rev-parse --short HEAD).tar.gz}
-EXCL='^(checkpoints[^/]*|research|data|datasets|experimental|results|docs/history|third_party|[.]venv|[.]worktrees|NEW version)(/|$)'
+EXCL='^(checkpoints[^/]*|deprecated/checkpoints|research|data|datasets|experimental|results|docs/history|third_party|[.]venv|[.]worktrees|NEW version)(/|$)'
 KEEP='^(research/stage4/frozen_R2[.]model|research/final_independent_eval/run/ai_A_C_chr8_300x[.]vcf[.]gz([.]tbi)?|research/final_independent_eval/checksums[.]txt)$'
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 if [ $MODE = head ]; then
