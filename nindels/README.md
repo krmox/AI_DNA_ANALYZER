@@ -2,7 +2,7 @@
 
 An independent indel caller: candidates are discovered from the BAM, then each
 candidate goes through the Pattern Engine (spec §13 `PROCESS_INDEL`).
-Experimental; nothing here is benchmarked yet.
+Experimental. Benchmarks against bcftools on HG004 chr20 and HG001 chr19 are in `REPORT.md`, `EXPERIMENTS.md` and `results*`.
 
 ## Build
 
