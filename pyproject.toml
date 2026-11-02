@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "varion"
+version = "3.1.0"
+description = "Command-line front end for AI_DNA_ANALYZER: SNP engine R2 and depth-adaptive indel engine R3.1 (research software)"
+requires-python = ">=3.10"
+license = {text = "GPL-3.0"}
+
+[project.scripts]
+varion = "varion.cli:main"
+
+[tool.setuptools]
+packages = ["varion"]
+
+[tool.setuptools.package-data]
+varion = ["thresholds.json"]

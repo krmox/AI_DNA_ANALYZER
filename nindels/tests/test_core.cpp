@@ -372,6 +372,16 @@ static void test_locus() {
     CHECK(cn0.pass);   // constant Q45 gap-open: called 0/1 (the baseline failure)
     CHECK(!cn1.pass);  // data-estimated slippage: not called
     CHECK(cn1.qual < cn0.qual);
+    CHECK(cn1.used_str && !cn0.used_str);
+    // R3.1 per-locus gate: 30 reads at this locus. A gate above 30 falls back to A (identical to no model);
+    // a gate at or below 30 applies B.
+    LikelihoodParams gate_hi = with_str, gate_lo = with_str;
+    gate_hi.str_min_depth = 31;
+    gate_lo.str_min_depth = 30;
+    LocusCall cg_hi = genotype_locus(ref, {&n}, gate_hi, LocusParams{});
+    LocusCall cg_lo = genotype_locus(ref, {&n}, gate_lo, LocusParams{});
+    CHECK(!cg_hi.used_str && cg_hi.qual == cn0.qual && cg_hi.pass);
+    CHECK(cg_lo.used_str && cg_lo.qual == cn1.qual && !cg_lo.pass);
     std::printf("  locus test: 6/30 slipped reads QUAL constant-Q45 %.1f vs STR model %.1f (eps %.4f)\n", cn0.qual,
                 cn1.qual, sm.eps(1, 10));
 }
@@ -422,6 +432,33 @@ static void write_synthetic_table(const std::string& path) {
     }
 }
 
+static void test_vcf_minimal_alleles() {
+    // Regression: multi-allelic records were written with REF/ALT spanning the union of all alleles, without
+    // trimming the shared prefix/suffix, so `bcftools norm` moved POS and rewrote 746 of 3,054 multi-allelic
+    // records on HG001 chr19 30x (r3.1 @ 31e14df). Expected values are what `bcftools norm` produces.
+    {   // chr19:351472 TAC > TACACAC,TACACACAAATATAT  ->  351474 C > CACAC,CACACAAATATAT
+        int64_t pos = 351472; std::string ref = "TAC"; std::vector<std::string> alts{"TACACAC", "TACACACAAATATAT"};
+        trim_alleles(pos, ref, alts);
+        CHECK(pos == 351474 && ref == "C" && alts.size() == 2 && alts[0] == "CACAC" && alts[1] == "CACACAAATATAT");
+    }
+    {   // chr19:551688: first characters differ after a 7-base shared prefix
+        int64_t pos = 551688; std::string ref = "CCTCTCTCTTTCTTTCTTTC";
+        std::vector<std::string> alts{"CCTCTCTTTCTTTCTTTC", "CCTCTCTCT"};
+        trim_alleles(pos, ref, alts);
+        CHECK(pos == 551695 && ref == "CTTTCTTTCTTTC" && alts[0] == "TTCTTTCTTTC" && alts[1] == "CT");
+    }
+    {   // an already minimal bi-allelic record is unchanged (anchor base kept)
+        int64_t pos = 72223; std::string ref = "CAAG"; std::vector<std::string> alts{"C"};
+        trim_alleles(pos, ref, alts);
+        CHECK(pos == 72223 && ref == "CAAG" && alts[0] == "C");
+    }
+    {   // shared suffix is removed, anchor base stays
+        int64_t pos = 100; std::string ref = "GTT"; std::vector<std::string> alts{"GT", "GTTT"};
+        trim_alleles(pos, ref, alts);
+        CHECK(pos == 100 && ref == "GT" && alts[0] == "G" && alts[1] == "GTT");
+    }
+}
+
 int main(int argc, char** argv) {
     if (argc == 3 && std::string(argv[1]) == "--write-table") {
         write_synthetic_table(argv[2]);
@@ -440,6 +477,7 @@ int main(int argc, char** argv) {
     test_table_io();
     test_str_model();
     test_locus();
+    test_vcf_minimal_alleles();
     std::printf("%d passed, %d failed\n", g_pass, g_fail);
     return g_fail ? 1 : 0;
 }

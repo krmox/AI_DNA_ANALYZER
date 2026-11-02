@@ -29,6 +29,7 @@ struct LocusCall {
     std::vector<int> ad;           // reads whose best haplotype is allele 0..K
     int depth = 0;
     bool pass = false;
+    bool used_str = false;         // R3.1: repeat error model (B) was applied at this locus
 };
 
 // Groups of indices into `inputs` (sorted by position) forming one locus each.
@@ -36,6 +37,9 @@ std::vector<std::vector<size_t>> cluster_candidates(const RefSeq& ref, const std
 
 LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInput*>& group,
                          const LikelihoodParams& lp, const LocusParams& p);
+
+// Trims REF/ALT alleles of one record to their minimal representation (shifts pos1 for a shared prefix).
+void trim_alleles(int64_t& pos1, std::string& ref, std::vector<std::string>& alts);
 
 void write_locus_vcf(std::ostream& o, const std::string& chrom, const RefSeq& ref, const LocusCall& c);
 

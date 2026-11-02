@@ -3,6 +3,8 @@
 Date: 2026-11-01. Evidence: `BUILD_AND_TEST_REPORT.md`, `PLATFORM_SUPPORT.md`, `PORTABILITY_AUDIT.md`.
 Written against the working tree on top of `main` @ 94ae97d, before the portability commit that adds this file; the `r3.1` worktree statements refer to its own uncommitted files.
 
+> **Status note (release 3.1.0 branch).** The body below is the original 2026-11-01 audit and is kept unchanged. Since then: the R3.1 implementation, `docs/R3.1_THRESHOLD_SELECTION.md` and the regression tests were added to this tree (items in sections 6-7 about an "unmerged branch" and a "missing" threshold document are addressed), `nindels-tests` now reports 160 passed (153 on `main`, 156 on `r3.1` @ 31e14df, +4 from the multi-allelic VCF fix), and the section-6 outcome description still stands. `docs/R3.1_FINAL_TEST_REPORT.md` and `results/r31/test_report.*` are **not** part of this release. See `CHANGELOG.md`.
+
 ## 1. Exact test results (CachyOS x86-64, GCC 16.2.1, Python 3.14.8)
 
 `bash verify.sh full` with htslib **1.23.1**, working tree and extracted source archive (same result both times):

@@ -16,6 +16,7 @@
 | frozen experiments | `experimental/` |
 | where did file X go? | `docs/PATH_MAP.md` |
 | build/test status, release readiness | `docs/BUILD_AND_TEST_REPORT.md`, `docs/RELEASE_READINESS.md`, `docs/PORTABILITY_AUDIT.md` |
+| R3.1 / `varion` front end | `docs/ARCHITECTURE.md`, `docs/COMMAND_MIGRATION.md`, `docs/R3.1_PROTOCOL.md` (pre-registered, unmodified), `docs/R3.1_THRESHOLD_SELECTION.md` (selection and protocol deviation), `CHANGELOG.md` |
 
 ## Component status
 
@@ -26,4 +27,4 @@
 | `benchmarks/`, `tests/` | frozen V1 evaluation code |
 | `experimental/` | historical experiments, frozen |
 | `deprecated/`, `checkpoints*/` | abandoned neural line, unused |
-| R3.1 | branch `r3.1` only (not on `main`) |
+| `varion/` front end, R3.1 (`nindels` per-locus gate, `depth`/`contigs`) | release 3.1.0, research software; the frozen auto-mode thresholds deviate from the protocol (`docs/R3.1_THRESHOLD_SELECTION.md`) |

@@ -1,6 +1,6 @@
 # Varion (AI_DNA_ANALYZER)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22978775.svg)](https://doi.org/10.5281/zenodo.22978775) ![license](https://img.shields.io/badge/license-GPL--3.0--only-blue) ![platform](https://img.shields.io/badge/platform-Linux%20x86--64-lightgrey)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22895745.svg)](https://doi.org/10.5281/zenodo.22895745) ![license](https://img.shields.io/badge/license-GPL--3.0--only-blue) ![platform](https://img.shields.io/badge/platform-Linux%20x86--64-lightgrey)
 
 Varion is a research germline variant caller for Illumina short reads (GRCh38), built from statistical components and benchmarked against GIAB truth sets. It has two separate engines:
 
@@ -11,7 +11,7 @@ Varion is a research germline variant caller for Illumina short reads (GRCh38), 
 
 > **On the name.** "AI" is historical: the project began as a neural sequence model. On real reads every neural stage was null or negative against the statistical baselines, and no version described here contains a neural network. (`checkpoints*/` and `model_*.py` are from those abandoned experiments and are unused.)
 
-> **Release status.** Tag `v2.0.0` (Zenodo DOI) covers V1, V2 and V2.x. **R1.1 and R2 are newer than that tag.** R2 is frozen (lock record `research/stage4/R2_LOCK.md`; the validation reports cite commit `3cdfe5a`). `nindels` Baseline/A/B/A+B is on `main`. **R3.1 lives only on branch `r3.1`** (not merged; final test run incomplete) — `python3 -m varion …` does not exist on `main`.
+> **Release status.** This tree is release **3.1.0** (see `CHANGELOG.md`). Tag `v2.0.0` covers V1, V2 and V2.x; tag `3.0.0` (Zenodo version DOI [10.5281/zenodo.23855773](https://doi.org/10.5281/zenodo.23855773)) covers R1.1, R2 and `nindels` Baseline/A/B/A+B. **Neither archived version contains R3.1 or the `varion` front end; the 3.1.0 release is not yet archived at Zenodo** (the badge above is the concept DOI, which resolves to the newest archived version). R2 is frozen (lock record `research/stage4/R2_LOCK.md`; the validation reports cite commit `3cdfe5a`). 3.1.0 adds the `varion` command, the `nindels` per-locus repeat-model gate and `depth`/`contigs` subcommands, and two small `nindels` fixes (minimal multi-allelic VCF records; invalid `--region` is now an error). It does **not** include the R3.1 final-test report or its raw tables. **The frozen R3.1 auto-mode thresholds deviate from the pre-registered protocol** — see `docs/R3.1_THRESHOLD_SELECTION.md`.
 
 ## Contents
 
@@ -44,7 +44,7 @@ R1 only scanned 64-bp tiles fully inside one BED interval and masked positions w
 
 The pattern-memory and learned logistic components from the original spec are implemented but **not used** in any evaluated configuration. Rationale and error analysis: `nindels/REPORT.md`, `nindels/EXPERIMENTS.md`.
 
-**R3.1 (branch `r3.1`).** Asks whether there is a depth above which A+B is reliably better than A. `--mode auto` samples contig depth and uses A below a frozen threshold (67.4×) and A+B above it; B is also gated per locus by read count. The protocol was written before any R3.1 run (`docs/R3.1_PROTOCOL.md` on that branch). Development finding: A+B is *worse* than A below ~30× (HG004 chr20 ΔF1 −0.049 at 10×, −0.0045 at 30×; 90 % intervals exclude 0) and only ≈ +0.002–0.003 at 40× to native depth, with intervals touching 0. The final test matrix is incomplete (the partial HG007 chr19 report reaches only 10× and 20×; at 20× R3.1 chose A, F1 0.9610). **No claim about the R3.1 test set is made.**
+**R3.1 (`varion` front end; `docs/ARCHITECTURE.md`).** Asks whether there is a depth above which A+B is reliably better than A. `--mode auto` samples contig depth and uses A below a frozen threshold (67.37×) and A+B at or above it, with no per-locus gate (`local_min_depth` is null); `--mode A` / `--mode A+B` override it. The protocol was written before any R3.1 run (`docs/R3.1_PROTOCOL.md`, unmodified). **The frozen rule does not follow protocol step 6**, which, applied to the development data, gives A at every depth (no local-depth bin qualified); the freeze script checked only the global threshold. The deviation, the selection data and their limits are documented in `docs/R3.1_THRESHOLD_SELECTION.md`. For protocol-compliant behaviour use `--mode A`. Development finding (HG004 chr20+chr21 pooled, 90 % block-bootstrap intervals): A+B is *worse* than A at 10–30× (ΔF1 −0.046 at 10×, −0.004 at 30×; intervals exclude 0), and only +0.0023 [+0.0007, +0.0038] at native depth (67×), the only ladder rung that qualified; chr20 and chr21 alone disagree on whether any threshold exists. **No evidence is presented here that auto mode is better than A, and no claim about held-out test data is made in this release** (the test-matrix report is not included).
 
 ## Installation and compilation
 
@@ -144,7 +144,17 @@ nindels-call estimate-str --bam B --ref R --region chr20 --out S.tsv
 nindels-call call --bam B --ref R --region chr20 --force-reassess --genotyper multi --str-model S.tsv --out-vcf ab.vcf
 ```
 
-On branch `r3.1` only: `python3 -m varion indel --bam B --ref R --out-dir out/ --region chr20 --mode auto` and `python3 -m varion snp …`.
+Front end (stdlib-only Python; run from the repository root, or `pip install -e .`; needs the engines built as above):
+
+```bash
+python3 -m varion doctor                                                    # check engines, htslib, tools
+python3 -m varion depth  --bam B --region chr20                             # sampled contig depth (JSON)
+python3 -m varion indel  --bam B --ref R --out-dir out/ --region chr20 --mode A        # protocol-compliant R3.1: configuration A
+python3 -m varion indel  --bam B --ref R --out-dir out/ --region chr20 --mode auto     # frozen thresholds: A < 67.37x <= A+B (see docs/R3.1_THRESHOLD_SELECTION.md)
+python3 -m varion snp    --bam B --ref R --bed BED --out-dir out/ --contig chr20 --sample S
+```
+
+Old commands are unchanged (`docs/COMMAND_MIGRATION.md`).
 
 ### Scoring (hap.py)
 
@@ -221,7 +231,7 @@ The A vs A+B differences are small and **none of these comparisons has a confide
 - 1.4–3.5 % of truth SNPs fall in windows dropped by the V1/V2.x frame; R1.1/R2 recall is not comparable with older figures.
 - V1 constants are specific to ≈ 15× depth; V2.x was fitted on one sample/chromosome/depth/platform. The V1 native counts backend is not exact on adversarial BAMs with repeated read names.
 - HG005 raw artefacts were lost; those numbers are record-only (see `experimental/stress_test/INVALIDATED_prefix_coordinate_bug/`).
-- R3.1 is not merged and its test run is incomplete (see above).
+- R3.1: the frozen auto-mode thresholds deviate from the protocol (`docs/R3.1_THRESHOLD_SELECTION.md`); they rest on one sample (HG004, 2×250), two chromosomes and a top-rung-only effect; the held-out test results are not part of this release; `nindels/scripts/r31/datasets.json` and several scripts hard-code the author's paths.
 - Environment: htslib is located by `scripts/hts_env.sh` (no fixed library path any more); some benchmark-campaign scripts still hard-code `/mnt/archive` and `/mnt/hdd`; no lockfile for the native toolchain.
 
 Full lists: `research/LIMITATIONS_AND_OPEN_QUESTIONS.md`, `research/final_validation/evidence_package/limitations.md`, `claims_audit.md`.
@@ -232,10 +242,12 @@ Input data are public and not in git: GIAB HG001–HG007 BAMs, NIST v4.2.1 GRCh3
 
 | Level | Command | Expected |
 |---|---|---|
-| Build + all offline tests | `bash verify.sh full` (~1-2 min) | `COMPLETE OFFLINE VERIFICATION PASSED`; V1 tests `115 passed, 2 skipped, 21 xfailed, 5 xpassed`; R2 `40186 checks, 0 failures`; nindels `153 passed, 0 failed` |
+| Build + all offline tests | `bash verify.sh full` (~1-2 min) | `COMPLETE OFFLINE VERIFICATION PASSED`; V1 tests `115 passed, 2 skipped, 21 xfailed, 5 xpassed`; R2 `40186 checks, 0 failures`; nindels `160 passed, 0 failed` (3.1.0; 153 in 3.0.0) |
 | Re-run V2.x on real data | `bash verify.sh full --data` (~3–40 min, ≈ 60 MB download) | calls identical to `research/final_independent_eval/run/ai_A_C_chr8_300x.vcf.gz` (calls, not accuracy) |
 | R2 unit tests only | `bash verify.sh r2` | `40186 checks, 0 failures`; `FRAME TESTS PASSED` |
-| `nindels` unit tests only | `bash verify.sh nindels` | `153 passed, 0 failed` |
+| `nindels` unit tests only | `bash verify.sh nindels` | `160 passed, 0 failed` |
+| `varion` front-end tests (not part of `verify.sh`; `pytest` is not required) | `python3 -m unittest tests_varion/test_adaptive.py tests_varion/test_selection.py` | `Ran 22 tests ... OK` |
+| `--region` validation regression (needs a BAM and its reference) | `bash nindels/tests/test_cli_region.sh nindels/build/nindels-call BAM REF chr19` | 4 `ok` lines, exit 0 |
 
 | Result | Scripts | Recorded outputs |
 |---|---|---|
@@ -267,7 +279,10 @@ deprecated/checkpoints/        moved neural checkpoints (negative-result evidenc
 checkpoints/ checkpoints_rawpileup/ checkpoints_pb_residual/   neural checkpoints still referenced by root code (see deprecated/README.md)
 native/                        V1 C/htslib backends
 native_v2/ native_v2x/ native_r2/   C++20 engines: V2, V2/V2.x/R1.1, R2
-nindels/                       indel caller (src/, include/, tests/, scripts/, results/, REPORT.md)
+nindels/                       indel caller (src/, include/, tests/, scripts/, scripts/r31/ = R3.1 experiment drivers, results/, REPORT.md)
+varion/ tests_varion/          front-end command (`python3 -m varion`), frozen thresholds (varion/thresholds.json), its tests
+results/r31/selection.json     R3.1 development-selection output (inputs of varion/thresholds.json)
+pyproject.toml                 packaging of the `varion` front end
 scripts/data/                  data download / preparation / extraction scripts for V1 rounds v13–v19
 docs/reports/                  V1-era reports and audits (cited by research/)
 docs/history/                  development logs
@@ -281,6 +296,9 @@ research/                      manuscripts, audits, claim–evidence map, stage4
 
 Cite via `CITATION.cff` (GitHub "Cite this repository").
 
+- All versions (concept DOI, resolves to the newest archived version): [10.5281/zenodo.22895745](https://doi.org/10.5281/zenodo.22895745)
+- Software 3.0.0 (adds R1.1, R2, `nindels` Baseline/A/B/A+B; **no R3.1**): [10.5281/zenodo.23855773](https://doi.org/10.5281/zenodo.23855773)
+- Software 3.1.0 (this release; adds R3.1 and `varion`): not yet archived — a version DOI will be added to `CITATION.cff` after archiving
 - Software v2.0.0 (V1, V2, V2.x): DOI [10.5281/zenodo.22978775](https://doi.org/10.5281/zenodo.22978775)
 - Historical V1 release v1.0.0: DOI [10.5281/zenodo.22895746](https://doi.org/10.5281/zenodo.22895746)
 - Manuscript: `research/latex/paper.pdf` (source `research/PAPER_MANUSCRIPT_V2.md`); covers up to V2.x, **not** R1.1/R2/nindels

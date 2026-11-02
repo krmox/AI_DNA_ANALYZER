@@ -93,9 +93,12 @@ LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInp
     for (int a = 1; a <= K; ++a) hap[static_cast<size_t>(a)] = &H[static_cast<size_t>(a - 1)].alt;
     const int64_t ws = H[0].start;
     std::vector<std::vector<double>> gop(static_cast<size_t>(K + 1));
-    if (lp.str) {
+    // R3.1 per-locus gate: the repeat model is applied only where local depth supports it.
+    const StrErrorModel* str = (lp.str && call.depth >= lp.str_min_depth) ? lp.str : nullptr;
+    call.used_str = str != nullptr;
+    if (str) {
         const double base = std::pow(10.0, -lp.hmm.gap_open_q / 10.0);
-        for (int a = 0; a <= K; ++a) gop[static_cast<size_t>(a)] = lp.str->gap_open_profile(*hap[static_cast<size_t>(a)], base);
+        for (int a = 0; a <= K; ++a) gop[static_cast<size_t>(a)] = str->gap_open_profile(*hap[static_cast<size_t>(a)], base);
     }
     // reference coordinate -> index on haplotype a
     auto index_on = [&](int a, int64_t g) -> int64_t {
@@ -116,7 +119,7 @@ LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInp
             const int64_t diag = std::clamp<int64_t>(index_on(a, rd.ref_start), 0, n) - b0;
             std::string_view slice(h.data() + b0, static_cast<size_t>(std::max<int64_t>(0, b1 - b0)));
             double v = pairhmm_loglik(rd.bases, rd.quals.data(), slice, lp.hmm, diag, band,
-                                      lp.str ? gop[static_cast<size_t>(a)].data() + b0 : nullptr);
+                                      str ? gop[static_cast<size_t>(a)].data() + b0 : nullptr);
             l[r][static_cast<size_t>(a)] = v;
             best = std::max(best, v);
         }
@@ -166,6 +169,29 @@ LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInp
     return call;
 }
 
+void trim_alleles(int64_t& pos1, std::string& ref, std::vector<std::string>& alts) {
+    // Minimal representation of a multi-allelic record (VCF 4.2 section 1.6.1; same result as `bcftools norm`):
+    // drop the suffix shared by REF and every ALT, then the shared prefix, never emptying an allele.
+    auto all_share = [&](auto last_or_first) {
+        if (ref.size() < 2) return false;
+        const char c = last_or_first(ref);
+        for (const auto& a : alts)
+            if (a.size() < 2 || last_or_first(a) != c) return false;
+        return true;
+    };
+    auto last = [](const std::string& x) { return x.back(); };
+    auto first = [](const std::string& x) { return x.front(); };
+    while (all_share(last)) {
+        ref.pop_back();
+        for (auto& a : alts) a.pop_back();
+    }
+    while (all_share(first)) {
+        ref.erase(0, 1);
+        for (auto& a : alts) a.erase(0, 1);
+        ++pos1;
+    }
+}
+
 void write_locus_vcf(std::ostream& o, const std::string& chrom, const RefSeq& ref, const LocusCall& c) {
     if (c.alleles.empty() || (c.g1 == 0 && c.g2 == 0)) return;
     std::vector<int> used;
@@ -190,10 +216,13 @@ void write_locus_vcf(std::ostream& o, const std::string& chrom, const RefSeq& re
         if (a == 0) return 0;
         return static_cast<int>(std::find(used.begin(), used.end(), a) - used.begin()) + 1;
     };
-    o << chrom << '\t' << anchor + 1 << "\t.\t" << REF << '\t';
+    int64_t pos1 = anchor + 1;
+    std::string REFm = REF;
+    trim_alleles(pos1, REFm, alts);
+    o << chrom << '\t' << pos1 << "\t.\t" << REFm << '\t';
     for (size_t i = 0; i < alts.size(); ++i) o << (i ? "," : "") << alts[i];
     o << '\t' << format_opt(std::round(c.qual * 100) / 100) << '\t' << (c.pass ? "PASS" : "LowProb") << '\t'
-      << "K=" << c.alleles.size() << ";DP=" << c.depth << "\tGT:GQ:AD\t" << idx(c.g1) << '/' << idx(c.g2) << ':'
+      << "K=" << c.alleles.size() << ";DP=" << c.depth << (c.used_str ? ";STRB" : "") << "\tGT:GQ:AD\t" << idx(c.g1) << '/' << idx(c.g2) << ':'
       << static_cast<int>(std::round(c.gq)) << ':' << c.ad[0];
     for (int a : used) o << ',' << c.ad[static_cast<size_t>(a)];
     o << '\n';
