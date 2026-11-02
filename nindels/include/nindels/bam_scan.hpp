@@ -40,6 +40,8 @@ public:
 
     int tid(const std::string& chrom) const;
     std::vector<std::pair<std::string, int64_t>> contigs() const;
+    // Mapped read count per contig from the index (same order as contigs()).
+    std::vector<uint64_t> mapped_reads() const;
     std::string sample_name() const;  // first @RG SM, or "SAMPLE"
 
     // Candidates whose normalized position lies in [start, end). If external is
@@ -51,6 +53,9 @@ public:
     // Experiment B estimation: fragments spanning run +-3 bp (MAPQ >= min_mapq,
     // one read per fragment) and how many carry a whole-unit indel inside the run.
     StrLocusCount count_str_locus(const StrRun& run, int32_t tid, int min_mapq = 20);
+
+    // Mean aligned-base depth over [start, end): primary, non-duplicate reads with MAPQ >= min_mapq.
+    double window_depth(int32_t tid, int64_t start, int64_t end, int min_mapq = 20);
 
 private:
     struct Impl;

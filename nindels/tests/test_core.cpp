@@ -372,6 +372,16 @@ static void test_locus() {
     CHECK(cn0.pass);   // constant Q45 gap-open: called 0/1 (the baseline failure)
     CHECK(!cn1.pass);  // data-estimated slippage: not called
     CHECK(cn1.qual < cn0.qual);
+    CHECK(cn1.used_str && !cn0.used_str);
+    // R3.1 per-locus gate: 30 reads at this locus. A gate above 30 falls back to A (identical to no model);
+    // a gate at or below 30 applies B.
+    LikelihoodParams gate_hi = with_str, gate_lo = with_str;
+    gate_hi.str_min_depth = 31;
+    gate_lo.str_min_depth = 30;
+    LocusCall cg_hi = genotype_locus(ref, {&n}, gate_hi, LocusParams{});
+    LocusCall cg_lo = genotype_locus(ref, {&n}, gate_lo, LocusParams{});
+    CHECK(!cg_hi.used_str && cg_hi.qual == cn0.qual && cg_hi.pass);
+    CHECK(cg_lo.used_str && cg_lo.qual == cn1.qual && !cg_lo.pass);
     std::printf("  locus test: 6/30 slipped reads QUAL constant-Q45 %.1f vs STR model %.1f (eps %.4f)\n", cn0.qual,
                 cn1.qual, sm.eps(1, 10));
 }

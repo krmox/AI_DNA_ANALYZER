@@ -1,0 +1,6 @@
+{
+  "status": "selected",
+  "global_min_depth": 67.37,
+  "local_min_depth": null,
+  "provenance": "2026-10-30; selection on HG004 chr20+chr21 depth ladder only (docs/R3.1_THRESHOLD_SELECTION.md); code commit 43ba7dd; selection.json sha256 a94ad67cd5ca361c; no local-depth bin met the rule; leave-one-chromosome-out (global key, local edge): {\"HG004_chr20\": [\"d50\", null], \"HG004_chr21\": [null, null]}"
+}

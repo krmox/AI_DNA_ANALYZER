@@ -27,6 +27,7 @@ void write_vcf_header(std::ostream& o, const VcfHeaderInfo& h) {
          "##INFO=<ID=SMAX,Number=1,Type=Float,Description=\"Highest similarity to a stored class\">\n"
          "##INFO=<ID=K,Number=1,Type=Integer,Description=\"Alleles genotyped jointly at the locus (--genotyper multi)\">\n"
          "##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Reads used for joint genotyping\">\n"
+         "##INFO=<ID=STRB,Number=0,Type=Flag,Description=\"Repeat error model (B) applied at this locus\">\n"
          "##INFO=<ID=CLS,Number=.,Type=String,Description=\"Closest classes id:S (up to 3)\">\n"
          "##INFO=<ID=CR,Number=1,Type=Float,Description=\"Region complexity C_r\">\n"
          "##INFO=<ID=RPRI,Number=1,Type=Float,Description=\"Reassessment priority R_i\">\n"

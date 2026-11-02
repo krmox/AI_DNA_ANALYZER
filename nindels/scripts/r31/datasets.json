@@ -1,0 +1,37 @@
+{
+  "_comment": "Dataset registry for R3.1. role: dev = threshold selection; test = final evaluation (never used for tuning); seen = used before R3.1 for the A+B validation (reported, not clean).",
+  "work_root": "/home/kramkost/r31",
+  "ref_fasta": "/mnt/hdd/AI_DNA_ANALYZER_benchmark/reference/GCA_000001405.15_GRCh38_no_alt_plus_hs38d1_analysis_set.fna",
+  "strata": {
+    "homopolymer_ge7": "/mnt/hdd/AI_DNA_ANALYZER_stage3/strat/LowComplexity/GRCh38_AllHomopolymers_ge7bp_imperfectge11bp_slop5.bed.gz",
+    "tandem_repeat_le50": "/mnt/hdd/AI_DNA_ANALYZER_stage3/strat/LowComplexity/GRCh38_AllTandemRepeats_le50bp_slop5.bed.gz",
+    "tandem_repeat_51to200": "/mnt/hdd/AI_DNA_ANALYZER_stage3/strat/LowComplexity/GRCh38_AllTandemRepeats_51to200bp_slop5.bed.gz",
+    "not_in_TR_or_HP": "/mnt/hdd/AI_DNA_ANALYZER_stage3/strat/LowComplexity/GRCh38_notinAllTandemRepeatsandHomopolymers_slop5.bed.gz"
+  },
+  "datasets": {
+    "HG004_chr20": {"role": "dev", "sample": "HG004", "chrom": "chr20", "platform": "Illumina HiSeq 2x250 NovoAlign",
+      "bam": "/mnt/hdd/AI_DNA_ANALYZER_stage2/bam/HG004_chr20_full.bam",
+      "truth": "/mnt/hdd/AI_DNA_ANALYZER_stage2/truth/HG004_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+      "bed": "/mnt/hdd/AI_DNA_ANALYZER_stage2/truth/HG004_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed"},
+    "HG004_chr21": {"role": "dev", "sample": "HG004", "chrom": "chr21", "platform": "Illumina HiSeq 2x250 NovoAlign",
+      "bam": "/mnt/hdd/AI_DNA_ANALYZER_stage2/bam/HG004_chr21_full.bam",
+      "truth": "/mnt/hdd/AI_DNA_ANALYZER_stage2/truth/HG004_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+      "bed": "/mnt/hdd/AI_DNA_ANALYZER_stage2/truth/HG004_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed"},
+    "HG001_chr17": {"role": "test", "sample": "HG001", "chrom": "chr17", "platform": "Illumina HiSeq 2x148 NovoAlign (NHGRI 300x)",
+      "bam": "/home/kramkost/varion_data/hg001_bam/HG001_chr17_native.bam",
+      "truth": "/mnt/hdd/AI_DNA_ANALYZER_hg001/truth/HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+      "bed": "/mnt/hdd/AI_DNA_ANALYZER_hg001/truth/HG001_GRCh38_1_22_v4.2.1_benchmark.bed"},
+    "HG001_chr19": {"role": "seen", "sample": "HG001", "chrom": "chr19", "platform": "Illumina HiSeq 2x148 NovoAlign (NHGRI 300x)",
+      "bam": "/home/kramkost/varion_data/hg001_bam/HG001_chr19_native.bam",
+      "truth": "/mnt/hdd/AI_DNA_ANALYZER_hg001/truth/HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+      "bed": "/mnt/hdd/AI_DNA_ANALYZER_hg001/truth/HG001_GRCh38_1_22_v4.2.1_benchmark.bed"},
+    "HG007_chr17": {"role": "test", "sample": "HG007", "chrom": "chr17", "platform": "Illumina (GIAB ChineseTrio)",
+      "bam": "/mnt/hdd/AI_DNA_ANALYZER_hg007/bam/HG007_chr17_native.bam",
+      "truth": "/mnt/hdd/AI_DNA_ANALYZER_hg007/truth/HG007_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+      "bed": "/mnt/hdd/AI_DNA_ANALYZER_hg007/truth/HG007_GRCh38_1_22_v4.2.1_benchmark.bed"},
+    "HG007_chr19": {"role": "test", "sample": "HG007", "chrom": "chr19", "platform": "Illumina (GIAB ChineseTrio)",
+      "bam": "/mnt/hdd/AI_DNA_ANALYZER_hg007/bam/HG007_chr19_native.bam",
+      "truth": "/mnt/hdd/AI_DNA_ANALYZER_hg007/truth/HG007_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+      "bed": "/mnt/hdd/AI_DNA_ANALYZER_hg007/truth/HG007_GRCh38_1_22_v4.2.1_benchmark.bed"}
+  }
+}

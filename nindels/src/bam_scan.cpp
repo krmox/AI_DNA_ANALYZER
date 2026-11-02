@@ -187,6 +187,16 @@ std::vector<std::pair<std::string, int64_t>> BamScanner::contigs() const {
     return out;
 }
 
+std::vector<uint64_t> BamScanner::mapped_reads() const {
+    std::vector<uint64_t> out;
+    for (int i = 0; i < sam_hdr_nref(impl_->hdr); ++i) {
+        uint64_t m = 0, u = 0;
+        hts_idx_get_stat(impl_->idx, i, &m, &u);
+        out.push_back(m);
+    }
+    return out;
+}
+
 std::string BamScanner::sample_name() const {
     kstring_t ks = {0, 0, nullptr};
     std::string out = "SAMPLE";
@@ -226,6 +236,32 @@ StrLocusCount BamScanner::count_str_locus(const StrRun& run, int32_t tid, int mi
     c.n = static_cast<int>(frag.size());
     for (auto& [h, sl] : frag) c.s += sl;
     return c;
+}
+
+double BamScanner::window_depth(int32_t tid, int64_t start, int64_t end, int min_mapq) {
+    hts_itr_t* itr = sam_itr_queryi(impl_->idx, tid, start, end);
+    if (!itr) return 0;
+    bam1_t* b = bam_init1();
+    int64_t bases = 0;
+    while (sam_itr_next(impl_->fp, itr, b) >= 0) {
+        if (b->core.flag & (BAM_FUNMAP | BAM_FSECONDARY | BAM_FQCFAIL | BAM_FDUP | BAM_FSUPPLEMENTARY)) continue;
+        if (b->core.qual < min_mapq) continue;
+        int64_t rpos = b->core.pos;
+        const uint32_t* cig = bam_get_cigar(b);
+        for (uint32_t k = 0; k < b->core.n_cigar; ++k) {
+            const int op = bam_cigar_op(cig[k]);
+            const int64_t len = bam_cigar_oplen(cig[k]);
+            if (op == BAM_CMATCH || op == BAM_CEQUAL || op == BAM_CDIFF) {
+                bases += std::max<int64_t>(0, std::min(rpos + len, end) - std::max(rpos, start));
+                rpos += len;
+            } else if (bam_cigar_type(op) & 2) {
+                rpos += len;
+            }
+        }
+    }
+    bam_destroy1(b);
+    hts_itr_destroy(itr);
+    return static_cast<double>(bases) / static_cast<double>(std::max<int64_t>(1, end - start));
 }
 
 std::vector<CandidateInput> BamScanner::scan(const RefSeq& ref, int32_t tid, int64_t start, int64_t end,

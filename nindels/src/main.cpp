@@ -295,6 +295,81 @@ int cmd_estimate_str(const Args& a) {
     return 0;
 }
 
+// R3.1: contigs with mapped-read counts and the sample name, as TSV (name, length, mapped) preceded by '#sample'.
+int cmd_contigs(const Args& a) {
+    BamScanner sc(a.need("bam"), a.get("ref", ""));
+    const auto ctgs = sc.contigs();
+    const auto mapped = sc.mapped_reads();
+    std::printf("#sample\t%s\n", sc.sample_name().c_str());
+    for (size_t i = 0; i < ctgs.size(); ++i)
+        std::printf("%s\t%lld\t%llu\n", ctgs[i].first.c_str(), static_cast<long long>(ctgs[i].second),
+                    static_cast<unsigned long long>(mapped[i]));
+    return 0;
+}
+
+// R3.1: sequencing depth profile by random-window sampling (no truth, no reference scan).
+// Prints one JSON object: global median/mean, percentiles and the spread between windows.
+int cmd_depth(const Args& a) {
+    const std::string bam = a.need("bam");
+    Region reg = parse_region(a.need("region"));
+    const int threads = std::max(1, static_cast<int>(a.num("threads", 1)));
+    const int64_t win = static_cast<int64_t>(a.num("window", 10000));
+    const size_t n_samples = static_cast<size_t>(a.num("samples", 400));
+    if (win < 100) throw std::invalid_argument("--window must be >= 100");
+    BamScanner probe(bam, a.get("ref", ""));
+    const int32_t tid = probe.tid(reg.chrom);
+    if (tid < 0) throw std::runtime_error("contig not in BAM: " + reg.chrom);
+    int64_t contig_len = 0;
+    for (auto& [n, l] : probe.contigs())
+        if (n == reg.chrom) contig_len = l;
+    if (reg.end < 0 || reg.end > contig_len) reg.end = contig_len;
+    std::vector<std::pair<uint64_t, int64_t>> wins;  // (hash, start)
+    for (int64_t s = reg.start; s + win <= reg.end; s += win) wins.emplace_back(mix64(static_cast<uint64_t>(s)), s);
+    if (wins.empty()) throw std::runtime_error("region shorter than --window");
+    std::sort(wins.begin(), wins.end());
+    if (wins.size() > n_samples) wins.resize(n_samples);
+    std::vector<double> depth(wins.size());
+    std::atomic<size_t> next{0};
+    std::vector<std::thread> pool;
+    for (int t = 0; t < threads; ++t)
+        pool.emplace_back([&] {
+            BamScanner sc(bam, a.get("ref", ""));
+            for (size_t k; (k = next.fetch_add(1)) < wins.size();)
+                depth[k] = sc.window_depth(tid, wins[k].second, wins[k].second + win);
+        });
+    for (auto& th : pool) th.join();
+    // windows with no coverage are assembly gaps / unmapped regions: counted, excluded from the profile
+    std::vector<double> d;
+    size_t zero = 0;
+    for (double x : depth) {
+        if (x < 1.0) ++zero;
+        else d.push_back(x);
+    }
+    std::sort(d.begin(), d.end());
+    auto q = [&](double f) { return d.empty() ? 0.0 : d[std::min(d.size() - 1, static_cast<size_t>(f * static_cast<double>(d.size())))]; };
+    double mean = 0;
+    for (double x : d) mean += x;
+    mean = d.empty() ? 0 : mean / static_cast<double>(d.size());
+    double var = 0;
+    for (double x : d) var += (x - mean) * (x - mean);
+    const double cv = d.size() > 1 && mean > 0 ? std::sqrt(var / static_cast<double>(d.size() - 1)) / mean : 0;
+    char buf[1024];
+    std::snprintf(buf, sizeof buf,
+                  "{\"region\": \"%s:%lld-%lld\", \"window\": %lld, \"windows_sampled\": %zu, \"windows_empty\": %zu, "
+                  "\"median\": %.2f, \"mean\": %.2f, \"p10\": %.2f, \"p25\": %.2f, \"p75\": %.2f, \"p90\": %.2f, "
+                  "\"cv\": %.3f}\n",
+                  reg.chrom.c_str(), static_cast<long long>(reg.start + 1), static_cast<long long>(reg.end),
+                  static_cast<long long>(win), wins.size(), zero, q(0.5), mean, q(0.1), q(0.25), q(0.75), q(0.9), cv);
+    if (a.has("out")) {
+        std::ofstream o(a.get("out"));
+        if (!o) throw std::runtime_error("cannot write " + a.get("out"));
+        o << buf;
+    } else {
+        std::fputs(buf, stdout);
+    }
+    return 0;
+}
+
 int cmd_call(const Args& a, const std::string& cmdline) {
     const std::string bam = a.need("bam"), fasta = a.need("ref");
     Region reg = parse_region(a.need("region"));
@@ -328,6 +403,9 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     if (a.has("str-model")) {
         str_model = std::make_unique<StrErrorModel>(StrErrorModel::load(a.get("str-model")));
         cfg.likelihood.str = str_model.get();
+        cfg.likelihood.str_min_depth = static_cast<int>(a.num("str-min-depth", 0));
+    } else if (a.has("str-min-depth")) {
+        throw std::invalid_argument("--str-min-depth needs --str-model");
     }
 
     BamScanner probe(bam, fasta);
@@ -372,7 +450,7 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     std::vector<std::pair<int64_t, int64_t>> chunks;
     for (int64_t s = reg.start; s < reg.end; s += sp.chunk) chunks.emplace_back(s, std::min(reg.end, s + sp.chunk));
 
-    size_t n_cand = 0, n_pass = 0, n_reassessed = 0, n_loci = 0;
+    size_t n_cand = 0, n_pass = 0, n_reassessed = 0, n_loci = 0, n_str_loci = 0;
     const std::string genotyper = a.get("genotyper", "biallelic");
     if (genotyper != "biallelic" && genotyper != "multi") throw std::invalid_argument("--genotyper biallelic|multi");
     const bool multi = genotyper == "multi";
@@ -441,6 +519,7 @@ int cmd_call(const Args& a, const std::string& cmdline) {
             for (const auto& c : calls) {
                 ++n_loci;
                 n_pass += c.pass;
+                n_str_loci += c.used_str;
                 if (vcf.is_open()) write_locus_vcf(vcf, reg.chrom, ref, c);
             }
             continue;
@@ -479,6 +558,18 @@ int cmd_call(const Args& a, const std::string& cmdline) {
                  n_loci, n_reassessed, n_pass, genotyper.c_str());
     std::fprintf(stderr, "thread-seconds: scan+evidence %.1f, engine (pattern+HMM+decision) %.1f\n",
                  t_scan_us.load() / 1e6, t_engine_us.load() / 1e6);
+    std::fprintf(stderr, "call: loci_with_repeat_model=%zu of %zu (str_min_depth=%d)\n", n_str_loci, n_loci,
+                 cfg.likelihood.str ? cfg.likelihood.str_min_depth : -1);
+    if (a.has("summary-json")) {
+        std::ofstream o(a.get("summary-json"));
+        if (!o) throw std::runtime_error("cannot write " + a.get("summary-json"));
+        o << "{\"region\": \"" << reg.chrom << ':' << reg.start + 1 << '-' << reg.end << "\", \"genotyper\": \"" << genotyper
+          << "\", \"repeat_model\": " << (cfg.likelihood.str ? "true" : "false")
+          << ", \"str_min_depth\": " << (cfg.likelihood.str ? cfg.likelihood.str_min_depth : -1)
+          << ", \"candidates\": " << n_cand << ", \"loci\": " << n_loci << ", \"loci_with_repeat_model\": " << n_str_loci
+          << ", \"pass\": " << n_pass << ", \"thread_seconds_scan\": " << t_scan_us.load() / 1e6
+          << ", \"thread_seconds_engine\": " << t_engine_us.load() / 1e6 << "}\n";
+    }
     if (truth)
         std::fprintf(stderr, "truth: %d simple indels in BED/region, %d complex alleles skipped\n", truth->n_in_bed,
                      truth->n_complex);
@@ -494,8 +585,11 @@ void usage() {
                  "                [--out-vcf V] [--out-table T] [--truth VCF --bed BED] [--threads N]\n"
                  "                [--candidates-vcf V (shadow mode)] [--force-reassess] [--parity even|odd]\n"
                  "                [--min-alt 2] [--min-alt-frac 0.03] [--max-hmm-reads 250]\n"
-                 "                [--fragments] [--fragment-pick bq|end] [--str-model S] [--genotyper biallelic|multi]\n"
+                 "                [--fragments] [--fragment-pick bq|end] [--str-model S [--str-min-depth N]]\n"
+                 "                [--genotyper biallelic|multi] [--summary-json J]\n"
                  "  estimate-str  --bam B --ref FA --region chr --out S [--threads N] [--max-loci 300]\n"
+                 "  contigs       --bam B   (contig, length, mapped reads; sample name)\n"
+                 "  depth         --bam B --region chr[:s-e] [--window 10000] [--samples 400] [--threads N] [--out J]\n"
                  "  build-memory  --table T [--table T2 ...] --out M [--parity even|odd|all] [--theta 0.15] [--top-k 32]\n"
                  "  fit           --table T [--table ...] --out F (--preset P | --features a,b,c) [--lambda 0.01]\n"
                  "                [--mask-reassess 0.5]   presets: full full-neff-loci no-memory dl-orig stage1\n"
@@ -518,6 +612,8 @@ int main(int argc, char** argv) {
 #ifdef NINDELS_HAVE_HTSLIB
         if (cmd == "call") return cmd_call(a, cmdline);
         if (cmd == "estimate-str") return cmd_estimate_str(a);
+        if (cmd == "depth") return cmd_depth(a);
+        if (cmd == "contigs") return cmd_contigs(a);
 #else
         if (cmd == "call") { std::fprintf(stderr, "built without htslib: 'call' unavailable\n"); return 2; }
 #endif

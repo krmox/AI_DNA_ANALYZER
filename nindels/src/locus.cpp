@@ -93,9 +93,12 @@ LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInp
     for (int a = 1; a <= K; ++a) hap[static_cast<size_t>(a)] = &H[static_cast<size_t>(a - 1)].alt;
     const int64_t ws = H[0].start;
     std::vector<std::vector<double>> gop(static_cast<size_t>(K + 1));
-    if (lp.str) {
+    // R3.1 per-locus gate: the repeat model is applied only where local depth supports it.
+    const StrErrorModel* str = (lp.str && call.depth >= lp.str_min_depth) ? lp.str : nullptr;
+    call.used_str = str != nullptr;
+    if (str) {
         const double base = std::pow(10.0, -lp.hmm.gap_open_q / 10.0);
-        for (int a = 0; a <= K; ++a) gop[static_cast<size_t>(a)] = lp.str->gap_open_profile(*hap[static_cast<size_t>(a)], base);
+        for (int a = 0; a <= K; ++a) gop[static_cast<size_t>(a)] = str->gap_open_profile(*hap[static_cast<size_t>(a)], base);
     }
     // reference coordinate -> index on haplotype a
     auto index_on = [&](int a, int64_t g) -> int64_t {
@@ -116,7 +119,7 @@ LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInp
             const int64_t diag = std::clamp<int64_t>(index_on(a, rd.ref_start), 0, n) - b0;
             std::string_view slice(h.data() + b0, static_cast<size_t>(std::max<int64_t>(0, b1 - b0)));
             double v = pairhmm_loglik(rd.bases, rd.quals.data(), slice, lp.hmm, diag, band,
-                                      lp.str ? gop[static_cast<size_t>(a)].data() + b0 : nullptr);
+                                      str ? gop[static_cast<size_t>(a)].data() + b0 : nullptr);
             l[r][static_cast<size_t>(a)] = v;
             best = std::max(best, v);
         }
@@ -193,7 +196,7 @@ void write_locus_vcf(std::ostream& o, const std::string& chrom, const RefSeq& re
     o << chrom << '\t' << anchor + 1 << "\t.\t" << REF << '\t';
     for (size_t i = 0; i < alts.size(); ++i) o << (i ? "," : "") << alts[i];
     o << '\t' << format_opt(std::round(c.qual * 100) / 100) << '\t' << (c.pass ? "PASS" : "LowProb") << '\t'
-      << "K=" << c.alleles.size() << ";DP=" << c.depth << "\tGT:GQ:AD\t" << idx(c.g1) << '/' << idx(c.g2) << ':'
+      << "K=" << c.alleles.size() << ";DP=" << c.depth << (c.used_str ? ";STRB" : "") << "\tGT:GQ:AD\t" << idx(c.g1) << '/' << idx(c.g2) << ':'
       << static_cast<int>(std::round(c.gq)) << ':' << c.ad[0];
     for (int a : used) o << ',' << c.ad[static_cast<size_t>(a)];
     o << '\n';

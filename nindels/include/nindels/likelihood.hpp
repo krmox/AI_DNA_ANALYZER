@@ -65,6 +65,8 @@ struct LikelihoodParams {
     int hap_pad = 20;      // ARBITRARY: haplotype bases beyond each read end
     int band = 20;         // ARBITRARY: DP band half-width is band + indel length (-1 = full DP)
     const StrErrorModel* str = nullptr;  // Experiment B: repeat-aware gap-open (null = constant Q45)
+    // R3.1: B is used at a locus only if the locus has at least this many reads (0 = always).
+    int str_min_depth = 0;
 };
 
 // P(R|H_ref) and P(R|H_alt) for up to max_reads reads.

@@ -29,6 +29,7 @@ struct LocusCall {
     std::vector<int> ad;           // reads whose best haplotype is allele 0..K
     int depth = 0;
     bool pass = false;
+    bool used_str = false;         // R3.1: repeat error model (B) was applied at this locus
 };
 
 // Groups of indices into `inputs` (sorted by position) forming one locus each.
