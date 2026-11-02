@@ -169,6 +169,29 @@ LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInp
     return call;
 }
 
+void trim_alleles(int64_t& pos1, std::string& ref, std::vector<std::string>& alts) {
+    // Minimal representation of a multi-allelic record (VCF 4.2 section 1.6.1; same result as `bcftools norm`):
+    // drop the suffix shared by REF and every ALT, then the shared prefix, never emptying an allele.
+    auto all_share = [&](auto last_or_first) {
+        if (ref.size() < 2) return false;
+        const char c = last_or_first(ref);
+        for (const auto& a : alts)
+            if (a.size() < 2 || last_or_first(a) != c) return false;
+        return true;
+    };
+    auto last = [](const std::string& x) { return x.back(); };
+    auto first = [](const std::string& x) { return x.front(); };
+    while (all_share(last)) {
+        ref.pop_back();
+        for (auto& a : alts) a.pop_back();
+    }
+    while (all_share(first)) {
+        ref.erase(0, 1);
+        for (auto& a : alts) a.erase(0, 1);
+        ++pos1;
+    }
+}
+
 void write_locus_vcf(std::ostream& o, const std::string& chrom, const RefSeq& ref, const LocusCall& c) {
     if (c.alleles.empty() || (c.g1 == 0 && c.g2 == 0)) return;
     std::vector<int> used;
@@ -193,7 +216,10 @@ void write_locus_vcf(std::ostream& o, const std::string& chrom, const RefSeq& re
         if (a == 0) return 0;
         return static_cast<int>(std::find(used.begin(), used.end(), a) - used.begin()) + 1;
     };
-    o << chrom << '\t' << anchor + 1 << "\t.\t" << REF << '\t';
+    int64_t pos1 = anchor + 1;
+    std::string REFm = REF;
+    trim_alleles(pos1, REFm, alts);
+    o << chrom << '\t' << pos1 << "\t.\t" << REFm << '\t';
     for (size_t i = 0; i < alts.size(); ++i) o << (i ? "," : "") << alts[i];
     o << '\t' << format_opt(std::round(c.qual * 100) / 100) << '\t' << (c.pass ? "PASS" : "LowProb") << '\t'
       << "K=" << c.alleles.size() << ";DP=" << c.depth << (c.used_str ? ";STRB" : "") << "\tGT:GQ:AD\t" << idx(c.g1) << '/' << idx(c.g2) << ':'

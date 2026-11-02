@@ -243,6 +243,14 @@ Region parse_region(const std::string& s) {
     return r;
 }
 
+// A region that is empty, reversed, negative or entirely past the contig end used to produce an empty VCF and
+// exit status 0, indistinguishable from "no variants". Reject it instead.
+void check_region(const Region& r, int64_t contig_len) {
+    if (r.start < 0 || r.start >= r.end)
+        throw std::runtime_error("invalid region " + r.chrom + ":" + std::to_string(r.start + 1) + "-" + std::to_string(r.end) +
+                                 " (start must be >= 1 and below the end; contig length " + std::to_string(contig_len) + ")");
+}
+
 // Experiment B: estimate eps(period, units) from the BAM (no truth labels).
 int cmd_estimate_str(const Args& a) {
     const std::string bam = a.need("bam"), fasta = a.need("ref");
@@ -256,6 +264,7 @@ int cmd_estimate_str(const Args& a) {
     for (auto& [n, l] : probe.contigs())
         if (n == reg.chrom) contig_len = l;
     if (reg.end < 0 || reg.end > contig_len) reg.end = contig_len;
+    check_region(reg, contig_len);
     RefSeq ref = load_reference(fasta, reg.chrom, reg.start, reg.end);
 
     // Deterministic sample: per stratum keep the loci with the smallest position hash.
@@ -323,6 +332,7 @@ int cmd_depth(const Args& a) {
     for (auto& [n, l] : probe.contigs())
         if (n == reg.chrom) contig_len = l;
     if (reg.end < 0 || reg.end > contig_len) reg.end = contig_len;
+    check_region(reg, contig_len);
     std::vector<std::pair<uint64_t, int64_t>> wins;  // (hash, start)
     for (int64_t s = reg.start; s + win <= reg.end; s += win) wins.emplace_back(mix64(static_cast<uint64_t>(s)), s);
     if (wins.empty()) throw std::runtime_error("region shorter than --window");
@@ -415,6 +425,7 @@ int cmd_call(const Args& a, const std::string& cmdline) {
     for (auto& [n, l] : probe.contigs())
         if (n == reg.chrom) contig_len = l;
     if (reg.end < 0 || reg.end > contig_len) reg.end = contig_len;
+    check_region(reg, contig_len);
 
     const int64_t ref_pad = 20000;
     RefSeq ref = load_reference(fasta, reg.chrom, std::max<int64_t>(0, reg.start - ref_pad),

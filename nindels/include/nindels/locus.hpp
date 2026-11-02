@@ -38,6 +38,9 @@ std::vector<std::vector<size_t>> cluster_candidates(const RefSeq& ref, const std
 LocusCall genotype_locus(const RefSeq& ref, const std::vector<const CandidateInput*>& group,
                          const LikelihoodParams& lp, const LocusParams& p);
 
+// Trims REF/ALT alleles of one record to their minimal representation (shifts pos1 for a shared prefix).
+void trim_alleles(int64_t& pos1, std::string& ref, std::vector<std::string>& alts);
+
 void write_locus_vcf(std::ostream& o, const std::string& chrom, const RefSeq& ref, const LocusCall& c);
 
 }  // namespace nindels
