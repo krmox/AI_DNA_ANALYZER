@@ -1,29 +1,34 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "AI_DNA_ANALYZER: frozen-constant statistical SNP variant calling with confidence routing"
+title: "Varion (AI_DNA_ANALYZER): statistical SNP calling (R2) and indel calling (nindels, R3.1), research software"
 type: software
 authors:
   - given-names: Mark
     family-names: Kostogryzov
 repository-code: "https://github.com/krmox/AI_DNA_ANALYZER"
-doi: 10.5281/zenodo.22978775
-version: 2.0.0
-date-released: "2026-09-26"
+# Concept DOI of the Zenodo record (always resolves to the latest version). The Zenodo
+# archive of tag 3.0.0 (10.5281/zenodo.23855773) does NOT contain R3.1. A version DOI for
+# 3.1.0 exists only after that release is archived; add it here, and set date-released,
+# at that time.
+doi: 10.5281/zenodo.22895745
+version: 3.1.0
 license: GPL-3.0-only
 keywords:
   - bioinformatics
   - genomics
   - variant calling
   - SNP
-  - Poisson-binomial
-  - confidence routing
+  - indel
   - Genome in a Bottle
   - hap.py
   - htslib
-  - statistical genetics
 abstract: >-
-  A cheap binomial screen calls every locus; a fixed router sends only the
-  loci near its decision boundary to a slower per-read Poisson-binomial
-  model. The project measures, with frozen thresholds and a pre-registered
-  verdict rule, whether that saves compute without changing the SNP calls
-  it makes, validated against GIAB benchmark samples.
+  Research germline variant calling software for Illumina short reads (GRCh38).
+  The SNP engine (R2) combines a binomial screen, a per-read Poisson-binomial model
+  and a logistic classifier with frozen constants. The indel engine (nindels) scores
+  candidate indels with a banded PairHMM, with optional joint multi-allelic
+  genotyping and a repeat-specific error model. Release 3.1.0 adds a front-end
+  command and a depth-dependent choice between two indel configurations whose
+  frozen thresholds deviate from the pre-registered protocol (see
+  docs/R3.1_THRESHOLD_SELECTION.md). Evaluated on a small number of GIAB samples and
+  chromosomes; not a production or clinical caller.

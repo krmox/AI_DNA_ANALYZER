@@ -37,6 +37,8 @@ network in any version. R3.1 does not change this engine; `varion snp` only asse
      `varion/thresholds.json`; below it (or if no depth was ever found to favour B) it uses **A**, otherwise **A+B**;
    - inside an A+B contig, a **per-locus gate** (`--str-min-depth`, `local_min_depth`) applies B only at loci with
      at least that many reads, so low-coverage stretches of a high-coverage genome fall back to A;
+   - **Caveat:** the frozen thresholds (A+B from 67.37x, no local gate) do not follow protocol step 6, which would give
+     A at every depth, and the supporting evidence is weak; see `docs/R3.1_THRESHOLD_SELECTION.md`;
    - `--mode A` / `--mode A+B` override the choice. The decision, its reason and the thresholds' provenance are written
      to the log, the JSON summary and the VCF header (`##varion_config_<contig>=`); B-scored loci carry the `STRB` flag.
 

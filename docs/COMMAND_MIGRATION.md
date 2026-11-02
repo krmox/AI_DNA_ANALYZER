@@ -10,7 +10,7 @@ Install the front end with `pip install -e .` (no third-party dependencies) or r
 
 | Before (indel engine, branch `nindels-test`) | Now | Notes |
 |---|---|---|
-| `nindels-call estimate-str --bam B --ref R --region chr20 --out S.tsv` then `nindels-call call --bam B --ref R --region chr20 --force-reassess --genotyper multi --str-model S.tsv --out-vcf o.vcf` | `varion indel --bam B --ref R --out-dir out/ --region chr20 --mode A+B` | `--mode auto` (default) picks A or A+B from sequencing depth and logs the choice |
+| `nindels-call estimate-str --bam B --ref R --region chr20 --out S.tsv` then `nindels-call call --bam B --ref R --region chr20 --force-reassess --genotyper multi --str-model S.tsv --out-vcf o.vcf` | `varion indel --bam B --ref R --out-dir out/ --region chr20 --mode A+B` | `--mode auto` (default) picks A or A+B from sequencing depth and logs the choice. **The frozen auto rule is not the protocol-compliant one** (the protocol prescribes A at every depth); see `docs/R3.1_THRESHOLD_SELECTION.md`. Use `--mode A` for the protocol-compliant behaviour |
 | `nindels-call call ... --genotyper multi` (A) | `varion indel ... --mode A` | |
 | `nindels-call call ...` (default, "baseline", biallelic) | unchanged: `nindels-call call ...` | kept only as the frozen reference behaviour; not recommended (7x more false positives at 67x on HG004 chr20) |
 | (none) | `varion depth --bam B --region chr20` | sampled-window depth profile (JSON) |
@@ -30,7 +30,7 @@ configuration chosen per contig (`##varion_config_<contig>=...`); loci that used
 | `native_r2/build/dnav2 run --bam B --ref R --bed BED --out-dir D --contig chr20 --contig-len N --sample S --tag T --threads 8 --mode cascade --model research/stage4/frozen_R2.model --r2 --ood auto` | `varion snp --bam B --ref R --bed BED --out-dir D --contig chr20 --sample S` | the wrapper looks up `--contig-len` from the `.fai` and uses the frozen R2 model and the R2 flags above |
 | `native_v2x/build/dnav2 run ...` (V2 / V2.x) | unchanged | frozen; reproduces V1 byte-for-byte without `--model` |
 | `bash verify.sh [--data]` | unchanged | |
-| V1 Python scripts (`bench_v*.py`, `extract_bench_v12.py`, ...) | unchanged | historical, see `docs/HISTORY_V1_V2_README.md` |
+| V1 Python scripts (`bench_v*.py`, `extract_bench_v12.py`, ...) | unchanged | historical, see `README.md` (Versions, Reproducibility) and `docs/PATH_MAP.md` for their current locations |
 
 `varion snp` needs a regions BED (the engine scores only positions inside it) and the engine built with
 `make -C native_r2 engine`. SNP and indel calling are separate runs and separate VCFs.
