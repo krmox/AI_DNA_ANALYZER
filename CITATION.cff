@@ -6,12 +6,19 @@ authors:
   - given-names: Mark
     family-names: Kostogryzov
 repository-code: "https://github.com/krmox/AI_DNA_ANALYZER"
-# Concept DOI of the Zenodo record (always resolves to the latest version). The Zenodo
-# archive of tag 3.0.0 (10.5281/zenodo.23855773) does NOT contain R3.1. A version DOI for
-# 3.1.0 exists only after that release is archived; add it here, and set date-released,
-# at that time.
+# `doi` is the Zenodo concept DOI (all versions; resolves to the latest version). The
+# version-specific DOI of release 3.1.0 is listed under `identifiers`. The Zenodo archive of
+# tag 3.0.0 (10.5281/zenodo.23855773) does NOT contain R3.1.
 doi: 10.5281/zenodo.22895745
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23856530
+    description: "Zenodo version DOI of Varion 3.1.0 (archive of tag 3.1.0)"
+  - type: url
+    value: "https://github.com/krmox/AI_DNA_ANALYZER/releases/tag/3.1.0"
+    description: "GitHub release 3.1.0"
 version: 3.1.0
+date-released: 2026-11-03
 license: GPL-3.0-only
 keywords:
   - bioinformatics

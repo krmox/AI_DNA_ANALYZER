@@ -3,7 +3,7 @@
 Research software; no stability guarantees. Versions before 3.1.0 had no changelog; the entries below for them are
 reconstructed from git tags and are deliberately brief.
 
-## 3.1.0 — not yet tagged or archived
+## 3.1.0 — tag `3.1.0` @ `f374301`, 2026-11-03 (Zenodo 10.5281/zenodo.23856530)
 
 Built from public `main` @ `8297691` (which is `3.0.0` @ `910685b` plus documentation/layout commits) by re-applying the
 R3.1 implementation (originally developed on local branch `r3.1`, commit `31e14df`) and two corrective patches.
@@ -35,8 +35,8 @@ The `r3.1` branch itself was not published (it differs from `main` in 519 files,
   `dev_report*` are not part of this release. No statement about R3.1 on held-out data is made here.
 - Raw data, per-run VCFs and hap.py outputs of any experiment (to be archived separately).
 - Any change to the R2 SNP engine, to the thresholds, to the selection output or to the protocol.
-- A Zenodo archive: **the existing Zenodo record (version 3.0.0, DOI 10.5281/zenodo.23855773) does not contain R3.1
-  or `varion`.** A 3.1.0 version DOI will exist only after this release is archived.
+- The Zenodo record of version 3.0.0 (DOI 10.5281/zenodo.23855773) does not contain R3.1 or `varion`; the 3.1.0
+  release is archived separately as DOI 10.5281/zenodo.23856530.
 
 ### Known issues and honesty notes
 

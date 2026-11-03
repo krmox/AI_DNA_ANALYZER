@@ -11,7 +11,7 @@ Varion is a research germline variant caller for Illumina short reads (GRCh38), 
 
 > **On the name.** "AI" is historical: the project began as a neural sequence model. On real reads every neural stage was null or negative against the statistical baselines, and no version described here contains a neural network. (`checkpoints*/` and `model_*.py` are from those abandoned experiments and are unused.)
 
-> **Release status.** This tree is release **3.1.0** (see `CHANGELOG.md`). Tag `v2.0.0` covers V1, V2 and V2.x; tag `3.0.0` (Zenodo version DOI [10.5281/zenodo.23855773](https://doi.org/10.5281/zenodo.23855773)) covers R1.1, R2 and `nindels` Baseline/A/B/A+B. **Neither archived version contains R3.1 or the `varion` front end; the 3.1.0 release is not yet archived at Zenodo** (the badge above is the concept DOI, which resolves to the newest archived version). R2 is frozen (lock record `research/stage4/R2_LOCK.md`; the validation reports cite commit `3cdfe5a`). 3.1.0 adds the `varion` command, the `nindels` per-locus repeat-model gate and `depth`/`contigs` subcommands, and two small `nindels` fixes (minimal multi-allelic VCF records; invalid `--region` is now an error). It does **not** include the R3.1 final-test report or its raw tables. **The frozen R3.1 auto-mode thresholds deviate from the pre-registered protocol** — see `docs/R3.1_THRESHOLD_SELECTION.md`.
+> **Release status.** This tree is release **3.1.0** (see `CHANGELOG.md`). Tag `v2.0.0` covers V1, V2 and V2.x; tag `3.0.0` (Zenodo version DOI [10.5281/zenodo.23855773](https://doi.org/10.5281/zenodo.23855773)) covers R1.1, R2 and `nindels` Baseline/A/B/A+B. **The archived 3.0.0 version does not contain R3.1 or the `varion` front end; release 3.1.0 does, and is archived at Zenodo as [10.5281/zenodo.23856530](https://doi.org/10.5281/zenodo.23856530)** (the badge above is the concept DOI, which resolves to the newest archived version). R2 is frozen (lock record `research/stage4/R2_LOCK.md`; the validation reports cite commit `3cdfe5a`). 3.1.0 adds the `varion` command, the `nindels` per-locus repeat-model gate and `depth`/`contigs` subcommands, and two small `nindels` fixes (minimal multi-allelic VCF records; invalid `--region` is now an error). It does **not** include the R3.1 final-test report or its raw tables. **The frozen R3.1 auto-mode thresholds deviate from the pre-registered protocol** — see `docs/R3.1_THRESHOLD_SELECTION.md`.
 
 ## Contents
 
@@ -298,7 +298,7 @@ Cite via `CITATION.cff` (GitHub "Cite this repository").
 
 - All versions (concept DOI, resolves to the newest archived version): [10.5281/zenodo.22895745](https://doi.org/10.5281/zenodo.22895745)
 - Software 3.0.0 (adds R1.1, R2, `nindels` Baseline/A/B/A+B; **no R3.1**): [10.5281/zenodo.23855773](https://doi.org/10.5281/zenodo.23855773)
-- Software 3.1.0 (this release; adds R3.1 and `varion`): not yet archived — a version DOI will be added to `CITATION.cff` after archiving
+- Software 3.1.0 (released 2026-11-03; adds R3.1 and `varion`): [10.5281/zenodo.23856530](https://doi.org/10.5281/zenodo.23856530)
 - Software v2.0.0 (V1, V2, V2.x): DOI [10.5281/zenodo.22978775](https://doi.org/10.5281/zenodo.22978775)
 - Historical V1 release v1.0.0: DOI [10.5281/zenodo.22895746](https://doi.org/10.5281/zenodo.22895746)
 - Manuscript: `research/latex/paper.pdf` (source `research/PAPER_MANUSCRIPT_V2.md`); covers up to V2.x, **not** R1.1/R2/nindels
