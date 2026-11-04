@@ -299,6 +299,7 @@ Cite via `CITATION.cff` (GitHub "Cite this repository").
 - All versions (concept DOI, resolves to the newest archived version): [10.5281/zenodo.22895745](https://doi.org/10.5281/zenodo.22895745)
 - Software 3.0.0 (adds R1.1, R2, `nindels` Baseline/A/B/A+B; **no R3.1**): [10.5281/zenodo.23855773](https://doi.org/10.5281/zenodo.23855773)
 - Software 3.1.0 (released 2026-11-03; adds R3.1 and `varion`): [10.5281/zenodo.23856530](https://doi.org/10.5281/zenodo.23856530)
+- Benchmark outputs of 3.1.0 (dataset, supplementary material; HG004/HG007 cells): [10.5281/zenodo.23938931](https://doi.org/10.5281/zenodo.23938931) (public record: <https://zenodo.org/records/23938931>)
 - Software v2.0.0 (V1, V2, V2.x): DOI [10.5281/zenodo.22978775](https://doi.org/10.5281/zenodo.22978775)
 - Historical V1 release v1.0.0: DOI [10.5281/zenodo.22895746](https://doi.org/10.5281/zenodo.22895746)
 - Manuscript: `research/latex/paper.pdf` (source `research/PAPER_MANUSCRIPT_V2.md`); covers up to V2.x, **not** R1.1/R2/nindels

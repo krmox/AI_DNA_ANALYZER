@@ -33,7 +33,7 @@ The `r3.1` branch itself was not published (it differs from `main` in 519 files,
 
 - The R3.1 **held-out test results**: `docs/R3.1_FINAL_TEST_REPORT.md` and `results/r31/test_report*`,
   `dev_report*` are not part of this release. No statement about R3.1 on held-out data is made here.
-- Raw data, per-run VCFs and hap.py outputs of any experiment (to be archived separately).
+- Raw data, per-run VCFs and hap.py outputs of any experiment (archived separately as a Zenodo dataset, supplementary to this release: DOI 10.5281/zenodo.23938931, https://zenodo.org/records/23938931).
 - Any change to the R2 SNP engine, to the thresholds, to the selection output or to the protocol.
 - The Zenodo record of version 3.0.0 (DOI 10.5281/zenodo.23855773) does not contain R3.1 or `varion`; the 3.1.0
   release is archived separately as DOI 10.5281/zenodo.23856530.
